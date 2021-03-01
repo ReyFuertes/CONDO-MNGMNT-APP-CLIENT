@@ -1,0 +1,52 @@
+/* You can add global styles to this file, and also import other style files */
+@import "./styleguide/index";
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  color: $color-black-2;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+}
+h1 {
+  font-size: 24px;
+}
+h2 {
+  font-size: 20px;
+}
+h3 {
+  font-size: 18px;
+}
+h4 {
+  font-size: 16px;
+}
+h5 {
+  font-size: 14px;
+}
+html, body { height: 100%; }
+body { 
+  margin: 0;
+  height: 100%;
+  min-height: 100%;
+  max-height: 100%;
+}
+.mt-2 {
+  margin-top: 20px;
+}
+.pt-2 {
+  padding-top: 20px;
+}
+.w-100 {
+  width: 100%;
+}

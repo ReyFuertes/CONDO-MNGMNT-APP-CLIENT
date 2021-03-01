@@ -1,0 +1,10 @@
+<p-dropdown class="dropdown" [options]="options" [(ngModel)]="selectedItem" optionLabel="label" filterBy="label" [placeholder]="placeholder">
+  <ng-template pTemplate="selectedItem">
+    <div *ngIf="selectedItem">
+      <div>{{selectedItem?.label}}</div>
+    </div>
+  </ng-template>
+  <ng-template let-option pTemplate="item">
+      <div>{{option?.label}}</div>
+  </ng-template>
+</p-dropdown>

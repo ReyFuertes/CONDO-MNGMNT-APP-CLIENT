@@ -1,0 +1,17 @@
+
+.p-button:disabled {
+  cursor: not-allowed;
+}
+.p-button.p-button-rounded {
+  min-width: 150px;
+}
+.p-button.p-button-secondary, .p-buttonset.p-button-secondary > .p-button, .p-splitbutton.p-button-secondary > .p-button {
+  color: $color-black-1;
+  background: $color-gray-3;
+  border: 1px solid $color-gray-3;
+}
+.p-button.p-button-secondary:enabled:hover, .p-buttonset.p-button-secondary > .p-button:enabled:hover, .p-splitbutton.p-button-secondary > .p-button:enabled:hover {
+  background-color: $color-gray-3;
+  border-color: $color-gray-3;
+  color: $color-black-0;
+}
