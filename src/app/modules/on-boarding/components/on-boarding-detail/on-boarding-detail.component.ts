@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { OccupantType } from 'src/app/models/onboarding.model';
 import { ISimpleItem } from 'src/app/shared/generics/generic-model';
 
@@ -8,6 +9,7 @@ import { ISimpleItem } from 'src/app/shared/generics/generic-model';
   styleUrls: ['./on-boarding-detail.component.scss']
 })
 export class OnboardingDetailComponent implements OnInit {
+  public form: FormGroup;
   public options: ISimpleItem[] = [{
     label: 'Unit Owner',
     value: String(OccupantType.UnitOwner)
@@ -83,7 +85,38 @@ export class OnboardingDetailComponent implements OnInit {
     value: 'driverslicense'
   }];
 
-  constructor() { }
+  constructor(private fb: FormBuilder) {
+    this.form = this.fb.group({
+      buildingNo: [null],
+      unitNo: [null],
+      parkingSlot: [null],
+      personalLastname: [null],
+      personalFirstname: [null],
+      personalMiddlename: [null],
+      personalCitizenship: [null],
+      personalGender: [null],
+      personalCivilStatus: [null],
+      personalDateOfBirth: [null],
+      personalOccupation: [null],
+      personalTin: [null],
+      personalIdType: [null],
+      personalIdNo: [null],
+      personalUploadedIdFile: [null],
+      spouseLastname: [null],
+      spouseFirstname: [null],
+      spouseMiddlename: [null],
+      spouseContactNo: [null],
+      spouseEmailAdd: [null],
+      spouseCitizenship: [null],
+      spouseOccupation: [null],
+      spouseBusAddress: [null],
+      spouseBusContactNo: [null],
+      spouseBusEmail: [null],
+      spouseIdType: [null],
+      spouseIdNo: [null],
+      spouseUploadedIdFile: [null]
+    });
+  }
 
   ngOnInit(): void {
   }

@@ -14,12 +14,25 @@
   box-shadow: $box-shadow;
   background-color: $color-white;
   max-width: 900px !important;
-  margin: 30px;
+}
+.document-thumb {
+  font-size: 12px;
+  border: thin $color-gray-2 solid;
+  border-radius: 2px;
+  background-color: $color-gray-3;
+  padding: 5px;
+  margin-bottom: 5px;
+  img {
+    width: 25px;
+    height: 25px;
+  }
 }
 .content {
+  display: block;
   margin-bottom: 20px;
-  overflow-x: auto;
   height: 100%;
+  width: 840px;
+  padding-left: 10px;
 }
 .content-personal {
   h5 {
@@ -67,7 +80,6 @@
     font-size: 12px;
   }
   .content {
-    padding-bottom: 50px;
     padding-top: 20px;
   }
   .action-btns {

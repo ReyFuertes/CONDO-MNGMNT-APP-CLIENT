@@ -3,11 +3,12 @@ import { ISimpleItem } from 'src/app/shared/generics/generic-model';
 import { environment } from 'src/environments/environment';
 
 @Component({
-  selector: 'cma-on-boarding-review',
-  templateUrl: './on-boarding-review.component.html',
-  styleUrls: ['./on-boarding-review.component.scss']
+  selector: 'cma-on-boarding-document',
+  templateUrl: './on-boarding-document.component.html',
+  styleUrls: ['./on-boarding-document.component.scss']
 })
-export class OnboardingReviewComponent implements OnInit {
+export class OnboardingDocumentComponent implements OnInit {
+  public svgPath: string = environment.svgPath;
   public uploadDocuments: ISimpleItem[] = [{
     label: 'Amenities Registration Form',
     value: ''
@@ -33,7 +34,6 @@ export class OnboardingReviewComponent implements OnInit {
     label: 'Contract',
     value: ''
   }];
-  public svgPath: string = environment.svgPath;
 
   constructor() { }
 

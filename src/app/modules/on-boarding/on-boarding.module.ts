@@ -11,6 +11,8 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { ButtonModule } from 'primeng/button';
 import { OnboardingDetailComponent } from './components/on-boarding-detail/on-boarding-detail.component';
 import { OnboardingReviewComponent } from './components/on-boarding-review/on-boarding-review.component';
+import { OnboardingDocumentComponent } from './components/on-boarding-document/on-boarding-document.component';
+import { OnboardingForApprovalComponent } from './components/on-boarding-for-approval/on-boarding-for-approval.component';
 
 const routes: Routes = [
   {
@@ -26,8 +28,16 @@ const routes: Routes = [
         component: OnboardingDetailComponent
       },
       {
+        path: 'upload',
+        component: OnboardingDocumentComponent
+      },
+      {
         path: 'review',
         component: OnboardingReviewComponent
+      },
+      {
+        path: 'for-approval',
+        component: OnboardingForApprovalComponent
       }
     ]
   }
@@ -47,7 +57,9 @@ const materialModules = [
     OnboardingPageComponent,
     OnboardingTypeComponent,
     OnboardingDetailComponent,
-    OnboardingReviewComponent
+    OnboardingReviewComponent,
+    OnboardingDocumentComponent,
+    OnboardingForApprovalComponent
   ],
   imports: [
     CommonModule,

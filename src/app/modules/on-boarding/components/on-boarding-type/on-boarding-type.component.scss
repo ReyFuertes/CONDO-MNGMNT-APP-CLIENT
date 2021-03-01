@@ -17,11 +17,14 @@ h2 {
   @include thumbnail;
 }
 .type-container {
+  margin-top: 50px;
   width: 900px;
   height: 500px;
   box-shadow: $box-shadow;
   background-color: $color-white;
   margin: 0 auto;
+  min-width: 900px !important;
+  max-width: 900px !important;
 }
 :host ::ng-deep {
   .mat-card {
