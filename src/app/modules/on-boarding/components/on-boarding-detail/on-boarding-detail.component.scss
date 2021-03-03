@@ -45,7 +45,10 @@
   width: 100%;
 }
 :host ::ng-deep {
-  cma-input, cma-dropdown {
+  .p-calendar .p-inputtext {
+    max-width: 155px;
+  }
+  cma-input, cma-dropdown, cma-datepicker {
     margin-bottom: 20px;
   }
   p-dropdown.dropdown .p-dropdown {

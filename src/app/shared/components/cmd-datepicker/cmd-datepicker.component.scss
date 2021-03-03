@@ -1,0 +1,7 @@
+@import "src/styleguide/index";
+:host ::ng-deep {
+  .p-button.p-button-icon-only {
+    background: $color-gray-2;
+    border: 1px solid $color-gray-2;
+  }
+}

@@ -1,4 +1,4 @@
-<p-dropdown class="dropdown" [options]="options" [(ngModel)]="selectedItem" optionLabel="label" filterBy="label" [placeholder]="placeholder">
+<p-dropdown appendTo="body" class="dropdown" [options]="options" [(ngModel)]="selectedItem" optionLabel="label" filterBy="label" [placeholder]="placeholder">
   <ng-template pTemplate="selectedItem">
     <div *ngIf="selectedItem">
       <div>{{selectedItem?.label}}</div>

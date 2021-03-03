@@ -12,13 +12,16 @@ import { SelectButtonModule } from 'primeng/selectbutton';
 import { DropdownModule } from 'primeng/dropdown';
 import { CMADropdownSearchComponent } from './components/cma-dropdown-search/cma-dropdown-search.component';
 import { CMADropdownComponent } from './components/cmd-dropdown/cmd-dropdown.component';
+import { CMADatepickerComponent } from './components/cmd-datepicker/cmd-datepicker.component';
+import { CalendarModule } from 'primeng/calendar';
 
 const primeNgModules = [
   CheckboxModule,
   ButtonModule,
   InputTextModule,
   SelectButtonModule,
-  DropdownModule
+  DropdownModule,
+  CalendarModule
 ];
 
 const materialModules = [
@@ -29,7 +32,8 @@ const sharedComponents = [
   CMAInputComponent,
   CMSelectOptionComponent,
   CMADropdownSearchComponent,
-  CMADropdownComponent
+  CMADropdownComponent,
+  CMADatepickerComponent
 ]
 
 @NgModule({
