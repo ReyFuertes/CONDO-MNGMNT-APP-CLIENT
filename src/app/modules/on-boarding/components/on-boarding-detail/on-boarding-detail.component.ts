@@ -2,13 +2,18 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { OccupantType } from 'src/app/models/onboarding.model';
 import { ISimpleItem } from 'src/app/shared/generics/generic-model';
+import * as _ from 'lodash';
+import { convertBlobToBase64 } from 'src/app/shared/util/convert-to-blob';
+import { GenericDestroyPageComponent } from 'src/app/shared/generics/generic-destroy';
+import { map, take, takeUntil, tap } from 'rxjs/operators';
+import { v4 as uuid } from 'uuid';
 
 @Component({
   selector: 'cma-on-boarding-detail',
   templateUrl: './on-boarding-detail.component.html',
   styleUrls: ['./on-boarding-detail.component.scss']
 })
-export class OnboardingDetailComponent implements OnInit {
+export class OnboardingDetailComponent extends GenericDestroyPageComponent implements OnInit {
   public form: FormGroup;
   public options: ISimpleItem[] = [{
     label: 'Unit Owner',
@@ -84,8 +89,11 @@ export class OnboardingDetailComponent implements OnInit {
     label: 'Drivers License',
     value: 'driverslicense'
   }];
+  public files: File[] = [];
 
   constructor(private fb: FormBuilder) {
+    super();
+
     this.form = this.fb.group({
       buildingNo: [null],
       unitNo: [null],
@@ -116,8 +124,54 @@ export class OnboardingDetailComponent implements OnInit {
       spouseIdNo: [null],
       spouseUploadedIdFile: [null]
     });
+
+
+
+
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void { }
+
+  public onPersonalImageChange(event: any): void {
+    let file: any
+    if (_.isObject(event)) {
+      file = event;
+    } else {
+      file = event.target.files[0];
+    }
+    this.files.push(file);
+    this.onConvertBlobToBase64(event, file, 'personalUploadedIdFile');
+  }
+
+  private onConvertBlobToBase64(event: any, file: any, formName: string): any {
+    /* collect all drop images in base64 results */
+    convertBlobToBase64(event).pipe(take(1),
+      takeUntil(this.$unsubscribe),
+      map(b64Result => {
+        return {
+          image: b64Result,
+          filename: `${uuid()}.${file.name.split('?')[0].split('.').pop()}`,
+          file: file,
+          size: file.size,
+          mimetype: file.type
+        }
+      })).subscribe((b64Image) => {
+        this.form.get(formName).patchValue(b64Image);
+      });
+  }
+
+  public getImagePreview(formName: string): any {
+    return this.form.get(formName)?.value?.filename;
+  }
+
+  public onSpouseImageChange(event: any): void {
+    let file: any
+    if (_.isObject(event)) {
+      file = event;
+    } else {
+      file = event.target.files[0];
+    }
+    this.files.push(file);
+    this.onConvertBlobToBase64(event, file, 'spouseUploadedIdFile');
   }
 }

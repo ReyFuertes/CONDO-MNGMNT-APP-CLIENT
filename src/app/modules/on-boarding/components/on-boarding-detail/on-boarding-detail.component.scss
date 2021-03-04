@@ -48,7 +48,11 @@
   .p-calendar .p-inputtext {
     max-width: 155px;
   }
-  cma-input, cma-dropdown, cma-datepicker {
+  cma-upload {
+    min-width: 190px;
+    max-width: 190px;
+  }
+  cma-input, cma-dropdown, cma-datepicker, cma-upload {
     margin-bottom: 20px;
   }
   p-dropdown.dropdown .p-dropdown {

@@ -1,0 +1,37 @@
+@import "src/styleguide/index";
+:host {
+  width: 100%;
+}
+img {
+  height: 25px;
+  width: 25px;
+}
+:host ::ng-deep {
+  .mat-expansion-panel-header {
+    padding: 0 24px 0 15px;
+  }
+  .mat-expansion-panel-header-title {
+    font-weight: 500;
+    font-family: 'Poppins', sans-serif;
+  }
+  .chip-approved .p-chip {
+    background-color: $color-green;
+    border-color: $color-green;
+    color: $color-white;
+  }
+  .chip-orientation .p-chip {
+    background-color: $color-green;
+    border-color: $color-green;
+    color: $color-white;
+  }
+  .p-chip .p-chip-text {
+    font-size: 12px;
+  }
+  .mat-expansion-panel-body {
+    background-color: $color-gray-4;
+    padding: 20px;
+  }
+  mat-panel-description div {
+    width: 100%;
+  }
+}

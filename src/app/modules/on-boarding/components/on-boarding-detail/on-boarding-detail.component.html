@@ -32,7 +32,7 @@
 
           <cma-dropdown [options]="IdTypeOptions" placeholder="ID Type"></cma-dropdown>
           <cma-input label="ID No."></cma-input>
-          <cma-input label="Upload"></cma-input>
+          <cma-upload (fileEmitter)="onPersonalImageChange($event)" [fileName]="getImagePreview('personalUploadedIdFile')"></cma-upload>
         </div>
       </div>
     </div>
@@ -57,7 +57,7 @@
           <cma-input label="Bus. Email"></cma-input>
           <cma-dropdown [options]="IdTypeOptions" placeholder="ID Type"></cma-dropdown>
           <cma-input label="ID No."></cma-input>
-          <cma-input label="Upload"></cma-input>
+          <cma-upload (fileEmitter)="onSpouseImageChange($event)"  [fileName]="getImagePreview('spouseUploadedIdFile')"></cma-upload>
         </div>
       </div>
     </div>

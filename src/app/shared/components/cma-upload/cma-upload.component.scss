@@ -1,0 +1,17 @@
+@import "src/styleguide/index";
+.select-file {
+  color: $color-gray-1;
+  cursor: pointer;
+}
+.filename {
+  color: $color-blue;
+  text-decoration: underline;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+img {
+  height: 20px;
+  width: 20px;
+}

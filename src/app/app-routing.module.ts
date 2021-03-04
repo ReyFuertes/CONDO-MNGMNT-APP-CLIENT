@@ -6,7 +6,9 @@ const routes: Routes = [
   { path: 'on-boarding', loadChildren: () => import('./modules/on-boarding/on-boarding.module').then(m => m.OnboardingModule) },
   {
     path: 'dashboard',
-    children: []
+    children: [
+      { path: 'on-boarding', loadChildren: () => import('./modules/dashboard/dashboard.module').then(m => m.DashboardModule) },
+    ]
   }
 ];
 
