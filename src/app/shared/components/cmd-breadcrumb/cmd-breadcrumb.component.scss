@@ -1,0 +1,19 @@
+@import "src/styleguide/index";
+:host ::ng-deep {
+  .p-breadcrumb ul li .p-menuitem-link .p-menuitem-text {
+    color: $color-gray-1;
+    font-size: 12px;
+    position: relative;
+    top: -2px;
+  } 
+  .p-breadcrumb {
+    background-color: transparent;
+    border: none;
+    border-radius: 3px;
+    padding: 15px 15px 15px 0;
+  }
+  .p-breadcrumb ul li.p-breadcrumb-chevron {
+    color: $color-gray-1;
+    font-size: 12px;
+  }
+}

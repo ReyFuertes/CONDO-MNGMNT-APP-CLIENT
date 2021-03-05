@@ -1,7 +1,12 @@
 @import "src/styleguide/index";
 
-div {
-  background-color: $color-white-1;
-  height: auto;
-  padding: 30px;
+:host ::ng-deep {
+  .dashboard-page-container {
+    background-color: $color-white-1;
+    height: auto;
+
+    cma-dashboard-on-boarding {
+      padding: 0 30px 30px 30px;
+    }
+  }
 }

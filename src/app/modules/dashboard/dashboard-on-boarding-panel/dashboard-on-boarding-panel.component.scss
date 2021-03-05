@@ -2,34 +2,117 @@
 :host {
   width: 100%;
 }
+.document-thumb {
+  font-size: 12px;
+  border: thin $color-gray-2 solid;
+  border-radius: 2px;
+  background-color: $color-gray-3;
+  padding: 5px;
+  margin-bottom: 5px;
+  cursor: pointer;
+  img {
+    width: 25px;
+    height: 25px;
+  }
+}
+.content {
+  width: 100%;
+  > div {
+    width: 100%;
+    > div {
+      &:nth-child(2) {
+        padding-left: 5px;
+      }
+    }
+  }
+}
+.pi-thumb {
+  > div {
+    border-bottom: thin $color-gray-3 solid;
+    height: 35px;
+    padding-bottom: 5px;
+    span {
+      &:nth-child(1) {
+        font-weight: 500;
+        font-size: 12px;
+        color: $color-black-3;
+      }
+      &:nth-child(2) {
+        font-weight: 400;
+        font-size: 12px;
+        color: $color-black-1;
+      }
+    }
+  }
+}
+.content-title {
+  font-weight: 500;
+}
+.personal-info-container {
+  > div {
+    height: 30px;
+    width: 120px;
+  }
+}
 img {
   height: 25px;
   width: 25px;
 }
 :host ::ng-deep {
+  .btn-edit {
+    background-color: $color-gray-3;
+    border-color:  $color-gray-3;
+    color: $color-black-0;
+    &:hover {
+      background-color: $color-gray-2;
+      border-color:  $color-gray-2;
+      color: $color-black-0;
+    }
+  }
+  .p-button-label {
+    padding-right: 10px;
+  }
+  .btn-delete {
+    background-color: $color-red;
+    border-color: $color-red;
+    &:hover {
+      background-color: $color-red;
+      border-color: $color-red;
+      opacity: 0.9;
+    }
+  }
+  .p-button {
+    padding: 5px 10px;
+    font-size: 12px;
+  }
+  .actions-btns {
+    margin-bottom: 0 !important;
+    span.p-button-icon {
+      font-size: 12px;
+    }
+  }
+  mat-expansion-panel.mat-expanded {
+    border-left: thin $color-gray-2 solid;
+  }
   .mat-expansion-panel-header {
-    padding: 0 24px 0 15px;
+    padding: 20px;
+    max-height: 50px;
+    min-height: 50px;
   }
   .mat-expansion-panel-header-title {
     font-weight: 500;
     font-family: 'Poppins', sans-serif;
-  }
-  .chip-approved .p-chip {
-    background-color: $color-green;
-    border-color: $color-green;
-    color: $color-white;
-  }
-  .chip-orientation .p-chip {
-    background-color: $color-green;
-    border-color: $color-green;
-    color: $color-white;
-  }
-  .p-chip .p-chip-text {
-    font-size: 12px;
+    span.name {
+      font-weight: 500;
+    }
   }
   .mat-expansion-panel-body {
     background-color: $color-gray-4;
-    padding: 20px;
+    padding: 15px 30px 20px 20px;
+    border-top: thin $color-gray-3 solid;
+    > div {
+      width: 100%;
+    }
   }
   mat-panel-description div {
     width: 100%;

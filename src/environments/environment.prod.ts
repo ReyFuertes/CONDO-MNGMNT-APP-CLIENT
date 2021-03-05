@@ -1,3 +1,5 @@
 export const environment = {
-  production: true
+  production: true,
+  imgPath: 'assets/image/',
+  svgPath: 'assets/svg/'
 };

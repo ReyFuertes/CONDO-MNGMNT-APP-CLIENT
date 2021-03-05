@@ -7,13 +7,14 @@ import { ButtonModule } from 'primeng/button';
 import { MatCardModule } from '@angular/material/card';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { SharedModule } from 'primeng/api';
 import { DashboardPageComponent } from './dashboard-page/dashboard-page.component';
 import { DashboardOnboardingPanelComponent } from './dashboard-on-boarding-panel/dashboard-on-boarding-panel.component';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { TooltipModule } from 'primeng/tooltip';
 import { ChipModule } from 'primeng/chip';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 const routes: Routes = [
   {
@@ -32,7 +33,8 @@ const primeNgModules = [
   CheckboxModule,
   ButtonModule,
   TooltipModule,
-  ChipModule
+  ChipModule,
+  BreadcrumbModule
 ];
 
 const materialModules = [
@@ -55,7 +57,7 @@ const materialModules = [
     ...primeNgModules,
     ...materialModules,
     RouterModule.forChild(routes),
-    SharedModule,
+    SharedModule
   ],
   exports: [],
   providers: [],

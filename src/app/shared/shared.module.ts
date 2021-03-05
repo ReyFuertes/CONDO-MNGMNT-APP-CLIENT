@@ -16,6 +16,10 @@ import { CMADatepickerComponent } from './components/cmd-datepicker/cmd-datepick
 import { CalendarModule } from 'primeng/calendar';
 import { CMAUploadComponent } from './components/cma-upload/cma-upload.component';
 import { TooltipModule } from 'primeng/tooltip';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
+import { CMABreadcrumbComponent } from './components/cmd-breadcrumb/cmd-breadcrumb.component';
+import { CMATopNavComponent } from './components/cma-top-nav/cma-top-nav.component';
+import { MegaMenuModule } from 'primeng/megamenu';
 
 const primeNgModules = [
   CheckboxModule,
@@ -24,7 +28,9 @@ const primeNgModules = [
   SelectButtonModule,
   DropdownModule,
   CalendarModule,
-  TooltipModule
+  TooltipModule,
+  BreadcrumbModule,
+  MegaMenuModule
 ];
 
 const materialModules = [
@@ -37,7 +43,9 @@ const sharedComponents = [
   CMADropdownSearchComponent,
   CMADropdownComponent,
   CMADatepickerComponent,
-  CMAUploadComponent
+  CMAUploadComponent,
+  CMABreadcrumbComponent,
+  CMATopNavComponent
 ]
 
 @NgModule({

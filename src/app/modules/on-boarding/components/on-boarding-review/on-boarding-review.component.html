@@ -33,7 +33,7 @@
 
           <cma-input [readOnly]="true" label="ID Type" [value]="'Drivers License'"></cma-input>
           <cma-input [readOnly]="true" label="ID No." [value]="'423 2342 25345'"></cma-input>
-          <cma-input [readOnly]="true" label="Upload" [value]="'driverlicensed_1234.png'"></cma-input>
+          <cma-input [readOnly]="true" label="Upload File" [value]="'driverlicensed_1234.png'"></cma-input>
         </div>
       </div>
     </div>
@@ -58,14 +58,14 @@
           <cma-input [readOnly]="true" label="Bus. Email" [value]="'none'"></cma-input>
           <cma-input [readOnly]="true" label="ID Type" [value]="'Phil Health'"></cma-input>
           <cma-input [readOnly]="true" label="ID No." [value]="'1234 123 123'"></cma-input>
-          <cma-input [readOnly]="true" label="Upload" [value]="'test_img.png'"></cma-input>
+          <cma-input [readOnly]="true" label="Upload File" [value]="'test_img.png'"></cma-input>
         </div>
       </div>
     </div>
 
     <!-- documents -->
     <div fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="5px">
-      <div *ngFor="let document of uploadDocuments" class="document-thumb" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="5px">
+      <div *ngFor="let document of uploadDocuments" pTooltip="Download" class="document-thumb" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="5px">
         <img [src]="svgPath + 'word.svg'" />
         <span>{{ document?.label }}</span>
       </div>

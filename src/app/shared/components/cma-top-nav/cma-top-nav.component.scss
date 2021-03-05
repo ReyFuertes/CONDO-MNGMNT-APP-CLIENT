@@ -1,0 +1,22 @@
+@import "src/styleguide/index";
+:host {
+  width: 100%;
+}
+:host ::ng-deep {
+  .active {
+    background-color: $color-gray-4;
+    border: thin $color-gray-3 solid;
+    border-radius: 2px;
+  }
+  .p-megamenu {
+    border-radius: 0;
+    background-color: $color-gray-blue;
+    border:thin $color-gray-blue solid;
+  }
+  .p-megamenu .p-megamenu-root-list > .p-menuitem > .p-menuitem-link .p-menuitem-text {
+    color: $color-white;
+  }
+  .p-megamenu .p-megamenu-root-list > .p-menuitem > .p-menuitem-link .p-menuitem-icon {
+    color: $color-white;
+  }
+}
