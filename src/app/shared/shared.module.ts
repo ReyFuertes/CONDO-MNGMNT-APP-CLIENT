@@ -20,6 +20,13 @@ import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { CMABreadcrumbComponent } from './components/cmd-breadcrumb/cmd-breadcrumb.component';
 import { CMATopNavComponent } from './components/cma-top-nav/cma-top-nav.component';
 import { MegaMenuModule } from 'primeng/megamenu';
+import { CMAInputSearchComponent } from './components/input-search/input-search.component';
+import { CMAMultiSelectComponent } from './components/cma-multi-select/cma-multi-select.component';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { MenuModule } from 'primeng/menu';
+import { BadgeModule } from 'primeng/badge';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { TableModule } from 'primeng/table';
 
 const primeNgModules = [
   CheckboxModule,
@@ -30,7 +37,12 @@ const primeNgModules = [
   CalendarModule,
   TooltipModule,
   BreadcrumbModule,
-  MegaMenuModule
+  MegaMenuModule,
+  MultiSelectModule,
+  MenuModule,
+  BadgeModule,
+  OverlayPanelModule,
+  TableModule
 ];
 
 const materialModules = [
@@ -45,7 +57,9 @@ const sharedComponents = [
   CMADatepickerComponent,
   CMAUploadComponent,
   CMABreadcrumbComponent,
-  CMATopNavComponent
+  CMATopNavComponent,
+  CMAInputSearchComponent,
+  CMAMultiSelectComponent
 ]
 
 @NgModule({

@@ -3,13 +3,12 @@ import { MENUS } from 'src/app/shared/constants/menu';
 import { ISimpleItem } from 'src/app/shared/generics/generic-model';
 
 @Component({
-  selector: 'cma-dashboard-on-boarding',
-  templateUrl: './dashboard-on-boarding.component.html',
-  styleUrls: ['./dashboard-on-boarding.component.scss']
+  selector: 'cma-dashboard-requests',
+  templateUrl: './dashboard-requests.component.html',
+  styleUrls: ['./dashboard-requests.component.scss']
 })
-export class DashboardOnboardingComponent implements OnInit {
+export class DashboardRequestsComponent implements OnInit {
   public breadCrumbItems: ISimpleItem[] = MENUS;
-
   constructor() { }
 
   ngOnInit(): void { }

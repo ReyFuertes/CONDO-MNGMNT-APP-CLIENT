@@ -2,11 +2,107 @@
 :host {
   width: 100%;
 }
+.topnav-container {
+  flex-direction: row;
+  box-sizing: border-box;
+  display: flex;
+  place-content: center flex-start;
+  align-items: center;
+  position: fixed;
+  width: 100%;
+  z-index: 9999;
+}
+.user-panel {
+  border-radius: 0;
+  background-color: $color-gray-blue;
+  border: thin $color-gray-blue solid;
+  max-height: 58px;
+  min-height: 58px;
+  height: 58px;
+  padding-right: 15px;
+  .pi {
+    color: $color-white;
+    cursor: pointer;
+  }
+  span {
+    color: $color-white;
+    cursor: pointer;
+  }
+  img {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+  }
+}
+::ng-deep {
+  .p-overlaypanel {
+    top: 51px;
+  }
+  .p-overlaypanel:after, .p-overlaypanel:before {
+    margin-left: -19px !important;
+  }
+  .p-overlaypanel:after {
+    margin-left: -18px !important;
+  }
+}
 :host ::ng-deep {
-  .active {
-    background-color: $color-gray-4;
-    border: thin $color-gray-3 solid;
+  .p-megamenu-root-list li {
+    outline: none;
+  }
+  .p-megamenu .p-megamenu-root-list > .p-menuitem > .p-menuitem-link:not(.p-disabled):hover .p-menuitem-text {
+    color: $color-white;
+  }
+  .p-megamenu .p-megamenu-root-list > .p-menuitem > .p-menuitem-link:not(.p-disabled):hover .p-menuitem-icon {
+    color: $color-white;
+  }
+  .p-megamenu .p-megamenu-root-list > .p-menuitem > .p-menuitem-link:not(.p-disabled):hover {
+    background-color: #7a99a8;
+    color: $color-white;
+  }
+  .p-megamenu-root-list li {
+    margin-right: 5px;
+  }
+  .onboarding .p-menuitem {
+    &:first-child {
+      border-radius: 2px;
+      background-color: $color-gray-5;
+      span.p-menuitem-text, span.p-menuitem-icon {
+        color: $color-black-1 !important;
+      }
+    }
+  }
+  .requests .p-menuitem {
+    &:nth-child(2) {
+      border-radius: 2px;
+      background-color: $color-gray-5;
+      span.p-menuitem-text, span.p-menuitem-icon {
+        color: $color-black-1 !important;
+      }
+    }
+  }
+  .payments .p-menuitem {
+    &:nth-child(3) {
+      border-radius: 2px;
+      background-color: $color-gray-5;
+      span.p-menuitem-text, span.p-menuitem-icon {
+        color: $color-black-1 !important;
+      }
+    }
+  }
+  .onboarding .p-menuitem {
+    &:first-child {
+      border-radius: 2px;
+      background-color: $color-gray-3;
+      span.p-menuitem-text, span.p-menuitem-icon {
+        color: $color-black-1 !important;
+      }
+    }
+  }
+  .p-megamenu .p-megamenu-root-list > .p-menuitem > .p-menuitem-link {
     border-radius: 2px;
+  }
+  .p-megamenu .p-megamenu-root-list > .p-menuitem > .p-menuitem-link:focus {
+    box-shadow: none;
   }
   .p-megamenu {
     border-radius: 0;

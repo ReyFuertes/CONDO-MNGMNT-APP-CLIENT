@@ -59,6 +59,9 @@ img {
   width: 25px;
 }
 :host ::ng-deep {
+  .mat-expansion-panel-header.mat-expanded:focus, .mat-expansion-panel-header.mat-expanded:hover {
+    background: rgba(0,0,0,.04);
+  } 
   .btn-edit {
     background-color: $color-gray-3;
     border-color:  $color-gray-3;

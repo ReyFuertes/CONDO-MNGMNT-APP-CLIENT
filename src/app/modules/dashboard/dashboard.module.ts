@@ -15,6 +15,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { ChipModule } from 'primeng/chip';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { DashboardRequestsComponent } from './dashboard-requests/dashboard-requests.component';
 
 const routes: Routes = [
   {
@@ -22,8 +23,12 @@ const routes: Routes = [
     component: DashboardPageComponent,
     children: [
       {
-        path: 'list',
+        path: 'on-boarding/list',
         component: DashboardOnboardingComponent
+      },
+      {
+        path: 'requests/list',
+        component: DashboardRequestsComponent
       }
     ]
   }
@@ -47,7 +52,8 @@ const materialModules = [
   declarations: [
     DashboardOnboardingComponent,
     DashboardOnboardingPanelComponent,
-    DashboardPageComponent
+    DashboardPageComponent,
+    DashboardRequestsComponent
   ],
   imports: [
     CommonModule,
