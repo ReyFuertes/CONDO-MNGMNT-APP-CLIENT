@@ -5,6 +5,13 @@
 .panel-actions {
   width: 100%;
 }
+div {
+  width: 100%;
+}
+.breadcrumb-container {
+  height: 30px !important;
+  margin-bottom: 0 !important;
+}
 :host ::ng-deep {
   li.p-megamenu-root-list>.p-menuitem {
     background-color: $color-gray-3 !important;

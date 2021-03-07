@@ -1,11 +1,14 @@
 
 <div fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="5px">
-  <div class="panel-actions" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+  <div class="breadcrumb-container" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
     <cma-breadcrumb fxFlex="30" [items]="breadCrumbItems"></cma-breadcrumb>
+  </div>
+  <div class="panel-actions">
     <div fxFlex fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="10px">
       <cma-input-search fxFlex="70"></cma-input-search>
       <cma-multi-select fxFlex></cma-multi-select>
     </div>
+    <p-paginator [rows]="10" [totalRecords]="120" [rowsPerPageOptions]="[10,20,30]"></p-paginator>
   </div>
   <cma-dashboard-on-boarding-panel></cma-dashboard-on-boarding-panel>
 </div>

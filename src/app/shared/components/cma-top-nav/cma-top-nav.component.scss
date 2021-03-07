@@ -8,9 +8,9 @@
   display: flex;
   place-content: center flex-start;
   align-items: center;
-  position: fixed;
-  width: 100%;
-  z-index: 9999;
+  // position: fixed;
+  // width: 100%;
+  // z-index: 9999;
 }
 .user-panel {
   border-radius: 0;
@@ -46,6 +46,11 @@
   }
 }
 :host ::ng-deep {
+  .p-badge {
+    font-size: 0.7rem;
+    height: 1.2rem;
+    line-height: 1.3rem;
+  }
   .p-megamenu-root-list li {
     outline: none;
   }
@@ -71,16 +76,16 @@
       }
     }
   }
-  .requests .p-menuitem {
+  .homeowners .p-menuitem {
     &:nth-child(2) {
       border-radius: 2px;
-      background-color: $color-gray-5;
+      background-color: $color-gray-3;
       span.p-menuitem-text, span.p-menuitem-icon {
         color: $color-black-1 !important;
       }
     }
   }
-  .payments .p-menuitem {
+  .requests .p-menuitem {
     &:nth-child(3) {
       border-radius: 2px;
       background-color: $color-gray-5;
@@ -89,10 +94,10 @@
       }
     }
   }
-  .onboarding .p-menuitem {
-    &:first-child {
+  .payments .p-menuitem {
+    &:nth-child(4) {
       border-radius: 2px;
-      background-color: $color-gray-3;
+      background-color: $color-gray-5;
       span.p-menuitem-text, span.p-menuitem-icon {
         color: $color-black-1 !important;
       }

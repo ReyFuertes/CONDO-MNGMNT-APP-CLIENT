@@ -49,28 +49,34 @@ export class CMATopNavComponent implements OnInit {
       { label: 'Settings', icon: 'pi pi-fw pi-cog' },
       { label: 'Logout', icon: 'pi pi-fw pi-lock' }
     ];
-    this.menuItems = [
-      {
-        label: 'Onboarding', icon: 'pi pi-fw pi-home',
-        command: (event) => {
-          localStorage.setItem('nav', JSON.stringify(MenuType.Onboarding));
-          this.router.navigateByUrl(DASHBOARDONBOARDINGROUTE);
-        }
-      },
-      {
-        label: 'Requests', icon: 'pi pi-fw pi-comments',
-        command: (event) => {
-          localStorage.setItem('nav', JSON.stringify(MenuType.Requests));
-          this.router.navigateByUrl(REQUESTSROUTE);
-        }
-      },
-      {
-        label: 'Payments', icon: 'pi pi-fw pi-wallet',
-        command: (event) => {
-          localStorage.setItem('nav', JSON.stringify(MenuType.Payments));
-        }
+    this.menuItems = [{
+      label: 'Onboarding', icon: 'pi pi-fw pi-home',
+      command: (event) => {
+        localStorage.setItem('nav', JSON.stringify(MenuType.Onboarding));
+        this.router.navigateByUrl(DASHBOARDONBOARDINGROUTE);
       }
-    ]
+    }, {
+      label: 'Homeowners', icon: 'pi pi-fw pi-users',
+      command: (event) => {
+        localStorage.setItem('nav', JSON.stringify(MenuType.Homeowners));
+
+      }
+    }, {
+      label: 'Requests', icon: 'pi pi-fw pi-comments',
+      command: (event) => {
+        localStorage.setItem('nav', JSON.stringify(MenuType.Requests));
+        this.router.navigateByUrl(REQUESTSROUTE);
+      }
+    }, {
+      label: 'Payments', icon: 'pi pi-fw pi-wallet',
+      command: (event) => {
+        localStorage.setItem('nav', JSON.stringify(MenuType.Payments));
+      }
+    }]
+  }
+
+  public get isHomeOwners(): boolean {
+    return Number(JSON.parse(localStorage.getItem('nav'))) === MenuType.Homeowners;
   }
 
   public get isOnboarding(): boolean {

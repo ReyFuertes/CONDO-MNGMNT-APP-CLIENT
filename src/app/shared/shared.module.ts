@@ -27,6 +27,7 @@ import { MenuModule } from 'primeng/menu';
 import { BadgeModule } from 'primeng/badge';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { TableModule } from 'primeng/table';
+import { CMATextareaComponent } from './components/cma-textarea/cma-textarea.component';
 
 const primeNgModules = [
   CheckboxModule,
@@ -59,7 +60,8 @@ const sharedComponents = [
   CMABreadcrumbComponent,
   CMATopNavComponent,
   CMAInputSearchComponent,
-  CMAMultiSelectComponent
+  CMAMultiSelectComponent,
+  CMATextareaComponent
 ]
 
 @NgModule({

@@ -1,8 +1,20 @@
 
+export enum ServiceStatusType {
+  Approved = 'Approved',
+  Pending = 'Pending',
+  Declined = 'Declined'
+}
+export enum ServiceType {
+  Repair = 'Repair',
+  Delivery = 'Delivery',
+  Maintenance = 'Maintenance',
+  Other = 'Other'
+}
 export enum MenuType {
   Onboarding = 1,
-  Requests = 2,
-  Payments = 3
+  Homeowners = 2,
+  Requests = 3,
+  Payments = 4
 }
 export enum OccupantType {
   UnitOwner = 1,

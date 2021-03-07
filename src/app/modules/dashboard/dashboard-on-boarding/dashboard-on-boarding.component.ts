@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MENUS } from 'src/app/shared/constants/menu';
+import { ONBOARDINGMENUS } from 'src/app/shared/constants/menu';
 import { ISimpleItem } from 'src/app/shared/generics/generic-model';
 
 @Component({
@@ -8,7 +8,7 @@ import { ISimpleItem } from 'src/app/shared/generics/generic-model';
   styleUrls: ['./dashboard-on-boarding.component.scss']
 })
 export class DashboardOnboardingComponent implements OnInit {
-  public breadCrumbItems: ISimpleItem[] = MENUS;
+  public breadCrumbItems: ISimpleItem[] = ONBOARDINGMENUS;
 
   constructor() { }
 

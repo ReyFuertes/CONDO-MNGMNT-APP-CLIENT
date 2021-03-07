@@ -16,6 +16,10 @@ import { ChipModule } from 'primeng/chip';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { DashboardRequestsComponent } from './dashboard-requests/dashboard-requests.component';
+import { DashboardRequestTableComponent } from './dashboard-requests-table/dashboard-requests-table.component';
+import { MatTableModule } from '@angular/material/table';
+import { PaginatorModule } from 'primeng/paginator';
+import { DashboardRequestsTableHiddenComponent } from './dashboard-requests-table-hidden-row/dashboard-requests-table-hidden-row.component';
 
 const routes: Routes = [
   {
@@ -39,13 +43,15 @@ const primeNgModules = [
   ButtonModule,
   TooltipModule,
   ChipModule,
-  BreadcrumbModule
+  BreadcrumbModule,
+  PaginatorModule
 ];
 
 const materialModules = [
   MatCardModule,
   MatExpansionModule,
-  MatFormFieldModule
+  MatFormFieldModule,
+  MatTableModule
 ];
 
 @NgModule({
@@ -53,7 +59,9 @@ const materialModules = [
     DashboardOnboardingComponent,
     DashboardOnboardingPanelComponent,
     DashboardPageComponent,
-    DashboardRequestsComponent
+    DashboardRequestsComponent,
+    DashboardRequestTableComponent,
+    DashboardRequestsTableHiddenComponent
   ],
   imports: [
     CommonModule,

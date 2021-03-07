@@ -1,5 +1,6 @@
 <div class="topnav-container">
-  <p-megaMenu fxFlex [ngClass]="{'onboarding': isOnboarding, 'requests': isRequests,'payments': isPayments}" [model]="menuItems"></p-megaMenu>
+  <p-megaMenu fxFlex [ngClass]="{'onboarding': isOnboarding, 'homeowners': isHomeOwners, 'requests': isRequests, 'payments': isPayments}" [model]="menuItems">
+  </p-megaMenu>
   <div class="user-panel no-select" fxFlex="400px" fxLayoutAlign="end center" fxLayoutGap="25px">
     <i (click)="op.toggle($event)" class="pi pi-bell p-mr-4 p-text-secondary" pBadge style="font-size: 1.5rem" [value]="'10+'" severity="danger"></i>
     <i class="pi pi-comment p-mr-4 p-text-secondary" pBadge style="font-size: 1.5rem" [value]="'20+'"></i>
@@ -10,16 +11,16 @@
     </div>
   </div>
   <p-menu #menu [popup]="true" [model]="userMenuItems"></p-menu>
-  
+
   <p-overlayPanel #op [showCloseIcon]="true" [style]="{width: '450px'}" [dismissable]="true" [showCloseIcon]="false">
     <ng-template pTemplate>
-        <p-table [value]="notifications" selectionMode="single" (onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="5">
-            <ng-template pTemplate="body" let-rowData let-notification>
-                <tr [pSelectableRow]="rowData">
-                    <td>{{notification?.label}}</td>
-                </tr>
-            </ng-template>
-        </p-table>
+      <p-table [value]="notifications" selectionMode="single" (onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="5">
+        <ng-template pTemplate="body" let-rowData let-notification>
+          <tr [pSelectableRow]="rowData">
+            <td>{{notification?.label}}</td>
+          </tr>
+        </ng-template>
+      </p-table>
     </ng-template>
   </p-overlayPanel>
 </div>

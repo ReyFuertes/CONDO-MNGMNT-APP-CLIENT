@@ -1,0 +1,53 @@
+<mat-card>
+  <table mat-table [dataSource]="dataSource" multiTemplateDataRows>
+    <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
+      <th mat-header-cell *matHeaderCellDef>
+        <span *ngIf="column === 'image'"></span>
+        <span *ngIf="column !== 'image'">{{fmtCol(column) | titlecase}} </span>
+      </th>
+      <td mat-cell *matCellDef="let element;">
+        <img *ngIf="column === 'image'" [src]="imgPath + element[column]" />
+        <span *ngIf="column === 'service_type'">
+          <p-chip [label]="element[column]"
+            [ngClass]="{'repair-type': isSrvTypeRepair(element[column]), 'delivery-type': isSrvTypeDelivery(element[column]), 'maintenance-type': isSrvTypeMaintenance(element[column]), 'other-type': isSrvTypeOther(element[column])}">
+          </p-chip>
+        </span>
+
+        <div class="status" *ngIf="column === 'status'" fxLayout="row" fxLayoutAlign="center center">
+          <i tooltipPosition="top" pTooltip="Approved" *ngIf="element[column] === serviceStatusType.Approved" class="pi pi-check"></i>
+          <i tooltipPosition="top" pTooltip="Pending" *ngIf="element[column] === serviceStatusType.Pending" class="pi pi-spinner"></i>
+          <i tooltipPosition="top" pTooltip="Declined" *ngIf="element[column] === serviceStatusType.Declined" class="pi pi-times"></i>
+        </div>
+
+        <span *ngIf="column !== 'image' && column !== 'service_type' && column !== 'other' && column !== 'status'"> {{element[column]}}</span>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="expandedDetail">
+      <td mat-cell *matCellDef="let element; let i = index" [attr.colspan]="columnsToDisplay.length" [ngClass]="{'expand-container': expandedElement}">
+        <div class="element-detail" [@detailExpand]="(element == expandedElement || i === 0) ? 'expanded' : 'collapsed'">
+          <div class="inner-container" fxLayout="row" fxLayoutAlign="start start">
+            <cma-dashboard-requests-table-hidden-row></cma-dashboard-requests-table-hidden-row>
+
+            <div class="action-btns" fxFlex="11" fxLayout="column" fxLayoutAlign="end center" fxLayoutGap="5px">
+              <button pButton type="button" class="p-button-outlined p-button-rounded p-button-sm p-button-success" label="Approve">
+                <i class="pi pi-check"></i>
+              </button>
+              <button pButton type="button" class="p-button-outlined p-button-rounded p-button-sm p-button-danger" label="Decline">
+                <i class="pi pi-times"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+    <tr mat-row *matRowDef="let element; columns: columnsToDisplay; let i = index" class="element-row" [class.expanded-row]="expandedElement === element" (click)="onExpand(element)">
+    </tr>
+    <tr mat-row *matRowDef="let row; columns: ['expandedDetail']; let i = index" class="detail-row"></tr>
+  </table>
+
+
+
+</mat-card>
