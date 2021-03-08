@@ -72,6 +72,12 @@ export class CMATopNavComponent implements OnInit {
       command: (event) => {
         localStorage.setItem('nav', JSON.stringify(MenuType.Payments));
       }
+
+    }, {
+      label: 'Documents', icon: 'pi pi-fw pi-briefcase',
+      command: (event) => {
+        localStorage.setItem('nav', JSON.stringify(MenuType.Documents));
+      }
     }]
   }
 

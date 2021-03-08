@@ -2,6 +2,9 @@
 :host {
   width: 100%;
 }
+.sel-chk {
+  padding: 0 3px;
+}
 .document-thumb {
   font-size: 12px;
   border: thin $color-gray-2 solid;
@@ -59,10 +62,46 @@ img {
   width: 25px;
 }
 :host ::ng-deep {
+  .next-status {
+    font-weight: bold;
+    color: $color-black-1;
+  }
+  .p-timeline-event {
+    &:nth-child(1) {
+      .p-timeline-event-marker {
+        border: 2px solid $color-green-3;
+        background-color: $color-green-3;
+      }
+    }
+    &:not(:nth-child(1)) {
+      .p-timeline-event-marker {
+        border: 2px solid #CCC;
+      }
+    }
+    &:last-child {
+      width: 17px;
+      .p-timeline-event-content {
+        left: -67px;
+        position: relative;
+      }
+    }
+  }
+  .p-timeline.p-timeline-horizontal .p-timeline-event-opposite, .p-timeline.p-timeline-horizontal .p-timeline-event-content {
+    font-size: 12px;
+    padding: 0;
+    min-width: 85px;
+    color: $color-gray-2;
+  }
+  p-timeline {
+    width: 100%;
+  }
+  .p-timeline-event {
+    min-height: 40px;
+  }
   .mat-expansion-panel-header.mat-expanded:focus, .mat-expansion-panel-header.mat-expanded:hover {
     background: rgba(0,0,0,.04);
   } 
-  .btn-edit {
+  .btn-edit, .btn-done {
     background-color: $color-gray-3;
     border-color:  $color-gray-3;
     color: $color-black-0;
@@ -72,12 +111,9 @@ img {
       color: $color-black-0;
     }
   }
-  .p-button-label {
-    padding-right: 10px;
-  }
-  .btn-delete {
-    background-color: $color-red;
-    border-color: $color-red;
+  .btn-remove {
+    background-color: $color-red-1;
+    border-color: $color-red-1;
     &:hover {
       background-color: $color-red;
       border-color: $color-red;
@@ -111,7 +147,7 @@ img {
   }
   .mat-expansion-panel-body {
     background-color: $color-gray-4;
-    padding: 15px 30px 20px 20px;
+    padding: 15px 20px 20px 20px;
     border-top: thin $color-gray-3 solid;
     > div {
       width: 100%;

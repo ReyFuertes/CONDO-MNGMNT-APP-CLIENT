@@ -20,6 +20,8 @@ import { DashboardRequestTableComponent } from './dashboard-requests-table/dashb
 import { MatTableModule } from '@angular/material/table';
 import { PaginatorModule } from 'primeng/paginator';
 import { DashboardRequestsTableHiddenComponent } from './dashboard-requests-table-hidden-row/dashboard-requests-table-hidden-row.component';
+import { MenuModule } from 'primeng/menu';
+import { TimelineModule } from 'primeng/timeline';
 
 const routes: Routes = [
   {
@@ -44,7 +46,9 @@ const primeNgModules = [
   TooltipModule,
   ChipModule,
   BreadcrumbModule,
-  PaginatorModule
+  PaginatorModule,
+  MenuModule,
+  TimelineModule
 ];
 
 const materialModules = [

@@ -3,6 +3,7 @@
     <mat-expansion-panel-header>
       <mat-panel-title>
         <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+          <div class="sel-chk"><p-checkbox name="groupname"></p-checkbox></div>
           <img [src]="imgPath + 'sample-profile-pic.png'" />
           <span class="name">{{ boarder?.name }}</span>
         </div>
@@ -17,11 +18,24 @@
     </mat-expansion-panel-header>
     <div class="noselect" fxLayout="row" fxLayoutAlign="start start">
       <div class="content" fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="20px">
-        <div class="actions-btns" fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="5px">
-          <span class="p-buttonset" styleClass="p-button-sm">
-            <button styleClass="p-button-sm" tooltipPosition="left" pTooltip="Edit" pButton pRipple label="Edit" class="btn-edit" icon="pi pi-check"></button>
-            <button styleClass="p-button-sm" tooltipPosition="top" pTooltip="Delete" pButton pRipple label="Delete" class="btn-delete" icon="pi pi-trash"></button>
-        </span>
+
+        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
+          <p-timeline fxFlex [value]="onboardingStatus" layout="horizontal" align="bottom">
+            <ng-template pTemplate="content" let-status let-i="index">
+              <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
+                <i *ngIf="status === onboardingStatus[getStatusIndex(boarder?.status) + 1]" class="pi pi-check"></i>
+                <span [ngClass]="{'next-status': status === onboardingStatus[getStatusIndex(boarder?.status) + 1]}">{{status}}</span>
+              </div>
+            </ng-template>
+          </p-timeline>
+  
+          <div fxFlex="135px" class="actions-btns" fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="5px">
+            <span class="p-buttonset" styleClass="p-button-sm">
+              <button styleClass="p-button-sm" tooltipPosition="left" pTooltip="Done" pButton pRipple class="btn-done" icon="pi pi-check"></button>
+              <button styleClass="p-button-sm" tooltipPosition="left" pTooltip="Edit" pButton pRipple class="btn-edit" icon="pi pi-pencil"></button>
+              <button styleClass="p-button-sm" tooltipPosition="top" pTooltip="Remove" pButton pRipple class="btn-remove" icon="pi pi-trash"></button>
+            </span>
+          </div>
         </div>
         <!-- personal information -->
         <div>

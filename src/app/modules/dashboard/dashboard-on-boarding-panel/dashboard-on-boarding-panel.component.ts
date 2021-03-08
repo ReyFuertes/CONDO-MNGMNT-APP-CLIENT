@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import {MatAccordion} from '@angular/material/expansion';
+import { MatAccordion } from '@angular/material/expansion';
 import { OnBoardingType } from 'src/app/models/onboarding.model';
 import { ISimpleItem } from 'src/app/shared/generics/generic-model';
 import { environment } from 'src/environments/environment';
@@ -74,10 +74,17 @@ export class DashboardOnboardingPanelComponent implements OnInit {
     label: 'Contract',
     value: ''
   }];
+  public onboardingStatus: any[];
 
   constructor() { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.onboardingStatus = ['Approved', 'Orientation', 'Move-In'];
+  }
+
+  public getStatusIndex(value: any): any {
+    return this.onboardingStatus.findIndex(i => i === value)
+  }
 
   public onPanelClick(i: number): void {
     this.isExpanded = i;

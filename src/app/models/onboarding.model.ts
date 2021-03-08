@@ -14,7 +14,8 @@ export enum MenuType {
   Onboarding = 1,
   Homeowners = 2,
   Requests = 3,
-  Payments = 4
+  Payments = 4,
+  Documents = 5
 }
 export enum OccupantType {
   UnitOwner = 1,
