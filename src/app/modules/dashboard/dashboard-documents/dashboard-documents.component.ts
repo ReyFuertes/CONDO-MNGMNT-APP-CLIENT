@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-import { REQUESTSBREADCRUMBS } from 'src/app/shared/constants/breadcrumbs';
+import { HOMEOWNERSBREADCRUMBS } from 'src/app/shared/constants/breadcrumbs';
 import { ISimpleItem } from 'src/app/shared/generics/generic-model';
 
 @Component({
-  selector: 'cma-dashboard-requests',
-  templateUrl: './dashboard-requests.component.html',
-  styleUrls: ['./dashboard-requests.component.scss']
+  selector: 'cma-dashboard-documents',
+  templateUrl: './dashboard-documents.component.html',
+  styleUrls: ['./dashboard-documents.component.scss']
 })
-export class DashboardRequestsComponent implements OnInit {
-  public breadCrumbItems: ISimpleItem[] = REQUESTSBREADCRUMBS;
+export class DashboardDocumentsComponent implements OnInit {
+  public breadCrumbItems: ISimpleItem[] = HOMEOWNERSBREADCRUMBS;
   public settingItems: MenuItem[];
   public actionItems: MenuItem[];
 

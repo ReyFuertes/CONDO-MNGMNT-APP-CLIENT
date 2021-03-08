@@ -8,6 +8,7 @@ export enum ServiceType {
   Repair = 'Repair',
   Delivery = 'Delivery',
   Maintenance = 'Maintenance',
+  Cleaning = 'Cleaning',
   Other = 'Other'
 }
 export enum MenuType {

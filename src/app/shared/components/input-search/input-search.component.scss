@@ -1,1 +1,13 @@
 @import "src/styleguide/index";
+
+:host ::ng-deep {
+  .p-input-icon-left>i,
+  .p-input-icon-right>i {
+    right: 1px;
+    width: 25px;
+  }
+  .p-input-icon-left > .p-inputtext {
+    padding-left: 2rem;
+    padding-right: 30px;
+  }
+}

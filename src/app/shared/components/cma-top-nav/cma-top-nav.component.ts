@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { MegaMenuItem, MenuItem } from 'primeng/api';
 import { MenuType } from 'src/app/models/onboarding.model';
 import { environment } from 'src/environments/environment';
-import { DASHBOARDONBOARDINGROUTE, REQUESTSROUTE } from '../../constants/routes';
+import { DASHBOARDONBOARDINGROUTE, HOMEOWNERSROUTE, REQUESTSROUTE, DOCUMENTSROUTE, PAYMENTSROUTE } from '../../constants/routes';
 import { ISimpleItem } from '../../generics/generic-model';
 
 @Component({
@@ -59,7 +59,7 @@ export class CMATopNavComponent implements OnInit {
       label: 'Homeowners', icon: 'pi pi-fw pi-users',
       command: (event) => {
         localStorage.setItem('nav', JSON.stringify(MenuType.Homeowners));
-
+        this.router.navigateByUrl(HOMEOWNERSROUTE);
       }
     }, {
       label: 'Requests', icon: 'pi pi-fw pi-comments',
@@ -71,12 +71,13 @@ export class CMATopNavComponent implements OnInit {
       label: 'Payments', icon: 'pi pi-fw pi-wallet',
       command: (event) => {
         localStorage.setItem('nav', JSON.stringify(MenuType.Payments));
+        this.router.navigateByUrl(PAYMENTSROUTE);
       }
-
     }, {
       label: 'Documents', icon: 'pi pi-fw pi-briefcase',
       command: (event) => {
         localStorage.setItem('nav', JSON.stringify(MenuType.Documents));
+        this.router.navigateByUrl(DOCUMENTSROUTE);
       }
     }]
   }

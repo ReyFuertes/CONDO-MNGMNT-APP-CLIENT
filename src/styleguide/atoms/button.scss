@@ -1,4 +1,14 @@
-
+.p-button {
+  background: $color-gray-blue;
+  border: thin solid $color-gray-blue;
+  max-height: 35px;
+  font-size: 14px;
+  &:enabled:hover {
+    background: $color-gray-blue;
+    border: thin solid $color-gray-blue;
+    opacity: 0.9;
+  }
+}
 .btn-edit, .btn-done {
   background-color: $color-gray-3;
   border-color:  $color-gray-3;

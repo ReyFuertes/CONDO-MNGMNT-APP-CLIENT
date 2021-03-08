@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-import { ONBOARDINGMENUS } from 'src/app/shared/constants/menu';
+import { ONBOARDINGBREADCRUMBS } from 'src/app/shared/constants/breadcrumbs';
 import { ISimpleItem } from 'src/app/shared/generics/generic-model';
 
 @Component({
@@ -9,7 +9,7 @@ import { ISimpleItem } from 'src/app/shared/generics/generic-model';
   styleUrls: ['./dashboard-on-boarding.component.scss']
 })
 export class DashboardOnboardingComponent implements OnInit {
-  public breadCrumbItems: ISimpleItem[] = ONBOARDINGMENUS;
+  public breadCrumbItems: ISimpleItem[] = ONBOARDINGBREADCRUMBS;
   public settingItems: MenuItem[];
   public actionItems: MenuItem[];
 

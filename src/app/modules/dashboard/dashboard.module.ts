@@ -22,6 +22,12 @@ import { PaginatorModule } from 'primeng/paginator';
 import { DashboardRequestsTableHiddenComponent } from './dashboard-requests-table-hidden-row/dashboard-requests-table-hidden-row.component';
 import { MenuModule } from 'primeng/menu';
 import { TimelineModule } from 'primeng/timeline';
+import { DashboardHomeownersComponent } from './dashboard-homeowners/dashboard-homeowners.component';
+import { DashboardPaymentsComponent } from './dashboard-payments/dashboard-payments.component';
+import { DashboardDocumentsComponent } from './dashboard-documents/dashboard-documents.component';
+import { DashboardHomeownersTableComponent } from './dashboard-homeowners-table/dashboard-homeowners-table.component';
+import { TableModule } from 'primeng/table';
+import { InputTextModule } from 'primeng/inputtext';
 
 const routes: Routes = [
   {
@@ -35,6 +41,18 @@ const routes: Routes = [
       {
         path: 'requests/list',
         component: DashboardRequestsComponent
+      },
+      {
+        path: 'homeowners/list',
+        component: DashboardHomeownersComponent
+      },
+      {
+        path: 'payments/list',
+        component: DashboardPaymentsComponent
+      },
+      {
+        path: 'documents/list',
+        component: DashboardDocumentsComponent
       }
     ]
   }
@@ -48,7 +66,9 @@ const primeNgModules = [
   BreadcrumbModule,
   PaginatorModule,
   MenuModule,
-  TimelineModule
+  TimelineModule,
+  TableModule,
+  InputTextModule
 ];
 
 const materialModules = [
@@ -65,7 +85,11 @@ const materialModules = [
     DashboardPageComponent,
     DashboardRequestsComponent,
     DashboardRequestTableComponent,
-    DashboardRequestsTableHiddenComponent
+    DashboardRequestsTableHiddenComponent,
+    DashboardHomeownersComponent,
+    DashboardPaymentsComponent,
+    DashboardDocumentsComponent,
+    DashboardHomeownersTableComponent,
   ],
   imports: [
     CommonModule,
