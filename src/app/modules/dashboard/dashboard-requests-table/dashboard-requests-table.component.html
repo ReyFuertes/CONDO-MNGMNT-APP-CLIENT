@@ -27,15 +27,13 @@
       <td mat-cell *matCellDef="let element; let i = index" [attr.colspan]="columnsToDisplay.length" [ngClass]="{'expand-container': expandedElement}">
         <div class="element-detail" [@detailExpand]="(element == expandedElement || i === 0) ? 'expanded' : 'collapsed'">
           <div class="inner-container" fxLayout="row" fxLayoutAlign="start start">
-            <cma-dashboard-requests-table-hidden-row></cma-dashboard-requests-table-hidden-row>
+            <cma-dashboard-requests-table-hidden-row fxFlex></cma-dashboard-requests-table-hidden-row>
 
-            <div class="action-btns" fxFlex="11" fxLayout="column" fxLayoutAlign="end center" fxLayoutGap="5px">
-              <button pButton type="button" class="p-button-outlined p-button-rounded p-button-sm p-button-success" label="Approve">
-                <i class="pi pi-check"></i>
-              </button>
-              <button pButton type="button" class="p-button-outlined p-button-rounded p-button-sm p-button-danger" label="Decline">
-                <i class="pi pi-times"></i>
-              </button>
+            <div fxFlex="135px" class="actions-btns" fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="5px">
+              <span class="p-buttonset" styleClass="p-button-sm">
+                <button styleClass="p-button-sm" tooltipPosition="left" pTooltip="Done" pButton pRipple class="btn-done" icon="pi pi-check"></button>
+                <button styleClass="p-button-sm" tooltipPosition="top" pTooltip="Decline" pButton pRipple class="btn-remove" icon="pi pi-times"></button>
+              </span>
             </div>
           </div>
         </div>
@@ -47,7 +45,4 @@
     </tr>
     <tr mat-row *matRowDef="let row; columns: ['expandedDetail']; let i = index" class="detail-row"></tr>
   </table>
-
-
-
 </mat-card>

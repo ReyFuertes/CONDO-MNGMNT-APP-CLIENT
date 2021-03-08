@@ -62,6 +62,9 @@ img {
   width: 25px;
 }
 :host ::ng-deep {
+  .mat-expansion-panel-header.mat-expanded {
+    background-color: $color-blue-4 !important;
+  }
   .next-status {
     font-weight: bold;
     color: $color-black-1;
@@ -124,19 +127,17 @@ img {
     padding: 5px 10px;
     font-size: 12px;
   }
-  .actions-btns {
-    margin-bottom: 0 !important;
-    span.p-button-icon {
-      font-size: 12px;
-    }
+  .p-button.p-button-rounded {
+    min-width: 120px;
   }
   mat-expansion-panel.mat-expanded {
     border-left: thin $color-gray-2 solid;
   }
   .mat-expansion-panel-header {
-    padding: 20px;
+    padding: 20px 20px 20px 10px;
     max-height: 50px;
     min-height: 50px;
+    border-radius: 0;
   }
   .mat-expansion-panel-header-title {
     font-weight: 500;

@@ -1,4 +1,23 @@
 
+.btn-edit, .btn-done {
+  background-color: $color-gray-3;
+  border-color:  $color-gray-3;
+  color: $color-black-0;
+  &:hover {
+    background-color: $color-gray-2;
+    border-color:  $color-gray-2;
+    color: $color-black-0;
+  }
+}
+.btn-remove {
+  background-color: $color-red-1;
+  border-color: $color-red-1;
+  &:hover {
+    background-color: $color-red;
+    border-color: $color-red;
+    opacity: 0.9;
+  }
+}
 .p-button:disabled {
   cursor: not-allowed;
 }

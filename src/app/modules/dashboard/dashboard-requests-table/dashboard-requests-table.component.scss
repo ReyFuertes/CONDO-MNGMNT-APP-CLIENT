@@ -43,8 +43,14 @@ table {
 .action-btns {
   margin-top: 25px;
 }
-
 :host ::ng-deep {
+  .p-button {
+    padding: 5px 10px;
+    font-size: 12px;
+  }
+  .p-button.p-button-rounded {
+    min-width: 120px;
+  }
   td.cdk-column-description {
     span {
       line-height: 20px;
