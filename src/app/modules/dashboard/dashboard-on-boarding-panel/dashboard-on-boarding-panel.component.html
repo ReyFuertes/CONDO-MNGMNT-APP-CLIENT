@@ -19,15 +19,15 @@
     <div class="noselect" fxLayout="row" fxLayoutAlign="start start">
       <div class="content" fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="20px">
 
-        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
-          <p-timeline fxFlex [value]="onboardingStatus" layout="horizontal" align="bottom">
+        <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="20px">
+          <!-- <p-timeline fxFlex [value]="onboardingStatus" layout="horizontal" align="bottom">
             <ng-template pTemplate="content" let-status let-i="index">
               <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
                 <i *ngIf="status === onboardingStatus[getStatusIndex(boarder?.status) + 1]" class="pi pi-check"></i>
                 <span [ngClass]="{'next-status': status === onboardingStatus[getStatusIndex(boarder?.status) + 1]}">{{status}}</span>
               </div>
             </ng-template>
-          </p-timeline>
+          </p-timeline> -->
   
           <div fxFlex="135px" class="actions-btns" fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="5px">
             <span class="p-buttonset" styleClass="p-button-sm">

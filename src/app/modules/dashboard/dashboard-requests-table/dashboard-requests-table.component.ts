@@ -125,7 +125,9 @@ export class DashboardRequestTableComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.expandedElement = this.dataSource[0];
+   }
 
   public onExpand(element: any): void {
     this.expandedElement = this.expandedElement === element ? null : element

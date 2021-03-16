@@ -21,6 +21,9 @@
 .content {
   width: 100%;
   > div {
+    &:first-child {
+      margin-bottom: 0 !important;
+    }
     width: 100%;
     > div {
       &:nth-child(2) {
