@@ -1,0 +1,22 @@
+<div fxLayout="column" fxLayoutAlign="center center" class="login-container" fxLayoutGap="20px">
+  <mat-card>
+    <img [src]="svgPath + 'login.svg'" />
+    <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="20px">
+      <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="25px">
+        <div class="p-float-label">
+          <input id="float-input" type="text" pInputText>
+          <label for="float-input">Username</label>
+        </div>
+        <div class="p-float-label">
+          <input id="float-input" type="password" pInputText>
+          <label for="float-input">Password</label>
+        </div>
+      </div>
+      <div class="remember-me" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
+        <p-checkbox [(ngModel)]="isRememberMe" binary="true"></p-checkbox>
+        <span (click)="rememberMe()">Remember Me</span>
+      </div>
+      <button pButton type="button" label="LOGIN" ></button>
+    </div>
+  </mat-card>
+</div>
