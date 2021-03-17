@@ -6,15 +6,12 @@
           <div class="sel-chk" (click)="$event.stopPropagation()">
             <p-checkbox name="groupname"></p-checkbox>
           </div>
-          <img [src]="imgPath + 'sample-profile-pic.png'" />
           <span class="name">{{ boarder?.name }}</span>
         </div>
       </mat-panel-title>
       <mat-panel-description>
         <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="10px">
           <p-chip [pTooltip]="boarder?.status + ' Date: 10/10/2012 4:15:00 AM'" tooltipPosition="top" [label]="boarder?.status" [ngClass]="('chip-' + boarder?.status) | lowercase"></p-chip>
-          <img *ngIf="boarder?.type === onBoardingType[onBoardingType.individual]" [src]="svgPath + 'individual.svg'" pTooltip="Individual" />
-          <img *ngIf="boarder?.type === onBoardingType[onBoardingType.corporate]" [src]="svgPath + 'corporate.svg'" pTooltip="Corporate" />
         </div>
       </mat-panel-description>
     </mat-expansion-panel-header>
@@ -24,9 +21,9 @@
         <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="20px">
           <div fxFlex="135px" class="actions-btns" fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="5px">
             <span class="p-buttonset" styleClass="p-button-sm">
-              <button styleClass="p-button-sm" tooltipPosition="left" pTooltip="Done" pButton pRipple class="btn-done" icon="pi pi-check"></button>
-              <button styleClass="p-button-sm" tooltipPosition="top" pTooltip="Edit" pButton pRipple class="btn-edit" icon="pi pi-pencil"></button>
-              <button styleClass="p-button-sm" tooltipPosition="top" pTooltip="Remove" pButton pRipple class="btn-remove" icon="pi pi-trash"></button>
+              <button styleClass="p-button-sm" tooltipPosition="left" pTooltip="Done" pButton pRipple class="btn-done success" icon="pi pi-check"></button>
+              <button type="button" (click)="onEdit('12524b05-d8a2-4b1c-9c1f-79c321aa64d4')" styleClass="p-button-sm" tooltipPosition="top" pTooltip="Edit" pButton pRipple class="btn-edit default" icon="pi pi-pencil"></button>
+              <button styleClass="p-button-sm" tooltipPosition="top" pTooltip="Remove" pButton pRipple class="btn-remove danger" icon="pi pi-trash"></button>
             </span>
           </div>
         </div>

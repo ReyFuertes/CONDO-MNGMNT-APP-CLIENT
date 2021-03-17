@@ -1,19 +1,21 @@
+import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { map, take, takeUntil } from 'rxjs/operators';
 import { OccupantType } from 'src/app/models/onboarding.model';
-import { ISimpleItem } from 'src/app/shared/generics/generic-model';
-import * as _ from 'lodash';
-import { convertBlobToBase64 } from 'src/app/shared/util/convert-to-blob';
 import { GenericDestroyPageComponent } from 'src/app/shared/generics/generic-destroy';
-import { map, take, takeUntil, tap } from 'rxjs/operators';
+import { ISimpleItem } from 'src/app/shared/generics/generic-model';
+import { convertBlobToBase64 } from 'src/app/shared/util/convert-to-blob';
 import { v4 as uuid } from 'uuid';
+import * as _ from 'lodash';
+import { environment } from 'src/environments/environment';
 
 @Component({
-  selector: 'cma-on-boarding-detail',
-  templateUrl: './on-boarding-detail.component.html',
-  styleUrls: ['./on-boarding-detail.component.scss']
+  selector: 'cma-dashboard-onboarding-detail',
+  templateUrl: './dashboard-onboarding-detail.component.html',
+  styleUrls: ['./dashboard-onboarding-detail.component.scss']
 })
-export class OnboardingDetailComponent extends GenericDestroyPageComponent implements OnInit {
+export class DashboardOnboardingDetailComponent extends GenericDestroyPageComponent implements OnInit {
   public form: FormGroup;
   public options: ISimpleItem[] = [{
     label: 'Unit Owner',
@@ -90,6 +92,32 @@ export class OnboardingDetailComponent extends GenericDestroyPageComponent imple
     value: 'driverslicense'
   }];
   public files: File[] = [];
+  public svgPath: string = environment.svgPath;
+  public uploadDocuments: ISimpleItem[] = [{
+    label: 'Amenities Registration Form',
+    value: ''
+  }, {
+    label: 'Move-in Notice & Clearance Form',
+    value: ''
+  }, {
+    label: 'Residents Information Sheet',
+    value: ''
+  }, {
+    label: 'Vehicle Registration & Car Sticker Form',
+    value: ''
+  }, {
+    label: 'ID Card Application Form',
+    value: ''
+  }, {
+    label: 'Signature Information Card',
+    value: ''
+  }, {
+    label: 'Waiver',
+    value: ''
+  }, {
+    label: 'Contract',
+    value: ''
+  }];
 
   constructor(private fb: FormBuilder) {
     super();

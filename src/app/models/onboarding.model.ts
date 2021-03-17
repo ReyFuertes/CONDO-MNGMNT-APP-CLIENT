@@ -12,10 +12,11 @@ export enum ServiceType {
   Other = 'Other'
 }
 export enum MenuType {
+  Dashboard = 0,
   Onboarding = 1,
   Homeowners = 2,
   Requests = 3,
-  Payments = 4,
+  Invoices = 4,
   Documents = 5
 }
 export enum OccupantType {

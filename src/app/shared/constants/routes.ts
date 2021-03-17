@@ -1,5 +1,7 @@
-export const DASHBOARDONBOARDINGROUTE = '/dashboard/on-boarding/list';
-export const REQUESTSROUTE = '/dashboard/requests/list';
-export const PAYMENTSROUTE = '/dashboard/payments/list';
-export const HOMEOWNERSROUTE = '/dashboard/homeowners/list';
-export const DOCUMENTSROUTE = '/dashboard/documents/list';
+export const DASHBOARDROUTE = '/dashboard';
+export const DASHBOARDONBOARDINGROUTE = '/dashboard/on-boarding';
+export const DASHBOARDONBOARDINGLISTROUTE = '/dashboard/on-boarding/list';
+export const REQUESTSLISTROUTE = '/dashboard/requests/list';
+export const INVOICESLISTROUTE = '/dashboard/payments/list';
+export const HOMEOWNERSLISTROUTE = '/dashboard/homeowners/list';
+export const DOCUMENTSLISTROUTE = '/dashboard/documents/list';

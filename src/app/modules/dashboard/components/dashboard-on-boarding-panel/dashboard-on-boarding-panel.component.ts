@@ -1,8 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatAccordion } from '@angular/material/expansion';
+import { Router } from '@angular/router';
 import { OnBoardingType } from 'src/app/models/onboarding.model';
 import { ISimpleItem } from 'src/app/shared/generics/generic-model';
 import { environment } from 'src/environments/environment';
+import { DASHBOARDONBOARDINGROUTE } from 'src/app/shared/constants/routes';
 
 @Component({
   selector: 'cma-dashboard-on-boarding-panel',
@@ -76,10 +78,14 @@ export class DashboardOnboardingPanelComponent implements OnInit {
   }];
   public onboardingStatus: any[];
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
     this.onboardingStatus = ['Approved', 'Orientation', 'Move-In'];
+  }
+
+  public onEdit(id: string): void {
+    this.router.navigateByUrl(`${DASHBOARDONBOARDINGROUTE}/${id}/detail`);
   }
 
   public getStatusIndex(value: any): any {

@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { MegaMenuItem, MenuItem } from 'primeng/api';
 import { MenuType } from 'src/app/models/onboarding.model';
 import { environment } from 'src/environments/environment';
-import { DASHBOARDONBOARDINGROUTE, HOMEOWNERSROUTE, REQUESTSROUTE, DOCUMENTSROUTE, PAYMENTSROUTE } from '../../constants/routes';
+import { DASHBOARDROUTE, DASHBOARDONBOARDINGLISTROUTE, HOMEOWNERSLISTROUTE, REQUESTSLISTROUTE, DOCUMENTSLISTROUTE, INVOICESLISTROUTE } from '../../constants/routes';
 import { ISimpleItem } from '../../generics/generic-model';
 
 @Component({
@@ -50,39 +50,46 @@ export class CMATopNavComponent implements OnInit {
       { label: 'Logout', icon: 'pi pi-fw pi-lock' }
     ];
     this.menuItems = [{
+      id: JSON.stringify(MenuType.Dashboard),
+      label: 'Dashboard', icon: 'pi pi-fw pi-home',
+      command: (event) => {
+        localStorage.setItem('nav', JSON.stringify(MenuType.Dashboard));
+        this.router.navigateByUrl(DASHBOARDROUTE);
+      }
+    }, {
       id: JSON.stringify(MenuType.Onboarding),
       label: 'Onboarding', icon: 'pi pi-fw pi-home',
       command: (event) => {
         localStorage.setItem('nav', JSON.stringify(MenuType.Onboarding));
-        this.router.navigateByUrl(DASHBOARDONBOARDINGROUTE);
+        this.router.navigateByUrl(DASHBOARDONBOARDINGLISTROUTE);
       }
     }, {
       id: JSON.stringify(MenuType.Homeowners),
       label: 'Homeowners', icon: 'pi pi-fw pi-users',
       command: (event) => {
         localStorage.setItem('nav', JSON.stringify(MenuType.Homeowners));
-        this.router.navigateByUrl(HOMEOWNERSROUTE);
+        this.router.navigateByUrl(HOMEOWNERSLISTROUTE);
       }
     }, {
       id: JSON.stringify(MenuType.Requests),
       label: 'Requests', icon: 'pi pi-fw pi-comments',
       command: (event) => {
         localStorage.setItem('nav', JSON.stringify(MenuType.Requests));
-        this.router.navigateByUrl(REQUESTSROUTE);
+        this.router.navigateByUrl(REQUESTSLISTROUTE);
       }
     }, {
-      id: JSON.stringify(MenuType.Payments),
-      label: 'Payments', icon: 'pi pi-fw pi-wallet',
+      id: JSON.stringify(MenuType.Invoices),
+      label: 'Invoices', icon: 'pi pi-fw pi-book',
       command: (event) => {
-        localStorage.setItem('nav', JSON.stringify(MenuType.Payments));
-        this.router.navigateByUrl(PAYMENTSROUTE);
+        localStorage.setItem('nav', JSON.stringify(MenuType.Invoices));
+        this.router.navigateByUrl(INVOICESLISTROUTE);
       }
     }, {
       id: JSON.stringify(MenuType.Documents),
       label: 'Documents', icon: 'pi pi-fw pi-briefcase',
       command: (event) => {
         localStorage.setItem('nav', JSON.stringify(MenuType.Documents));
-        this.router.navigateByUrl(DOCUMENTSROUTE);
+        this.router.navigateByUrl(DOCUMENTSLISTROUTE);
       }
     }]
   }

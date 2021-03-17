@@ -28,6 +28,8 @@ import { DashboardHomeownersTableComponent } from './components/dashboard-homeow
 import { TableModule } from 'primeng/table';
 import { InputTextModule } from 'primeng/inputtext';
 import { DashboardContainerComponent } from './container/dashboard-container.component';
+import { DashboardOnboardingDetailComponent } from './components/dashboard-onboarding-detail/dashboard-onboarding-detail.component';
+import { MatTabsModule } from '@angular/material/tabs';
 
 const routes: Routes = [
   {
@@ -53,6 +55,10 @@ const routes: Routes = [
       {
         path: 'documents/list',
         component: DashboardDocumentsComponent
+      },
+      {
+        path: 'on-boarding/:id/detail',
+        component: DashboardOnboardingDetailComponent
       }
     ]
   }
@@ -75,7 +81,8 @@ const materialModules = [
   MatCardModule,
   MatExpansionModule,
   MatFormFieldModule,
-  MatTableModule
+  MatTableModule,
+  MatTabsModule
 ];
 
 @NgModule({
@@ -90,6 +97,7 @@ const materialModules = [
     DashboardPaymentsComponent,
     DashboardDocumentsComponent,
     DashboardHomeownersTableComponent,
+    DashboardOnboardingDetailComponent
   ],
   imports: [
     CommonModule,
