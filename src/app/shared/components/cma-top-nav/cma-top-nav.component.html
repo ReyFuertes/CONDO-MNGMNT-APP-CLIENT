@@ -1,6 +1,13 @@
 <div class="topnav-container">
-  <p-megaMenu fxFlex [ngClass]="{'onboarding': isOnboarding, 'homeowners': isHomeOwners, 'requests': isRequests, 'payments': isPayments}" [model]="menuItems">
-  </p-megaMenu>
+  <div class="menus" fxFlex fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
+    <div *ngFor="let menu of menuItems">
+      <div class="menu-item" (click)="menu?.command($event)" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px" [ngClass]="{'is-active': isActive(menu?.id)}">
+        <i [ngClass]="menu?.icon"></i>
+        <div>{{ menu?.label }}</div>
+      </div>
+      <div class="underlined"></div>
+    </div>
+  </div>
   <div class="user-panel no-select" fxFlex="400px" fxLayoutAlign="end center" fxLayoutGap="25px">
     <i (click)="op.toggle($event)" class="pi pi-bell p-mr-4 p-text-secondary" pBadge style="font-size: 1.5rem" [value]="'10+'" severity="danger"></i>
     <i class="pi pi-comment p-mr-4 p-text-secondary" pBadge style="font-size: 1.5rem" [value]="'20+'"></i>

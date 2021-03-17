@@ -1,4 +1,7 @@
 @import "src/styleguide/index";
+.page-container {
+  @include page-container;
+}
 :host {
   width: 100%;
 }

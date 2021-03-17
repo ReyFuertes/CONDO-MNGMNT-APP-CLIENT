@@ -16,9 +16,9 @@ table {
 .inner-container {
   min-height: 170px;
   width: 100%;
-  border-top: thin $color-gray-3 solid;
   background-color: $color-gray-4;
   padding: 15px;
+  //border-top: thin $color-gray-3 solid;
 }
 .delivery-type {
   background-color: $color-violet-1;
@@ -44,9 +44,6 @@ table {
   margin-top: 25px;
 }
 :host ::ng-deep {
-  mat-row, mat-header-row, mat-footer-row, th.mat-header-cell, td.mat-cell, td.mat-footer-cell {
-    border-bottom-color: rgba(0,0,0,.05);
-  }
   .p-button {
     padding: 5px 10px;
     font-size: 12px;
@@ -75,7 +72,17 @@ table {
     font-weight: 700;
   }
   tr.expanded-row {
-    background-color: $color-blue-4 !important;
+    mat-row, mat-header-row, mat-footer-row, th.mat-header-cell, td.mat-cell, td.mat-footer-cell {
+      border-bottom-color: $color-gray-blue;
+    }
+    td:first-child {
+      border-left: 2px $color-gray-blue solid;
+      border-radius: 0;
+    }
+  }
+  td.cdk-column-expandedDetail {
+    border-left: 2px $color-gray-blue solid !important;
+    border-radius: 0;
   }
   th.mat-header-cell:first-of-type, td.mat-cell:first-of-type, td.mat-footer-cell:first-of-type {
     padding-left: 0;

@@ -45,62 +45,35 @@
     margin-left: -18px !important;
   }
 }
+.menus {
+  background-color: $color-gray-blue;
+  color: $color-white;
+  height: 58px;
+  padding-left: 30px;
+  .menu-item {
+    cursor: pointer;
+    height: 58px;
+    padding: 0 10px;
+  }
+}
+.underlined {
+  height: 3px;
+  background-color: transparent;
+  position: relative;
+  top: -2px;
+}
+.is-active ~ .underlined {
+  background-color: $color-gray-2 !important;
+}
 :host ::ng-deep {
   .p-badge {
     font-size: 0.7rem;
     height: 1.2rem;
     line-height: 1.3rem;
   }
-  .p-megamenu-root-list li {
-    outline: none;
-  }
-  .p-megamenu .p-megamenu-root-list > .p-menuitem > .p-menuitem-link:not(.p-disabled):hover .p-menuitem-text {
-    color: $color-white;
-  }
-  .p-megamenu .p-megamenu-root-list > .p-menuitem > .p-menuitem-link:not(.p-disabled):hover .p-menuitem-icon {
-    color: $color-white;
-  }
-  .p-megamenu .p-megamenu-root-list > .p-menuitem > .p-menuitem-link:not(.p-disabled):hover {
-    background-color: #7a99a8;
-    color: $color-white;
-  }
-  .p-megamenu-root-list li {
-    margin-right: 5px;
-  }
-  .onboarding .p-menuitem {
-    &:first-child {
-      border-radius: 2px;
-      background-color: $color-gray-5;
-      span.p-menuitem-text, span.p-menuitem-icon {
-        color: $color-black-1 !important;
-      }
-    }
-  }
-  .homeowners .p-menuitem {
-    &:nth-child(2) {
-      border-radius: 2px;
-      background-color: $color-gray-3;
-      span.p-menuitem-text, span.p-menuitem-icon {
-        color: $color-black-1 !important;
-      }
-    }
-  }
-  .requests .p-menuitem {
+  .payments, .requests, .homeowners, .onboarding {
     &:nth-child(3) {
-      border-radius: 2px;
-      background-color: $color-gray-5;
-      span.p-menuitem-text, span.p-menuitem-icon {
-        color: $color-black-1 !important;
-      }
-    }
-  }
-  .payments .p-menuitem {
-    &:nth-child(4) {
-      border-radius: 2px;
-      background-color: $color-gray-5;
-      span.p-menuitem-text, span.p-menuitem-icon {
-        color: $color-black-1 !important;
-      }
+      border-bottom: 2px $color-gray-3 solid;
     }
   }
   .p-megamenu .p-megamenu-root-list > .p-menuitem > .p-menuitem-link {

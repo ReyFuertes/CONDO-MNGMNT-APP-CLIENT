@@ -65,8 +65,9 @@ img {
   width: 25px;
 }
 :host ::ng-deep {
-  .mat-expansion-panel-header.mat-expanded {
-    background-color: $color-blue-4 !important;
+  .mat-accordion .mat-expansion-panel:first-of-type {
+    border-top-right-radius: 2px;
+    border-top-left-radius: 2px;
   }
   .next-status {
     font-weight: bold;
@@ -116,7 +117,7 @@ img {
     min-width: 120px;
   }
   mat-expansion-panel.mat-expanded {
-    border-left: thin $color-gray-2 solid;
+    border-left: 2px $color-gray-blue solid;
   }
   .mat-expansion-panel-header {
     padding: 20px 20px 20px 10px;

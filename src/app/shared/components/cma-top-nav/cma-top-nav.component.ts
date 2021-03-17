@@ -50,30 +50,35 @@ export class CMATopNavComponent implements OnInit {
       { label: 'Logout', icon: 'pi pi-fw pi-lock' }
     ];
     this.menuItems = [{
+      id: JSON.stringify(MenuType.Onboarding),
       label: 'Onboarding', icon: 'pi pi-fw pi-home',
       command: (event) => {
         localStorage.setItem('nav', JSON.stringify(MenuType.Onboarding));
         this.router.navigateByUrl(DASHBOARDONBOARDINGROUTE);
       }
     }, {
+      id: JSON.stringify(MenuType.Homeowners),
       label: 'Homeowners', icon: 'pi pi-fw pi-users',
       command: (event) => {
         localStorage.setItem('nav', JSON.stringify(MenuType.Homeowners));
         this.router.navigateByUrl(HOMEOWNERSROUTE);
       }
     }, {
+      id: JSON.stringify(MenuType.Requests),
       label: 'Requests', icon: 'pi pi-fw pi-comments',
       command: (event) => {
         localStorage.setItem('nav', JSON.stringify(MenuType.Requests));
         this.router.navigateByUrl(REQUESTSROUTE);
       }
     }, {
+      id: JSON.stringify(MenuType.Payments),
       label: 'Payments', icon: 'pi pi-fw pi-wallet',
       command: (event) => {
         localStorage.setItem('nav', JSON.stringify(MenuType.Payments));
         this.router.navigateByUrl(PAYMENTSROUTE);
       }
     }, {
+      id: JSON.stringify(MenuType.Documents),
       label: 'Documents', icon: 'pi pi-fw pi-briefcase',
       command: (event) => {
         localStorage.setItem('nav', JSON.stringify(MenuType.Documents));
@@ -82,19 +87,7 @@ export class CMATopNavComponent implements OnInit {
     }]
   }
 
-  public get isHomeOwners(): boolean {
-    return Number(JSON.parse(localStorage.getItem('nav'))) === MenuType.Homeowners;
-  }
-
-  public get isOnboarding(): boolean {
-    return Number(JSON.parse(localStorage.getItem('nav'))) === MenuType.Onboarding;
-  }
-
-  public get isRequests(): boolean {
-    return Number(JSON.parse(localStorage.getItem('nav'))) === MenuType.Requests;
-  }
-
-  public get isPayments(): boolean {
-    return Number(JSON.parse(localStorage.getItem('nav'))) === MenuType.Payments;
+  public isActive(id: string): boolean {
+    return Number(JSON.parse(localStorage.getItem('nav'))) === Number(id);
   }
 }

@@ -7,5 +7,9 @@
 @import './atoms/chip';
 @import './atoms/paginator';
 @import './atoms/dropdown';
-@import './atoms/table';
 @import './atoms/input';
+
+@import './molecules/panel';
+@import './molecules/table';
+
+@import './organisms/page';

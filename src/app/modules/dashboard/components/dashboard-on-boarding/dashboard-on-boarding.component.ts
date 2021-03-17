@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
+import { MenuType } from 'src/app/models/onboarding.model';
 import { ONBOARDINGBREADCRUMBS } from 'src/app/shared/constants/breadcrumbs';
+import { GenericContainer } from 'src/app/shared/generics/generic-container';
 import { ISimpleItem } from 'src/app/shared/generics/generic-model';
 
 @Component({
@@ -8,14 +10,15 @@ import { ISimpleItem } from 'src/app/shared/generics/generic-model';
   templateUrl: './dashboard-on-boarding.component.html',
   styleUrls: ['./dashboard-on-boarding.component.scss']
 })
-export class DashboardOnboardingComponent implements OnInit {
+export class DashboardOnboardingComponent extends GenericContainer implements OnInit {
   public breadCrumbItems: ISimpleItem[] = ONBOARDINGBREADCRUMBS;
   public settingItems: MenuItem[];
   public actionItems: MenuItem[];
 
-  constructor() { }
+  constructor() { 
+    super();
+    localStorage.setItem('nav', JSON.stringify(MenuType.Onboarding));
 
-  ngOnInit(): void {
     this.settingItems = [
       {
         label: 'Move To',

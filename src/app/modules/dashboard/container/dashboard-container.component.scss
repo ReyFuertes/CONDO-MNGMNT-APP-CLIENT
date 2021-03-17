@@ -1,5 +1,7 @@
 @import "src/styleguide/index";
-
+.page-container {
+  @include page-container;
+}
 :host ::ng-deep {
   .dashboard-page-container {
     background-color: $color-white-1;
