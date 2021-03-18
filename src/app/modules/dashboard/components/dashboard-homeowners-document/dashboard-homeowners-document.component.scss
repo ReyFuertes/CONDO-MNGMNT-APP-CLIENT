@@ -1,0 +1,18 @@
+
+@import "src/styleguide/index";
+:host {
+  width: 100%;
+}
+.document-thumb {
+  font-size: 12px;
+  border: thin $color-gray-2 solid;
+  border-radius: 2px;
+  background-color: $color-gray-3;
+  padding: 5px;
+  margin-bottom: 5px;
+  cursor: pointer;
+  img {
+    width: 25px;
+    height: 25px;
+  }
+}

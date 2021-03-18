@@ -1,0 +1,76 @@
+
+@import "src/styleguide/index";
+:host {
+  width: 100%;
+}
+div {
+  width: 100%;
+}
+.pi-thumb {
+  > div:not(.upload-thumb) {
+    border-bottom: thin $color-gray-3 solid;
+    height: 35px;
+    padding-bottom: 0;
+    width: 100%;
+    span {
+      &:nth-child(1) {
+        font-weight: 500;
+        font-size: 12px;
+        color: $color-black-3;
+      }
+      &:nth-child(2) {
+        font-weight: 400;
+        font-size: 12px;
+        color: $color-black-1;
+      }
+    }
+  }
+}
+.upload-side-text {
+  height: 130px !important;
+  border-bottom: none !important;
+}
+.personal-info-container {
+  > div {
+    height: 30px;
+    width: 120px;
+  }
+}
+.content-title {
+  font-weight: 500;
+}
+.upload-thumb {
+  > div {
+    height: 120px !important;
+    width: 120px;
+    border: thin $color-gray-2 dashed;
+    border-radius: 2px;
+    background-color: $color-gray-3;
+    text-align: center;
+    flex-direction: column;
+    box-sizing: border-box;
+    display: flex;
+    place-content: center;
+    align-items: center;
+    margin-bottom: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+  }
+  flex-direction: column;
+  box-sizing: border-box;
+  display: flex;
+  place-content: center;
+  align-items: center;
+  max-width: 120px;
+  width: 120px;
+  margin-right: 20px;
+  text-align: center;
+  span {
+    font-size: 12px;
+  }
+  img {
+    height: 25px;
+    width: 25px;
+    margin-bottom: 10px;
+  }
+}

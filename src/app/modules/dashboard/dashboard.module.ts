@@ -24,12 +24,13 @@ import { TimelineModule } from 'primeng/timeline';
 import { DashboardHomeownersComponent } from './components/dashboard-homeowners/dashboard-homeowners.component';
 import { DashboardPaymentsComponent } from './components/dashboard-payments/dashboard-payments.component';
 import { DashboardDocumentsComponent } from './components/dashboard-documents/dashboard-documents.component';
-import { DashboardHomeownersTableComponent } from './components/dashboard-homeowners-table/dashboard-homeowners-table.component';
 import { TableModule } from 'primeng/table';
 import { InputTextModule } from 'primeng/inputtext';
 import { DashboardContainerComponent } from './container/dashboard-container.component';
 import { DashboardOnboardingDetailComponent } from './components/dashboard-onboarding-detail/dashboard-onboarding-detail.component';
 import { MatTabsModule } from '@angular/material/tabs';
+import { DashboardHomeownersInfoComponent } from './components/dashboard-homeowners-info/dashboard-homeowners-info.component';
+import { DashboardHomeownersDocumentComponent } from './components/dashboard-homeowners-document/dashboard-homeowners-document.component';
 
 const routes: Routes = [
   {
@@ -55,6 +56,10 @@ const routes: Routes = [
       {
         path: 'documents/list',
         component: DashboardDocumentsComponent
+      },
+      {
+        path: 'homeowners',
+        component: DashboardHomeownersComponent
       },
       {
         path: 'on-boarding/:id/detail',
@@ -96,8 +101,9 @@ const materialModules = [
     DashboardHomeownersComponent,
     DashboardPaymentsComponent,
     DashboardDocumentsComponent,
-    DashboardHomeownersTableComponent,
-    DashboardOnboardingDetailComponent
+    DashboardOnboardingDetailComponent,
+    DashboardHomeownersInfoComponent,
+    DashboardHomeownersDocumentComponent
   ],
   imports: [
     CommonModule,

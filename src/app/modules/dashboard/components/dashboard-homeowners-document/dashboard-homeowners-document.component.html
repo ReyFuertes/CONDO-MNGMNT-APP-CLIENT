@@ -1,0 +1,7 @@
+<!-- documents -->
+<div fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="5px">
+  <div *ngFor="let document of uploadDocuments" class="document-thumb" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="5px">
+    <img [src]="svgPath + 'word.svg'" />
+    <span>{{ document?.label }}</span>
+  </div>
+</div>

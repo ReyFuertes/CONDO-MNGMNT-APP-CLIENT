@@ -1,19 +1,32 @@
-
-<div fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="5px">
-  <div class="breadcrumb-container" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
-    <cma-breadcrumb fxFlex [items]="breadCrumbItems"></cma-breadcrumb>
-    <div class="settings" fxFlex="100px" fxLayout="row" fxLayoutAlign="end center">
-      <i pTooltip="Refresh" tooltipPosition="top" class="pi pi-refresh"></i>
-      <i pTooltip="Actions" tooltipPosition="top" (click)="menu.toggle($event)" class="pi pi-cog"></i>
-      <p-menu #menu [popup]="true" [model]="settingItems"></p-menu>
+<mat-accordion>
+  <mat-expansion-panel *ngFor="let boarder of homeowners; let i = index" [expanded]="i === 0">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+          <img [src]="imgPath + 'sample-profile-pic.png'" />
+          <span class="name">{{ boarder?.name }}</span>
+        </div>
+      </mat-panel-title>
+      <mat-panel-description>
+        <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="10px">
+          <p-chip [pTooltip]="boarder?.status + ' Date: 10/10/2012 4:15:00 AM'" tooltipPosition="top" [label]="boarder?.status" [ngClass]="('chip-' + boarder?.status) | lowercase"></p-chip>
+        </div>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <div class="noselect" fxLayout="row" fxLayoutAlign="start start">
+      <div class="content" fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="20px">
+        <mat-tab-group>
+          <mat-tab label="Personal Information">
+            <cma-dashboard-homeowners-info></cma-dashboard-homeowners-info>
+          </mat-tab>
+          <mat-tab label="Documents">
+            <cma-dashboard-homeowners-document></cma-dashboard-homeowners-document>
+          </mat-tab>
+          <mat-tab label="Payments">
+          </mat-tab>
+        </mat-tab-group>
+      </div>
+      <div></div>
     </div>
-  </div>
-  <div class="panel-actions">
-    <div fxFlex fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="10px">
-      <cma-input-search fxFlex="70"></cma-input-search>
-      <cma-multi-select fxFlex></cma-multi-select>
-    </div>
-    <p-paginator [rows]="10" [totalRecords]="120" [rowsPerPageOptions]="[10,20,30]"></p-paginator>
-  </div>
-  <cma-dashboard-homeowners-table></cma-dashboard-homeowners-table>
-</div>
+  </mat-expansion-panel>
+</mat-accordion>

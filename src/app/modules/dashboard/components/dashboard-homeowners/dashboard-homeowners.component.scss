@@ -2,46 +2,114 @@
 :host {
   width: 100%;
 }
-.panel-actions {
+.sel-chk {
+  padding: 0 3px;
+}
+.content {
   width: 100%;
-}
-.settings i {
-  cursor: pointer;
-}
-.pi-refresh {
-  margin-right: 10px;
-  font-size: 15px;
-  font-weight: bold;
-  width: 25px;
-  &:hover {
-    color: $color-blue;
+  min-height: 450px;
+  > div {
+    &:first-child {
+      margin-bottom: 0 !important;
+    }
+    width: 100%;
+    > div {
+      &:nth-child(2) {
+        padding-left: 5px;
+      }
+    }
   }
 }
-.pi-cog {
-  font-size: 20px;
+img {
+  height: 25px;
   width: 25px;
-  &:hover {
-    color: $color-blue;
-  }
-}
-div {
-  width: 100%;
-}
-.breadcrumb-container {
-  height: 30px !important;
-  margin-bottom: 0 !important;
 }
 :host ::ng-deep {
-  .p-paginator .p-paginator-pages .p-paginator-page {
-    margin: 0;
+  .mat-tab-body-wrapper {
+    min-height: 400px;
+}
+  .mat-tab-body-content {
+    padding: 20px 0;
   }
-  li.p-megamenu-root-list>.p-menuitem {
-    background-color: $color-gray-3 !important;
-  }
-  .p-inputtext, .p-input-icon-left, .p-input-icon-right {
+  .mat-tab-group {
     width: 100%;
   }
-  .p-multiselect {
-    min-width: 300px;
+  .mat-accordion .mat-expansion-panel:first-of-type {
+    border-top-right-radius: 2px;
+    border-top-left-radius: 2px;
+  }
+  .next-status {
+    font-weight: bold;
+    color: $color-black-1;
+  }
+  .p-timeline-event {
+    &:nth-child(1) {
+      .p-timeline-event-marker {
+        border: 2px solid $color-green-3;
+        background-color: $color-green-3;
+      }
+    }
+    &:not(:nth-child(1)) {
+      .p-timeline-event-marker {
+        border: 2px solid #CCC;
+      }
+    }
+    &:last-child {
+      width: 17px;
+      .p-timeline-event-content {
+        left: -67px;
+        position: relative;
+      }
+    }
+  }
+  .p-timeline.p-timeline-horizontal .p-timeline-event-opposite, .p-timeline.p-timeline-horizontal .p-timeline-event-content {
+    font-size: 12px;
+    padding: 0;
+    min-width: 85px;
+    color: $color-gray-2;
+  }
+  p-timeline {
+    width: 100%;
+  }
+  .p-timeline-event {
+    min-height: 40px;
+  }
+  .mat-expansion-panel-header.mat-expanded:focus, .mat-expansion-panel-header.mat-expanded:hover {
+    background: rgba(0,0,0,.04);
+  } 
+  
+  .p-button {
+    padding: 10px;
+    font-size: 12px;
+  }
+  .p-button.p-button-rounded {
+    min-width: 120px;
+  }
+  mat-expansion-panel.mat-expanded {
+    border-left: 2px $color-gray-blue solid;
+  }
+  .mat-expansion-panel-header {
+    padding: 20px 20px 20px 10px;
+    max-height: 50px;
+    min-height: 50px;
+    border-radius: 0;
+  }
+  .mat-expansion-panel-header-title {
+    font-weight: 500;
+    font-family: 'Poppins', sans-serif;
+    span.name {
+      font-weight: 500;
+    }
+  }
+  .mat-expansion-panel-body {
+    background-color: $color-gray-4;
+    padding: 15px 20px 20px 20px;
+    border-top: thin $color-gray-3 solid;
+    > div {
+      width: 100%;
+    }
+  }
+  mat-panel-description div {
+    width: 100%;
   }
 }
