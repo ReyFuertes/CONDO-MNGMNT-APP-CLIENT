@@ -12,7 +12,11 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
-img {
+img.icon {
   height: 20px;
   width: 20px;
+}
+img.preview {
+  width: auto;
+  height: 300px;
 }

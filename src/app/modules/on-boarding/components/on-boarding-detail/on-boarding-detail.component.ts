@@ -110,6 +110,7 @@ export class OnboardingDetailComponent extends GenericDestroyPageComponent imple
       personalIdType: [null],
       personalIdNo: [null],
       personalUploadedIdFile: [null],
+      personalUploadedFilePreview: [null],
       spouseLastname: [null],
       spouseFirstname: [null],
       spouseMiddlename: [null],
@@ -122,7 +123,8 @@ export class OnboardingDetailComponent extends GenericDestroyPageComponent imple
       spouseBusEmail: [null],
       spouseIdType: [null],
       spouseIdNo: [null],
-      spouseUploadedIdFile: [null]
+      spouseUploadedIdFile: [null],
+      spouseUploadedFilePreview: [null]
     });
   }
 
@@ -152,8 +154,22 @@ export class OnboardingDetailComponent extends GenericDestroyPageComponent imple
           mimetype: file.type
         }
       })).subscribe((b64Image) => {
+        if(formName === 'personalUploadedIdFile') {
+          this.form.get('personalUploadedFilePreview').patchValue(b64Image?.image);
+        } else if(formName === 'spouseUploadedIdFile') {
+          this.form.get('spouseUploadedFilePreview').patchValue(b64Image?.image);
+        }
+
         this.form.get(formName).patchValue(b64Image);
       });
+  }
+
+  public get getPersonalUploadedFilePreview(): any {
+    return this.form.get('personalUploadedFilePreview')?.value;
+  }
+
+  public get getSpouseUploadedFilePreview(): any {
+    return this.form.get('spouseUploadedFilePreview')?.value;
   }
 
   public getImagePreview(formName: string): any {

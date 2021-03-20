@@ -138,6 +138,7 @@ export class DashboardOnboardingDetailComponent extends GenericDestroyPageCompon
       personalIdType: [null],
       personalIdNo: [null],
       personalUploadedIdFile: [null],
+      personalUploadedFilePreview: [null],
       spouseLastname: [null],
       spouseFirstname: [null],
       spouseMiddlename: [null],
@@ -150,7 +151,8 @@ export class DashboardOnboardingDetailComponent extends GenericDestroyPageCompon
       spouseBusEmail: [null],
       spouseIdType: [null],
       spouseIdNo: [null],
-      spouseUploadedIdFile: [null]
+      spouseUploadedIdFile: [null],
+      spouseUploadedFilePreview: [null]
     });
   }
 
@@ -167,8 +169,11 @@ export class DashboardOnboardingDetailComponent extends GenericDestroyPageCompon
     this.onConvertBlobToBase64(event, file, 'personalUploadedIdFile');
   }
 
+  public get getPersonalUploadedFile(): any {
+    return this.form.get('personalUploadedFilePreview')?.value;
+  }
+
   private onConvertBlobToBase64(event: any, file: any, formName: string): any {
-    /* collect all drop images in base64 results */
     convertBlobToBase64(event).pipe(take(1),
       takeUntil(this.$unsubscribe),
       map(b64Result => {
@@ -180,6 +185,11 @@ export class DashboardOnboardingDetailComponent extends GenericDestroyPageCompon
           mimetype: file.type
         }
       })).subscribe((b64Image) => {
+        if(formName === 'personalUploadedIdFile') {
+          this.form.get('personalUploadedFilePreview').patchValue(b64Image?.image);
+        } else if(formName === 'spouseUploadedIdFile') {
+          this.form.get('spouseUploadedFilePreview').patchValue(b64Image?.image);
+        }
         this.form.get(formName).patchValue(b64Image);
       });
   }

@@ -1,5 +1,5 @@
 <div class="detail-container" fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="20px">
-  <h2>Unit Detail</h2>
+  <h2>Homeowner</h2>
 
   <div class="header-content" fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="20px">
     <div class="w-100" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="15px">
@@ -32,7 +32,7 @@
 
           <cma-dropdown [options]="IdTypeOptions" placeholder="ID Type"></cma-dropdown>
           <cma-input label="ID No."></cma-input>
-          <cma-upload (fileEmitter)="onPersonalImageChange($event)" [fileName]="getImagePreview('personalUploadedIdFile')"></cma-upload>
+          <cma-upload [preview]="getPersonalUploadedFilePreview" (fileEmitter)="onPersonalImageChange($event)" [fileName]="getImagePreview('personalUploadedIdFile')"></cma-upload>
         </div>
       </div>
     </div>
@@ -57,7 +57,7 @@
           <cma-input label="Bus. Email"></cma-input>
           <cma-dropdown [options]="IdTypeOptions" placeholder="ID Type"></cma-dropdown>
           <cma-input label="ID No."></cma-input>
-          <cma-upload (fileEmitter)="onSpouseImageChange($event)"  [fileName]="getImagePreview('spouseUploadedIdFile')"></cma-upload>
+          <cma-upload [preview]="getSpouseUploadedFilePreview" (fileEmitter)="onSpouseImageChange($event)"  [fileName]="getImagePreview('spouseUploadedIdFile')"></cma-upload>
         </div>
       </div>
     </div>

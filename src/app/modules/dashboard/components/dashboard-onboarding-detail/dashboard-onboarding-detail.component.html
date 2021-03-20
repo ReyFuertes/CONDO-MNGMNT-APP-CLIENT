@@ -52,7 +52,7 @@
 
             <cma-dropdown [options]="IdTypeOptions" placeholder="ID Type"></cma-dropdown>
             <cma-input label="ID No."></cma-input>
-            <cma-upload (fileEmitter)="onPersonalImageChange($event)" [fileName]="getImagePreview('personalUploadedIdFile')"></cma-upload>
+            <cma-upload (fileEmitter)="onPersonalImageChange($event)" [preview]="getPersonalUploadedFile" [fileName]="getImagePreview('personalUploadedIdFile')"></cma-upload>
           </div>
         </div>
       </div>

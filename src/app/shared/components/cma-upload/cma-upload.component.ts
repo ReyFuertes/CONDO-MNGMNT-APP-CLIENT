@@ -8,6 +8,7 @@ import { environment } from 'src/environments/environment';
 })
 export class CMAUploadComponent implements OnInit {
   @Input() fileName: string;
+  @Input() preview: any;
   @Output() public fileEmitter = new EventEmitter<File>();
 
   public svgPath: string = environment.svgPath;
@@ -15,6 +16,10 @@ export class CMAUploadComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void { }
+
+  public get getImagePreview(): any {
+    return this.preview;
+  }
 
   public onUpload = ($event: any): void => this.fileEmitter.emit($event.target.files[0]);
 }
