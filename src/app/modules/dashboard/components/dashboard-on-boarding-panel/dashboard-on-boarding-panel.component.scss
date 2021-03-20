@@ -32,38 +32,6 @@
     }
   }
 }
-.pi-thumb {
-  > div {
-    border-bottom: thin $color-gray-3 solid;
-    height: 35px;
-    padding-bottom: 5px;
-    span {
-      &:nth-child(1) {
-        font-weight: 500;
-        font-size: 12px;
-        color: $color-black-3;
-      }
-      &:nth-child(2) {
-        font-weight: 400;
-        font-size: 12px;
-        color: $color-black-1;
-      }
-    }
-  }
-}
-.content-title {
-  font-weight: 500;
-}
-.personal-info-container {
-  > div {
-    height: 30px;
-    width: 120px;
-  }
-}
-img {
-  height: 25px;
-  width: 25px;
-}
 :host ::ng-deep {
   .mat-accordion .mat-expansion-panel:first-of-type {
     border-top-right-radius: 2px;
@@ -73,42 +41,9 @@ img {
     font-weight: bold;
     color: $color-black-1;
   }
-  .p-timeline-event {
-    &:nth-child(1) {
-      .p-timeline-event-marker {
-        border: 2px solid $color-green-3;
-        background-color: $color-green-3;
-      }
-    }
-    &:not(:nth-child(1)) {
-      .p-timeline-event-marker {
-        border: 2px solid #CCC;
-      }
-    }
-    &:last-child {
-      width: 17px;
-      .p-timeline-event-content {
-        left: -67px;
-        position: relative;
-      }
-    }
-  }
-  .p-timeline.p-timeline-horizontal .p-timeline-event-opposite, .p-timeline.p-timeline-horizontal .p-timeline-event-content {
-    font-size: 12px;
-    padding: 0;
-    min-width: 85px;
-    color: $color-gray-2;
-  }
-  p-timeline {
-    width: 100%;
-  }
-  .p-timeline-event {
-    min-height: 40px;
-  }
   .mat-expansion-panel-header.mat-expanded:focus, .mat-expansion-panel-header.mat-expanded:hover {
     background: rgba(0,0,0,.04);
   } 
-  
   .p-button {
     padding: 10px;
     font-size: 12px;

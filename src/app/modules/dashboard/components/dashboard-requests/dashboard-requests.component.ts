@@ -18,6 +18,7 @@ export class DashboardRequestsComponent extends GenericContainer implements OnIn
   constructor() {
     super();
     localStorage.setItem('nav', JSON.stringify(MenuType.Requests));
+    
     this.settingItems = [
       {
         label: 'Move To',

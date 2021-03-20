@@ -3,6 +3,9 @@
 :host {
   width: 100%;
 }
+.document-container {
+  width: 100%;
+}
 .document-thumb {
   font-size: 12px;
   border: thin $color-gray-2 solid;
@@ -14,5 +17,51 @@
   img {
     width: 25px;
     height: 25px;
+  }
+}
+.document-content {
+  margin-bottom: 20px;
+  overflow: hidden;
+  width: 100%;
+  > div {
+    width: 100%;
+  }
+}
+.document-container {
+  margin-bottom: 0 !important;
+}
+.upload-thumb {
+  > div {
+    height: 120px;
+    width: 120px;
+    border: thin $color-gray-2 dashed;
+    border-radius: 2px;
+    background-color: $color-gray-3;
+    text-align: center;
+    flex-direction: column;
+    box-sizing: border-box;
+    display: flex;
+    place-content: center;
+    align-items: center;
+    margin-bottom: 5px;
+    cursor: pointer;
+  }
+  flex-direction: column;
+  box-sizing: border-box;
+  display: flex;
+  place-content: center;
+  align-items: center;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  max-width: 120px;
+  width: 120px;
+  text-align: center;
+  span {
+    font-size: 12px;
+  }
+  img {
+    height: 25px;
+    width: 25px;
+    margin-bottom: 10px;
   }
 }

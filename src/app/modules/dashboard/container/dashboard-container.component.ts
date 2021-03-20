@@ -6,9 +6,7 @@ import { GenericContainer } from 'src/app/shared/generics/generic-container';
   templateUrl: './dashboard-container.component.html',
   styleUrls: ['./dashboard-container.component.scss']
 })
-export class DashboardContainerComponent implements OnInit {
+export class DashboardContainerComponent  {
   constructor() { 
   }
-
-  ngOnInit(): void { }
 }

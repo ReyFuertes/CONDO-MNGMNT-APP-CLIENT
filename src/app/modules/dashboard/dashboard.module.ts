@@ -31,6 +31,8 @@ import { DashboardOnboardingDetailComponent } from './components/dashboard-onboa
 import { MatTabsModule } from '@angular/material/tabs';
 import { DashboardHomeownersInfoComponent } from './components/dashboard-homeowners-info/dashboard-homeowners-info.component';
 import { DashboardHomeownersDocumentComponent } from './components/dashboard-homeowners-document/dashboard-homeowners-document.component';
+import { DashboardOnboardingPanelDocumentComponent } from './components/dashboard-on-boarding-panel-document/dashboard-on-boarding-panel-document.component';
+import { DashboardOnboardingPanelContentComponent } from './components/dashboard-on-boarding-panel-content/dashboard-on-boarding-panel-content.component';
 
 const routes: Routes = [
   {
@@ -103,7 +105,10 @@ const materialModules = [
     DashboardDocumentsComponent,
     DashboardOnboardingDetailComponent,
     DashboardHomeownersInfoComponent,
-    DashboardHomeownersDocumentComponent
+    DashboardHomeownersDocumentComponent,
+    DashboardOnboardingPanelDocumentComponent,
+    DashboardOnboardingPanelContentComponent,
+    DashboardOnboardingPanelContentComponent
   ],
   imports: [
     CommonModule,

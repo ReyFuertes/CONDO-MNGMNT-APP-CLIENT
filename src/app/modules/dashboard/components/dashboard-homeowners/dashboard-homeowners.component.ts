@@ -5,6 +5,7 @@ import { MenuItem } from 'primeng/api';
 import { OnBoardingType } from 'src/app/models/onboarding.model';
 import { HOMEOWNERSBREADCRUMBS } from 'src/app/shared/constants/breadcrumbs';
 import { DASHBOARDONBOARDINGROUTE } from 'src/app/shared/constants/routes';
+import { GenericContainer } from 'src/app/shared/generics/generic-container';
 import { ISimpleItem } from 'src/app/shared/generics/generic-model';
 import { environment } from 'src/environments/environment';
 
@@ -13,7 +14,7 @@ import { environment } from 'src/environments/environment';
   templateUrl: './dashboard-homeowners.component.html',
   styleUrls: ['./dashboard-homeowners.component.scss']
 })
-export class DashboardHomeownersComponent implements OnInit {
+export class DashboardHomeownersComponent extends GenericContainer implements OnInit {
   @ViewChild(MatAccordion) accordion: MatAccordion;
 
   public svgPath: string = environment.svgPath;
@@ -55,12 +56,11 @@ export class DashboardHomeownersComponent implements OnInit {
   public onBoardingType = OnBoardingType;
   public onboardingStatus: any[];
 
-  constructor(private router: Router) { }
-
-  ngOnInit(): void {
+  constructor(private router: Router) {
+    super();
     this.onboardingStatus = ['Approved', 'Orientation', 'Move-In'];
   }
-
+  
   public onEdit(id: string): void {
     this.router.navigateByUrl(`${DASHBOARDONBOARDINGROUTE}/${id}/detail`);
   }

@@ -1,4 +1,7 @@
 @import "src/styleguide/index";
+.page-container {
+  @include page-container;
+}
 :host {
   width: 100%;
 }
@@ -27,7 +30,7 @@ img {
 :host ::ng-deep {
   .mat-tab-body-wrapper {
     min-height: 400px;
-}
+  }
   .mat-tab-body-content {
     padding: 20px 0;
   }

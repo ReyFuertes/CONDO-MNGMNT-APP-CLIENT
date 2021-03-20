@@ -1,7 +1,20 @@
-<!-- documents -->
-<div fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="5px">
-  <div *ngFor="let document of uploadDocuments" class="document-thumb" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="5px">
-    <img [src]="svgPath + 'word.svg'" />
-    <span>{{ document?.label }}</span>
+<div class="document-container" fxLayout="column" fxLayoutAlign="center start" fxLayoutGap="20px">
+  <div class="document-content" fxLayout="column" fxLayoutAlign="center start" fxLayoutGap="20px">
+    <div fxLayout="row wrap" fxLayoutAlign="center start" fxLayoutGap="20px">
+      <div *ngFor="let document of uploadDocuments" class="upload-thumb">
+        <div>
+          <img [src]="svgPath + '24x24/upload.svg'" />
+          <span>Drag file to upload</span>
+        </div>
+        <span>{{ document?.label }}</span>
+      </div>
+    </div>
+  </div>
+  
+  <div fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="5px">
+    <div *ngFor="let document of uploadDocuments" class="document-thumb" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="5px">
+      <img [src]="svgPath + '24x24/word.svg'" />
+      <span>{{ document?.label }}</span>
+    </div>
   </div>
 </div>

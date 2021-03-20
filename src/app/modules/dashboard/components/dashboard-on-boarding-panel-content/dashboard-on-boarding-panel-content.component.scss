@@ -1,0 +1,32 @@
+@import "src/styleguide/index";
+:host {
+  width: 100%;
+}
+.pi-thumb {
+  > div {
+    border-bottom: thin $color-gray-3 solid;
+    height: 35px;
+    padding-bottom: 5px;
+    span {
+      &:nth-child(1) {
+        font-weight: 500;
+        font-size: 12px;
+        color: $color-black-3;
+      }
+      &:nth-child(2) {
+        font-weight: 400;
+        font-size: 12px;
+        color: $color-black-1;
+      }
+    }
+  }
+}
+.content-title {
+  font-weight: 500;
+}
+.personal-info-container {
+  > div {
+    height: 30px;
+    width: 120px;
+  }
+}

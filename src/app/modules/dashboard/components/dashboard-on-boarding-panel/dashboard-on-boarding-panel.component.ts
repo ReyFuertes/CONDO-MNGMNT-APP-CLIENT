@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
 import { MatAccordion } from '@angular/material/expansion';
 import { Router } from '@angular/router';
 import { OnBoardingType } from 'src/app/models/onboarding.model';
@@ -12,8 +12,6 @@ import { DASHBOARDONBOARDINGROUTE } from 'src/app/shared/constants/routes';
   styleUrls: ['./dashboard-on-boarding-panel.component.scss']
 })
 export class DashboardOnboardingPanelComponent implements OnInit {
-  @ViewChild(MatAccordion) accordion: MatAccordion;
-
   public svgPath: string = environment.svgPath;
   public imgPath: string = environment.imgPath;
   public onboaders: any[] = [{
@@ -51,45 +49,13 @@ export class DashboardOnboardingPanelComponent implements OnInit {
   }];
   public isExpanded: any = false;
   public onBoardingType = OnBoardingType;
-  public uploadDocuments: ISimpleItem[] = [{
-    label: 'Amenities Registration Form',
-    value: ''
-  }, {
-    label: 'Move-in Notice & Clearance Form',
-    value: ''
-  }, {
-    label: 'Residents Information Sheet',
-    value: ''
-  }, {
-    label: 'Vehicle Registration & Car Sticker Form',
-    value: ''
-  }, {
-    label: 'ID Card Application Form',
-    value: ''
-  }, {
-    label: 'Signature Information Card',
-    value: ''
-  }, {
-    label: 'Waiver',
-    value: ''
-  }, {
-    label: 'Contract',
-    value: ''
-  }];
+
   public onboardingStatus: any[];
 
-  constructor(private router: Router) { }
+  constructor() { }
 
   ngOnInit(): void {
     this.onboardingStatus = ['Approved', 'Orientation', 'Move-In'];
-  }
-
-  public onEdit(id: string): void {
-    this.router.navigateByUrl(`${DASHBOARDONBOARDINGROUTE}/${id}/detail`);
-  }
-
-  public getStatusIndex(value: any): any {
-    return this.onboardingStatus.findIndex(i => i === value)
   }
 
   public onPanelClick(i: number): void {
