@@ -2,6 +2,11 @@
 :host {
   width: 100%;
 }
+.content-container {
+  > div {
+    width: 100%;
+  }
+}
 .pi-thumb {
   > div {
     border-bottom: thin $color-gray-3 solid;

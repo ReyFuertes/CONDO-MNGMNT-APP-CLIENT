@@ -1,142 +1,156 @@
 <!-- personal information -->
-<div>
-  <div class="content-title" fxLayout="row" fxLayoutAlign="start center">Personal Information</div>
-  <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="50px">
-    <div class="pi-thumb" fxFlex="30">
-      <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="5px">
-        <span>Lastname:</span>
-        <span>Fuertes</span>
-      </div>
-      <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="5px">
-        <span>Firstname:</span>
-        <span>Rey</span>
-      </div>
-      <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="5px">
-        <span>Middlename:</span>
-        <span>Senador</span>
+<div class="content-container" fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="20px">
+  <div>
+    <div class="content-title" fxLayout="row" fxLayoutAlign="start center">
+      <div fxFlex>Personal Information</div>
+
+      <div fxFlex="135px" fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="20px">
+        <div class="actions-btns" fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="5px">
+          <span class="p-buttonset" styleClass="p-button-sm">
+            <button styleClass="p-button-sm" tooltipPosition="left" pTooltip="Done" pButton pRipple class="btn-done success" icon="pi pi-check"></button>
+            <button type="button" (click)="onEdit('12524b05-d8a2-4b1c-9c1f-79c321aa64d4')" styleClass="p-button-sm" tooltipPosition="top" pTooltip="Edit" pButton pRipple class="btn-edit default" icon="pi pi-pencil"></button>
+            <button styleClass="p-button-sm" tooltipPosition="top" pTooltip="Remove" pButton pRipple class="btn-remove danger" icon="pi pi-trash"></button>
+          </span>
+        </div>
       </div>
     </div>
+    <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="50px">
+      <div class="pi-thumb" fxFlex="30">
+        <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="5px">
+          <span>Lastname:</span>
+          <span>Fuertes</span>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="5px">
+          <span>Firstname:</span>
+          <span>Rey</span>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="5px">
+          <span>Middlename:</span>
+          <span>Senador</span>
+        </div>
+      </div>
 
-    <div class="pi-thumb" fxFlex="30">
-      <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="5px">
-        <span>Citizenship:</span>
-        <span>Filipino</span>
+      <div class="pi-thumb" fxFlex="30">
+        <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="5px">
+          <span>Citizenship:</span>
+          <span>Filipino</span>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="5px">
+          <span>Gender:</span>
+          <span>Male</span>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="5px">
+          <span>Marital Status:</span>
+          <span>Married</span>
+        </div>
       </div>
-      <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="5px">
-        <span>Gender:</span>
-        <span>Male</span>
-      </div>
-      <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="5px">
-        <span>Marital Status:</span>
-        <span>Married</span>
-      </div>
-    </div>
 
-    <div class="pi-thumb" fxFlex="30">
-      <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="5px">
-        <span>Date of Birth:</span>
-        <span>06-10-1985</span>
+      <div class="pi-thumb" fxFlex="30">
+        <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="5px">
+          <span>Date of Birth:</span>
+          <span>06-10-1985</span>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="5px">
+          <span>Occupation:</span>
+          <span>IT Professional</span>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="5px">
+          <span>Contact No.:</span>
+          <span>123454365</span>
+        </div>
       </div>
-      <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="5px">
-        <span>Occupation:</span>
-        <span>IT Professional</span>
-      </div>
-      <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="5px">
-        <span>Contact No.:</span>
-        <span>123454365</span>
-      </div>
-    </div>
 
-    <div class="pi-thumb" fxFlex="30">
-      <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="5px">
-        <span>ID Type:</span>
-        <span>Phil health</span>
-      </div>
-      <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="5px">
-        <span>ID No.:</span>
-        <span>423 2342 25345</span>
-      </div>
-      <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="5px">
-        <span>Uploaded File:</span>
-        <span class="link">driverlicensed_1234.png</span>
+      <div class="pi-thumb" fxFlex="30">
+        <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="5px">
+          <span>ID Type:</span>
+          <span>Phil health</span>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="5px">
+          <span>ID No.:</span>
+          <span>423 2342 25345</span>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="5px">
+          <span>Uploaded File:</span>
+          <span class="link">driverlicensed_1234.png</span>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<!-- spouse information -->
-<div>
-  <div class="content-title">Spouse Information</div>
-  <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="50px">
-    <div class="pi-thumb" fxFlex="30">
-      <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="5px">
-        <span>Lastname:</span>
-        <span>Fuertes</span>
+  <!-- spouse information -->
+  <div>
+    <div class="content-title">Spouse Information</div>
+    <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="50px">
+      <div class="pi-thumb" fxFlex="30">
+        <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="5px">
+          <span>Lastname:</span>
+          <span>Fuertes</span>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="5px">
+          <span>Firstname:</span>
+          <span>Haydee</span>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="5px">
+          <span>Middlename:</span>
+          <span>Alolor</span>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="5px">
+          <span>Citizenship:</span>
+          <span>Filipino</span>
+        </div>
       </div>
-      <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="5px">
-        <span>Firstname:</span>
-        <span>Haydee</span>
-      </div>
-      <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="5px">
-        <span>Middlename:</span>
-        <span>Alolor</span>
-      </div>
-      <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="5px">
-        <span>Citizenship:</span>
-        <span>Filipino</span>
-      </div>
-    </div>
 
-    <div class="pi-thumb" fxFlex="30">
-      <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="5px">
-        <span>Gender:</span>
-        <span>Male</span>
+      <div class="pi-thumb" fxFlex="30">
+        <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="5px">
+          <span>Gender:</span>
+          <span>Male</span>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="5px">
+          <span>Marital Status:</span>
+          <span>Married</span>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="5px">
+          <span>Date of Birth:</span>
+          <span>06-10-1985</span>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="5px">
+          <span>Occupation:</span>
+          <span>Housewife</span>
+        </div>
       </div>
-      <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="5px">
-        <span>Marital Status:</span>
-        <span>Married</span>
-      </div>
-      <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="5px">
-        <span>Date of Birth:</span>
-        <span>06-10-1985</span>
-      </div>
-      <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="5px">
-        <span>Occupation:</span>
-        <span>Housewife</span>
-      </div>
-    </div>
 
-    <div class="pi-thumb" fxFlex="30">
-      <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="5px">
-        <span>Contact No.:</span>
-        <span>123454365</span>
+      <div class="pi-thumb" fxFlex="30">
+        <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="5px">
+          <span>Contact No.:</span>
+          <span>123454365</span>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="5px">
+          <span>ID Type:</span>
+          <span>Drivers License</span>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="5px">
+          <span>ID No.:</span>
+          <span>423 2342 25345</span>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="5px">
+          <span>Uploaded File:</span>
+          <span class="link">driverlicensed_1234.png</span>
+        </div>
       </div>
-      <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="5px">
-        <span>ID Type:</span>
-        <span>Drivers License</span>
-      </div>
-      <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="5px">
-        <span>ID No.:</span>
-        <span>423 2342 25345</span>
-      </div>
-      <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="5px">
-        <span>Uploaded File:</span>
-        <span class="link">driverlicensed_1234.png</span>
-      </div>
-    </div>
 
-    <div class="pi-thumb" fxFlex="30">
-      <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="5px">
-        <span>Business Address:</span>
-        <span>One Oasis Cebu St.</span>
-      </div>
-      <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="5px">
-        <span>Business Contact No.:</span>
-        <span>09564211445</span>
-      </div>
-      <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="5px">
-        <span>Business Email:</span>
-        <span>haydeeskincare@gmail.com</span>
+      <div class="pi-thumb" fxFlex="30">
+        <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="5px">
+          <span>Business Address:</span>
+          <span>One Oasis Cebu St.</span>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="5px">
+          <span>Business Contact No.:</span>
+          <span>09564211445</span>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="5px">
+          <span>Business Email:</span>
+          <span>haydeeskincare@gmail.com</span>
+        </div>
       </div>
     </div>
   </div>
