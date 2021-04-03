@@ -6,13 +6,20 @@ import { ISimpleItem } from 'src/app/shared/generics/generic-model';
 import { convertBlobToBase64 } from 'src/app/shared/util/convert-to-blob';
 import { v4 as uuid } from 'uuid';
 import * as _ from 'lodash';
+import { GenericOnBoardingComponent } from 'src/app/shared/generics/generic-onboarding';
+import { StorageService } from 'src/app/services/storage.service';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/store/app.reducer';
+import { Router } from '@angular/router';
+import { setOnboardingStepperAction } from '../../store/onboarding.action';
+import { ONBOARDINGDOCUMENTS, ONBOARDINGPARTNER, ONBOARDINGPERSONAL } from 'src/app/shared/constants/generic';
 
 @Component({
   selector: 'cma-on-boarding-partner-info',
   templateUrl: './on-boarding-partner-info.component.html',
   styleUrls: ['./on-boarding-partner-info.component.scss']
 })
-export class OnboardingPartnerInfoComponent extends GenericDestroyPageComponent implements OnInit {
+export class OnboardingPartnerInfoComponent extends GenericOnBoardingComponent implements OnInit {
   public form: FormGroup;
   public genderOptions: ISimpleItem[] = [{
     label: 'Male',
@@ -40,8 +47,8 @@ export class OnboardingPartnerInfoComponent extends GenericDestroyPageComponent 
   }];
   public files: File[] = [];
 
-  constructor(private fb: FormBuilder) {
-    super();
+  constructor(storageSrv: StorageService, router: Router, private fb: FormBuilder, private store: Store<AppState>) {
+    super(ONBOARDINGPARTNER, storageSrv, router);
 
     this.form = this.fb.group({
       partnerLastname: [null],
@@ -89,7 +96,7 @@ export class OnboardingPartnerInfoComponent extends GenericDestroyPageComponent 
       })).subscribe((b64Image) => {
         if (formName === 'partnerUploadedIdFile') {
           this.form.get('partnerUploadedFilePreview').patchValue(b64Image?.image);
-        } 
+        }
         this.form.get(formName).patchValue(b64Image);
       });
   }
@@ -102,14 +109,15 @@ export class OnboardingPartnerInfoComponent extends GenericDestroyPageComponent 
     return this.form.get(formName)?.value?.filename;
   }
 
-  public onSpouseImageChange(event: any): void {
-    let file: any
-    if (_.isObject(event)) {
-      file = event;
-    } else {
-      file = event.target.files[0];
-    }
-    this.files.push(file);
-    this.onConvertBlobToBase64(event, file, 'spouseUploadedIdFile');
+  public onNext(): void {
+    super.onNext('/on-boarding/documents');
+
+    this.store.dispatch(setOnboardingStepperAction({ step: ONBOARDINGDOCUMENTS }));
+  }
+
+  public onPrev(): void {
+    super.onPrev('/on-boarding/personal');
+
+    this.store.dispatch(setOnboardingStepperAction({ step: ONBOARDINGPERSONAL }));
   }
 }

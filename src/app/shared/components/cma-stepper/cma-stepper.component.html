@@ -1,6 +1,5 @@
-<p-timeline [value]="stepper" layout="horizontal" align="top">
+<p-timeline [value]="stepper" layout="horizontal" align="top" [ngClass]="{'active-one': currStep == '1', 'active-two': currStep == '2', 'active-three': currStep == '3', 'active-four': currStep == '4'}">
   <ng-template pTemplate="content" let-step>
     <span>{{step?.label}}</span>
   </ng-template>
 </p-timeline>
-

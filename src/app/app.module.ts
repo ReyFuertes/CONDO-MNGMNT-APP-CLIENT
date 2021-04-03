@@ -8,6 +8,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { DashboardModule } from './modules/dashboard/dashboard.module';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
+import { reducers } from './store/app.reducer';
 
 const materialModules = [
 ];
@@ -29,7 +32,9 @@ const primengModules = [
     BrowserAnimationsModule,
     AppRoutingModule,
     AuthModule,
-    DashboardModule
+    DashboardModule,
+    StoreModule.forRoot(reducers),
+    EffectsModule.forRoot([]),
   ],
   providers: [],
   bootstrap: [AppComponent]

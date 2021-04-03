@@ -1,4 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { select, Store } from '@ngrx/store';
+import { takeUntil } from 'rxjs/operators';
+import { getOnboardingStepperSelector } from 'src/app/modules/on-boarding/store/onboarding.selector';
+import { StorageService } from 'src/app/services/storage.service';
+import { AppState } from 'src/app/store/app.reducer';
+import { ONBOARDINGDOCUMENTS, ONBOARDINGPARTNER, ONBOARDINGPERSONAL, ONBOARDINGTYPE } from '../../constants/generic';
+import { GenericDestroyPageComponent } from '../../generics/generic-destroy';
 import { ISimpleItem } from '../../generics/generic-model';
 
 @Component({
@@ -6,26 +13,37 @@ import { ISimpleItem } from '../../generics/generic-model';
   templateUrl: './cma-stepper.component.html',
   styleUrls: ['./cma-stepper.component.scss']
 })
-export class CMStepperComponent implements OnInit {
+export class CMStepperComponent extends GenericDestroyPageComponent implements OnInit {
   public stepper: ISimpleItem[];
-  public currStep: number = 1;
+  public currStep: string = ONBOARDINGTYPE;
 
-  constructor() {
+  constructor(private store: Store<AppState>, private storageSrv: StorageService) {
+    super();
 
     this.stepper = [{
       label: 'Type',
-      value: '1'
+      value: ONBOARDINGTYPE
     }, {
       label: 'Personal',
-      value: '2'
+      value: ONBOARDINGPERSONAL
     }, {
       label: 'Partner',
-      value: '3'
+      value: ONBOARDINGPARTNER
     }, {
       label: 'Document',
-      value: '4'
+      value: ONBOARDINGDOCUMENTS
     }];
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.store.pipe(select(getOnboardingStepperSelector),
+      takeUntil(this.$unsubscribe))
+      .subscribe(step => {
+        if(step) {
+          this.currStep = step;
+        } else {
+          this.currStep = ONBOARDINGTYPE;
+        }
+      })
+  }
 }

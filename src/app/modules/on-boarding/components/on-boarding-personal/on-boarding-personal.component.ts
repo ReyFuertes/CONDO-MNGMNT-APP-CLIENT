@@ -7,13 +7,20 @@ import { convertBlobToBase64 } from 'src/app/shared/util/convert-to-blob';
 import { GenericDestroyPageComponent } from 'src/app/shared/generics/generic-destroy';
 import { map, take, takeUntil, tap } from 'rxjs/operators';
 import { v4 as uuid } from 'uuid';
+import { GenericOnBoardingComponent } from 'src/app/shared/generics/generic-onboarding';
+import { StorageService } from 'src/app/services/storage.service';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/store/app.reducer';
+import { Router } from '@angular/router';
+import { setOnboardingStepperAction } from '../../store/onboarding.action';
+import { ONBOARDINGPARTNER, ONBOARDINGPERSONAL, ONBOARDINGTYPE } from 'src/app/shared/constants/generic';
 
 @Component({
   selector: 'cma-on-boarding-personal',
   templateUrl: './on-boarding-personal.component.html',
   styleUrls: ['./on-boarding-personal.component.scss']
 })
-export class OnboardingPersonalComponent extends GenericDestroyPageComponent implements OnInit {
+export class OnboardingPersonalComponent extends GenericOnBoardingComponent implements OnInit {
   public form: FormGroup;
   public options: ISimpleItem[] = [{
     label: 'Home Owner',
@@ -91,8 +98,8 @@ export class OnboardingPersonalComponent extends GenericDestroyPageComponent imp
   }];
   public files: File[] = [];
 
-  constructor(private fb: FormBuilder) {
-    super();
+  constructor(storageSrv: StorageService, router: Router, private fb: FormBuilder, private store: Store<AppState>) {
+    super(ONBOARDINGPERSONAL, storageSrv, router);
 
     this.form = this.fb.group({
       buildingNo: [null],
@@ -140,7 +147,7 @@ export class OnboardingPersonalComponent extends GenericDestroyPageComponent imp
           mimetype: file.type
         }
       })).subscribe((b64Image) => {
-        if(formName === 'personalUploadedIdFile') {
+        if (formName === 'personalUploadedIdFile') {
           this.form.get('personalUploadedFilePreview').patchValue(b64Image?.image);
         }
         this.form.get(formName).patchValue(b64Image);
@@ -153,5 +160,17 @@ export class OnboardingPersonalComponent extends GenericDestroyPageComponent imp
 
   public getImagePreview(formName: string): any {
     return this.form.get(formName)?.value?.filename;
+  }
+
+  public onNext(): void {
+    super.onNext('/on-boarding/partner');
+
+    this.store.dispatch(setOnboardingStepperAction({ step: ONBOARDINGPARTNER }));
+  }
+
+  public onPrev(): void {
+    super.onPrev('/on-boarding/type');
+
+    this.store.dispatch(setOnboardingStepperAction({ step: ONBOARDINGTYPE }));
   }
 }
