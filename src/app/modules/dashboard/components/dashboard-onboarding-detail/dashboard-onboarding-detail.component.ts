@@ -19,7 +19,7 @@ export class DashboardOnboardingDetailComponent extends GenericDestroyPageCompon
   public form: FormGroup;
   public options: ISimpleItem[] = [{
     label: 'Unit Owner',
-    value: String(OccupantType.UnitOwner)
+    value: String(OccupantType.HomeOwner)
   }, {
     label: 'Tenant/Lessee',
     value: String(OccupantType.Tenant)
@@ -27,7 +27,7 @@ export class DashboardOnboardingDetailComponent extends GenericDestroyPageCompon
     label: 'Authorized Rep.',
     value: String(OccupantType.AuthorizedRepresentative)
   }];
-  public selectedOccupantType: string = String(OccupantType.UnitOwner);
+  public selectedOccupantType: string = String(OccupantType.HomeOwner);
   public buildingNoOptions: ISimpleItem[] = [{
     label: 'Building #1',
     value: 'bldg1'

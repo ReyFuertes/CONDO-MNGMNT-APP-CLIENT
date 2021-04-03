@@ -1,6 +1,22 @@
 @import "src/styleguide/index";
-
 div {
   background-color: $color-white-1;
   height: auto;
+  min-height: 100%;
+  max-height: 100%;
+}
+:host ::ng-deep {
+  cma-on-boarding-type {
+    display: flex;
+    place-content: flex-start;
+    align-items: flex-start;
+  }
+  cma-on-boarding-personal {
+    display: flex;
+    place-content: flex-start;
+    align-items: center;
+  }
+  cma-stepper {
+    margin-top: 25px;
+  }
 }

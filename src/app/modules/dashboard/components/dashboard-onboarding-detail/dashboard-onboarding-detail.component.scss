@@ -1,6 +1,6 @@
 @import "src/styleguide/index";
 :host {
-  @include onboarding-host;
+  @include onboarding-host-start ;
   place-content: flex-start !important;
 }
 .header-content {
@@ -119,8 +119,8 @@ h5 {
     max-width: 155px;
   }
   cma-upload {
-    min-width: 190px;
-    max-width: 190px;
+    min-width: 206px;
+    max-width: 206px;
   }
   cma-input, cma-dropdown, cma-datepicker, cma-upload {
     margin-bottom: 20px;

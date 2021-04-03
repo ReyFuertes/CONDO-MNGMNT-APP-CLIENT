@@ -28,6 +28,8 @@ import { BadgeModule } from 'primeng/badge';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { TableModule } from 'primeng/table';
 import { CMATextareaComponent } from './components/cma-textarea/cma-textarea.component';
+import { CMStepperComponent } from './components/cma-stepper/cma-stepper.component';
+import { TimelineModule } from 'primeng/timeline';
 
 const primeNgModules = [
   CheckboxModule,
@@ -43,7 +45,8 @@ const primeNgModules = [
   MenuModule,
   BadgeModule,
   OverlayPanelModule,
-  TableModule
+  TableModule,
+  TimelineModule
 ];
 
 const materialModules = [
@@ -61,7 +64,8 @@ const sharedComponents = [
   CMATopNavComponent,
   CMAInputSearchComponent,
   CMAMultiSelectComponent,
-  CMATextareaComponent
+  CMATextareaComponent,
+  CMStepperComponent
 ]
 
 @NgModule({

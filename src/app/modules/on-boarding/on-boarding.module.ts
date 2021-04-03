@@ -9,10 +9,11 @@ import { OnboardingTypeComponent } from './components/on-boarding-type/on-boardi
 import { MatCardModule } from '@angular/material/card';
 import { CheckboxModule } from 'primeng/checkbox';
 import { ButtonModule } from 'primeng/button';
-import { OnboardingDetailComponent } from './components/on-boarding-detail/on-boarding-detail.component';
+import { OnboardingPersonalComponent } from './components/on-boarding-personal/on-boarding-personal.component';
 import { OnboardingReviewComponent } from './components/on-boarding-review/on-boarding-review.component';
 import { OnboardingDocumentComponent } from './components/on-boarding-document/on-boarding-document.component';
 import { OnboardingForApprovalComponent } from './components/on-boarding-for-approval/on-boarding-for-approval.component';
+import { OnboardingPartnerInfoComponent } from './components/on-boarding-partner-info/on-boarding-partner-info.component';
 
 const routes: Routes = [
   {
@@ -24,11 +25,15 @@ const routes: Routes = [
         component: OnboardingTypeComponent
       },
       {
-        path: 'detail',
-        component: OnboardingDetailComponent
+        path: 'personal',
+        component: OnboardingPersonalComponent
       },
       {
-        path: 'upload',
+        path: 'partner',
+        component: OnboardingPartnerInfoComponent
+      },
+      {
+        path: 'documents',
         component: OnboardingDocumentComponent
       },
       {
@@ -56,10 +61,11 @@ const materialModules = [
   declarations: [
     OnboardingPageComponent,
     OnboardingTypeComponent,
-    OnboardingDetailComponent,
+    OnboardingPersonalComponent,
     OnboardingReviewComponent,
     OnboardingDocumentComponent,
-    OnboardingForApprovalComponent
+    OnboardingForApprovalComponent,
+    OnboardingPartnerInfoComponent
   ],
   imports: [
     CommonModule,

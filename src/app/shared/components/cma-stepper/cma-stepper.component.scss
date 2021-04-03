@@ -1,0 +1,38 @@
+@import "src/styleguide/index";
+:host {
+  width: 100%;
+}
+:host ::ng-deep {
+  .active .p-timeline-event-marker {
+    border: 2px solid $color-blue !important;
+  }
+  .p-timeline.p-timeline-horizontal .p-timeline-event-opposite, .p-timeline.p-timeline-horizontal .p-timeline-event-content {
+    color: $color-gray-2;
+  }
+  .p-timeline .p-timeline-event-marker {
+    border: 2px solid $color-gray-2;
+  }
+  .p-timeline-event {
+    &:last-child {
+      max-width: 50px;
+    }
+  }
+  .p-timeline-horizontal .p-timeline-event-separator {
+    &:last-child {
+      width: 17px;
+    }
+  }
+  .p-timeline-horizontal {
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+    right: -13px;
+  }
+  .p-timeline.p-timeline-horizontal .p-timeline-event-opposite, .p-timeline.p-timeline-horizontal .p-timeline-event-content {
+    position: relative;
+    left: -35px;
+    min-width: 85px;
+    text-align: center;
+    max-width: 85px;
+  }
+}

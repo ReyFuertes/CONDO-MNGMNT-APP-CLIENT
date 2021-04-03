@@ -20,7 +20,7 @@ export enum MenuType {
   Documents = 5
 }
 export enum OccupantType {
-  UnitOwner = 1,
+  HomeOwner = 1,
   Tenant = 2,
   AuthorizedRepresentative = 3
 }

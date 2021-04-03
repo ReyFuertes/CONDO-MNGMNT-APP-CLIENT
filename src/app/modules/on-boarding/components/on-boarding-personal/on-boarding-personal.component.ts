@@ -9,23 +9,23 @@ import { map, take, takeUntil, tap } from 'rxjs/operators';
 import { v4 as uuid } from 'uuid';
 
 @Component({
-  selector: 'cma-on-boarding-detail',
-  templateUrl: './on-boarding-detail.component.html',
-  styleUrls: ['./on-boarding-detail.component.scss']
+  selector: 'cma-on-boarding-personal',
+  templateUrl: './on-boarding-personal.component.html',
+  styleUrls: ['./on-boarding-personal.component.scss']
 })
-export class OnboardingDetailComponent extends GenericDestroyPageComponent implements OnInit {
+export class OnboardingPersonalComponent extends GenericDestroyPageComponent implements OnInit {
   public form: FormGroup;
   public options: ISimpleItem[] = [{
-    label: 'Unit Owner',
-    value: String(OccupantType.UnitOwner)
+    label: 'Home Owner',
+    value: String(OccupantType.HomeOwner)
   }, {
-    label: 'Tenant/Lessee',
+    label: 'Tenant',
     value: String(OccupantType.Tenant)
   }, {
     label: 'Authorized Rep.',
     value: String(OccupantType.AuthorizedRepresentative)
   }];
-  public selectedOccupantType: string = String(OccupantType.UnitOwner);
+  public selectedOccupantType: string = String(OccupantType.HomeOwner);
   public buildingNoOptions: ISimpleItem[] = [{
     label: 'Building #1',
     value: 'bldg1'
@@ -111,20 +111,6 @@ export class OnboardingDetailComponent extends GenericDestroyPageComponent imple
       personalIdNo: [null],
       personalUploadedIdFile: [null],
       personalUploadedFilePreview: [null],
-      spouseLastname: [null],
-      spouseFirstname: [null],
-      spouseMiddlename: [null],
-      spouseContactNo: [null],
-      spouseEmailAdd: [null],
-      spouseCitizenship: [null],
-      spouseOccupation: [null],
-      spouseBusAddress: [null],
-      spouseBusContactNo: [null],
-      spouseBusEmail: [null],
-      spouseIdType: [null],
-      spouseIdNo: [null],
-      spouseUploadedIdFile: [null],
-      spouseUploadedFilePreview: [null]
     });
   }
 
@@ -156,10 +142,7 @@ export class OnboardingDetailComponent extends GenericDestroyPageComponent imple
       })).subscribe((b64Image) => {
         if(formName === 'personalUploadedIdFile') {
           this.form.get('personalUploadedFilePreview').patchValue(b64Image?.image);
-        } else if(formName === 'spouseUploadedIdFile') {
-          this.form.get('spouseUploadedFilePreview').patchValue(b64Image?.image);
         }
-
         this.form.get(formName).patchValue(b64Image);
       });
   }
@@ -168,22 +151,7 @@ export class OnboardingDetailComponent extends GenericDestroyPageComponent imple
     return this.form.get('personalUploadedFilePreview')?.value;
   }
 
-  public get getSpouseUploadedFilePreview(): any {
-    return this.form.get('spouseUploadedFilePreview')?.value;
-  }
-
   public getImagePreview(formName: string): any {
     return this.form.get(formName)?.value?.filename;
-  }
-
-  public onSpouseImageChange(event: any): void {
-    let file: any
-    if (_.isObject(event)) {
-      file = event;
-    } else {
-      file = event.target.files[0];
-    }
-    this.files.push(file);
-    this.onConvertBlobToBase64(event, file, 'spouseUploadedIdFile');
   }
 }

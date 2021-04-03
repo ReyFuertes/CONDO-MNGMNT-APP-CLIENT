@@ -1,4 +1,4 @@
-<div class="detail-container" fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="20px" >
+<div class="review-container" fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="20px">
   <div>
     <h2>Review</h2>
   </div>
@@ -31,6 +31,10 @@
           <cma-input [readOnly]="true" label="Occupation" [value]="'IT Professional'"></cma-input>
           <cma-input [readOnly]="true" label="TIN" [value]="'123454365'"></cma-input>
 
+          <cma-input [readOnly]="true" label="Occupation" [value]="'none'"></cma-input>
+          <cma-input [readOnly]="true" label="Bus. Address" [value]="'none'"></cma-input>
+          <cma-input [readOnly]="true" label="Bus. Contact No." [value]="'none'"></cma-input>
+
           <cma-input [readOnly]="true" label="ID Type" [value]="'Drivers License'"></cma-input>
           <cma-input [readOnly]="true" label="ID No." [value]="'423 2342 25345'"></cma-input>
           <cma-input [readOnly]="true" label="Upload File" [value]="'driverlicensed_1234.png'"></cma-input>
@@ -38,42 +42,48 @@
       </div>
     </div>
 
-    <!-- spouse information -->
+    <!-- partner information -->
     <div class="content-personal" fxLayout="column" fxLayoutAlign="start start">
-      <h5>Spouse Information</h5>
+      <h5>Partner Information</h5>
       <div fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="25px">
         <div fxLayout="row wrap" fxLayoutAlign="start center" fxLayoutGap="15px">
           <cma-input [readOnly]="true" label="Lastname" [value]="'Fuertes'"></cma-input>
-          <cma-input [readOnly]="true" label="Firstname" [value]="'Haydee'"></cma-input>
-          <cma-input [readOnly]="true" label="Middlename" [value]="'Alolor'"></cma-input>
-          <cma-input [readOnly]="true" label="Contact No." [value]="'0956 1234 1234'"></cma-input>
+          <cma-input [readOnly]="true" label="Firstname" [value]="'Rey'"></cma-input>
+          <cma-input [readOnly]="true" label="Middlename" [value]="'Senador'"></cma-input>
 
-          <cma-input [readOnly]="true" label="Email Add" [value]="'fuerteshaydee@gmail.com'"></cma-input>
           <cma-input [readOnly]="true" label="Citizenship" [value]="'Filipino'"></cma-input>
+          <cma-input [readOnly]="true" label="Gender" [value]="'Male'"></cma-input>
+          <cma-input [readOnly]="true" label="Civil Status" [value]="'Married'"></cma-input>
+
+          <cma-input [readOnly]="true" label="Date of Birth" [value]="'06-10-1985'"></cma-input>
+          <cma-input [readOnly]="true" label="Occupation" [value]="'IT Professional'"></cma-input>
+          <cma-input [readOnly]="true" label="TIN" [value]="'123454365'"></cma-input>
 
           <cma-input [readOnly]="true" label="Occupation" [value]="'none'"></cma-input>
           <cma-input [readOnly]="true" label="Bus. Address" [value]="'none'"></cma-input>
           <cma-input [readOnly]="true" label="Bus. Contact No." [value]="'none'"></cma-input>
 
-          <cma-input [readOnly]="true" label="Bus. Email" [value]="'none'"></cma-input>
-          <cma-input [readOnly]="true" label="ID Type" [value]="'Phil Health'"></cma-input>
-          <cma-input [readOnly]="true" label="ID No." [value]="'1234 123 123'"></cma-input>
-          <cma-input [readOnly]="true" label="Upload File" [value]="'test_img.png'"></cma-input>
+          <cma-input [readOnly]="true" label="ID Type" [value]="'Drivers License'"></cma-input>
+          <cma-input [readOnly]="true" label="ID No." [value]="'423 2342 25345'"></cma-input>
+          <cma-input [readOnly]="true" label="Upload File" [value]="'driverlicensed_1234.png'"></cma-input>
         </div>
       </div>
     </div>
 
     <!-- documents -->
-    <div fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="5px">
-      <div *ngFor="let document of uploadDocuments" pTooltip="Download" class="document-thumb" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="5px">
-        <img [src]="svgPath + '24x24/word.svg'" />
-        <span>{{ document?.label }}</span>
+    <div class="documents-container">
+      <h5>Documents</h5>
+      <div fxLayout="row wrap" fxLayoutAlign="start center" fxLayoutGap="5px">
+        <div *ngFor="let document of uploadDocuments" pTooltip="Download" class="document-thumb" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="5px">
+          <img [src]="svgPath + '24x24/word.svg'" />
+          <span>{{ document?.label }}</span>
+        </div>
       </div>
-    </div>
 
-    <div class="action-btns" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px">
-      <button pButton pRipple type="button" routerLink="/on-boarding/upload" label="Previous" class="p-button-rounded default"></button>
-      <button pButton pRipple type="button" routerLink="/on-boarding/for-approval" label="Submit" class="p-button-rounded success"></button>
+      <div class="action-btns" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px">
+        <button pButton pRipple type="button" routerLink="/on-boarding/documents" label="Previous" class="p-button-rounded default"></button>
+        <button pButton pRipple type="button" routerLink="/on-boarding/for-approval" label="Submit" class="p-button-rounded success"></button>
+      </div>
     </div>
   </div>
 
