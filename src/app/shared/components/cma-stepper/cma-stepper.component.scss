@@ -3,17 +3,37 @@
   width: 100%;
 }
 :host ::ng-deep {
-  .active-one .p-timeline-event:first-child .p-timeline-event-marker {
-    border: 2px solid $color-blue !important;
+  .active-one .p-timeline-event:first-child {
+    .p-timeline-event-marker {
+      border: 2px solid $color-blue !important;
+    }
+    .p-timeline-event-content span {
+      color: $color-blue !important;
+    }
   }
-  .active-two .p-timeline-event:nth-child(2) .p-timeline-event-marker {
-    border: 2px solid $color-blue !important;
+  .active-two .p-timeline-event:nth-child(2) {
+    .p-timeline-event-marker {
+      border: 2px solid $color-blue !important;
+    }
+    .p-timeline-event-content span {
+      color: $color-blue !important;
+    }
   }
-  .active-three .p-timeline-event:nth-child(3) .p-timeline-event-marker {
-    border: 2px solid $color-blue !important;
+  .active-three .p-timeline-event:nth-child(3) {
+    .p-timeline-event-marker {
+      border: 2px solid $color-blue !important;
+    }
+    .p-timeline-event-content span {
+      color: $color-blue !important;
+    }
   }
-  .active-four .p-timeline-event:nth-child(4) .p-timeline-event-marker {
-    border: 2px solid $color-blue !important;
+  .active-four .p-timeline-event:nth-child(4) {
+    .p-timeline-event-marker {
+      border: 2px solid $color-blue !important;
+    }
+    .p-timeline-event-content span {
+      color: $color-blue !important;
+    }
   }
   .p-timeline.p-timeline-horizontal .p-timeline-event-opposite, .p-timeline.p-timeline-horizontal .p-timeline-event-content {
     color: $color-gray-2;
@@ -30,6 +50,10 @@
     &:last-child {
       width: 17px;
     }
+  }
+  .p-timeline-event-content span {
+    font-size: 14px;
+    font-weight: 500;
   }
   .p-timeline-horizontal {
     max-width: 800px;
