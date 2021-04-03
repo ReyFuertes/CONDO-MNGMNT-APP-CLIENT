@@ -3,31 +3,11 @@
   width: 100%;
 }
 :host ::ng-deep {
-  .active-one .p-timeline-event:first-child {
-    .p-timeline-event-marker {
-      border: 2px solid $color-blue !important;
-    }
-    .p-timeline-event-content span {
-      color: $color-blue !important;
-    }
-  }
-  .active-two .p-timeline-event:nth-child(2) {
-    .p-timeline-event-marker {
-      border: 2px solid $color-blue !important;
-    }
-    .p-timeline-event-content span {
-      color: $color-blue !important;
-    }
-  }
-  .active-three .p-timeline-event:nth-child(3) {
-    .p-timeline-event-marker {
-      border: 2px solid $color-blue !important;
-    }
-    .p-timeline-event-content span {
-      color: $color-blue !important;
-    }
-  }
-  .active-four .p-timeline-event:nth-child(4) {
+  .active-one .p-timeline-event:first-child,
+  .active-two .p-timeline-event:nth-child(2),
+  .active-three .p-timeline-event:nth-child(3),
+  .active-four .p-timeline-event:nth-child(4),
+  .active-five .p-timeline-event:nth-child(5) {
     .p-timeline-event-marker {
       border: 2px solid $color-blue !important;
     }

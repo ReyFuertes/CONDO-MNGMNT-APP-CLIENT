@@ -1,5 +1,9 @@
 
 @import "src/styleguide/index";
+:host {
+  @include onboarding-host-start ;
+  place-content: center !important;
+}
 .for-approval-container {
   margin-top: 50px;
   width: 900px;

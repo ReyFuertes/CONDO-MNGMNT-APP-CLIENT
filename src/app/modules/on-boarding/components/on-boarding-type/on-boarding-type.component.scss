@@ -18,13 +18,13 @@ h2 {
 }
 .type-container {
   margin-top: 50px;
-  width: 700px;
+  width: 800px;
   height: 435px;
   box-shadow: $box-shadow;
   background-color: $color-white;
   margin: 0 auto;
-  min-width: 700px  !important;
-  max-width: 700px  !important;
+  min-width: 800px !important;
+  max-width: 800px !important;
   margin-bottom: 150px;
 }
 :host ::ng-deep {

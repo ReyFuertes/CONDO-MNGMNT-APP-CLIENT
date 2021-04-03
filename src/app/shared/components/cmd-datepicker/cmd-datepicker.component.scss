@@ -1,7 +1,17 @@
 @import "src/styleguide/index";
+
 :host ::ng-deep {
+  .p-calendar .p-inputtext {
+    cursor: pointer;
+  }
+  .pi-calendar {
+    color: $color-black-3;
+  }
   .p-button.p-button-icon-only {
-    background: $color-gray-2;
-    border: thin solid $color-gray-2;
+    background: $color-white;
+    border-right: thin solid $color-gray-2;
+    border-top: thin solid $color-gray-2;
+    border-bottom: thin solid $color-gray-2;
+    border-left: none;
   }
 }

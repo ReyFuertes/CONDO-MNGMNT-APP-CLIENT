@@ -10,6 +10,7 @@ export const initialState: OnboardingState = {
 const onboardingReducer = createReducer(
   initialState,
   on(setOnboardingStepperAction, (state, action) => {
+    debugger
     return Object.assign({}, state, { stepper: action.step });
   }),
 );

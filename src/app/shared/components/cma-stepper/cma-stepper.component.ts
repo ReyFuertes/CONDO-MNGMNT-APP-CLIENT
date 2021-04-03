@@ -4,7 +4,7 @@ import { takeUntil } from 'rxjs/operators';
 import { getOnboardingStepperSelector } from 'src/app/modules/on-boarding/store/onboarding.selector';
 import { StorageService } from 'src/app/services/storage.service';
 import { AppState } from 'src/app/store/app.reducer';
-import { ONBOARDINGDOCUMENTS, ONBOARDINGPARTNER, ONBOARDINGPERSONAL, ONBOARDINGTYPE } from '../../constants/generic';
+import { ONBOARDINGDOCUMENTS, ONBOARDINGPARTNER, ONBOARDINGPERSONAL, ONBOARDINGTYPE, ONBOARDINGREVIEW } from '../../constants/generic';
 import { GenericDestroyPageComponent } from '../../generics/generic-destroy';
 import { ISimpleItem } from '../../generics/generic-model';
 
@@ -32,6 +32,9 @@ export class CMStepperComponent extends GenericDestroyPageComponent implements O
     }, {
       label: 'Document',
       value: ONBOARDINGDOCUMENTS
+    }, {
+      label: 'Review',
+      value: ONBOARDINGREVIEW
     }];
   }
 
@@ -42,7 +45,8 @@ export class CMStepperComponent extends GenericDestroyPageComponent implements O
         if(step) {
           this.currStep = step;
         } else {
-          this.currStep = ONBOARDINGTYPE;
+          debugger
+          this.currStep = this.storageSrv.get('step') || ONBOARDINGTYPE;
         }
       })
   }

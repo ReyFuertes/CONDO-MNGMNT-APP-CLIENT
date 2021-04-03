@@ -14,6 +14,9 @@ import { OnboardingReviewComponent } from './components/on-boarding-review/on-bo
 import { OnboardingDocumentComponent } from './components/on-boarding-document/on-boarding-document.component';
 import { OnboardingForApprovalComponent } from './components/on-boarding-for-approval/on-boarding-for-approval.component';
 import { OnboardingPartnerInfoComponent } from './components/on-boarding-partner-info/on-boarding-partner-info.component';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { OnboardingReducer } from './store/onboarding.reducer';
 
 const routes: Routes = [
   {
@@ -76,6 +79,8 @@ const materialModules = [
     ...materialModules,
     RouterModule.forChild(routes),
     SharedModule,
+    StoreModule.forFeature('onboarding', OnboardingReducer),
+    EffectsModule.forFeature([]),
   ],
   exports: [],
   providers: [],

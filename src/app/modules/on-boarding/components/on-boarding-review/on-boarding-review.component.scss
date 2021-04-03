@@ -2,6 +2,7 @@
 :host {
   @include onboarding-host-start ;
   place-content: flex-start !important;
+  margin: 0 auto;
 }
 .header-content {
   border-bottom: thin $color-gray-3 solid;

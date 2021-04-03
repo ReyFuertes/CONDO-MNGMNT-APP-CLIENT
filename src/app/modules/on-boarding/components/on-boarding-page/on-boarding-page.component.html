@@ -1,4 +1,4 @@
 <div fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="10px" >
-  <cma-stepper></cma-stepper>
+  <cma-stepper *ngIf="!hideStepper"></cma-stepper>
   <router-outlet></router-outlet>
 </div>
