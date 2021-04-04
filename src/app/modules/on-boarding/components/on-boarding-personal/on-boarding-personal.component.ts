@@ -13,7 +13,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.reducer';
 import { Router } from '@angular/router';
 import { setOnboardingStepperAction } from '../../store/onboarding.action';
-import { ONBOARDINGPARTNER, ONBOARDINGPERSONAL, ONBOARDINGTYPE } from 'src/app/shared/constants/generic';
+import { BUILDINGNOOPTIONS, CIVILOPTIONS, GENDEROPTIONS, IDTYPEOPTIONS, ONBOARDINGPARTNER, ONBOARDINGPERSONAL, ONBOARDINGTYPE, PARTKINGNOOPTIONS, UNITNOOPTIONS } from 'src/app/shared/constants/generic';
 
 @Component({
   selector: 'cma-on-boarding-personal',
@@ -33,69 +33,6 @@ export class OnboardingPersonalComponent extends GenericOnBoardingComponent impl
     value: String(OccupantType.AuthorizedRepresentative)
   }];
   public selectedOccupantType: string = String(OccupantType.HomeOwner);
-  public buildingNoOptions: ISimpleItem[] = [{
-    label: 'Building #1',
-    value: 'bldg1'
-  }, {
-    label: 'Building #2',
-    value: 'bldg2'
-  }, {
-    label: 'Building #3',
-    value: 'bldg3'
-  }, {
-    label: 'Building #4',
-    value: 'bldg4'
-  }, {
-    label: 'Building #5',
-    value: 'bldg5'
-  }, {
-    label: 'Building #9',
-    value: 'bldg9'
-  }];
-  public unitNoOptions: ISimpleItem[] = [{
-    label: 'Unit 901'
-  }, {
-    label: 'Unit 902'
-  }, {
-    label: 'Unit 903'
-  }, {
-    label: 'Unit 904'
-  }, {
-    label: 'Unit 905'
-  }];
-  public parkingNoOptions: ISimpleItem[] = [{
-    label: 'Park Slot #1'
-  }, {
-    label: 'Park Slot #2'
-  }, {
-    label: 'Park Slot #3'
-  }, {
-    label: 'Park Slot #4'
-  }];
-  public genderOptions: ISimpleItem[] = [{
-    label: 'Male',
-    value: 'male'
-  }, {
-    label: 'Female',
-    value: 'female'
-  }, {
-    label: 'Other',
-    value: 'other'
-  }];
-  public civilOptions: ISimpleItem[] = [{
-    label: 'Married',
-    value: 'married'
-  }, {
-    label: 'Single',
-    value: 'single'
-  }];
-  public IdTypeOptions: ISimpleItem[] = [{
-    label: 'Passport',
-    value: 'passport'
-  }, {
-    label: 'Drivers License',
-    value: 'driverslicense'
-  }];
   public files: File[] = [];
 
   constructor(storageSrv: StorageService, router: Router, private fb: FormBuilder, private store: Store<AppState>) {

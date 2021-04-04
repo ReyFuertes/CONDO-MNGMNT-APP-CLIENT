@@ -2,6 +2,7 @@
 @import "src/styleguide/index";
 :host {
   @include onboarding-host-start ;
+  margin: 0 auto;
 }
 img {
   height: 70px;
@@ -26,6 +27,7 @@ h2 {
   min-width: 800px !important;
   max-width: 800px !important;
   margin-bottom: 150px;
+  text-align: center;
 }
 :host ::ng-deep {
   .mat-card {

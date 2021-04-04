@@ -1,0 +1,60 @@
+@import "src/styleguide/index";
+.header {
+  height: 50px;
+  width: 100%;
+  padding-left: 20px;
+  padding-right: 20px;
+  font-weight: 500;
+  border-bottom: thin $color-gray-3 solid;
+  i {
+    cursor: pointer;
+  }
+}
+.content {
+  height: 150px;
+  min-height: 150px;
+  width: 100%;
+  padding: 10px 20px 0 20px;
+  div {
+    width: 100%;
+  }
+}
+.dialog-container {
+  width: 428px;
+  height: 210px;
+}
+.btn-actions {
+  flex-direction: row;
+  box-sizing: border-box;
+  display: flex;
+  place-content: center flex-end;
+  align-items: center;
+  width: 100%;
+  padding: 0 20px;
+  border-top: thin $color-gray-3 solid;
+  padding-top: 20px;
+  .btn-add {
+    width: 110px;
+    min-width: 110px;
+  }
+}
+.upload-container {
+  padding-top: 13px;
+}
+:host ::ng-deep {
+  .p-inputnumber-input {
+    font-size: 14px;
+  }
+  .p-inputnumber, p-inputnumber {
+    width: 100%;
+  }
+  .p-button {
+    max-width: 90px;
+  }
+  p-selectbutton {
+    margin-top: 16px;
+  }
+  .p-dropdown, .p-inputtext, cma-input, cma-dropdown, p-dropdown {
+    width: 100%;
+  }
+}

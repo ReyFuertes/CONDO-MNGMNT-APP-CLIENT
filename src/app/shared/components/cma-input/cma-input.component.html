@@ -1,4 +1,4 @@
-<span class="p-float-label">
-  <input id="float-input" type="text" [value]="value" [readonly]="readOnly" pInputText> 
-  <label for="float-input">{{label}}</label>
-</span>
+<div [formGroup]="form" fxLayout="column" fxLayoutAlign="start start">
+  <label for="un">{{ label }}</label>
+  <input id="un" type="text" [formControlName]="controlName" pInputText autocomplete="off" />
+</div>

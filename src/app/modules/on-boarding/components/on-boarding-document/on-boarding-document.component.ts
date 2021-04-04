@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { StorageService } from 'src/app/services/storage.service';
-import { ONBOARDINGDOCUMENTS, ONBOARDINGPARTNER, ONBOARDINGREVIEW } from 'src/app/shared/constants/generic';
+import { ONBOARDINGDOCUMENTS, ONBOARDINGOCCUPANTS, ONBOARDINGPARTNER, ONBOARDINGREVIEW } from 'src/app/shared/constants/generic';
 import { ISimpleItem } from 'src/app/shared/generics/generic-model';
 import { GenericOnBoardingComponent } from 'src/app/shared/generics/generic-onboarding';
 import { AppState } from 'src/app/store/app.reducer';
@@ -55,8 +55,8 @@ export class OnboardingDocumentComponent extends GenericOnBoardingComponent impl
   }
 
   public onPrev(): void {
-    super.onPrev('/on-boarding/partner');
+    super.onPrev('/on-boarding/occupants');
 
-    this.store.dispatch(setOnboardingStepperAction({ step: ONBOARDINGPARTNER }));
+    this.store.dispatch(setOnboardingStepperAction({ step: ONBOARDINGOCCUPANTS }));
   }
 }

@@ -8,8 +8,6 @@ import { ISimpleItem } from '../../generics/generic-model';
   styleUrls: ['./cmd-datepicker.component.scss']
 })
 export class CMADatepickerComponent extends GenericControl<ISimpleItem> implements OnInit {
-  @Input() placeholder: string;
-  
   constructor() { 
     super();
   }

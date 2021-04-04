@@ -1,0 +1,18 @@
+<div [formGroup]="form" class="dialog-container" fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="5px" novalidate>
+  <div class="header" fxLayout="row" fxLayoutAlign="start center">
+    <div fxFlex fxLayout="row" fxLayoutAlign="start center">Add Occupants</div>
+    <div fxFlex="25px" fxLayout="row" fxLayoutAlign="end center"><i class="pi pi-times" (click)="dialogRef.close()"></i></div>
+  </div>
+  <div fxLayout="column" fxLayoutAlign="start start" class="content" fxLayoutGap="10px">
+    <div fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="20px">
+      <cma-input [form]="form" controlName="name" fxFlex label="Name" placeholder="Occupant Name"></cma-input>
+
+      <cma-dropdown [form]="form" fxFlex controlName="relationship" label="Relationship" [options]="relationOptions" placeholder="Occupant Relationship"></cma-dropdown>
+    </div>
+  </div>
+
+  <div class="btn-actions" fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="10px">
+    <button [disabled]="!form.valid" pButton pRipple [label]="getBtnText" class="btn-add primary" (click)="onAddUpdate()"></button>
+    <button pButton pRipple label="Cancel" class="btn-add default" (click)="dialogRef.close()"></button>
+  </div>
+</div>

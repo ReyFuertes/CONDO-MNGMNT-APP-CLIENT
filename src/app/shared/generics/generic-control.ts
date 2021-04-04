@@ -6,6 +6,7 @@ import { GenericDestroyPageComponent } from './generic-destroy';
 @Directive()
 export class GenericControl<T> extends GenericDestroyPageComponent {
   @Input() public placeholder: string;
+  @Input() public label: string;
   @Input() public options: Array<T>;
   @Input() public item: T;
   @Input() public controlName: any;

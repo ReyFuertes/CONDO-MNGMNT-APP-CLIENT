@@ -17,6 +17,10 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { OnboardingReducer } from './store/onboarding.reducer';
 import { OnboardingContainerComponent } from './container/on-boarding-container.component';
+import { OnboardingOccupantsComponent } from './components/on-boarding-occupants/on-boarding-occupants.component';
+import { CMADialogModule } from '../dialog/dialog.module';
+import { InputTextModule } from 'primeng/inputtext';
+import { MatDialogModule } from '@angular/material/dialog';
 
 const routes: Routes = [
   {
@@ -36,6 +40,10 @@ const routes: Routes = [
         component: OnboardingPartnerInfoComponent
       },
       {
+        path: 'occupants',
+        component: OnboardingOccupantsComponent
+      },
+      {
         path: 'documents',
         component: OnboardingDocumentComponent
       },
@@ -53,11 +61,13 @@ const routes: Routes = [
 
 const primeNgModules = [
   CheckboxModule,
-  ButtonModule
+  ButtonModule,
+  InputTextModule
 ];
 
 const materialModules = [
-  MatCardModule
+  MatCardModule,
+  MatDialogModule
 ];
 
 @NgModule({
@@ -68,7 +78,8 @@ const materialModules = [
     OnboardingReviewComponent,
     OnboardingDocumentComponent,
     OnboardingForApprovalComponent,
-    OnboardingPartnerInfoComponent
+    OnboardingPartnerInfoComponent,
+    OnboardingOccupantsComponent
   ],
   imports: [
     CommonModule,
@@ -81,6 +92,7 @@ const materialModules = [
     SharedModule,
     StoreModule.forFeature('onboarding', OnboardingReducer),
     EffectsModule.forFeature([]),
+    CMADialogModule
   ],
   exports: [],
   providers: [],

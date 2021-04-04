@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { map, take, takeUntil } from 'rxjs/operators';
-import { GenericDestroyPageComponent } from 'src/app/shared/generics/generic-destroy';
-import { ISimpleItem } from 'src/app/shared/generics/generic-model';
 import { convertBlobToBase64 } from 'src/app/shared/util/convert-to-blob';
 import { v4 as uuid } from 'uuid';
 import * as _ from 'lodash';
@@ -12,7 +10,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.reducer';
 import { Router } from '@angular/router';
 import { setOnboardingStepperAction } from '../../store/onboarding.action';
-import { ONBOARDINGDOCUMENTS, ONBOARDINGPARTNER, ONBOARDINGPERSONAL } from 'src/app/shared/constants/generic';
+import { ONBOARDINGDOCUMENTS, ONBOARDINGOCCUPANTS, ONBOARDINGPARTNER, ONBOARDINGPERSONAL } from 'src/app/shared/constants/generic';
 
 @Component({
   selector: 'cma-on-boarding-partner-info',
@@ -21,30 +19,6 @@ import { ONBOARDINGDOCUMENTS, ONBOARDINGPARTNER, ONBOARDINGPERSONAL } from 'src/
 })
 export class OnboardingPartnerInfoComponent extends GenericOnBoardingComponent implements OnInit {
   public form: FormGroup;
-  public genderOptions: ISimpleItem[] = [{
-    label: 'Male',
-    value: 'male'
-  }, {
-    label: 'Female',
-    value: 'female'
-  }, {
-    label: 'Other',
-    value: 'other'
-  }];
-  public civilOptions: ISimpleItem[] = [{
-    label: 'Married',
-    value: 'married'
-  }, {
-    label: 'Single',
-    value: 'single'
-  }];
-  public IdTypeOptions: ISimpleItem[] = [{
-    label: 'Passport',
-    value: 'passport'
-  }, {
-    label: 'Drivers License',
-    value: 'driverslicense'
-  }];
   public files: File[] = [];
 
   constructor(storageSrv: StorageService, router: Router, private fb: FormBuilder, private store: Store<AppState>) {
@@ -54,17 +28,19 @@ export class OnboardingPartnerInfoComponent extends GenericOnBoardingComponent i
       lastname: [null],
       firstname: [null],
       middlename: [null],
-      contactNo: [null],
-      emailAdd: [null],
       citizenship: [null],
+      gender: [null],
+      civilStatus: [null],
+      dateOfBirth: [null],
       occupation: [null],
       busAddress: [null],
       busContactNo: [null],
       busEmail: [null],
+      tin: [null],
       idType: [null],
       idNo: [null],
       uploadedIdFile: [null],
-      uploadedFilePreview: [null]
+      uploadedFilePreview: [null],
     });
   }
 
@@ -110,9 +86,9 @@ export class OnboardingPartnerInfoComponent extends GenericOnBoardingComponent i
   }
 
   public onNext(): void {
-    super.onNext('/on-boarding/documents');
+    super.onNext('/on-boarding/occupants');
 
-    this.store.dispatch(setOnboardingStepperAction({ step: ONBOARDINGDOCUMENTS }));
+    this.store.dispatch(setOnboardingStepperAction({ step: ONBOARDINGOCCUPANTS }));
   }
 
   public onPrev(): void {

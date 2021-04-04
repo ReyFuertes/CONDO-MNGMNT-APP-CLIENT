@@ -1,0 +1,100 @@
+@import "src/styleguide/index";
+:host {
+  @include onboarding-host-start ;
+  place-content: flex-start !important;
+}
+.occupant-container {
+  padding: 30px;
+  margin: 0 auto;
+  width: 100%;
+  height: 100%;
+  box-shadow: $box-shadow;
+  background-color: $color-white;
+  max-width: 815px;
+  max-height: 500px;
+}
+.content {
+  margin-bottom: 20px;
+  overflow: hidden;
+  height: 100%;
+  padding: 20px;
+}
+.content-occupant {
+  h5 {
+    margin: 0 0 14px 0;
+  }
+  height: auto;
+  min-width: 650px;
+  padding-left: 10px;
+}
+.btn-add-container {
+  width: 100%;
+}
+.action-btns {
+  margin-top: 20px;
+  border-top: thin #f1f1f1 solid;
+  padding-top: 20px;
+  padding-bottom: 5px;
+  width: 100%;
+}
+:host ::ng-deep {
+  .p-calendar .p-inputtext {
+    max-width: 155px;
+  }
+  .btn-remove {
+    margin-bottom: 20px;
+  }
+  cma-upload {
+    min-width: 206px;
+    max-width: 206px;
+  }
+  cma-input, cma-dropdown, cma-datepicker, cma-upload {
+    margin-bottom: 20px;
+  }
+  p-dropdown.dropdown .p-dropdown {
+    width: 192px;
+  }
+}
+@media (max-width: 1280px) {
+  .occupant-container {
+    max-width: 100%;
+    margin: 0;
+    padding: 20px 20px;
+    max-width: 100%;
+  }
+  .header-content {
+    padding-bottom: 20px;
+    margin: 0 !important;
+  }
+  .content {
+    padding-top: 20px;
+    width: 100%;
+  }
+  .content-occupant {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    max-width: 845px;
+  }
+  h2 {
+    margin-bottom: 10px !important;
+  }
+  h5 {
+    font-size: 12px;
+  }
+  .action-btns {
+    margin-top: 0;
+  }
+}
+@media (max-width: 1024px) {
+  .content {
+    height: auto;
+  }
+}
+@media (max-width: 768px) {
+  .content {
+    height: auto;
+    width: 620px;
+    overflow: hidden;
+  }
+}

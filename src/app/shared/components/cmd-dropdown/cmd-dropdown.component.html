@@ -1,10 +1,15 @@
-<p-dropdown appendTo="body" class="dropdown" [options]="options" [(ngModel)]="selectedItem" optionLabel="label" filterBy="label" [placeholder]="placeholder">
-  <ng-template pTemplate="selectedItem">
-    <div *ngIf="selectedItem">
-      <div>{{selectedItem?.label}}</div>
-    </div>
-  </ng-template>
-  <ng-template let-option pTemplate="item">
-      <div>{{option?.label}}</div>
-  </ng-template>
-</p-dropdown>
+<div [formGroup]="form" fxLayout="column" fxLayoutAlign="start start">
+  <label>{{ label }}</label>
+  <p-dropdown appendTo="body" [options]="options" [formControlName]="controlName" optionLabel="label" [filter]="true" filterBy="name" [showClear]="true" [placeholder]="placeholder">
+    <ng-template pTemplate="selectedItem">
+      <div>
+        <div>{{form.get(controlName)?.value?.label}}</div>
+      </div>
+    </ng-template>
+    <ng-template let-option pTemplate="item">
+      <div class="option-item">
+        <div>{{option?.label}}</div>
+      </div>
+    </ng-template>
+  </p-dropdown>
+</div>

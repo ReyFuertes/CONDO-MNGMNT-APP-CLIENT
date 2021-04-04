@@ -4,7 +4,7 @@ import { takeUntil } from 'rxjs/operators';
 import { getOnboardingStepperSelector } from 'src/app/modules/on-boarding/store/onboarding.selector';
 import { StorageService } from 'src/app/services/storage.service';
 import { AppState } from 'src/app/store/app.reducer';
-import { ONBOARDINGDOCUMENTS, ONBOARDINGPARTNER, ONBOARDINGPERSONAL, ONBOARDINGTYPE, ONBOARDINGREVIEW } from '../../constants/generic';
+import { ONBOARDINGDOCUMENTS, ONBOARDINGPARTNER, ONBOARDINGPERSONAL, ONBOARDINGTYPE, ONBOARDINGREVIEW, ONBOARDINGOCCUPANTS } from '../../constants/generic';
 import { GenericDestroyPageComponent } from '../../generics/generic-destroy';
 import { ISimpleItem } from '../../generics/generic-model';
 
@@ -29,6 +29,9 @@ export class CMStepperComponent extends GenericDestroyPageComponent implements O
     }, {
       label: 'Partner',
       value: ONBOARDINGPARTNER
+    }, {
+      label: 'Occupants',
+      value: ONBOARDINGOCCUPANTS
     }, {
       label: 'Document',
       value: ONBOARDINGDOCUMENTS

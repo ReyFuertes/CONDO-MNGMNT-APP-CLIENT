@@ -1,30 +1,32 @@
 <div class="type-container" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="20px">
-  <h1>Welcome to One Oasis Onboarding</h1>
-  <h5>Please select onboarding type</h5>
+  <div>
+    <h1>Welcome to One Oasis Onboarding</h1>
+    <h5>Please select onboarding type</h5>
 
-  <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="30px">
-    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="30px">
-      <mat-card (click)="onSelect(indivCheck)">
-        <p-checkbox #indivCheck name="groupname" readonly value="1" binary="true" [(ngModel)]="selectedTypeIsIndividual" fxLayoutAlign="end center"></p-checkbox>
-        <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
-          <div class="thumbnail">
-            <img [src]="svgPath + 'individual.svg'" />
+    <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="30px">
+      <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="30px">
+        <mat-card (click)="onSelect(indivCheck)">
+          <p-checkbox #indivCheck name="groupname" readonly value="1" binary="true" [(ngModel)]="selectedTypeIsIndividual" fxLayoutAlign="end center"></p-checkbox>
+          <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
+            <div class="thumbnail">
+              <img [src]="svgPath + 'individual.svg'" />
+            </div>
+            <div class="caption">Individual</div>
           </div>
-          <div class="caption">Individual</div>
-        </div>
-      </mat-card>
+        </mat-card>
 
-      <mat-card (click)="onSelect(corpCheck)">
-        <p-checkbox #corpCheck name="groupname" readonly value="2" binary="true" [(ngModel)]="selectedTypeICorporate" fxLayoutAlign="end center"></p-checkbox>
-        <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
-          <div class="thumbnail">
-            <img [src]="svgPath + 'corporate.svg'" />
+        <mat-card (click)="onSelect(corpCheck)">
+          <p-checkbox #corpCheck name="groupname" readonly value="2" binary="true" [(ngModel)]="selectedTypeICorporate" fxLayoutAlign="end center"></p-checkbox>
+          <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
+            <div class="thumbnail">
+              <img [src]="svgPath + 'corporate.svg'" />
+            </div>
+            <div class="caption">Corporate</div>
           </div>
-          <div class="caption">Corporate</div>
-        </div>
-      </mat-card>
+        </mat-card>
+      </div>
+
+      <button [disabled]="isDisabled" (click)="onNext()" pButton pRipple type="button" label="Next" class="p-button-rounded success"></button>
     </div>
-
-    <button [disabled]="isDisabled" (click)="onNext()" pButton pRipple type="button" label="Next" class="p-button-rounded success"></button>
   </div>
 </div>
