@@ -51,20 +51,20 @@ export class OnboardingPartnerInfoComponent extends GenericOnBoardingComponent i
     super(ONBOARDINGPARTNER, storageSrv, router);
 
     this.form = this.fb.group({
-      partnerLastname: [null],
-      partnerFirstname: [null],
-      partnerMiddlename: [null],
-      partnerContactNo: [null],
-      partnerEmailAdd: [null],
-      partnerCitizenship: [null],
-      partnerOccupation: [null],
-      partnerBusAddress: [null],
-      partnerBusContactNo: [null],
-      partnerBusEmail: [null],
-      partnerIdType: [null],
-      partnerIdNo: [null],
-      partnerUploadedIdFile: [null],
-      partnerUploadedFilePreview: [null]
+      lastname: [null],
+      firstname: [null],
+      middlename: [null],
+      contactNo: [null],
+      emailAdd: [null],
+      citizenship: [null],
+      occupation: [null],
+      busAddress: [null],
+      busContactNo: [null],
+      busEmail: [null],
+      idType: [null],
+      idNo: [null],
+      uploadedIdFile: [null],
+      uploadedFilePreview: [null]
     });
   }
 
