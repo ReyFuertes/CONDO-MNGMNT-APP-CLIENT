@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { GenericControl } from '../../generics/generic-control';
 import { ISimpleItem } from '../../generics/generic-model';
 
 @Component({
@@ -6,12 +7,8 @@ import { ISimpleItem } from '../../generics/generic-model';
   templateUrl: './cmd-dropdown.component.html',
   styleUrls: ['./cmd-dropdown.component.scss']
 })
-export class CMADropdownComponent implements OnInit {
-  @Input() selectedItem: ISimpleItem;
-  @Input() options: ISimpleItem[];
-  @Input() placeholder: string;
-
-  constructor() { }
-
-  ngOnInit(): void { }
+export class CMADropdownComponent extends GenericControl<ISimpleItem> {
+  constructor() {
+    super();
+  }
 }

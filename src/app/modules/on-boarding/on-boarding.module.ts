@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { OnboardingPageComponent } from './components/on-boarding-page/on-boarding-page.component';
 import { RouterModule, Routes } from '@angular/router';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -17,11 +16,12 @@ import { OnboardingPartnerInfoComponent } from './components/on-boarding-partner
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { OnboardingReducer } from './store/onboarding.reducer';
+import { OnboardingContainerComponent } from './container/on-boarding-container.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: OnboardingPageComponent,
+    component: OnboardingContainerComponent,
     children: [
       {
         path: 'type',
@@ -62,7 +62,7 @@ const materialModules = [
 
 @NgModule({
   declarations: [
-    OnboardingPageComponent,
+    OnboardingContainerComponent,
     OnboardingTypeComponent,
     OnboardingPersonalComponent,
     OnboardingReviewComponent,

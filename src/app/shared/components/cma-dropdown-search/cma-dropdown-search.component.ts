@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { GenericControl } from '../../generics/generic-control';
 import { ISimpleItem } from '../../generics/generic-model';
 
 @Component({
@@ -6,12 +7,10 @@ import { ISimpleItem } from '../../generics/generic-model';
   templateUrl: './cma-dropdown-search.component.html',
   styleUrls: ['./cma-dropdown-search.component.scss']
 })
-export class CMADropdownSearchComponent implements OnInit {
-  @Input() selectedItem: ISimpleItem;
-  @Input() options: ISimpleItem[];
-  @Input() placeholder: string;
-
-  constructor() { }
+export class CMADropdownSearchComponent extends GenericControl<ISimpleItem> implements OnInit {
+  constructor() {
+    super();
+  }
 
   ngOnInit(): void { }
 }

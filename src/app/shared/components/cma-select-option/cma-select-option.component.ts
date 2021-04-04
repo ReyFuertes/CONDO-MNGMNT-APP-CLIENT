@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { GenericControl } from '../../generics/generic-control';
 import { ISimpleItem } from '../../generics/generic-model';
 
 @Component({
@@ -6,11 +7,10 @@ import { ISimpleItem } from '../../generics/generic-model';
   templateUrl: './cma-select-option.component.html',
   styleUrls: ['./cma-select-option.component.scss']
 })
-export class CMSelectOptionComponent implements OnInit {
-  @Input() options: ISimpleItem[];
-  @Input() selectedItem: ISimpleItem;
-
-  constructor() { }
+export class CMSelectOptionComponent extends GenericControl<ISimpleItem> {
+  constructor() {
+    super();
+  }
 
   ngOnInit(): void { }
 }

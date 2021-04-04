@@ -3,11 +3,11 @@ import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
 
 @Component({
-  selector: 'cma-on-boarding-page',
-  templateUrl: './on-boarding-page.component.html',
-  styleUrls: ['./on-boarding-page.component.scss']
+  selector: 'cma-on-boarding-container',
+  templateUrl: './on-boarding-container.component.html',
+  styleUrls: ['./on-boarding-container.component.scss']
 })
-export class OnboardingPageComponent implements OnInit {
+export class OnboardingContainerComponent implements OnInit {
   public hideStepper: boolean = false;
 
   constructor(private router: Router) { }
