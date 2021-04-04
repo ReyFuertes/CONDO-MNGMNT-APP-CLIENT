@@ -16,17 +16,16 @@ export class GenericOnBoardingComponent extends GenericDestroyPageComponent {
   public _step: string;
   constructor(step: string, private storageSrv: StorageService, private router: Router) {
     super();
-    this._step = String(Number(step) + 1);
-    console.log(step)
+    this._step = step;
   }
 
   public onNext(route?: string): void {
-    this.storageSrv.set('step', this._step);
+    this.storageSrv.set('step', String(Number(this._step) + 1));
     this.router.navigateByUrl(route);
   }
 
   public onPrev(route?: string): void {
-    this.storageSrv.set('step', this._step);
+    this.storageSrv.set('step', String(Number(this._step) - 1));
     this.router.navigateByUrl(route);
   }
 }

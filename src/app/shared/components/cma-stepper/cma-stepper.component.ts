@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { takeUntil } from 'rxjs/operators';
 import { getOnboardingStepperSelector } from 'src/app/modules/on-boarding/store/onboarding.selector';
@@ -17,27 +18,32 @@ export class CMStepperComponent extends GenericDestroyPageComponent implements O
   public stepper: ISimpleItem[];
   public currStep: string = ONBOARDINGTYPE;
 
-  constructor(private store: Store<AppState>, private storageSrv: StorageService) {
+  constructor(private router: Router, private store: Store<AppState>, private storageSrv: StorageService) {
     super();
-
     this.stepper = [{
       label: 'Type',
-      value: ONBOARDINGTYPE
+      value: ONBOARDINGTYPE,
+      route: '/on-boarding/type',
     }, {
       label: 'Personal',
-      value: ONBOARDINGPERSONAL
+      value: ONBOARDINGPERSONAL,
+      route: '/on-boarding/personal',
     }, {
       label: 'Partner',
-      value: ONBOARDINGPARTNER
+      value: ONBOARDINGPARTNER,
+      route: '/on-boarding/partner',
     }, {
       label: 'Occupants',
-      value: ONBOARDINGOCCUPANTS
+      value: ONBOARDINGOCCUPANTS,
+      route: '/on-boarding/occupants',
     }, {
       label: 'Document',
-      value: ONBOARDINGDOCUMENTS
+      value: ONBOARDINGDOCUMENTS,
+      route: '/on-boarding/documents',
     }, {
       label: 'Review',
-      value: ONBOARDINGREVIEW
+      value: ONBOARDINGREVIEW,
+      route: '/on-boarding/review',
     }];
   }
 
@@ -45,11 +51,16 @@ export class CMStepperComponent extends GenericDestroyPageComponent implements O
     this.store.pipe(select(getOnboardingStepperSelector),
       takeUntil(this.$unsubscribe))
       .subscribe(step => {
-        if(step) {
+        if (step) {
           this.currStep = step;
         } else {
-          this.currStep = this.storageSrv.get('step') || ONBOARDINGTYPE;
+          const s = this.storageSrv.get('step');
+          
+          this.currStep = s || ONBOARDINGTYPE;
+
+          this.router.navigateByUrl(this.stepper?.find(s => s.value === this.currStep)?.route);
         }
+        console.log(step)
       })
   }
 }
