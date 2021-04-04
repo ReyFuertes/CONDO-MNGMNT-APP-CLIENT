@@ -22,7 +22,7 @@ import { BUILDINGNOOPTIONS, CIVILOPTIONS, GENDEROPTIONS, IDTYPEOPTIONS, ONBOARDI
 })
 export class OnboardingPersonalComponent extends GenericOnBoardingComponent implements OnInit {
   public form: FormGroup;
-  public options: ISimpleItem[] = [{
+  public occupantOptions: ISimpleItem[] = [{
     label: 'Home Owner',
     value: String(OccupantType.HomeOwner)
   }, {
@@ -32,7 +32,6 @@ export class OnboardingPersonalComponent extends GenericOnBoardingComponent impl
     label: 'Authorized Rep.',
     value: String(OccupantType.AuthorizedRepresentative)
   }];
-  public selectedOccupantType: string = String(OccupantType.HomeOwner);
   public files: File[] = [];
 
   constructor(storageSrv: StorageService, router: Router, private fb: FormBuilder, private store: Store<AppState>) {
@@ -62,7 +61,12 @@ export class OnboardingPersonalComponent extends GenericOnBoardingComponent impl
     });
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.form.get('occupantType').patchValue({
+      label: 'Home Owner',
+      value: String(OccupantType.HomeOwner)
+    });
+   }
 
   public onPersonalImageChange(event: any): void {
     let file: any
@@ -76,7 +80,6 @@ export class OnboardingPersonalComponent extends GenericOnBoardingComponent impl
   }
 
   private onConvertBlobToBase64(event: any, file: any, formName: string): any {
-    /* collect all drop images in base64 results */
     convertBlobToBase64(event).pipe(take(1),
       takeUntil(this.$unsubscribe),
       map(b64Result => {

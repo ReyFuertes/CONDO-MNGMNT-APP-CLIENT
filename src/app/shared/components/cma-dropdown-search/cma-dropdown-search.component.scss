@@ -1,8 +1,1 @@
 @import "src/styleguide/index";
-
-:host ::ng-deep {
-  .p-dropdown .p-dropdown-label {
-    padding-right: 1.5rem;
-    min-width: 170px;
-  }
-}

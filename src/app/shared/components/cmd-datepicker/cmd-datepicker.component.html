@@ -1,3 +1,4 @@
-<div [formGroup]="form" fxLayout="row" fxLayoutAlign="start center">
+<div [formGroup]="form" fxLayout="column" fxLayoutAlign="start start">
+  <label>{{ label }}</label>
   <p-calendar appendTo="body" [formControlName]="controlName" showButtonBar="true" [readonlyInput]="true" [placeholder]="placeholder" read [showIcon]="true"></p-calendar>
 </div>

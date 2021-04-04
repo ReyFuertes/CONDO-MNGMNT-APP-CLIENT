@@ -13,7 +13,7 @@
             <ng-container formArrayName="occupants">
               <div fxFlex fxLayoutGap="20px" [formGroupName]="i" fxLayout="row" fxLayoutAlign="start center">
                 <cma-input [form]="occupant" controlName="name" label="Occupant Name"></cma-input>
-                <cma-dropdown [form]="occupant" [options]="relationOptions" controlName="relationship" placeholder="Relationship"></cma-dropdown>
+                <cma-dropdown [form]="occupant" label="Relationship" [options]="relationOptions" controlName="relationship" placeholder="Relationship"></cma-dropdown>
                 <button styleClass="p-button-sm" tooltipPosition="top" pTooltip="Remove" pButton pRipple class="btn-remove danger" icon="pi pi-times"></button>
               </div>
             </ng-container>
