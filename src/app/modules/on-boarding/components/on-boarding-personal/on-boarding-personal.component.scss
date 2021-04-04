@@ -6,11 +6,9 @@
 }
 .header-content {
   padding-bottom: 5px;
-}
-.personal-inner-container {
-  max-height: 500px;
-  min-height: 500px;
-  height: 500px;
+  > div {
+    width: 100%;
+  }
 }
 .personal-container {
   padding: 30px;
@@ -35,6 +33,7 @@
   height: auto;
   min-width: 650px;
   padding-left: 10px;
+  padding-top: 15px;
 }
 .action-btns {
   margin-top: 20px;

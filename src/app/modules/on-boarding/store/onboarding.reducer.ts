@@ -1,16 +1,20 @@
 import { createReducer, on, Action } from "@ngrx/store";
+import { ISimpleItem } from "src/app/shared/generics/generic-model";
 import { setOnboardingStepperAction } from "./onboarding.action";
 
 export interface OnboardingState {
-  stepper?: string
+  stepper?: string,
+  type?: ISimpleItem,
+  personal?: any
 }
 export const initialState: OnboardingState = {
   stepper: null,
+  type: null,
+  personal: null
 };
 const onboardingReducer = createReducer(
   initialState,
   on(setOnboardingStepperAction, (state, action) => {
-    debugger
     return Object.assign({}, state, { stepper: action.step });
   }),
 );

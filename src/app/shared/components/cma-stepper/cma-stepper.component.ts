@@ -45,7 +45,6 @@ export class CMStepperComponent extends GenericDestroyPageComponent implements O
         if(step) {
           this.currStep = step;
         } else {
-          debugger
           this.currStep = this.storageSrv.get('step') || ONBOARDINGTYPE;
         }
       })

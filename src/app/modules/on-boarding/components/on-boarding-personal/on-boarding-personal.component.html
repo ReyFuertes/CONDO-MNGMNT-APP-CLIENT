@@ -2,39 +2,38 @@
   <h2>Personal Information</h2>
 
   <div class="header-content" fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="20px">
-    <div class="w-100" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px">
-      <cma-dropdown-search [options]="buildingNoOptions" placeholder="Building"></cma-dropdown-search>
-      <cma-dropdown-search [options]="unitNoOptions" placeholder="Unit #"></cma-dropdown-search>
-      <cma-dropdown-search [options]="parkingNoOptions" placeholder="Parking Slot"></cma-dropdown-search>
+    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px">
+      <cma-dropdown-search [form]="form" controlName="buildingNo" [options]="buildingNoOptions" placeholder="Building"></cma-dropdown-search>
+      <cma-dropdown-search [form]="form" controlName="unitNo" [options]="unitNoOptions" placeholder="Unit #"></cma-dropdown-search>
+      <cma-dropdown-search [form]="form" controlName="parkingSlot" [options]="parkingNoOptions" placeholder="Parking Slot"></cma-dropdown-search>
     </div>
-    <div class="w-100" fxLayout="row" fxLayoutAlign="center center">
-      <cma-select-option [options]="options" [selectedItem]="selectedOccupantType"></cma-select-option>
+    <div fxLayout="row" fxLayoutAlign="center center">
+      <cma-select-option [form]="form" controlName="occupantType" [options]="options" [selectedItem]="selectedOccupantType"></cma-select-option>
     </div>
   </div>
 
   <div class="content" fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="20px">
-  
     <div class="content-personal" fxLayout="column" fxLayoutAlign="center center">
       <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="25px">
         <div fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="20px">
-          <cma-input label="Lastname"></cma-input>
-          <cma-input label="Firstname"></cma-input>
-          <cma-input label="Middlename"></cma-input>
+          <cma-input [form]="form" controlName="lastname" label="Lastname"></cma-input>
+          <cma-input [form]="form" controlName="firstname" label="Firstname"></cma-input>
+          <cma-input [form]="form" controlName="middlename" label="Middlename"></cma-input>
+          
+          <cma-input [form]="form" controlName="citizenship" label="Citizenship"></cma-input>
+          <cma-dropdown [form]="form" controlName="gender" [options]="genderOptions" placeholder="Gender"></cma-dropdown>
+          <cma-dropdown [form]="form" controlName="civilStatus" [options]="civilOptions" placeholder="Civil Status"></cma-dropdown>
 
-          <cma-input label="Citizenship"></cma-input>
-          <cma-dropdown [options]="genderOptions" placeholder="Gender"></cma-dropdown>
-          <cma-dropdown [options]="civilOptions" placeholder="Civil Status"></cma-dropdown>
+          <cma-datepicker [form]="form" controlName="dateOfBirth" placeholder="Date of Birth"></cma-datepicker>
+          <cma-input [form]="form" controlName="occupation" label="Occupation"></cma-input>
+          <cma-input [form]="form" controlName="tin" label="TIN"></cma-input>
 
-          <cma-datepicker placeholder="Date of Birth"></cma-datepicker>
-          <cma-input label="Occupation"></cma-input>
-          <cma-input label="TIN"></cma-input>
+          <cma-input [form]="form" controlName="busAddress" label="Bus. Address"></cma-input>
+          <cma-input [form]="form" controlName="busContactNo" label="Bus. Contact No."></cma-input>
+          <cma-input [form]="form" controlName="busEmail" label="Bus. Email"></cma-input>
 
-          <cma-input label="Bus. Address"></cma-input>
-          <cma-input label="Bus. Contact No."></cma-input>
-          <cma-input label="Bus. Email"></cma-input>
-
-          <cma-dropdown [options]="IdTypeOptions" placeholder="ID Type"></cma-dropdown>
-          <cma-input label="ID No."></cma-input>
+          <cma-dropdown [form]="form" controlName="idType" [options]="IdTypeOptions" placeholder="ID Type"></cma-dropdown>
+          <cma-input [form]="form" controlName="idNo"  label="ID No."></cma-input>
           <cma-upload [preview]="getPersonalUploadedFilePreview" (fileEmitter)="onPersonalImageChange($event)" [fileName]="getImagePreview('personalUploadedIdFile')"></cma-upload>
         </div>
       </div>
