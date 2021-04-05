@@ -9,12 +9,12 @@
             <button pButton pRipple type="button" (click)="onAdd()" label="Add Occupant" class="p-button-rounded primary"></button>
           </div>
 
-          <div *ngFor="let occupant of form.get('occupants')?.controls;let i = index" fxLayout="column">
+          <div *ngFor="let occupant of form.get('occupants')?.controls; let i = index" fxLayout="column">
             <ng-container formArrayName="occupants">
               <div fxFlex fxLayoutGap="20px" [formGroupName]="i" fxLayout="row" fxLayoutAlign="start center">
                 <cma-input [form]="occupant" controlName="name" label="Name"></cma-input>
                 <cma-input [form]="occupant" controlName="relationship" label="Relationship"></cma-input>
-                <button styleClass="p-button-sm" tooltipPosition="top" pTooltip="Remove" pButton pRipple class="btn-remove danger" icon="pi pi-times"></button>
+                <button styleClass="p-button-sm" tooltipPosition="top" pTooltip="Remove" pButton pRipple class="btn-remove danger" icon="pi pi-times" (click)="onRemove(occupant, i)"></button>
               </div>
             </ng-container>
           </div>

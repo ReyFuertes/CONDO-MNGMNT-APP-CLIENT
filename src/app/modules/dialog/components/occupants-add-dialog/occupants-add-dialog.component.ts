@@ -8,7 +8,7 @@ import { IOccupant, IOnboardingPersonal } from 'src/app/modules/on-boarding/on-b
 import { ISimpleItem } from 'src/app/shared/generics/generic-model';
 import { getFormObjectValue } from 'src/app/shared/util/form';
 import { RELATIONSOPTIONS } from 'src/app/shared/constants/generic';
-
+import { v4 as uuid } from 'uuid';
 @Component({
   selector: 'cma-occupants-add-dialog',
   templateUrl: './occupants-add-dialog.component.html',
@@ -53,6 +53,7 @@ export class OccupantsAddDialogComponent extends GenericAddEditComponent<IOccupa
       const formValues = {
         ...this.form.value,
         relationship: getFormObjectValue(this.form, 'relationship'),
+        id: uuid()
       };
 
       this.dialogRef.close(formValues);

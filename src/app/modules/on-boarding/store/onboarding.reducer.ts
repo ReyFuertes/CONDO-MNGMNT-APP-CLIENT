@@ -1,7 +1,8 @@
 import { createReducer, on, Action } from "@ngrx/store";
 import { ISimpleItem } from "src/app/shared/generics/generic-model";
 import { IOccupant, IOnboardingPersonal } from "../on-boarding.model";
-import { addOccupantAction, setOnboardingStepperAction } from "./onboarding.action";
+import { addOccupantAction, removeOccupantAction, setOnboardingStepperAction } from "./onboarding.action";
+import * as _ from 'lodash';
 
 export interface OnboardingState {
   stepper?: string,
@@ -17,6 +18,16 @@ export const initialState: OnboardingState = {
 };
 const onboardingReducer = createReducer(
   initialState,
+  on(removeOccupantAction, (state, action) => {
+    let occupants: IOccupant[] = Object.assign([], state.occupants);
+    let match = occupants.find(o => action?.item?.name === o?.name);
+
+    if (match) {
+      _.remove(occupants, { name: match?.name });
+    }
+
+    return Object.assign({}, state, { occupants });
+  }),
   on(addOccupantAction, (state, action) => {
     let occupants = Object.assign([], state.occupants);
     if(!occupants.includes(action.response)) {

@@ -6,7 +6,7 @@ import { StorageService } from 'src/app/services/storage.service';
 import { GenericOnBoardingComponent } from 'src/app/shared/generics/generic-onboarding';
 import { AppState } from 'src/app/store/app.reducer';
 import { ONBOARDINGOCCUPANTS, ONBOARDINGDOCUMENTS, ONBOARDINGPARTNER } from 'src/app/shared/constants/generic';
-import { setOnboardingStepperAction } from '../../store/onboarding.action';
+import { removeOccupantAction, setOnboardingStepperAction } from '../../store/onboarding.action';
 import { IOccupant } from '../../on-boarding.model';
 import { MatDialog } from '@angular/material/dialog';
 import { OccupantsAddDialogComponent } from 'src/app/modules/dialog/components/occupants-add-dialog/occupants-add-dialog.component';
@@ -20,6 +20,7 @@ import { AddEditStateType } from 'src/app/shared/generics/generic-model';
 export class OnboardingOccupantsComponent extends GenericOnBoardingComponent implements OnInit {
   public form: FormGroup;
   public files: File[] = [];
+  public formOccupantsArr: FormArray;
 
   constructor(public dialog: MatDialog, storageSrv: StorageService, router: Router, private fb: FormBuilder, private store: Store<AppState>) {
     super(ONBOARDINGOCCUPANTS, storageSrv, router);
@@ -43,6 +44,16 @@ export class OnboardingOccupantsComponent extends GenericOnBoardingComponent imp
 
   public createItem = (item: IOccupant): FormGroup => this.fb.group(item);
 
+  public onRemove(item: IOccupant, i: number): void {
+    if (item) {
+
+      this.formOccupantsArr = this.form.get('occupants') as FormArray;
+      this.formOccupantsArr.removeAt(i);
+
+      //this.store.dispatch(removeOccupantAction({ item })); 
+    }
+  }
+
   public onAdd(): void {
     const dialogRef = this.dialog.open(OccupantsAddDialogComponent, {
       data: {
@@ -53,7 +64,8 @@ export class OnboardingOccupantsComponent extends GenericOnBoardingComponent imp
     });
     dialogRef.afterClosed().subscribe((payload) => {
       if (payload) {
-        this.occupants.push(this.createItem(payload));
+        this.formOccupantsArr = this.form.get('occupants') as FormArray;
+        this.formOccupantsArr.push(this.createItem(Object.assign({}, payload)));
       }
     });
   }
