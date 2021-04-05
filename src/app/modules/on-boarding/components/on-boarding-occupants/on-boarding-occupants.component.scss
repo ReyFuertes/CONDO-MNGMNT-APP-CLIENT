@@ -11,13 +11,11 @@
   box-shadow: $box-shadow;
   background-color: $color-white;
   max-width: 815px;
-  max-height: 500px;
+  min-height: 418px;
 }
 .content {
   margin-bottom: 20px;
-  overflow: hidden;
   height: 100%;
-  padding: 20px;
 }
 .content-occupant {
   h5 {
@@ -26,13 +24,13 @@
   height: auto;
   min-width: 650px;
   padding-left: 10px;
+  min-height: 216px;
 }
 .btn-add-container {
   width: 100%;
 }
 .action-btns {
-  margin-top: 20px;
-  border-top: thin #f1f1f1 solid;
+  border-top: thin $color-gray-2 solid;
   padding-top: 20px;
   padding-bottom: 5px;
   width: 100%;

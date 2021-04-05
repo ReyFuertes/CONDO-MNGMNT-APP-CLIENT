@@ -30,24 +30,18 @@ export class OnboardingOccupantsComponent extends GenericOnBoardingComponent imp
   }
 
   ngOnInit(): void {
-    this.occupants.push(this.newOccupant({
-      name: 'test 1',
-      relationship: 'father 1'
-    }));
 
-    this.occupants.push(this.newOccupant({
-      name: 'test 2',
-      relationship: 'father 2'
-    }));
   }
 
   public get occupants(): FormArray {
-    return this.form.get("occupants") as FormArray;
+    return this.form.get('occupants') as FormArray;
   }
 
   public newOccupant(occupant: IOccupant): FormGroup {
     return this.fb.group(occupant)
   }
+
+  public createItem = (item: IOccupant): FormGroup => this.fb.group(item);
 
   public onAdd(): void {
     const dialogRef = this.dialog.open(OccupantsAddDialogComponent, {
@@ -59,7 +53,7 @@ export class OnboardingOccupantsComponent extends GenericOnBoardingComponent imp
     });
     dialogRef.afterClosed().subscribe((payload) => {
       if (payload) {
-      
+        this.occupants.push(this.createItem(payload));
       }
     });
   }

@@ -26,6 +26,8 @@ export class OccupantsAddDialogComponent extends GenericAddEditComponent<IOccupa
       name: [null, Validators.required],
       relationship: [null, [Validators.required]]
     });
+
+    this.state = data?.state || null;
   }
 
   ngOnInit(): void { }

@@ -6,7 +6,7 @@ import { BTNTEXTSAVE, BTNTEXTUPDATE} from 'src/app/shared/constants/generic';
 
 @Directive()
 export abstract class GenericAddEditComponent<T> extends GenericDestroyPageComponent {
-  @Input() public state: AddEditStateType;
+  public state: AddEditStateType;
 
   public entity: T;
   public form: FormGroup;
