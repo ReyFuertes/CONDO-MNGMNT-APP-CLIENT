@@ -6,6 +6,9 @@ div {
   max-height: 100%;
 }
 :host ::ng-deep {
+  h2 {
+    margin-top: 10px !important;
+  }
   cma-on-boarding-type {
     display: flex;
     place-content: flex-start;

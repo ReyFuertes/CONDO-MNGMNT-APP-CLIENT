@@ -1,4 +1,7 @@
 @import "src/styleguide/index";
+:host {
+  padding-top: 10px;
+}
 .select-file {
   color: $color-gray-1;
   cursor: pointer;

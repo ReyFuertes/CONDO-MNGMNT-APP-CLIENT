@@ -18,7 +18,6 @@ import { ONBOARDINGDOCUMENTS, ONBOARDINGOCCUPANTS, ONBOARDINGPARTNER, ONBOARDING
   styleUrls: ['./on-boarding-partner-info.component.scss']
 })
 export class OnboardingPartnerInfoComponent extends GenericOnBoardingComponent implements OnInit {
-  public form: FormGroup;
   public files: File[] = [];
 
   constructor(storageSrv: StorageService, router: Router, private fb: FormBuilder, private store: Store<AppState>) {
@@ -86,13 +85,13 @@ export class OnboardingPartnerInfoComponent extends GenericOnBoardingComponent i
   }
 
   public onNext(): void {
-    super.onNext('/on-boarding/occupants');
+    super.onNext('/on-boarding/occupants', 'partner', this.form.value);
 
     this.store.dispatch(setOnboardingStepperAction({ step: ONBOARDINGOCCUPANTS }));
   }
 
   public onPrev(): void {
-    super.onPrev('/on-boarding/personal');
+    super.onPrev('/on-boarding/personal', 'partner', this.form.value);
 
     this.store.dispatch(setOnboardingStepperAction({ step: ONBOARDINGPERSONAL }));
   }

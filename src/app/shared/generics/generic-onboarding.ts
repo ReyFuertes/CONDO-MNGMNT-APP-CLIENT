@@ -1,10 +1,12 @@
 import { Directive, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { StorageService } from 'src/app/services/storage.service';
 import { BUILDINGNOOPTIONS, CIVILOPTIONS, GENDEROPTIONS, IDTYPEOPTIONS, PARTKINGNOOPTIONS, RELATIONSOPTIONS, UNITNOOPTIONS } from '../constants/generic';
 import { GenericDestroyPageComponent } from './generic-destroy';
 @Directive()
 export class GenericOnBoardingComponent extends GenericDestroyPageComponent {
+  public form: FormGroup;
   public buildingNoOptions = BUILDINGNOOPTIONS;
   public unitNoOptions = UNITNOOPTIONS;
   public parkingNoOptions = PARTKINGNOOPTIONS;
@@ -19,12 +21,18 @@ export class GenericOnBoardingComponent extends GenericDestroyPageComponent {
     this._step = step;
   }
 
-  public onNext(route?: string): void {
+  public onNext(route?: string, formName?: string, formValues?: any): void {
+    if(formName && formValues) {
+      this.storageSrv.set(formName, JSON.stringify(formValues));
+    }
     this.storageSrv.set('step', String(Number(this._step) + 1));
     this.router.navigateByUrl(route);
   }
 
-  public onPrev(route?: string): void {
+  public onPrev(route?: string, formName?: string, formValues?: any): void {
+    if(formName && formValues) {
+      this.storageSrv.set(formName, JSON.stringify(formValues));
+    }
     this.storageSrv.set('step', String(Number(this._step) - 1));
     this.router.navigateByUrl(route);
   }

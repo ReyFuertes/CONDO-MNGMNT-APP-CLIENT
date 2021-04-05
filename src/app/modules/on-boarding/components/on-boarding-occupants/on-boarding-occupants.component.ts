@@ -18,7 +18,6 @@ import { AddEditStateType } from 'src/app/shared/generics/generic-model';
   styleUrls: ['./on-boarding-occupants.component.scss']
 })
 export class OnboardingOccupantsComponent extends GenericOnBoardingComponent implements OnInit {
-  public form: FormGroup;
   public files: File[] = [];
   public formOccupantsArr: FormArray;
 
@@ -60,7 +59,7 @@ export class OnboardingOccupantsComponent extends GenericOnBoardingComponent imp
         state: AddEditStateType.Add
       },
       height: '282px',
-      autoFocus: false
+      autoFocus: true
     });
     dialogRef.afterClosed().subscribe((payload) => {
       if (payload) {
@@ -71,13 +70,13 @@ export class OnboardingOccupantsComponent extends GenericOnBoardingComponent imp
   }
 
   public onNext(): void {
-    super.onNext('/on-boarding/documents');
+    super.onNext('/on-boarding/documents', 'occupant', this.form.value);
 
     this.store.dispatch(setOnboardingStepperAction({ step: ONBOARDINGDOCUMENTS }));
   }
 
   public onPrev(): void {
-    super.onPrev('/on-boarding/partner');
+    super.onPrev('/on-boarding/partner', 'occupant', this.form.value);
 
     this.store.dispatch(setOnboardingStepperAction({ step: ONBOARDINGPARTNER }));
   }

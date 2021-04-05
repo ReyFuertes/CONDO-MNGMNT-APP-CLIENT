@@ -1,3 +1,4 @@
+import { OccupantType } from "src/app/models/onboarding.model";
 import { ISimpleItem } from "../generics/generic-model";
 export const BTNTEXTUPDATE = 'Update';
 export const BTNTEXTSAVE = 'Save';
@@ -7,6 +8,16 @@ export const ONBOARDINGPARTNER = '3';
 export const ONBOARDINGOCCUPANTS = '4';
 export const ONBOARDINGDOCUMENTS = '5';
 export const ONBOARDINGREVIEW = '6';
+export const OCCUPANTOPTIONS: ISimpleItem[] = [{
+  label: 'Home Owner',
+  value: String(OccupantType.HomeOwner)
+}, {
+  label: 'Tenant',
+  value: String(OccupantType.Tenant)
+}, {
+  label: 'Authorized Rep.',
+  value: String(OccupantType.AuthorizedRepresentative)
+}];
 export const RELATIONSOPTIONS: ISimpleItem[] = [{
   label: 'Father',
   value: '1'

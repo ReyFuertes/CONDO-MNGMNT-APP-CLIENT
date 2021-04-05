@@ -2,8 +2,8 @@
   <label>{{ label }}</label>
   <p-dropdown appendTo="body" [options]="options" [formControlName]="controlName" optionLabel="label" [filter]="true" filterBy="label" [showClear]="true" [placeholder]="placeholder">
     <ng-template pTemplate="selectedItem">
-      <div *ngIf="selectedItem">
-        <div>{{selectedItem?.label}}</div>
+      <div>
+        <div>{{form.get(controlName)?.value?.label}}</div>
       </div>
     </ng-template>
     <ng-template let-option pTemplate="item">

@@ -1,6 +1,6 @@
 <div [formGroup]="form" fxLayout="column" fxLayoutAlign="start start">
   <label>{{ label }}</label>
-  <p-dropdown appendTo="body" [options]="options" [formControlName]="controlName" optionLabel="label" [filter]="true" filterBy="name" [showClear]="true" [placeholder]="placeholder">
+  <p-dropdown appendTo="body" [options]="options" [formControlName]="controlName" optionLabel="label" [showClear]="true" [placeholder]="placeholder">
     <ng-template pTemplate="selectedItem">
       <div>
         <div>{{form.get(controlName)?.value?.label}}</div>

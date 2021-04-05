@@ -18,6 +18,7 @@ export class OnboardingTypeComponent extends GenericOnBoardingComponent implemen
   public svgPath: string = environment.svgPath;
   public selectedTypeIsIndividual: any;
   public selectedTypeICorporate: any;
+  public selectedType: any;
 
   constructor(storageSrv: StorageService, router: Router, private store: Store<AppState>) {
     super(ONBOARDINGTYPE, storageSrv, router);
@@ -35,10 +36,11 @@ export class OnboardingTypeComponent extends GenericOnBoardingComponent implemen
       this.selectedTypeICorporate = !this.selectedTypeICorporate;
       this.selectedTypeIsIndividual = false;
     }
+    this.selectedType = chk.value;
   }
 
   public onNext(): void {
-    super.onNext('/on-boarding/personal');
+    super.onNext('/on-boarding/personal', 'type', this.selectedType);
 
     this.store.dispatch(setOnboardingStepperAction({ step: ONBOARDINGPERSONAL }));
   }
