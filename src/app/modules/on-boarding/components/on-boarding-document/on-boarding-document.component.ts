@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { StorageService } from 'src/app/services/storage.service';
-import { ONBOARDINGDOCUMENTS, ONBOARDINGOCCUPANTS, ONBOARDINGPARTNER, ONBOARDINGREVIEW } from 'src/app/shared/constants/generic';
-import { ISimpleItem } from 'src/app/shared/generics/generic-model';
+import { ONBOARDINGDOCUMENTS, ONBOARDINGOCCUPANTS, ONBOARDINGREVIEW } from 'src/app/shared/constants/generic';
 import { GenericOnBoardingComponent } from 'src/app/shared/generics/generic-onboarding';
 import { AppState } from 'src/app/store/app.reducer';
 import { environment } from 'src/environments/environment';
@@ -80,13 +79,13 @@ export class OnboardingDocumentComponent extends GenericOnBoardingComponent impl
   }
 
   public onNext(): void {
-    super.onNext('/on-boarding/review');
+    super.onNext('/on-boarding/review', 'documents', this.form.value);
 
     this.store.dispatch(setOnboardingStepperAction({ step: ONBOARDINGREVIEW }));
   }
 
   public onPrev(): void {
-    super.onPrev('/on-boarding/occupants');
+    super.onPrev('/on-boarding/occupants', 'documents', this.form.value);
 
     this.store.dispatch(setOnboardingStepperAction({ step: ONBOARDINGOCCUPANTS }));
   }
