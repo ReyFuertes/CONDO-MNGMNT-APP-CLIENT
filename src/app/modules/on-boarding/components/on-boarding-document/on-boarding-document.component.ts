@@ -7,6 +7,7 @@ import { ISimpleItem } from 'src/app/shared/generics/generic-model';
 import { GenericOnBoardingComponent } from 'src/app/shared/generics/generic-onboarding';
 import { AppState } from 'src/app/store/app.reducer';
 import { environment } from 'src/environments/environment';
+import { IOnboardingDocument } from '../../on-boarding.model';
 import { setOnboardingStepperAction } from '../../store/onboarding.action';
 
 @Component({
@@ -16,30 +17,30 @@ import { setOnboardingStepperAction } from '../../store/onboarding.action';
 })
 export class OnboardingDocumentComponent extends GenericOnBoardingComponent implements OnInit {
   public svgPath: string = environment.svgPath;
-  public uploadDocuments: ISimpleItem[] = [{
+  public uploadDocuments: IOnboardingDocument[] = [{
     label: 'Amenities Registration Form',
-    value: ''
+    value: '1'
   }, {
     label: 'Move-in Notice & Clearance Form',
-    value: ''
+    value: '2'
   }, {
     label: 'Residents Information Sheet',
-    value: ''
+    value: '3'
   }, {
     label: 'Vehicle Registration & Car Sticker Form',
-    value: ''
+    value: '4'
   }, {
     label: 'ID Card Application Form',
-    value: ''
+    value: '5'
   }, {
     label: 'Signature Information Card',
-    value: ''
+    value: '6'
   }, {
     label: 'Waiver',
-    value: ''
+    value: '7'
   }, {
     label: 'Contract',
-    value: ''
+    value: '8'
   }];
 
   constructor(storageSrv: StorageService, router: Router, private store: Store<AppState>) {
@@ -47,6 +48,14 @@ export class OnboardingDocumentComponent extends GenericOnBoardingComponent impl
   }
 
   ngOnInit(): void { }
+
+  public onUpload(event: any, doc: any): void {
+    doc.file = event;
+  }
+
+  public hasFile(prevLabel: any, currLabel: any): boolean {
+    return prevLabel && prevLabel !== currLabel ? true : false;
+  }
 
   public onNext(): void {
     super.onNext('/on-boarding/review');

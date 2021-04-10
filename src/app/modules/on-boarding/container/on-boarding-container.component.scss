@@ -30,4 +30,11 @@ div {
   cma-stepper {
     margin-top: 25px;
   }
+  cma-upload {
+    min-width: 206px;
+    max-width: 206px;
+  }
+  cma-input, cma-dropdown, cma-datepicker, cma-upload {
+    margin-bottom: 15px;
+  }
 }

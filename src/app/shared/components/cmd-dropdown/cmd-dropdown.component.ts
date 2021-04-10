@@ -7,8 +7,11 @@ import { ISimpleItem } from '../../generics/generic-model';
   templateUrl: './cmd-dropdown.component.html',
   styleUrls: ['./cmd-dropdown.component.scss']
 })
-export class CMADropdownComponent extends GenericControl<ISimpleItem> {
+export class CMADropdownComponent extends GenericControl<ISimpleItem> implements OnInit {
   constructor() {
     super();
+  }
+
+  ngOnInit() {
   }
 }

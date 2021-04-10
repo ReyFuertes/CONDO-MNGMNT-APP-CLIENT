@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { map, take, takeUntil } from 'rxjs/operators';
 import { convertBlobToBase64 } from 'src/app/shared/util/convert-to-blob';
 import { v4 as uuid } from 'uuid';
@@ -24,20 +24,20 @@ export class OnboardingPartnerInfoComponent extends GenericOnBoardingComponent i
     super(ONBOARDINGPARTNER, storageSrv, router);
 
     this.form = this.fb.group({
-      lastname: [null],
-      firstname: [null],
-      middlename: [null],
-      citizenship: [null],
+      lastname: ['fuertes'],
+      firstname: ['haydee'],
+      middlename: ['Alolor'],
+      citizenship: ['filipino'],
       gender: [null],
       civilStatus: [null],
-      dateOfBirth: [null],
-      occupation: [null],
-      busAddress: [null],
-      busContactNo: [null],
-      busEmail: [null],
-      tin: [null],
+      dateOfBirth: ['04/10/2021'],
+      occupation: ['none'],
+      busAddress: ['none'],
+      busContactNo: ['none'],
+      busEmail: ['none'],
+      tin: ['1234567890'],
       idType: [null],
-      idNo: [null],
+      idNo: ['1234567890'],
       uploadedIdFile: [null],
       uploadedFilePreview: [null],
     });

@@ -12,8 +12,8 @@
           <div *ngFor="let occupant of form.get('occupants')?.controls; let i = index" fxLayout="column">
             <ng-container formArrayName="occupants">
               <div fxFlex fxLayoutGap="20px" [formGroupName]="i" fxLayout="row" fxLayoutAlign="start center">
-                <cma-input [form]="occupant" controlName="name" label="Name"></cma-input>
-                <cma-input [form]="occupant" controlName="relationship" label="Relationship"></cma-input>
+                <cma-input [form]="occupant" [isReadOnly]="true" controlName="name" label="Name"></cma-input>
+                <cma-input [form]="occupant" [isReadOnly]="true" controlName="relationship" label="Relationship"></cma-input>
                 <button styleClass="p-button-sm" tooltipPosition="top" pTooltip="Remove" pButton pRipple class="btn-remove danger" icon="pi pi-times" (click)="onRemove(occupant, i)"></button>
               </div>
             </ng-container>

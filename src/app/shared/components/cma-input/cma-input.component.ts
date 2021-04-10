@@ -8,12 +8,20 @@ import { ISimpleItem } from '../../generics/generic-model';
   styleUrls: ['./cma-input.component.scss']
 })
 export class CMAInputComponent extends GenericControl<ISimpleItem> implements OnInit {
-  @Input() readOnly: string;
   @Input() value: string = null;
+
+  public isControlValueObject: boolean = false;
 
   constructor() {
     super();
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    const value = this.form.get(this.controlName).value;
+    if (typeof (value) === 'object') {
+      this.form.get(this.controlName).patchValue(value?.label);
+    } else {
+      this.form.get(this.controlName).patchValue(value);
+    }
+  }
 }

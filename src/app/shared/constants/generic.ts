@@ -20,22 +20,22 @@ export const OCCUPANTOPTIONS: ISimpleItem[] = [{
 }];
 export const RELATIONSOPTIONS: ISimpleItem[] = [{
   label: 'Father',
-  value: '1'
+  value: 'father'
 }, {
   label: 'Mother',
-  value: '2'
+  value: 'mother'
 }, {
   label: 'Brother',
-  value: '3'
+  value: 'brother'
 }, {
   label: 'Sister',
-  value: '4'
+  value: 'sister'
 }, {
   label: 'Children',
-  value: '5'
+  value: 'children'
 }, {
   label: 'Other',
-  value: '6'
+  value: 'other'
 }];
 export const BUILDINGNOOPTIONS: ISimpleItem[] = [{
   label: 'Building #1',

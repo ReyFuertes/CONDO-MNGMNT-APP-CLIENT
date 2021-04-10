@@ -13,6 +13,7 @@ export class GenericControl<T> extends GenericDestroyPageComponent {
   @Input() public form: FormGroup;
   @Input() public isFloatLabel: boolean = false;
   @Input() public selectedItem: T;
+  @Input() public isReadOnly: boolean = false;
 
   public svgPath: string = environment.svgPath;
   public imgPath: string = environment.imgPath;

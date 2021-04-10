@@ -11,7 +11,7 @@
   box-shadow: $box-shadow;
   background-color: $color-white;
   max-width: 815px;
-  max-height: 500px;
+  max-height: 560px;
 }
 .content {
   margin-bottom: 20px;
@@ -36,13 +36,6 @@
 :host ::ng-deep {
   .p-calendar .p-inputtext {
     max-width: 155px;
-  }
-  cma-upload {
-    min-width: 206px;
-    max-width: 206px;
-  }
-  cma-input, cma-dropdown, cma-datepicker, cma-upload {
-    margin-bottom: 20px;
   }
   p-dropdown.dropdown .p-dropdown {
     width: 195px;

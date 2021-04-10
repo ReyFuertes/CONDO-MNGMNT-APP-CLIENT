@@ -1,0 +1,12 @@
+<ngx-file-drop [ngClass]="{'disabled': disabled, 'has-upload': hasUpload}" (click)="!disabled ? uploader.click(): null" (onFileDrop)="dropped($event)" (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
+  <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+    <div class="upload-thumb">
+      <div fxLayout="row" fxLayoutAlign="center end">
+        <i class="pi pi-cloud-upload"></i>
+      </div>
+      <div><span>{{ label }}</span></div>
+      <input hidden type="file" #uploader (change)="onUpload($event)" accept="image/*" />
+    </div>
+  </ng-template>
+  <input hidden type="file" #uploader (change)="upload($event)" />
+</ngx-file-drop>

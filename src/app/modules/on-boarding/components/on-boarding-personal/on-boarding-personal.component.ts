@@ -31,23 +31,25 @@ export class OnboardingPersonalComponent extends GenericOnBoardingComponent impl
       unitNo: [null, [Validators.required]],
       parkingSlot: [null, [Validators.required]],
       occupantType: [null, [Validators.required]],
-      lastname: [null, [Validators.required]],
-      firstname: [null, [Validators.required]],
-      middlename: [null, [Validators.required]],
-      citizenship: [null, [Validators.required]],
+      lastname: ['fuertes', [Validators.required]],
+      firstname: ['rey', [Validators.required]],
+      middlename: ['senador', [Validators.required]],
+      citizenship: ['filipino', [Validators.required]],
       gender: [null, [Validators.required]],
       civilStatus: [null, [Validators.required]],
-      dateOfBirth: [null, [Validators.required]],
-      occupation: [null, [Validators.required]],
-      busAddress: [null, [Validators.required]],
-      busContactNo: [null, [Validators.required]],
-      busEmail: [null, [Validators.required, Validators.email]],
-      tin: [null, [Validators.required]],
+      dateOfBirth: ['04/10/2021', [Validators.required]],
+      occupation: ['none', [Validators.required]],
+      busAddress: ['none', [Validators.required]],
+      busContactNo: ['none', [Validators.required]],
+      busEmail: ['none', [Validators.required]],
+      tin: ['1234567890', [Validators.required]],
       idType: [null, [Validators.required]],
-      idNo: [null, [Validators.required]],
+      idNo: ['1234567890', [Validators.required]],
       uploadedIdFile: [null],
       uploadedFilePreview: [null],
     });
+
+    this.form.valueChanges.subscribe(res => console.log(this.form))
   }
 
   ngOnInit(): void {

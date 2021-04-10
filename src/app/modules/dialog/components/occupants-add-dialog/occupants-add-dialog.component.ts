@@ -36,7 +36,7 @@ export class OccupantsAddDialogComponent extends GenericAddEditComponent<IOccupa
     if (!entity) return;
     try {
       const { id, name, relationship } = entity;
-
+      
       this.form.controls['id'].patchValue(id);
       this.form.controls['name'].patchValue(name);
       this.form.controls['relationship'].patchValue(relationship);
@@ -52,7 +52,6 @@ export class OccupantsAddDialogComponent extends GenericAddEditComponent<IOccupa
     if (this.form.valid) {
       const formValues = {
         ...this.form.value,
-        relationship: getFormObjectValue(this.form, 'relationship'),
         id: uuid()
       };
 

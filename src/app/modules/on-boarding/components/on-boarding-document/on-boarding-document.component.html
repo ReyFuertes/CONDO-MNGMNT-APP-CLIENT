@@ -1,16 +1,9 @@
 <div class="upload-container" fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="20px">
   <h2>Upload Documents</h2>
 
-  <div class="content" fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="20px">
-    <div fxLayout="row wrap" fxLayoutAlign="center start" fxLayoutGap="20px" >
-      <div *ngFor="let document of uploadDocuments" class="upload-thumb">
-        <div>
-          <img [src]="svgPath + '24x24/upload.svg'" />
-          <span>Drag file to upload</span>
-        </div>
-        <span>{{ document?.label }}</span>
-      </div>
-    </div>
+  <div class="content" fxLayout="row wrap" fxLayoutAlign="start start" fxLayoutGap="20px">
+    <cma-upload-thumb *ngFor="let document of uploadDocuments" [label]="document?.file?.name ? document?.file?.name : document?.label" (filterEmitter)="onUpload($event, document)" [hasUpload]="hasFile(document?.file?.name, document?.label)">
+    </cma-upload-thumb>
   </div>
 
   <div class="action-btns" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px">

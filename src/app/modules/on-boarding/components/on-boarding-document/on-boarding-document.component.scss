@@ -5,8 +5,8 @@
 }
 .upload-thumb {
   > div {
-    height: 120px;
-    width: 120px;
+    height: 140px;
+    width: 140px;
     border: thin $color-gray-2 dashed;
     border-radius: 2px;
     background-color: $color-gray-3;
@@ -46,7 +46,7 @@
   box-shadow: $box-shadow;
   background-color: $color-white;
   max-width: 800px;
-  max-height: 565px;
+  max-height: 605px;
 }
 .content {
   margin-bottom: 20px;

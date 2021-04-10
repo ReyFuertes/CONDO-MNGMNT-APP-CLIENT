@@ -29,9 +29,7 @@ export class OnboardingOccupantsComponent extends GenericOnBoardingComponent imp
     });
   }
 
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void {}
 
   public get occupants(): FormArray {
     return this.form.get('occupants') as FormArray;
@@ -45,11 +43,8 @@ export class OnboardingOccupantsComponent extends GenericOnBoardingComponent imp
 
   public onRemove(item: IOccupant, i: number): void {
     if (item) {
-
       this.formOccupantsArr = this.form.get('occupants') as FormArray;
       this.formOccupantsArr.removeAt(i);
-
-      //this.store.dispatch(removeOccupantAction({ item })); 
     }
   }
 
