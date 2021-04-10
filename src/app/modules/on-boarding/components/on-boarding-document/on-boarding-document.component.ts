@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormArray, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { StorageService } from 'src/app/services/storage.service';
@@ -19,38 +20,59 @@ export class OnboardingDocumentComponent extends GenericOnBoardingComponent impl
   public svgPath: string = environment.svgPath;
   public uploadDocuments: IOnboardingDocument[] = [{
     label: 'Amenities Registration Form',
-    value: '1'
+    value: '1',
+    formName: 'amenitiesRegistrationForm'
   }, {
     label: 'Move-in Notice & Clearance Form',
-    value: '2'
+    value: '2',
+    formName: 'moveinNoticeClearanceForm'
   }, {
     label: 'Residents Information Sheet',
-    value: '3'
+    value: '3',
+    formName: 'residentsInformationSheet'
   }, {
     label: 'Vehicle Registration & Car Sticker Form',
-    value: '4'
+    value: '4',
+    formName: 'vehicleRegistrationCarStickerForm'
   }, {
     label: 'ID Card Application Form',
-    value: '5'
+    value: '5',
+    formName: 'idCardApplicationForm'
   }, {
     label: 'Signature Information Card',
-    value: '6'
+    value: '6',
+    formName: 'signatureInformationCard'
   }, {
     label: 'Waiver',
-    value: '7'
+    value: '7',
+    formName: 'waiver'
   }, {
     label: 'Contract',
-    value: '8'
+    value: '8',
+    formName: 'contract'
   }];
 
-  constructor(storageSrv: StorageService, router: Router, private store: Store<AppState>) {
+  constructor(storageSrv: StorageService, router: Router, private fb: FormBuilder, private store: Store<AppState>) {
     super(ONBOARDINGDOCUMENTS, storageSrv, router);
+    this.form = this.fb.group({
+      amenitiesRegistrationForm: [null, [Validators.required]],
+      moveinNoticeClearanceForm: [null, [Validators.required]],
+      residentsInformationSheet: [null, [Validators.required]],
+      vehicleRegistrationCarStickerForm: [null, [Validators.required]],
+      idCardApplicationForm: [null, [Validators.required]],
+      signatureInformationCard: [null, [Validators.required]],
+      waiver: [null, [Validators.required]],
+      contract: [null, [Validators.required]]
+    });
+
+    this.form.valueChanges.subscribe(res => console.log(this.form))
   }
 
   ngOnInit(): void { }
 
-  public onUpload(event: any, doc: any): void {
+  public onUpload(event: any, doc: IOnboardingDocument): void {
     doc.file = event;
+    this.form.get(doc.formName).patchValue(doc);
   }
 
   public hasFile(prevLabel: any, currLabel: any): boolean {

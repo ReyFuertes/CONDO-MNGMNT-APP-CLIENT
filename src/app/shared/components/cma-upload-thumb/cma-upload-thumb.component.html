@@ -5,7 +5,6 @@
         <i class="pi pi-cloud-upload"></i>
       </div>
       <div><span>{{ label }}</span></div>
-      <input hidden type="file" #uploader (change)="onUpload($event)" accept="image/*" />
     </div>
   </ng-template>
   <input hidden type="file" #uploader (change)="upload($event)" />

@@ -4,9 +4,11 @@ import { IMyInfo, IBuilding, IUnit, IParkingSLot } from "src/app/shared/generics
 export interface IOnboarding {}
 
 export interface IOnboardingDocument {
+  id?: string;
   label?: string;
   value?: string;
   file?: string;
+  formName?: string;
 }
 export interface IOnboardingPersonal extends IMyInfo {
   building?: IBuilding;

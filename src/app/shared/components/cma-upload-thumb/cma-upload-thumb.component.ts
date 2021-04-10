@@ -1,13 +1,15 @@
 import { ChangeDetectorRef, Component, Input, OnInit, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { FileSystemDirectoryEntry, FileSystemFileEntry, NgxFileDropEntry } from 'ngx-file-drop';
 import { environment } from 'src/environments/environment';
+import { GenericControl } from '../../generics/generic-control';
+import { ISimpleItem } from '../../generics/generic-model';
 
 @Component({
   selector: 'cma-upload-thumb',
   templateUrl: './cma-upload-thumb.component.html',
   styleUrls: ['./cma-upload-thumb.component.scss']
 })
-export class CMAUploadThumbComponent implements OnInit, OnChanges {
+export class CMAUploadThumbComponent extends GenericControl<ISimpleItem> implements OnInit, OnChanges {
   @Input() public label: string = 'Drag file to upload';
   @Input() public hasUpload: boolean = false;
   @Input() public disabled: boolean = false;
@@ -16,7 +18,9 @@ export class CMAUploadThumbComponent implements OnInit, OnChanges {
   public svgPath: string = environment.svgPath;
   public files: NgxFileDropEntry[] = [];
 
-  constructor(private cdRef: ChangeDetectorRef) { }
+  constructor(private cdRef: ChangeDetectorRef) {
+    super();
+  }
 
   ngOnInit() { }
 
