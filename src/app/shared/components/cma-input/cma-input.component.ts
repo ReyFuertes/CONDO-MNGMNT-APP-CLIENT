@@ -8,7 +8,6 @@ import { ISimpleItem } from '../../generics/generic-model';
   styleUrls: ['./cma-input.component.scss']
 })
 export class CMAInputComponent extends GenericControl<ISimpleItem> implements OnInit {
-  @Input() label: string;
   @Input() readOnly: string;
   @Input() value: string = null;
 

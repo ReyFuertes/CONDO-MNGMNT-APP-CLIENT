@@ -3,6 +3,9 @@
   height: 1.5rem !important;
 }
 p-calendar, cma-datepicker {
-  min-width: 190px;
-  width: 190px;
+  min-width: 193px;
+  width: 193px;
+}
+.p-datepicker .p-datepicker-buttonbar {
+  padding: 0;
 }
