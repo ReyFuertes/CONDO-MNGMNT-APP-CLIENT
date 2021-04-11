@@ -1,7 +1,8 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
+import { take } from 'rxjs/operators';
 import { StorageService } from 'src/app/services/storage.service';
 import { ONBOARDINGDOCUMENTS, ONBOARDINGREVIEW } from 'src/app/shared/constants/generic';
 import { ISimpleItem } from 'src/app/shared/generics/generic-model';
@@ -9,6 +10,8 @@ import { GenericOnBoardingComponent } from 'src/app/shared/generics/generic-onbo
 import { AppState } from 'src/app/store/app.reducer';
 import { environment } from 'src/environments/environment';
 import { setOnboardingStepperAction } from '../../store/onboarding.action';
+import { getDocumentsSelector } from '../../store/onboarding.selector';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'cma-on-boarding-review',
@@ -135,11 +138,29 @@ export class OnboardingReviewComponent extends GenericOnBoardingComponent implem
     }
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.store.pipe(select(getDocumentsSelector),
+      take(1))
+      .subscribe(docs => {
+        if (docs) {
+          this.form.get('documents').patchValue(docs);
+        }
+      });
+  }
 
   public get getDocuments(): any {
     const docNames = Object.keys(this.form.get('documents').value);
-    return docNames.map(d => this.form.get('documents').get(d).value)
+
+    let ret = docNames.map(d => {
+      const docName = this.form.get('documents').get(d).value?.file?.name;
+      return docName ? docName : null;
+    });
+
+    return ret.filter(i => Boolean(i));
+  }
+
+  public get hasDocuments(): boolean {
+    return this.getDocuments.filter(i => Boolean(i))?.length > 0;
   }
 
   public get getPersonalForm(): FormGroup {
