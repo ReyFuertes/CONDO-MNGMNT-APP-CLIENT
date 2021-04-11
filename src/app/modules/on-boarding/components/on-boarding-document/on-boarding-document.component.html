@@ -2,7 +2,7 @@
   <h2>Upload Documents</h2>
 
   <div class="content" fxLayout="row wrap" fxLayoutAlign="start start" fxLayoutGap="20px">
-    <cma-upload-thumb *ngFor="let document of uploadDocuments" [label]="document?.file?.name ? document?.file?.name : document?.label" (filterEmitter)="onUpload($event, document)" [form]="form" [controlName]="document?.formName" [hasUpload]="hasFile(document?.file?.name, document?.label)">
+    <cma-upload-thumb *ngFor="let document of uploadDocuments" [label]="getFileName(document)" (filterEmitter)="onUpload($event, document)" [form]="form" [controlName]="document?.formName" [hasUpload]="hasFile(form.get(document?.formName)?.value?.file?.name, document?.label)">
     </cma-upload-thumb>
   </div>
 

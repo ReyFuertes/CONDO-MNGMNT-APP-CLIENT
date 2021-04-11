@@ -6,7 +6,7 @@
     <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="30px">
       <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="30px">
         <mat-card (click)="onSelect(indivCheck)">
-          <p-checkbox #indivCheck name="groupname" readonly value="1" binary="true" [(ngModel)]="selectedTypeIsIndividual" fxLayoutAlign="end center"></p-checkbox>
+          <p-checkbox #indivCheck name="groupname" readonly [value]="onboardingType.Individual" binary="true" [(ngModel)]="selectedTypeIsIndividual" fxLayoutAlign="end center"></p-checkbox>
           <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
             <div class="thumbnail">
               <img [src]="svgPath + 'individual.svg'" />
@@ -16,7 +16,7 @@
         </mat-card>
 
         <mat-card (click)="onSelect(corpCheck)">
-          <p-checkbox #corpCheck name="groupname" readonly value="2" binary="true" [(ngModel)]="selectedTypeICorporate" fxLayoutAlign="end center"></p-checkbox>
+          <p-checkbox #corpCheck name="groupname" readonly [value]="onboardingType.Corporate" binary="true" [(ngModel)]="selectedTypeICorporate" fxLayoutAlign="end center"></p-checkbox>
           <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
             <div class="thumbnail">
               <img [src]="svgPath + 'corporate.svg'" />

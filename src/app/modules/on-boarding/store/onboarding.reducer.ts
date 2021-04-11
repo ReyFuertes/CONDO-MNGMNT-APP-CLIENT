@@ -1,23 +1,28 @@
 import { createReducer, on, Action } from "@ngrx/store";
 import { ISimpleItem } from "src/app/shared/generics/generic-model";
 import { IOccupant, IOnboardingPersonal } from "../on-boarding.model";
-import { addOccupantAction, removeOccupantAction, setOnboardingStepperAction } from "./onboarding.action";
+import { addDocumentsAction, addOccupantAction, removeOccupantAction, setOnboardingStepperAction } from "./onboarding.action";
 import * as _ from 'lodash';
 
 export interface OnboardingState {
   stepper?: string,
   type?: ISimpleItem,
   personal?: IOnboardingPersonal,
-  occupants?: IOccupant[]
+  occupants?: IOccupant[],
+  documents?: any
 }
 export const initialState: OnboardingState = {
   stepper: null,
   type: null,
   personal: null,
-  occupants: []
+  occupants: [],
+  documents: null
 };
 const onboardingReducer = createReducer(
   initialState,
+  on(addDocumentsAction, (state, action) => {
+    return Object.assign({}, state, { documents: action.documents });
+  }),
   on(removeOccupantAction, (state, action) => {
     let occupants: IOccupant[] = Object.assign([], state.occupants);
     let match = occupants.find(o => action?.item?.name === o?.name);
@@ -39,7 +44,7 @@ const onboardingReducer = createReducer(
   }),
   on(setOnboardingStepperAction, (state, action) => {
     return Object.assign({}, state, { stepper: action.step });
-  }),
+  })
 );
 export function OnboardingReducer(state: OnboardingState, action: Action) {
   return onboardingReducer(state, action);

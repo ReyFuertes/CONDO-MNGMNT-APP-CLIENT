@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -8,7 +8,6 @@ import { ISimpleItem } from 'src/app/shared/generics/generic-model';
 import { GenericOnBoardingComponent } from 'src/app/shared/generics/generic-onboarding';
 import { AppState } from 'src/app/store/app.reducer';
 import { environment } from 'src/environments/environment';
-import { IOccupant } from '../../on-boarding.model';
 import { setOnboardingStepperAction } from '../../store/onboarding.action';
 
 @Component({
@@ -45,13 +44,13 @@ export class OnboardingReviewComponent extends GenericOnBoardingComponent implem
   public svgPath: string = environment.svgPath;
   public formOccupantsArr: FormArray;
 
-  constructor(storageSrv: StorageService, router: Router, private fb: FormBuilder, private store: Store<AppState>,
-    private _storageSrv: StorageService) {
-    super(ONBOARDINGREVIEW, storageSrv, router);
+  constructor(storageSrv: StorageService, router: Router, private _fb: FormBuilder, private store: Store<AppState>,
+    private _storageSrv: StorageService, cdRef: ChangeDetectorRef, fb: FormBuilder) {
+    super(ONBOARDINGREVIEW, storageSrv, router, cdRef, fb);
 
-    this.form = this.fb.group({
+    this.form = this._fb.group({
       type: [null, [Validators.required]],
-      personal: this.fb.group({
+      personal: this._fb.group({
         buildingNo: [null, [Validators.required]],
         unitNo: [null, [Validators.required]],
         parkingSlot: [null, [Validators.required]],
@@ -73,7 +72,7 @@ export class OnboardingReviewComponent extends GenericOnBoardingComponent implem
         uploadedIdFile: [null],
         uploadedFilePreview: [null]
       }),
-      partner: this.fb.group({
+      partner: this._fb.group({
         lastname: ['fuertes'],
         firstname: ['haydee'],
         middlename: ['Alolor'],
@@ -92,7 +91,7 @@ export class OnboardingReviewComponent extends GenericOnBoardingComponent implem
         uploadedFilePreview: [null]
       }),
       occupants: new FormArray([]),
-      documents: this.fb.group({
+      documents: this._fb.group({
         amenitiesRegistrationForm: [null, [Validators.required]],
         moveinNoticeClearanceForm: [null, [Validators.required]],
         residentsInformationSheet: [null, [Validators.required]],
@@ -133,15 +132,10 @@ export class OnboardingReviewComponent extends GenericOnBoardingComponent implem
     const documents = _storageSrv.get('documents');
     if (documents) {
       this.form.get('documents').patchValue(JSON.parse(documents));
-      console.log(Object.keys(this.form.get('documents').value))
     }
   }
 
-  ngOnInit(): void {
-    console.log(this.getDocuments)
-  }
-
-  public createItem = (item: IOccupant): FormGroup => this.fb.group(item);
+  ngOnInit(): void { }
 
   public get getDocuments(): any {
     const docNames = Object.keys(this.form.get('documents').value);

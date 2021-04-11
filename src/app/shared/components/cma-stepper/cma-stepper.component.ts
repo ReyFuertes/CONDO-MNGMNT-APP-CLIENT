@@ -60,7 +60,6 @@ export class CMStepperComponent extends GenericDestroyPageComponent implements O
 
           this.router.navigateByUrl(this.stepper?.find(s => s.value === this.currStep)?.route);
         }
-        console.log(step)
       })
   }
 }

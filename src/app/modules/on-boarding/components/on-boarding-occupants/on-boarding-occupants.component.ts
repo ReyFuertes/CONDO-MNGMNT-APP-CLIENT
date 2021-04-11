@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -6,11 +6,11 @@ import { StorageService } from 'src/app/services/storage.service';
 import { GenericOnBoardingComponent } from 'src/app/shared/generics/generic-onboarding';
 import { AppState } from 'src/app/store/app.reducer';
 import { ONBOARDINGOCCUPANTS, ONBOARDINGDOCUMENTS, ONBOARDINGPARTNER } from 'src/app/shared/constants/generic';
-import { removeOccupantAction, setOnboardingStepperAction } from '../../store/onboarding.action';
+import { setOnboardingStepperAction } from '../../store/onboarding.action';
 import { IOccupant } from '../../on-boarding.model';
 import { MatDialog } from '@angular/material/dialog';
 import { OccupantsAddDialogComponent } from 'src/app/modules/dialog/components/occupants-add-dialog/occupants-add-dialog.component';
-import { AddEditStateType } from 'src/app/shared/generics/generic-model';
+import { AddEditStateType, OnboardingEntityType } from 'src/app/shared/generics/generic-model';
 
 @Component({
   selector: 'cma-on-boarding-occupants',
@@ -21,10 +21,10 @@ export class OnboardingOccupantsComponent extends GenericOnBoardingComponent imp
   public files: File[] = [];
   public formOccupantsArr: FormArray;
 
-  constructor(public dialog: MatDialog, storageSrv: StorageService, router: Router, private fb: FormBuilder, private store: Store<AppState>) {
-    super(ONBOARDINGOCCUPANTS, storageSrv, router);
+  constructor(public dialog: MatDialog, storageSrv: StorageService, router: Router, private _fb: FormBuilder, private store: Store<AppState>, cdRef: ChangeDetectorRef, fb: FormBuilder) {
+    super(OnboardingEntityType.ONBOARDINGOCCUPANTS, storageSrv, router, cdRef, fb);
 
-    this.form = this.fb.group({
+    this.form = this._fb.group({
       occupants: new FormArray([]),
     });
   }
@@ -36,10 +36,8 @@ export class OnboardingOccupantsComponent extends GenericOnBoardingComponent imp
   }
 
   public newOccupant(occupant: IOccupant): FormGroup {
-    return this.fb.group(occupant)
+    return this._fb.group(occupant)
   }
-
-  public createItem = (item: IOccupant): FormGroup => this.fb.group(item);
 
   public onRemove(item: IOccupant, i: number): void {
     if (item) {

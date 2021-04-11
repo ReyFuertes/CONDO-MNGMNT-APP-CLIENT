@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { map, take, takeUntil } from 'rxjs/operators';
 import { convertBlobToBase64 } from 'src/app/shared/util/convert-to-blob';
@@ -11,6 +11,7 @@ import { AppState } from 'src/app/store/app.reducer';
 import { Router } from '@angular/router';
 import { setOnboardingStepperAction } from '../../store/onboarding.action';
 import { ONBOARDINGDOCUMENTS, ONBOARDINGOCCUPANTS, ONBOARDINGPARTNER, ONBOARDINGPERSONAL } from 'src/app/shared/constants/generic';
+import { OnboardingEntityType } from 'src/app/shared/generics/generic-model';
 
 @Component({
   selector: 'cma-on-boarding-partner-info',
@@ -20,24 +21,25 @@ import { ONBOARDINGDOCUMENTS, ONBOARDINGOCCUPANTS, ONBOARDINGPARTNER, ONBOARDING
 export class OnboardingPartnerInfoComponent extends GenericOnBoardingComponent implements OnInit {
   public files: File[] = [];
 
-  constructor(storageSrv: StorageService, router: Router, private fb: FormBuilder, private store: Store<AppState>) {
-    super(ONBOARDINGPARTNER, storageSrv, router);
+  constructor(storageSrv: StorageService, router: Router, private _fb: FormBuilder, private store: Store<AppState>,
+    cdRef: ChangeDetectorRef, fb: FormBuilder) {
+    super(OnboardingEntityType.ONBOARDINGPARTNER, storageSrv, router, cdRef, fb);
 
-    this.form = this.fb.group({
-      lastname: ['fuertes'],
-      firstname: ['haydee'],
-      middlename: ['Alolor'],
-      citizenship: ['filipino'],
+    this.form = this._fb.group({
+      lastname: [null],
+      firstname: [null],
+      middlename: [null],
+      citizenship: [null],
       gender: [null],
       civilStatus: [null],
-      dateOfBirth: ['04/10/2021'],
-      occupation: ['none'],
-      busAddress: ['none'],
-      busContactNo: ['none'],
-      busEmail: ['none'],
-      tin: ['1234567890'],
+      dateOfBirth: [null],
+      occupation: [null],
+      busAddress: [null],
+      busContactNo: [null],
+      busEmail: [null],
+      tin: [null],
       idType: [null],
-      idNo: ['1234567890'],
+      idNo: [null],
       uploadedIdFile: [null],
       uploadedFilePreview: [null]
     });

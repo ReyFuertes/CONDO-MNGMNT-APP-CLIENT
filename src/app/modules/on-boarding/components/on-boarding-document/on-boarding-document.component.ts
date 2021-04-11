@@ -1,14 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
+import { take } from 'rxjs/operators';
 import { StorageService } from 'src/app/services/storage.service';
 import { ONBOARDINGDOCUMENTS, ONBOARDINGOCCUPANTS, ONBOARDINGREVIEW } from 'src/app/shared/constants/generic';
+import { OnboardingEntityType } from 'src/app/shared/generics/generic-model';
 import { GenericOnBoardingComponent } from 'src/app/shared/generics/generic-onboarding';
 import { AppState } from 'src/app/store/app.reducer';
 import { environment } from 'src/environments/environment';
 import { IOnboardingDocument } from '../../on-boarding.model';
-import { setOnboardingStepperAction } from '../../store/onboarding.action';
+import { addDocumentsAction, setOnboardingStepperAction } from '../../store/onboarding.action';
+import { getDocumentsSelector } from '../../store/onboarding.selector';
 
 @Component({
   selector: 'cma-on-boarding-document',
@@ -51,9 +54,10 @@ export class OnboardingDocumentComponent extends GenericOnBoardingComponent impl
     formName: 'contract'
   }];
 
-  constructor(storageSrv: StorageService, router: Router, private fb: FormBuilder, private store: Store<AppState>) {
-    super(ONBOARDINGDOCUMENTS, storageSrv, router);
-    this.form = this.fb.group({
+  constructor(storageSrv: StorageService, router: Router, private _fb: FormBuilder, private store: Store<AppState>, cdRef: ChangeDetectorRef, fb: FormBuilder) {
+    super(OnboardingEntityType.ONBOARDINGDOCUMENTS, storageSrv, router, cdRef, fb);
+
+    this.form = this._fb.group({
       amenitiesRegistrationForm: [null, [Validators.required]],
       moveinNoticeClearanceForm: [null, [Validators.required]],
       residentsInformationSheet: [null, [Validators.required]],
@@ -63,13 +67,23 @@ export class OnboardingDocumentComponent extends GenericOnBoardingComponent impl
       waiver: [null, [Validators.required]],
       contract: [null, [Validators.required]]
     });
-
-    this.form.valueChanges.subscribe(res => console.log(this.form))
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.store.pipe(select(getDocumentsSelector),
+      take(1))
+      .subscribe(docs => {
+        if (docs) {
+          this.form.patchValue(docs);
+        }
+      });
+  }
 
-  public onUpload(event: any, doc: IOnboardingDocument): void {
+  public getFileName(document: any): any {
+    return this.form.get(document?.formName)?.value?.file?.name || document?.label;
+  }
+
+  public onUpload(event: File, doc: IOnboardingDocument): void {
     doc.file = event;
     this.form.get(doc.formName).patchValue(doc);
   }
@@ -79,6 +93,9 @@ export class OnboardingDocumentComponent extends GenericOnBoardingComponent impl
   }
 
   public onNext(): void {
+    /* we need to sstore files in a the state since localstorage doesnt support it */
+    this.store.dispatch(addDocumentsAction({ documents: this.form.value }));
+
     super.onNext('/on-boarding/review', 'documents', this.form.value);
 
     this.store.dispatch(setOnboardingStepperAction({ step: ONBOARDINGREVIEW }));

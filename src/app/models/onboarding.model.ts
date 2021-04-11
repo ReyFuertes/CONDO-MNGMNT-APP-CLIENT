@@ -25,6 +25,6 @@ export enum OccupantType {
   AuthorizedRepresentative = 3
 }
 export enum OnBoardingType {
-  individual = 1,
-  corporate = 2
+  Individual = '1',
+  Corporate = '2'
 }

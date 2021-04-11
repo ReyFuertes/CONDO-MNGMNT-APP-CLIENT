@@ -1,3 +1,12 @@
+export enum OnboardingEntityType {
+  ONBOARDINGTYPE = '1',
+  ONBOARDINGPERSONAL = '2',
+  ONBOARDINGPARTNER = '3',
+  ONBOARDINGOCCUPANTS = '4',
+  ONBOARDINGDOCUMENTS = '5',
+  ONBOARDINGREVIEW = '6'
+}
+
 export enum AddEditStateType {
   'Add' = 1,
   'Edit' = 2

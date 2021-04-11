@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { OccupantType } from 'src/app/models/onboarding.model';
 import * as _ from 'lodash';
@@ -12,6 +12,7 @@ import { AppState } from 'src/app/store/app.reducer';
 import { Router } from '@angular/router';
 import { setOnboardingStepperAction } from '../../store/onboarding.action';
 import { OCCUPANTOPTIONS, ONBOARDINGPARTNER, ONBOARDINGPERSONAL, ONBOARDINGTYPE } from 'src/app/shared/constants/generic';
+import { OnboardingEntityType } from 'src/app/shared/generics/generic-model';
 
 @Component({
   selector: 'cma-on-boarding-personal',
@@ -22,34 +23,32 @@ export class OnboardingPersonalComponent extends GenericOnBoardingComponent impl
   public occupantOptions = OCCUPANTOPTIONS;
   public files: File[] = [];
 
-  constructor(storageSrv: StorageService, router: Router, private fb: FormBuilder,
-    private store: Store<AppState>, public _storageSrv: StorageService) {
-    super(ONBOARDINGPERSONAL, storageSrv, router);
+  constructor(storageSrv: StorageService, router: Router, private _fb: FormBuilder, private store: Store<AppState>,
+    public _storageSrv: StorageService, cdRef: ChangeDetectorRef, fb: FormBuilder) {
+    super(OnboardingEntityType.ONBOARDINGPERSONAL, storageSrv, router, cdRef, fb);
 
-    this.form = this.fb.group({
+    this.form = this._fb.group({
       buildingNo: [null, [Validators.required]],
       unitNo: [null, [Validators.required]],
       parkingSlot: [null, [Validators.required]],
       occupantType: [null, [Validators.required]],
-      lastname: ['fuertes', [Validators.required]],
-      firstname: ['rey', [Validators.required]],
-      middlename: ['senador', [Validators.required]],
-      citizenship: ['filipino', [Validators.required]],
+      lastname: [null, [Validators.required]],
+      firstname: [null, [Validators.required]],
+      middlename: [null, [Validators.required]],
+      citizenship: [null, [Validators.required]],
       gender: [null, [Validators.required]],
       civilStatus: [null, [Validators.required]],
-      dateOfBirth: ['04/10/2021', [Validators.required]],
-      occupation: ['none', [Validators.required]],
-      busAddress: ['none', [Validators.required]],
-      busContactNo: ['none', [Validators.required]],
-      busEmail: ['none', [Validators.required]],
-      tin: ['1234567890', [Validators.required]],
+      dateOfBirth: [null, [Validators.required]],
+      occupation: [null, [Validators.required]],
+      busAddress: [null, [Validators.required]],
+      busContactNo: [null, [Validators.required]],
+      busEmail: [null, [Validators.required]],
+      tin: [null, [Validators.required]],
       idType: [null, [Validators.required]],
-      idNo: ['1234567890', [Validators.required]],
+      idNo: [null, [Validators.required]],
       uploadedIdFile: [null],
       uploadedFilePreview: [null]
     });
-
-    this.form.valueChanges.subscribe(res => console.log(this.form))
   }
 
   ngOnInit(): void {

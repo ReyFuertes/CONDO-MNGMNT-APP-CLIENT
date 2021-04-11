@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { OnBoardingType } from 'src/app/models/onboarding.model';
 import { StorageService } from 'src/app/services/storage.service';
-import { ONBOARDINGPERSONAL, ONBOARDINGTYPE } from 'src/app/shared/constants/generic';
+import { ONBOARDINGPERSONAL } from 'src/app/shared/constants/generic';
+import { OnboardingEntityType } from 'src/app/shared/generics/generic-model';
 import { GenericOnBoardingComponent } from 'src/app/shared/generics/generic-onboarding';
 import { AppState } from 'src/app/store/app.reducer';
 import { environment } from 'src/environments/environment';
@@ -19,24 +21,36 @@ export class OnboardingTypeComponent extends GenericOnBoardingComponent implemen
   public selectedTypeIsIndividual: any;
   public selectedTypeICorporate: any;
   public selectedType: any;
+  public onboardingType = OnBoardingType;
 
-  constructor(storageSrv: StorageService, router: Router, private store: Store<AppState>) {
-    super(ONBOARDINGTYPE, storageSrv, router);
+  constructor(storageSrv: StorageService, router: Router, private store: Store<AppState>,
+    public _storageSrv: StorageService, cdRef: ChangeDetectorRef, fb: FormBuilder) {
+    super(OnboardingEntityType.ONBOARDINGTYPE, storageSrv, router, cdRef, fb);
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    const type = this._storageSrv.get('type');
+    if (type) {
+      this.selectedType = JSON.parse(type);
+      this.getSelection(this.selectedType);
+    }
+  }
 
   public onSelect(chk: any): void {
     chk.checked = !chk.checked;
 
-    if (chk.value == OnBoardingType.individual) {
+    this.getSelection(chk.value);
+    this.selectedType = chk.value;
+  }
+
+  private getSelection(value: string): void {
+    if (value == OnBoardingType.Individual) {
       this.selectedTypeIsIndividual = !this.selectedTypeIsIndividual;
       this.selectedTypeICorporate = false;
-    } else if (chk.value == OnBoardingType.corporate) {
+    } else if (value == OnBoardingType.Corporate) {
       this.selectedTypeICorporate = !this.selectedTypeICorporate;
       this.selectedTypeIsIndividual = false;
     }
-    this.selectedType = chk.value;
   }
 
   public onNext(): void {

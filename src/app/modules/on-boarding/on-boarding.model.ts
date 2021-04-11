@@ -7,7 +7,7 @@ export interface IOnboardingDocument {
   id?: string;
   label?: string;
   value?: string;
-  file?: string;
+  file?: File;
   formName?: string;
 }
 export interface IOnboardingPersonal extends IMyInfo {
