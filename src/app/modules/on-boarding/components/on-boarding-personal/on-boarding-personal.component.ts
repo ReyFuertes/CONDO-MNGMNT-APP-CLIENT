@@ -46,7 +46,7 @@ export class OnboardingPersonalComponent extends GenericOnBoardingComponent impl
       idType: [null, [Validators.required]],
       idNo: ['1234567890', [Validators.required]],
       uploadedIdFile: [null],
-      uploadedFilePreview: [null],
+      uploadedFilePreview: [null]
     });
 
     this.form.valueChanges.subscribe(res => console.log(this.form))

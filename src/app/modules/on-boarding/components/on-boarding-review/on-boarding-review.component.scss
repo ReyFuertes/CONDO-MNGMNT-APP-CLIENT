@@ -8,7 +8,7 @@
   border-bottom: thin $color-gray-3 solid;
 }
 .review-container {
-  padding: 20px 30px 5px 30px;
+  padding: 30px 20px 5px 20px;
   margin: 0 auto;
   width: 100%;
   height: 100%;
@@ -25,7 +25,6 @@
   background-color: $color-gray-3;
   padding: 5px;
   margin-bottom: 5px;
-  cursor: pointer;
   img {
     width: 25px;
     height: 25px;
@@ -38,9 +37,9 @@
   width: 840px;
   padding-left: 10px;
 }
-.content-personal {
-  h5 {
-    margin: 0 0 18px 0;
+.content-personal, .occupants-container, .documents-container {
+  h4 {
+    margin: 0 0 5px 0;
   }
   height: auto;
   min-width: 650px;
@@ -60,7 +59,7 @@
 }
 :host ::ng-deep {
   cma-input, cma-dropdown {
-    margin-bottom: 25px;
+    margin-bottom: 10px;
   }
   p-dropdown.dropdown .p-dropdown {
     width: 195px;

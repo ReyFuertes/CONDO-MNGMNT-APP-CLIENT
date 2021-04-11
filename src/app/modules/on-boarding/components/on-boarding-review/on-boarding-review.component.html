@@ -1,81 +1,87 @@
-<div class="review-container" fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="20px">
-  <div>
-    <h2>Review</h2>
-  </div>
-
-  <div class="header-content" fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="10px">
-    <div class="w-100" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="15px">
-      <cma-input label="Building #" [value]="'Building #9'"></cma-input>
-      <cma-input label="Unit #" [value]="'Unit #9622'"></cma-input>
-      <cma-input label="Parking Slot #" [value]="'Parking Slot #01'"></cma-input>
-
-      <cma-input label="Occupant Type" [value]="'Unit Owner'"></cma-input>
-    </div>
-  </div>
-
+<div class="review-container" fxLayout="column" fxLayoutAlign="start center">
   <div class="content" fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="20px">
     <!-- personal information -->
     <div class="content-personal" fxLayout="column" fxLayoutAlign="start start">
-      <h5>Personal Information</h5>
-      <div fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="25px">
-        <div fxLayout="row wrap" fxLayoutAlign="start center" fxLayoutGap="15px">
-          <cma-input [isReadOnly]="true" label="Lastname" [value]="'Fuertes'"></cma-input>
-          <cma-input [isReadOnly]="true" label="Firstname" [value]="'Rey'"></cma-input>
-          <cma-input [isReadOnly]="true" label="Middlename" [value]="'Senador'"></cma-input>
+      <h4>Personal Information</h4>
+      <div class="w-100" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="15px">
+        <cma-input [form]="getPersonalForm" controlName="buildingNo" label="Building #" [value]="'Building #9'"></cma-input>
+        <cma-input [form]="getPersonalForm" controlName="unitNo" label="Unit #" [value]="'Unit #9622'"></cma-input>
+        <cma-input [form]="getPersonalForm" controlName="parkingSlot" label="Parking Slot #" [value]="'Parking Slot #01'"></cma-input>
+        <cma-input [form]="getPersonalForm" controlName="occupantType" label="Occupant Type" [value]="'Unit Owner'"></cma-input>
+      </div>
 
-          <cma-input [isReadOnly]="true" label="Citizenship" [value]="'Filipino'"></cma-input>
-          <cma-input [isReadOnly]="true" label="Gender" [value]="'Male'"></cma-input>
-          <cma-input [isReadOnly]="true" label="Civil Status" [value]="'Married'"></cma-input>
-
-          <cma-input [isReadOnly]="true" label="Date of Birth" [value]="'06-10-1985'"></cma-input>
-          <cma-input [isReadOnly]="true" label="Occupation" [value]="'IT Professional'"></cma-input>
-          <cma-input [isReadOnly]="true" label="TIN" [value]="'123454365'"></cma-input>
-
-          <cma-input [isReadOnly]="true" label="Occupation" [value]="'none'"></cma-input>
-          <cma-input [isReadOnly]="true" label="Bus. Address" [value]="'none'"></cma-input>
-          <cma-input [isReadOnly]="true" label="Bus. Contact No." [value]="'none'"></cma-input>
-
-          <cma-input [isReadOnly]="true" label="ID Type" [value]="'Drivers License'"></cma-input>
-          <cma-input [isReadOnly]="true" label="ID No." [value]="'423 2342 25345'"></cma-input>
-          <cma-input [isReadOnly]="true" label="Upload File" [value]="'driverlicensed_1234.png'"></cma-input>
-        </div>
+      <div fxLayout="row wrap" class="w-100" fxLayoutAlign="start center" fxLayoutGap="15px">
+        <cma-input fxFlex="20" [isReadOnly]="true" [form]="getPersonalForm" controlName="lastname" label="Lastname"></cma-input>
+        <cma-input fxFlex="20" [isReadOnly]="true" [form]="getPersonalForm" controlName="firstname" label="Firstname"></cma-input>
+        <cma-input fxFlex="20" [isReadOnly]="true" [form]="getPersonalForm" controlName="middlename" label="Middlename"></cma-input>
+        <cma-input fxFlex="20" [isReadOnly]="true" [form]="getPersonalForm" controlName="citizenship" label="Citizenship"></cma-input>
+      </div>
+      <div fxLayout="row wrap" class="w-100" fxLayoutAlign="start center" fxLayoutGap="15px">
+        <cma-input [isReadOnly]="true" [form]="getPersonalForm" controlName="gender" label="Gender"></cma-input>
+        <cma-input [isReadOnly]="true" [form]="getPersonalForm" controlName="dateOfBirth" label="Civil Status"></cma-input>
+        <cma-input [isReadOnly]="true" [form]="getPersonalForm" controlName="dateOfBirth" label="Date of Birth"></cma-input>
+        <cma-input [isReadOnly]="true" [form]="getPersonalForm" controlName="occupation" label="Occupation"></cma-input>
+      </div>
+      <div fxLayout="row wrap" class="w-100" fxLayoutAlign="start center" fxLayoutGap="15px">
+        <cma-input [isReadOnly]="true" [form]="getPersonalForm" controlName="tin" label="TIN"></cma-input>
+        <cma-input [isReadOnly]="true" [form]="getPersonalForm" controlName="busEmail" label="Bus. Email"></cma-input>
+        <cma-input [isReadOnly]="true" [form]="getPersonalForm" controlName="busAddress" label="Bus. Address"></cma-input>
+        <cma-input [isReadOnly]="true" [form]="getPersonalForm" controlName="busContactNo" label="Bus. Contact No."></cma-input>
+      </div>
+      <div fxLayout="row wrap" class="w-100" fxLayoutAlign="start center" fxLayoutGap="15px">
+        <cma-input [isReadOnly]="true" [form]="getPersonalForm" controlName="idType" label="ID Type"></cma-input>
+        <cma-input [isReadOnly]="true" [form]="getPersonalForm" controlName="idNo" label="ID No."></cma-input>
+        <cma-input [isReadOnly]="true" [form]="getPersonalForm" controlName="uploadedIdFile" label="Upload File"></cma-input>
       </div>
     </div>
 
     <!-- partner information -->
     <div class="content-personal" fxLayout="column" fxLayoutAlign="start start">
-      <h5>Partner Information</h5>
-      <div fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="25px">
-        <div fxLayout="row wrap" fxLayoutAlign="start center" fxLayoutGap="15px">
-          <cma-input [isReadOnly]="true" label="Lastname" [value]="'Fuertes'"></cma-input>
-          <cma-input [isReadOnly]="true" label="Firstname" [value]="'Rey'"></cma-input>
-          <cma-input [isReadOnly]="true" label="Middlename" [value]="'Senador'"></cma-input>
+      <h4>Partner Information</h4>
+      <div fxLayout="row wrap" class="w-100" fxLayoutAlign="start center" fxLayoutGap="15px">
+        <cma-input fxFlex="20" [isReadOnly]="true" [form]="getPartnerForm" controlName="lastname" label="Lastname"></cma-input>
+        <cma-input fxFlex="20" [isReadOnly]="true" [form]="getPartnerForm" controlName="firstname" label="Firstname"></cma-input>
+        <cma-input fxFlex="20" [isReadOnly]="true" [form]="getPartnerForm" controlName="middlename" label="Middlename"></cma-input>
+        <cma-input fxFlex="20" [isReadOnly]="true" [form]="getPartnerForm" controlName="citizenship" label="Citizenship"></cma-input>
+      </div>
+      <div fxLayout="row wrap" class="w-100" fxLayoutAlign="start center" fxLayoutGap="15px">
+        <cma-input [isReadOnly]="true" [form]="getPartnerForm" controlName="gender" label="Gender"></cma-input>
+        <cma-input [isReadOnly]="true" [form]="getPartnerForm" controlName="dateOfBirth" label="Civil Status"></cma-input>
+        <cma-input [isReadOnly]="true" [form]="getPartnerForm" controlName="dateOfBirth" label="Date of Birth"></cma-input>
+        <cma-input [isReadOnly]="true" [form]="getPartnerForm" controlName="occupation" label="Occupation"></cma-input>
+      </div>
+      <div fxLayout="row wrap" class="w-100" fxLayoutAlign="start center" fxLayoutGap="15px">
+        <cma-input [isReadOnly]="true" [form]="getPartnerForm" controlName="tin" label="TIN"></cma-input>
+        <cma-input [isReadOnly]="true" [form]="getPartnerForm" controlName="busEmail" label="Bus. Email"></cma-input>
+        <cma-input [isReadOnly]="true" [form]="getPartnerForm" controlName="busAddress" label="Bus. Address"></cma-input>
+        <cma-input [isReadOnly]="true" [form]="getPartnerForm" controlName="busContactNo" label="Bus. Contact No."></cma-input>
+      </div>
+      <div fxLayout="row wrap" class="w-100" fxLayoutAlign="start center" fxLayoutGap="15px">
+        <cma-input [isReadOnly]="true" [form]="getPartnerForm" controlName="idType" label="ID Type"></cma-input>
+        <cma-input [isReadOnly]="true" [form]="getPartnerForm" controlName="idNo" label="ID No."></cma-input>
+        <cma-input [isReadOnly]="true" [form]="getPartnerForm" controlName="uploadedIdFile" label="Upload File"></cma-input>
+      </div>
+    </div>
 
-          <cma-input [isReadOnly]="true" label="Citizenship" [value]="'Filipino'"></cma-input>
-          <cma-input [isReadOnly]="true" label="Gender" [value]="'Male'"></cma-input>
-          <cma-input [isReadOnly]="true" label="Civil Status" [value]="'Married'"></cma-input>
-
-          <cma-input [isReadOnly]="true" label="Date of Birth" [value]="'06-10-1985'"></cma-input>
-          <cma-input [isReadOnly]="true" label="Occupation" [value]="'IT Professional'"></cma-input>
-          <cma-input [isReadOnly]="true" label="TIN" [value]="'123454365'"></cma-input>
-
-          <cma-input [isReadOnly]="true" label="Occupation" [value]="'none'"></cma-input>
-          <cma-input [isReadOnly]="true" label="Bus. Address" [value]="'none'"></cma-input>
-          <cma-input [isReadOnly]="true" label="Bus. Contact No." [value]="'none'"></cma-input>
-
-          <cma-input [isReadOnly]="true" label="ID Type" [value]="'Drivers License'"></cma-input>
-          <cma-input [isReadOnly]="true" label="ID No." [value]="'423 2342 25345'"></cma-input>
-          <cma-input [isReadOnly]="true" label="Upload File" [value]="'driverlicensed_1234.png'"></cma-input>
-        </div>
+    <!-- occupants -->
+    <div [formGroup]="form" class="occupants-container">
+      <h4>Occupants</h4>
+      <div *ngFor="let occupant of form.get('occupants')?.controls; let i = index" fxLayout="column">
+        <ng-container formArrayName="occupants">
+          <div fxFlex fxLayoutGap="20px" [formGroupName]="i" fxLayout="row" fxLayoutAlign="start center">
+            <cma-input [form]="occupant" [isReadOnly]="true" controlName="name" label="Name"></cma-input>
+            <cma-input [form]="occupant" [isReadOnly]="true" controlName="relationship" label="Relationship"></cma-input>
+          </div>
+        </ng-container>
       </div>
     </div>
 
     <!-- documents -->
     <div class="documents-container">
-      <h5>Documents</h5>
+      <h4>Documents</h4>
       <div fxLayout="row wrap" fxLayoutAlign="start center" fxLayoutGap="5px">
-        <div *ngFor="let document of uploadDocuments" pTooltip="Download" class="document-thumb" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="5px">
-          <img [src]="svgPath + '24x24/word.svg'" />
+        <div *ngFor="let document of getDocuments" pTooltip="Download" class="document-thumb" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="5px">
+          <i class="pi pi-file-pdf"></i>
           <span>{{ document?.label }}</span>
         </div>
       </div>

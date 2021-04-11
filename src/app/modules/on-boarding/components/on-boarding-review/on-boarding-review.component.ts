@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { StorageService } from 'src/app/services/storage.service';
@@ -8,6 +8,7 @@ import { ISimpleItem } from 'src/app/shared/generics/generic-model';
 import { GenericOnBoardingComponent } from 'src/app/shared/generics/generic-onboarding';
 import { AppState } from 'src/app/store/app.reducer';
 import { environment } from 'src/environments/environment';
+import { IOccupant } from '../../on-boarding.model';
 import { setOnboardingStepperAction } from '../../store/onboarding.action';
 
 @Component({
@@ -42,6 +43,7 @@ export class OnboardingReviewComponent extends GenericOnBoardingComponent implem
     value: ''
   }];
   public svgPath: string = environment.svgPath;
+  public formOccupantsArr: FormArray;
 
   constructor(storageSrv: StorageService, router: Router, private fb: FormBuilder, private store: Store<AppState>,
     private _storageSrv: StorageService) {
@@ -54,20 +56,20 @@ export class OnboardingReviewComponent extends GenericOnBoardingComponent implem
         unitNo: [null, [Validators.required]],
         parkingSlot: [null, [Validators.required]],
         occupantType: [null, [Validators.required]],
-        lastname: ['fuertes', [Validators.required]],
-        firstname: ['rey', [Validators.required]],
-        middlename: ['senador', [Validators.required]],
-        citizenship: ['filipino', [Validators.required]],
+        lastname: [null, [Validators.required]],
+        firstname: [null, [Validators.required]],
+        middlename: [null, [Validators.required]],
+        citizenship: [null, [Validators.required]],
         gender: [null, [Validators.required]],
         civilStatus: [null, [Validators.required]],
-        dateOfBirth: ['04/10/2021', [Validators.required]],
-        occupation: ['none', [Validators.required]],
-        busAddress: ['none', [Validators.required]],
-        busContactNo: ['none', [Validators.required]],
-        busEmail: ['none', [Validators.required]],
-        tin: ['1234567890', [Validators.required]],
+        dateOfBirth: [null, [Validators.required]],
+        occupation: [null, [Validators.required]],
+        busAddress: [null, [Validators.required]],
+        busContactNo: [null, [Validators.required]],
+        busEmail: [null, [Validators.required]],
+        tin: [null, [Validators.required]],
         idType: [null, [Validators.required]],
-        idNo: ['1234567890', [Validators.required]],
+        idNo: [null, [Validators.required]],
         uploadedIdFile: [null],
         uploadedFilePreview: [null]
       }),
@@ -89,9 +91,7 @@ export class OnboardingReviewComponent extends GenericOnBoardingComponent implem
         uploadedIdFile: [null],
         uploadedFilePreview: [null]
       }),
-      occupants: this.fb.group({
-        occupants: new FormArray([]),
-      }),
+      occupants: new FormArray([]),
       documents: this.fb.group({
         amenitiesRegistrationForm: [null, [Validators.required]],
         moveinNoticeClearanceForm: [null, [Validators.required]],
@@ -112,26 +112,57 @@ export class OnboardingReviewComponent extends GenericOnBoardingComponent implem
 
     const personal = _storageSrv.get('personal');
     if (personal) {
-      this.form.get('personal').patchValue(JSON.parse(personal))
+      this.form.get('personal').patchValue(JSON.parse(personal));
     }
 
     const partner = _storageSrv.get('partner');
     if (partner) {
-      this.form.get('partner').patchValue(JSON.parse(partner))
+      this.form.get('partner').patchValue(JSON.parse(partner));
     }
 
     const occupants = _storageSrv.get('occupants');
     if (occupants) {
-      this.form.get('occupants').patchValue(JSON.parse(occupants))
+      const occupantsArr = JSON.parse(occupants)?.occupants;
+      this.formOccupantsArr = this.form.get('occupants') as FormArray;
+
+      occupantsArr.forEach(occupant => {
+        this.formOccupantsArr.push(this.createItem(Object.assign({}, occupant)));
+      });
     }
 
     const documents = _storageSrv.get('documents');
     if (documents) {
-      this.form.get('documents').patchValue(JSON.parse(documents))
+      this.form.get('documents').patchValue(JSON.parse(documents));
+      console.log(Object.keys(this.form.get('documents').value))
     }
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    console.log(this.getDocuments)
+  }
+
+  public createItem = (item: IOccupant): FormGroup => this.fb.group(item);
+
+  public get getDocuments(): any {
+    const docNames = Object.keys(this.form.get('documents').value);
+    return docNames.map(d => this.form.get('documents').get(d).value)
+  }
+
+  public get getPersonalForm(): FormGroup {
+    return this.form.controls['personal'] as FormGroup;
+  }
+
+  public get getPartnerForm(): FormGroup {
+    return this.form.controls['partner'] as FormGroup;
+  }
+
+  public get getOccupantsForm(): FormArray {
+    return this.form.controls['occupants'] as FormArray;
+  }
+
+  public get getDocumentsForm(): FormGroup {
+    return this.form.controls['documents'] as FormGroup;
+  }
 
   public onPrev(): void {
     super.onPrev('/on-boarding/documents');

@@ -39,7 +39,7 @@ export class OnboardingPartnerInfoComponent extends GenericOnBoardingComponent i
       idType: [null],
       idNo: ['1234567890'],
       uploadedIdFile: [null],
-      uploadedFilePreview: [null],
+      uploadedFilePreview: [null]
     });
   }
 

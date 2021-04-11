@@ -65,13 +65,13 @@ export class OnboardingOccupantsComponent extends GenericOnBoardingComponent imp
   }
 
   public onNext(): void {
-    super.onNext('/on-boarding/documents', 'occupant', this.form.value);
+    super.onNext('/on-boarding/documents', 'occupants', this.form.value);
 
     this.store.dispatch(setOnboardingStepperAction({ step: ONBOARDINGDOCUMENTS }));
   }
 
   public onPrev(): void {
-    super.onPrev('/on-boarding/partner', 'occupant', this.form.value);
+    super.onPrev('/on-boarding/partner', 'occupants', this.form.value);
 
     this.store.dispatch(setOnboardingStepperAction({ step: ONBOARDINGPARTNER }));
   }
