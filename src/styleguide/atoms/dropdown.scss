@@ -2,8 +2,6 @@
   height: 35px;
   max-height: 35px;
   min-height: 35px;
-  min-width: 193px;
-  width: 193px;
   .p-dropdown-label {
     font-size: 14px;
     height: 34px;
@@ -13,8 +11,8 @@
   }
 }
 p-dropdown {
-  min-width: 193px;
-  width: 193px;
+  min-width: 100%;
+  width: 100%;
 }
 .p-dropdown-item {
   font-size: 14px;

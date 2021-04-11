@@ -2,6 +2,13 @@
 
 :host ::ng-deep {
   .p-calendar .p-inputtext {
+    min-width: 147px;
+  }
+  p-calendar, cma-datepicker {
+    min-width: 183px;
+    width: 183px;
+  }
+  .p-calendar .p-inputtext {
     cursor: pointer;
   }
   .pi-calendar {

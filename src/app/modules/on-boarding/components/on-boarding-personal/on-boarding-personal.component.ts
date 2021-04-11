@@ -38,7 +38,7 @@ export class OnboardingPersonalComponent extends GenericOnBoardingComponent impl
       citizenship: [null, [Validators.required]],
       gender: [null, [Validators.required]],
       civilStatus: [null, [Validators.required]],
-      dateOfBirth: [null, [Validators.required]],
+      dateOfBirth: [new Date(), [Validators.required]],
       occupation: [null, [Validators.required]],
       busAddress: [null, [Validators.required]],
       busContactNo: [null, [Validators.required]],

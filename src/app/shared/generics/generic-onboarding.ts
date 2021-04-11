@@ -28,9 +28,14 @@ export class GenericOnBoardingComponent extends GenericDestroyPageComponent impl
   ngAfterViewInit(): void {
     switch (this._step) {
       case OnboardingEntityType.ONBOARDINGPERSONAL:
-        const personal = this.storageSrv.get('personal');
-        if (personal) {
-          this.form.patchValue(JSON.parse(personal));
+        const strPersonal = this.storageSrv.get('personal');
+        if (strPersonal) {
+          let personal = JSON.parse(strPersonal);
+          personal = {
+            ...personal,
+            dateOfBirth: new Date(personal?.dateOfBirth)
+          }
+          this.form.patchValue(personal);
         }
         break;
       case OnboardingEntityType.ONBOARDINGPARTNER:
