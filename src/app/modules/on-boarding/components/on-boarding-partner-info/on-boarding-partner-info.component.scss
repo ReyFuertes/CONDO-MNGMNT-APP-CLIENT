@@ -1,22 +1,30 @@
 @import "src/styleguide/index";
 :host {
   @include onboarding-host-start ;
-  place-content: flex-start !important;
+  place-content: flex-center !important;
+  margin-bottom: 150px;
+}
+.header-content {
+  padding-bottom: 5px;
+  > div {
+    width: 100%;
+  }
 }
 .partner-container {
-  padding: 30px;
+  padding: 20px;
   margin: 0 auto;
   width: 100%;
   height: 100%;
   box-shadow: $box-shadow;
   background-color: $color-white;
   max-width: 815px;
-  max-height: 560px;
+  max-height: 695px;
 }
 .content {
   margin-bottom: 20px;
   overflow: hidden;
   height: 100%;
+  max-width: 800px;
 }
 .content-partner {
   h5 {
@@ -25,6 +33,7 @@
   height: auto;
   min-width: 650px;
   padding-left: 10px;
+  padding-top: 15px;
 }
 .action-btns {
   margin-top: 20px;
@@ -34,8 +43,17 @@
   width: 100%;
 }
 :host ::ng-deep {
-  .p-calendar .p-inputtext {
-    max-width: 155px;
+  .filename {
+    max-width: 160px;
+  }
+  cma-upload {
+    min-width: 210px;
+    max-width: 210px;
+  }
+  cma-input, cma-dropdown, cma-datepicker, cma-upload {
+    margin-bottom: 15px;
+    min-width: 210px;
+    max-width: 210px;
   }
   p-dropdown.dropdown .p-dropdown {
     width: 195px;
@@ -43,10 +61,10 @@
 }
 @media (max-width: 1280px) {
   .partner-container {
+    max-width: 100%;
     margin: 0;
     padding: 20px 20px;
-    max-width: 820px;
-    margin: 0 auto;
+    max-width: 850px;
   }
   .header-content {
     padding-bottom: 20px;

@@ -9,6 +9,7 @@ import { ISimpleItem } from '../../generics/generic-model';
 })
 export class CMAInputComponent extends GenericControl<ISimpleItem> implements OnInit {
   @Input() value: string = null;
+  @Input() isDate: boolean = false;
 
   public isControlValueObject: boolean = false;
 

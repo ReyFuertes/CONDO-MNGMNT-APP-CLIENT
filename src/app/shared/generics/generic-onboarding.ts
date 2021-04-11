@@ -6,6 +6,8 @@ import { StorageService } from 'src/app/services/storage.service';
 import { BUILDINGNOOPTIONS, CIVILOPTIONS, GENDEROPTIONS, IDTYPEOPTIONS, PARTKINGNOOPTIONS, RELATIONSOPTIONS, UNITNOOPTIONS } from '../constants/generic';
 import { GenericDestroyPageComponent } from './generic-destroy';
 import { OnboardingEntityType } from './generic-model';
+import * as moment from 'moment';
+
 @Directive()
 export class GenericOnBoardingComponent extends GenericDestroyPageComponent implements AfterViewInit {
   public form: FormGroup;
@@ -39,9 +41,14 @@ export class GenericOnBoardingComponent extends GenericDestroyPageComponent impl
         }
         break;
       case OnboardingEntityType.ONBOARDINGPARTNER:
-        const partner = this.storageSrv.get('partner');
-        if (partner) {
-          this.form.patchValue(JSON.parse(partner));
+        const strPartner = this.storageSrv.get('partner');
+        if (strPartner) {
+          let partner = JSON.parse(strPartner);
+          partner = {
+            ...partner,
+            dateOfBirth: new Date(partner?.dateOfBirth)
+          }
+          this.form.patchValue(partner);
         }
         break;
       case OnboardingEntityType.ONBOARDINGOCCUPANTS:

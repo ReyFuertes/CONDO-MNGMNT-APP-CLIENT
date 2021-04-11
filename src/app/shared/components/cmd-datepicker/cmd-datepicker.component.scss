@@ -1,12 +1,9 @@
 @import "src/styleguide/index";
 
 :host ::ng-deep {
-  .p-calendar .p-inputtext {
-    min-width: 147px;
-  }
   p-calendar, cma-datepicker {
-    min-width: 183px;
-    width: 183px;
+    min-width: 100%;
+    width: 100%;
   }
   .p-calendar .p-inputtext {
     cursor: pointer;

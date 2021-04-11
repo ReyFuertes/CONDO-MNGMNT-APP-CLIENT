@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 import { setOnboardingStepperAction } from '../../store/onboarding.action';
 import { ONBOARDINGDOCUMENTS, ONBOARDINGOCCUPANTS, ONBOARDINGPARTNER, ONBOARDINGPERSONAL } from 'src/app/shared/constants/generic';
 import { OnboardingEntityType } from 'src/app/shared/generics/generic-model';
+import * as moment from 'moment';
 
 @Component({
   selector: 'cma-on-boarding-partner-info',
@@ -32,7 +33,7 @@ export class OnboardingPartnerInfoComponent extends GenericOnBoardingComponent i
       citizenship: [null],
       gender: [null],
       civilStatus: [null],
-      dateOfBirth: [null],
+      dateOfBirth: [new Date()],
       occupation: [null],
       busAddress: [null],
       busContactNo: [null],
@@ -87,7 +88,10 @@ export class OnboardingPartnerInfoComponent extends GenericOnBoardingComponent i
   }
 
   public onNext(): void {
-    super.onNext('/on-boarding/occupants', 'partner', this.form.value);
+    super.onNext('/on-boarding/occupants', 'partner', {
+      ...this.form.value,
+      dateOfBirth: moment(new Date(this.form.value?.dateOfBirth)).format('MM-DD-YYYY')
+    });
 
     this.store.dispatch(setOnboardingStepperAction({ step: ONBOARDINGOCCUPANTS }));
   }
