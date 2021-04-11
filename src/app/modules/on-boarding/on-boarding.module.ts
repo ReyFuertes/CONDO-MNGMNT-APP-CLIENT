@@ -21,6 +21,7 @@ import { OnboardingOccupantsComponent } from './components/on-boarding-occupants
 import { CMADialogModule } from '../dialog/dialog.module';
 import { InputTextModule } from 'primeng/inputtext';
 import { MatDialogModule } from '@angular/material/dialog';
+import { OnboardingEffects } from './store/onboarding.effect';
 
 const routes: Routes = [
   {
@@ -91,7 +92,7 @@ const materialModules = [
     RouterModule.forChild(routes),
     SharedModule,
     StoreModule.forFeature('onboarding', OnboardingReducer),
-    EffectsModule.forFeature([]),
+    EffectsModule.forFeature([OnboardingEffects]),
     CMADialogModule
   ],
   exports: [],

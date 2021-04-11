@@ -6,9 +6,8 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { GenericAddEditComponent } from 'src/app/shared/generics/generic-ae';
 import { IOccupant, IOnboardingPersonal } from 'src/app/modules/on-boarding/on-boarding.model';
 import { ISimpleItem } from 'src/app/shared/generics/generic-model';
-import { getFormObjectValue } from 'src/app/shared/util/form';
 import { RELATIONSOPTIONS } from 'src/app/shared/constants/generic';
-import { v4 as uuid } from 'uuid';
+import * as _ from 'lodash';
 @Component({
   selector: 'cma-occupants-add-dialog',
   templateUrl: './occupants-add-dialog.component.html',
@@ -52,10 +51,10 @@ export class OccupantsAddDialogComponent extends GenericAddEditComponent<IOccupa
     if (this.form.valid) {
       const formValues = {
         ...this.form.value,
-        id: uuid()
+        //id: uuid()
       };
 
-      this.dialogRef.close(formValues);
+      this.dialogRef.close(_.pickBy(formValues, _.identity));
     } else {
 
     }

@@ -6,7 +6,7 @@ import { IOnboardingPersonal } from './on-boarding.model';
 
 @Injectable({  providedIn: 'root'})
 export class OnboardingService extends BaseService<IOnboardingPersonal> {
-  constructor(http: HttpClient) {
-    super(http, 'onboarding');
+  constructor(http: HttpClient, storageSrv: StorageService) {
+    super(http, 'onboarding', storageSrv);
   }
 }

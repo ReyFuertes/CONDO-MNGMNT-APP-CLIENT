@@ -17,11 +17,13 @@ export class CMAInputComponent extends GenericControl<ISimpleItem> implements On
   }
 
   ngOnInit(): void {
-    const value = this.form.get(this.controlName).value;
-    if (typeof (value) === 'object') {
-      this.form.get(this.controlName).patchValue(value?.label);
-    } else {
-      this.form.get(this.controlName).patchValue(value);
+    const value = this.form.get(this.controlName)?.value || '';
+    if(value) {
+      if (typeof (value) === 'object') {
+        this.form.get(this.controlName).patchValue(value?.label);
+      } else {
+        this.form.get(this.controlName).patchValue(value);
+      }
     }
   }
 }

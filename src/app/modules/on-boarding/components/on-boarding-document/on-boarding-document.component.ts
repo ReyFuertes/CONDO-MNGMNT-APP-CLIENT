@@ -58,14 +58,14 @@ export class OnboardingDocumentComponent extends GenericOnBoardingComponent impl
     super(OnboardingEntityType.ONBOARDINGDOCUMENTS, storageSrv, router, cdRef, fb);
 
     this.form = this._fb.group({
-      amenitiesRegistrationForm: [null, [Validators.required]],
-      moveinNoticeClearanceForm: [null, [Validators.required]],
-      residentsInformationSheet: [null, [Validators.required]],
-      vehicleRegistrationCarStickerForm: [null, [Validators.required]],
-      idCardApplicationForm: [null, [Validators.required]],
-      signatureInformationCard: [null, [Validators.required]],
-      waiver: [null, [Validators.required]],
-      contract: [null, [Validators.required]]
+      amenitiesRegistrationForm: [null],
+      moveinNoticeClearanceForm: [null],
+      residentsInformationSheet: [null],
+      vehicleRegistrationCarStickerForm: [null],
+      idCardApplicationForm: [null],
+      signatureInformationCard: [null],
+      waiver: [null],
+      contract: [null]
     });
   }
 

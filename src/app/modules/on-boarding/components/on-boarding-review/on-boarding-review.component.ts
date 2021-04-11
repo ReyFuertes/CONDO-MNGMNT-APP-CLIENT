@@ -9,9 +9,10 @@ import { ISimpleItem } from 'src/app/shared/generics/generic-model';
 import { GenericOnBoardingComponent } from 'src/app/shared/generics/generic-onboarding';
 import { AppState } from 'src/app/store/app.reducer';
 import { environment } from 'src/environments/environment';
-import { setOnboardingStepperAction } from '../../store/onboarding.action';
+import { createOnboardingAction, setOnboardingStepperAction } from '../../store/onboarding.action';
 import { getDocumentsSelector } from '../../store/onboarding.selector';
 import * as _ from 'lodash';
+import { getFormObjectValue } from 'src/app/shared/util/form';
 
 @Component({
   selector: 'cma-on-boarding-review',
@@ -76,33 +77,33 @@ export class OnboardingReviewComponent extends GenericOnBoardingComponent implem
         uploadedFilePreview: [null]
       }),
       partner: this._fb.group({
-        lastname: ['fuertes'],
-        firstname: ['haydee'],
-        middlename: ['Alolor'],
-        citizenship: ['filipino'],
+        lastname: [null],
+        firstname: [null],
+        middlename: [null],
+        citizenship: [null],
         gender: [null],
         civilStatus: [null],
-        dateOfBirth: ['04/10/2021'],
-        occupation: ['none'],
-        busAddress: ['none'],
-        busContactNo: ['none'],
-        busEmail: ['none'],
-        tin: ['1234567890'],
+        dateOfBirth: [null],
+        occupation: [null],
+        busAddress: [null],
+        busContactNo: [null],
+        busEmail: [null],
+        tin: [null],
         idType: [null],
-        idNo: ['1234567890'],
+        idNo: [null],
         uploadedIdFile: [null],
         uploadedFilePreview: [null]
       }),
       occupants: new FormArray([]),
       documents: this._fb.group({
-        amenitiesRegistrationForm: [null, [Validators.required]],
-        moveinNoticeClearanceForm: [null, [Validators.required]],
-        residentsInformationSheet: [null, [Validators.required]],
-        vehicleRegistrationCarStickerForm: [null, [Validators.required]],
-        idCardApplicationForm: [null, [Validators.required]],
-        signatureInformationCard: [null, [Validators.required]],
-        waiver: [null, [Validators.required]],
-        contract: [null, [Validators.required]]
+        amenitiesRegistrationForm: [null],
+        moveinNoticeClearanceForm: [null],
+        residentsInformationSheet: [null],
+        vehicleRegistrationCarStickerForm: [null],
+        idCardApplicationForm: [null],
+        signatureInformationCard: [null],
+        waiver: [null],
+        contract: [null]
       })
     });
 
@@ -146,6 +147,23 @@ export class OnboardingReviewComponent extends GenericOnBoardingComponent implem
           this.form.get('documents').patchValue(docs);
         }
       });
+  }
+
+  public onSubmit(): void {
+    if (this.form.valid) {
+      const { personal, partner, occupants } = this.form.value;
+
+      const payload = {
+        personal: {
+          ...personal,
+          civilStatus: this.form.get('personal').value?.civilStatus?.value
+        },
+        partner,
+        occupants
+      }
+      this.store.dispatch(createOnboardingAction({ payload }));
+      //routerLink="/on-boarding/for-approval"
+    }
   }
 
   public get getDocuments(): any {

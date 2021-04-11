@@ -11,6 +11,7 @@ import { IOccupant } from '../../on-boarding.model';
 import { MatDialog } from '@angular/material/dialog';
 import { OccupantsAddDialogComponent } from 'src/app/modules/dialog/components/occupants-add-dialog/occupants-add-dialog.component';
 import { AddEditStateType, OnboardingEntityType } from 'src/app/shared/generics/generic-model';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'cma-on-boarding-occupants',
@@ -29,7 +30,7 @@ export class OnboardingOccupantsComponent extends GenericOnBoardingComponent imp
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   public get occupants(): FormArray {
     return this.form.get('occupants') as FormArray;

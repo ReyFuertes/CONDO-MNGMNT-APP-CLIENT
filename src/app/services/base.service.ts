@@ -12,13 +12,13 @@ export abstract class BaseService<T> {
   constructor(
     public http: HttpClient,
     private entity: string = '',
-    private storageSrv?: StorageService) {
+    private storageSrv: StorageService) {
     this.baseUrl = environment.apiUrl;
   }
 
   private getToken(): string {
-    return JSON.parse(this.storageSrv.get('at') || null) ?
-      JSON.parse(this.storageSrv.get('at')).accessToken : null;
+    const t = this.storageSrv.get('t');
+    return t ? JSON.parse(t)?.accessToken : null;
   }
 
   protected commonHeaders(): HttpHeaders {
