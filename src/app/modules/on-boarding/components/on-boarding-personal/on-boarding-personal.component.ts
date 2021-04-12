@@ -8,7 +8,7 @@ import { v4 as uuid } from 'uuid';
 import { GenericOnBoardingComponent } from 'src/app/shared/generics/generic-onboarding';
 import { StorageService } from 'src/app/services/storage.service';
 import { Store } from '@ngrx/store';
-import { AppState } from 'src/app/store/app.reducer';
+import { RooState } from 'src/app/store/root.reducer';
 import { Router } from '@angular/router';
 import { setOnboardingStepperAction } from '../../store/onboarding.action';
 import { OCCUPANTOPTIONS, ONBOARDINGPARTNER, ONBOARDINGPERSONAL, ONBOARDINGTYPE } from 'src/app/shared/constants/generic';
@@ -23,7 +23,7 @@ export class OnboardingPersonalComponent extends GenericOnBoardingComponent impl
   public occupantOptions = OCCUPANTOPTIONS;
   public files: File[] = [];
 
-  constructor(storageSrv: StorageService, router: Router, private _fb: FormBuilder, private store: Store<AppState>,
+  constructor(storageSrv: StorageService, router: Router, private _fb: FormBuilder, private store: Store<RooState>,
     public _storageSrv: StorageService, cdRef: ChangeDetectorRef, fb: FormBuilder) {
     super(OnboardingEntityType.ONBOARDINGPERSONAL, storageSrv, router, cdRef, fb);
 

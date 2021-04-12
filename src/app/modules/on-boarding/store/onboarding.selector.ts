@@ -1,7 +1,11 @@
 import { createSelector } from '@ngrx/store';
-import { AppState } from 'src/app/store/app.reducer';
+import { RooState } from 'src/app/store/root.reducer';
 
-export const selectedState = (state: AppState) => state.onboarding;
+export const selectedState = (state: RooState) => state.onboarding;
+export const getOnboardingSubmittedSelector = createSelector(
+  selectedState,
+  state => state?.onboardingSubmitted
+);
 export const getDocumentsSelector = createSelector(
   selectedState,
   state => state?.documents

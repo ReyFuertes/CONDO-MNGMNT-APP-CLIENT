@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { StorageService } from 'src/app/services/storage.service';
 import { GenericOnBoardingComponent } from 'src/app/shared/generics/generic-onboarding';
-import { AppState } from 'src/app/store/app.reducer';
+import { RooState } from 'src/app/store/root.reducer';
 import { ONBOARDINGOCCUPANTS, ONBOARDINGDOCUMENTS, ONBOARDINGPARTNER } from 'src/app/shared/constants/generic';
 import { setOnboardingStepperAction } from '../../store/onboarding.action';
 import { IOccupant } from '../../on-boarding.model';
@@ -22,7 +22,7 @@ export class OnboardingOccupantsComponent extends GenericOnBoardingComponent imp
   public files: File[] = [];
   public formOccupantsArr: FormArray;
 
-  constructor(public dialog: MatDialog, storageSrv: StorageService, router: Router, private _fb: FormBuilder, private store: Store<AppState>, cdRef: ChangeDetectorRef, fb: FormBuilder) {
+  constructor(public dialog: MatDialog, storageSrv: StorageService, router: Router, private _fb: FormBuilder, private store: Store<RooState>, cdRef: ChangeDetectorRef, fb: FormBuilder) {
     super(OnboardingEntityType.ONBOARDINGOCCUPANTS, storageSrv, router, cdRef, fb);
 
     this.form = this._fb.group({

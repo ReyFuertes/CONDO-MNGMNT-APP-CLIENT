@@ -4,7 +4,7 @@ import { select, Store } from '@ngrx/store';
 import { takeUntil } from 'rxjs/operators';
 import { getOnboardingStepperSelector } from 'src/app/modules/on-boarding/store/onboarding.selector';
 import { StorageService } from 'src/app/services/storage.service';
-import { AppState } from 'src/app/store/app.reducer';
+import { RooState } from 'src/app/store/root.reducer';
 import { ONBOARDINGDOCUMENTS, ONBOARDINGPARTNER, ONBOARDINGPERSONAL, ONBOARDINGTYPE, ONBOARDINGREVIEW, ONBOARDINGOCCUPANTS } from '../../constants/generic';
 import { GenericDestroyPageComponent } from '../../generics/generic-destroy';
 import { ISimpleItem } from '../../generics/generic-model';
@@ -18,7 +18,7 @@ export class CMStepperComponent extends GenericDestroyPageComponent implements O
   public stepper: ISimpleItem[];
   public currStep: string = ONBOARDINGTYPE;
 
-  constructor(private router: Router, private store: Store<AppState>, private storageSrv: StorageService) {
+  constructor(private router: Router, private store: Store<RooState>, private storageSrv: StorageService) {
     super();
     this.stepper = [{
       label: 'Type',

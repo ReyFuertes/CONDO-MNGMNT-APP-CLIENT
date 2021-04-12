@@ -6,7 +6,6 @@ import { StorageService } from 'src/app/services/storage.service';
 import { BUILDINGNOOPTIONS, CIVILOPTIONS, GENDEROPTIONS, IDTYPEOPTIONS, PARTKINGNOOPTIONS, RELATIONSOPTIONS, UNITNOOPTIONS } from '../constants/generic';
 import { GenericDestroyPageComponent } from './generic-destroy';
 import { OnboardingEntityType } from './generic-model';
-import * as moment from 'moment';
 
 @Directive()
 export class GenericOnBoardingComponent extends GenericDestroyPageComponent implements AfterViewInit {

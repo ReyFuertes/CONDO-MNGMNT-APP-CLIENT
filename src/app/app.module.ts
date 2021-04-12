@@ -10,12 +10,18 @@ import { AuthModule } from './modules/auth/auth.module';
 import { DashboardModule } from './modules/dashboard/dashboard.module';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
-import { reducers } from './store/app.reducer';
+import { reducers } from './store/root.reducer';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
+import { BlockUIModule } from 'primeng/blockui';
+import { LoaderInterceptorService } from './services/loader.interceptor';
 
 const materialModules = [
 ];
 
 const primengModules = [
+  ToastModule,
+  BlockUIModule
 ];
 
 @NgModule({
@@ -36,7 +42,11 @@ const primengModules = [
     StoreModule.forRoot(reducers),
     EffectsModule.forRoot([]),
   ],
-  providers: [],
+  providers: [
+    MessageService,
+    LoaderInterceptorService,
+    { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptorService, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -7,12 +7,11 @@ import { StorageService } from 'src/app/services/storage.service';
 import { ONBOARDINGDOCUMENTS, ONBOARDINGREVIEW } from 'src/app/shared/constants/generic';
 import { ISimpleItem } from 'src/app/shared/generics/generic-model';
 import { GenericOnBoardingComponent } from 'src/app/shared/generics/generic-onboarding';
-import { AppState } from 'src/app/store/app.reducer';
+import { RooState } from 'src/app/store/root.reducer';
 import { environment } from 'src/environments/environment';
 import { createOnboardingAction, setOnboardingStepperAction } from '../../store/onboarding.action';
 import { getDocumentsSelector } from '../../store/onboarding.selector';
 import * as _ from 'lodash';
-import { getFormObjectValue } from 'src/app/shared/util/form';
 
 @Component({
   selector: 'cma-on-boarding-review',
@@ -48,7 +47,7 @@ export class OnboardingReviewComponent extends GenericOnBoardingComponent implem
   public svgPath: string = environment.svgPath;
   public formOccupantsArr: FormArray;
 
-  constructor(storageSrv: StorageService, router: Router, private _fb: FormBuilder, private store: Store<AppState>,
+  constructor(storageSrv: StorageService, router: Router, private _fb: FormBuilder, private store: Store<RooState>,
     private _storageSrv: StorageService, cdRef: ChangeDetectorRef, fb: FormBuilder) {
     super(ONBOARDINGREVIEW, storageSrv, router, cdRef, fb);
 
@@ -112,17 +111,14 @@ export class OnboardingReviewComponent extends GenericOnBoardingComponent implem
     if (type) {
       this.form.get('type').patchValue(JSON.parse(type))
     }
-
     const personal = _storageSrv.get('personal');
     if (personal) {
       this.form.get('personal').patchValue(JSON.parse(personal));
     }
-
     const partner = _storageSrv.get('partner');
     if (partner) {
       this.form.get('partner').patchValue(JSON.parse(partner));
     }
-
     const occupants = _storageSrv.get('occupants');
     if (occupants) {
       const occupantsArr = JSON.parse(occupants)?.occupants;
@@ -132,7 +128,6 @@ export class OnboardingReviewComponent extends GenericOnBoardingComponent implem
         this.formOccupantsArr.push(this.createItem(Object.assign({}, occupant)));
       });
     }
-
     const documents = _storageSrv.get('documents');
     if (documents) {
       this.form.get('documents').patchValue(JSON.parse(documents));

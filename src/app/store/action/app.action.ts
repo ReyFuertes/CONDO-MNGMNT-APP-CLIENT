@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { IBuilding, IParkingSLot, IUnit } from '../shared/generics/generic-model';
+import { IBuilding, IParkingSLot, IUnit, TOASTTYPE } from 'src/app/shared/generics/generic-model';
 
 export enum AppActionTypes {
   getBuildingsAction = '[App] get building',
@@ -8,7 +8,15 @@ export enum AppActionTypes {
   getUnitsSuccessAction = '[App] get units (success)',
   getParkingAction = '[App] get parking',
   getParkingSuccessAction = '[App] get parking (success)',
+  setLoadingAction = '[App] set loading',
+  clearLoadingAction = '[App] clear loading',
 }
+export const setLoadingAction = createAction(
+  AppActionTypes.setLoadingAction
+);
+export const clearLoadingAction = createAction(
+  AppActionTypes.clearLoadingAction
+);
 export const getParkingAction = createAction(
   AppActionTypes.getParkingAction
 );

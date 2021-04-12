@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AppState } from 'src/app/store/app.reducer';
+import { RooState } from 'src/app/store/root.reducer';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormBuilder, Validators } from '@angular/forms';
 import { GenericAddEditComponent } from 'src/app/shared/generics/generic-ae';
@@ -16,7 +16,7 @@ import * as _ from 'lodash';
 export class OccupantsAddDialogComponent extends GenericAddEditComponent<IOccupant> implements OnInit {
   public relationOptions = RELATIONSOPTIONS;
 
-  constructor(private store: Store<AppState>, public dialogRef: MatDialogRef<OccupantsAddDialogComponent>,
+  constructor(private store: Store<RooState>, public dialogRef: MatDialogRef<OccupantsAddDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private fb: FormBuilder) {
     super();

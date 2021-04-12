@@ -7,7 +7,7 @@ import * as _ from 'lodash';
 import { GenericOnBoardingComponent } from 'src/app/shared/generics/generic-onboarding';
 import { StorageService } from 'src/app/services/storage.service';
 import { Store } from '@ngrx/store';
-import { AppState } from 'src/app/store/app.reducer';
+import { RooState } from 'src/app/store/root.reducer';
 import { Router } from '@angular/router';
 import { setOnboardingStepperAction } from '../../store/onboarding.action';
 import { ONBOARDINGDOCUMENTS, ONBOARDINGOCCUPANTS, ONBOARDINGPARTNER, ONBOARDINGPERSONAL } from 'src/app/shared/constants/generic';
@@ -22,7 +22,7 @@ import * as moment from 'moment';
 export class OnboardingPartnerInfoComponent extends GenericOnBoardingComponent implements OnInit {
   public files: File[] = [];
 
-  constructor(storageSrv: StorageService, router: Router, private _fb: FormBuilder, private store: Store<AppState>,
+  constructor(storageSrv: StorageService, router: Router, private _fb: FormBuilder, private store: Store<RooState>,
     cdRef: ChangeDetectorRef, fb: FormBuilder) {
     super(OnboardingEntityType.ONBOARDINGPARTNER, storageSrv, router, cdRef, fb);
 

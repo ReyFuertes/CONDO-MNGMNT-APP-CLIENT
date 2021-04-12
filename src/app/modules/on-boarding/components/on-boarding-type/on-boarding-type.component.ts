@@ -7,7 +7,7 @@ import { StorageService } from 'src/app/services/storage.service';
 import { ONBOARDINGPERSONAL } from 'src/app/shared/constants/generic';
 import { OnboardingEntityType } from 'src/app/shared/generics/generic-model';
 import { GenericOnBoardingComponent } from 'src/app/shared/generics/generic-onboarding';
-import { AppState } from 'src/app/store/app.reducer';
+import { RooState } from 'src/app/store/root.reducer';
 import { environment } from 'src/environments/environment';
 import { setOnboardingStepperAction } from '../../store/onboarding.action';
 
@@ -23,7 +23,7 @@ export class OnboardingTypeComponent extends GenericOnBoardingComponent implemen
   public selectedType: any;
   public onboardingType = OnBoardingType;
 
-  constructor(storageSrv: StorageService, router: Router, private store: Store<AppState>,
+  constructor(storageSrv: StorageService, router: Router, private store: Store<RooState>,
     public _storageSrv: StorageService, cdRef: ChangeDetectorRef, fb: FormBuilder) {
     super(OnboardingEntityType.ONBOARDINGTYPE, storageSrv, router, cdRef, fb);
   }
