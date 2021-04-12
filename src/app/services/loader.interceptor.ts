@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpResponse, HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/common/http';
-import { BehaviorSubject, Subject, Observable } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { RooState } from '../store/root.reducer';
 import { clearLoadingAction, setLoadingAction } from '../store/action/app.action';
-import { TOASTSADDSUCCESS, TOASTSEVERITYSUCCESS } from '../shared/constants/toast';
 import { MessageService } from 'primeng/api';
+import { APPTIMING } from '../shared/constants/generic';
 
 @Injectable({ providedIn: 'root' })
 export class UILoaderService {
@@ -25,7 +25,7 @@ export class LoaderInterceptorService implements HttpInterceptor {
 
     setTimeout(() => {
       this.store.dispatch(clearLoadingAction());
-    }, 500);
+    }, APPTIMING);
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -37,16 +37,12 @@ export class LoaderInterceptorService implements HttpInterceptor {
         .subscribe(
           event => {
             if (event instanceof HttpResponse) {
-              // this.removeRequest(req);
               observer.next(event);
             }
-          },
-          err => {
+          }, err => {
             this.removeRequest(req);
             observer.error(err);
-          },
-          () => {
-            // this.removeRequest(req);
+          }, () => {
             observer.complete();
           });
       return () => {

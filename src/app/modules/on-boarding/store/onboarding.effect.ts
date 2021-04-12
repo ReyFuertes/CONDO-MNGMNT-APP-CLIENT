@@ -9,10 +9,12 @@ import { MessageService } from 'primeng/api';
 import { RooState } from 'src/app/store/root.reducer';
 import { isLoadingSelector } from 'src/app/store/selector/app.selector';
 import { GenericToastComponent } from 'src/app/shared/generics/generic-toast';
+import { Router } from '@angular/router';
+import { ONBOARDINGTYPEROUTE } from 'src/app/shared/constants/routes';
 @Injectable()
 export class OnboardingEffects extends GenericToastComponent {
-  constructor(private actions$: Actions, private store: Store<RooState>, private onBoardingSrv: OnboardingService, msgSrv: MessageService) {
-    super(msgSrv);
+  constructor(router: Router, private actions$: Actions, private store: Store<RooState>, private onBoardingSrv: OnboardingService, msgSrv: MessageService) {
+    super(router, msgSrv);
   }
 
   createOnboardingAction$ = createEffect(() => this.actions$.pipe(
@@ -23,7 +25,7 @@ export class OnboardingEffects extends GenericToastComponent {
     ]).pipe(
       map(([response, loader]) => {
         if (loader === null) {
-          this.triggerSaveToast();
+          this.triggerSaveToast(ONBOARDINGTYPEROUTE);
         }
         return createOnboardingSuccessAction({ response });
       })

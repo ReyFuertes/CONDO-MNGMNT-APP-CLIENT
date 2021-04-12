@@ -1,5 +1,7 @@
 import { OccupantType } from "src/app/models/onboarding.model";
 import { ISimpleItem } from "../generics/generic-model";
+
+export const APPTIMING = 1000;
 export const BTNTEXTUPDATE = 'Update';
 export const BTNTEXTSAVE = 'Save';
 export const ONBOARDINGTYPE = '1';

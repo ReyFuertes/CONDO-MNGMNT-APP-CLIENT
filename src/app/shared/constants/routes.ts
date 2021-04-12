@@ -1,3 +1,5 @@
+export const ONBOARDINGTYPEROUTE = '/on-boarding/type';
+
 export const DASHBOARDROUTE = '/dashboard';
 export const DASHBOARDONBOARDINGROUTE = '/dashboard/on-boarding';
 export const DASHBOARDONBOARDINGLISTROUTE = '/dashboard/on-boarding/list';
