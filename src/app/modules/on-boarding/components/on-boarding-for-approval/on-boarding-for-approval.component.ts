@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { StorageService } from 'src/app/services/storage.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -8,7 +10,13 @@ import { environment } from 'src/environments/environment';
 })
 export class OnboardingForApprovalComponent implements OnInit {
   public svgPath: string = environment.svgPath;
-  constructor() { }
+
+  constructor(private storageSrv: StorageService, private router: Router) { }
 
   ngOnInit(): void { }
+
+  public onDone(): void {
+    this.router.navigateByUrl('/on-boarding/type');
+    this.storageSrv.clear();
+  }
 }

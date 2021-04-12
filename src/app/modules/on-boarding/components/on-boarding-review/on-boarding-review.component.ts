@@ -157,7 +157,6 @@ export class OnboardingReviewComponent extends GenericOnBoardingComponent implem
         occupants
       }
       this.store.dispatch(createOnboardingAction({ payload }));
-      //routerLink="/on-boarding/for-approval"
     }
   }
 

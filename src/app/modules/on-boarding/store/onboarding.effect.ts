@@ -10,7 +10,7 @@ import { RooState } from 'src/app/store/root.reducer';
 import { isLoadingSelector } from 'src/app/store/selector/app.selector';
 import { GenericToastComponent } from 'src/app/shared/generics/generic-toast';
 import { Router } from '@angular/router';
-import { ONBOARDINGTYPEROUTE } from 'src/app/shared/constants/routes';
+import { ONBOARDINGFORAPPROVALROUTE } from 'src/app/shared/constants/routes';
 @Injectable()
 export class OnboardingEffects extends GenericToastComponent {
   constructor(router: Router, private actions$: Actions, private store: Store<RooState>, private onBoardingSrv: OnboardingService, msgSrv: MessageService) {
@@ -25,7 +25,7 @@ export class OnboardingEffects extends GenericToastComponent {
     ]).pipe(
       map(([response, loader]) => {
         if (loader === null) {
-          this.triggerSaveToast(ONBOARDINGTYPEROUTE);
+          this.triggerSaveToast(ONBOARDINGFORAPPROVALROUTE);
         }
         return createOnboardingSuccessAction({ response });
       })

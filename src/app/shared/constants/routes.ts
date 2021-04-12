@@ -1,4 +1,5 @@
 export const ONBOARDINGTYPEROUTE = '/on-boarding/type';
+export const ONBOARDINGFORAPPROVALROUTE = '/on-boarding/for-approval';
 
 export const DASHBOARDROUTE = '/dashboard';
 export const DASHBOARDONBOARDINGROUTE = '/dashboard/on-boarding';
