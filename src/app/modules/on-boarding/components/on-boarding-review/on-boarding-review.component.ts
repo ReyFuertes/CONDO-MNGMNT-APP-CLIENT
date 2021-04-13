@@ -75,7 +75,7 @@ export class OnboardingReviewComponent extends GenericOnBoardingComponent implem
         uploadedIdFile: [null],
         uploadedFilePreview: [null]
       }),
-      partner: this._fb.group({
+      spouse: this._fb.group({
         lastname: [null],
         firstname: [null],
         middlename: [null],
@@ -115,10 +115,11 @@ export class OnboardingReviewComponent extends GenericOnBoardingComponent implem
     if (personal) {
       this.form.get('personal').patchValue(JSON.parse(personal));
     }
-    const partner = _storageSrv.get('partner');
-    if (partner) {
-      this.form.get('partner').patchValue(JSON.parse(partner));
+    const spouse = _storageSrv.get('spouse');
+    if (spouse) {
+      this.form.get('spouse').patchValue(JSON.parse(spouse));
     }
+    
     const occupants = _storageSrv.get('occupants');
     if (occupants) {
       const occupantsArr = JSON.parse(occupants)?.occupants;
@@ -146,18 +147,26 @@ export class OnboardingReviewComponent extends GenericOnBoardingComponent implem
 
   public onSubmit(): void {
     if (this.form.valid) {
-      const { personal, partner, occupants } = this.form.value;
+      const { personal, spouse, occupants } = this.form.value;
 
       const payload = {
         personal: {
           ...personal,
           civilStatus: this.form.get('personal').value?.civilStatus?.value
         },
-        partner,
+        spouse,
         occupants
       }
       this.store.dispatch(createOnboardingAction({ payload }));
     }
+  }
+
+  public get getOccupants(): any[] {
+    return this.form.get('occupants')['controls'] || [];
+  }
+
+  public get hasOccupants(): boolean {
+    return this.getOccupants.length > 0;
   }
 
   public get getDocuments(): any {
@@ -180,7 +189,7 @@ export class OnboardingReviewComponent extends GenericOnBoardingComponent implem
   }
 
   public get getPartnerForm(): FormGroup {
-    return this.form.controls['partner'] as FormGroup;
+    return this.form.controls['spouse'] as FormGroup;
   }
 
   public get getOccupantsForm(): FormArray {

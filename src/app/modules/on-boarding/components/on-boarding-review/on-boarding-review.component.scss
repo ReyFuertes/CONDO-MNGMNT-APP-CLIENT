@@ -15,7 +15,7 @@
   box-shadow: $box-shadow;
   background-color: $color-white;
   max-width: 900px !important;
-  min-height: 1000px;
+  min-height: 895px;
   margin-bottom: 50px;
 }
 .document-thumb {
@@ -39,7 +39,9 @@
 }
 .content-personal, .occupants-container, .documents-container {
   h4 {
-    margin: 0 0 5px 0;
+    margin: 0 0 7px 0;
+    color: var(--blue-600);
+    margin-left: -8px;
   }
   height: auto;
   min-width: 650px;

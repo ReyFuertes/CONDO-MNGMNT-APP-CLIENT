@@ -10,21 +10,21 @@ import { Store } from '@ngrx/store';
 import { RooState } from 'src/app/store/root.reducer';
 import { Router } from '@angular/router';
 import { setOnboardingStepperAction } from '../../store/onboarding.action';
-import { ONBOARDINGDOCUMENTS, ONBOARDINGOCCUPANTS, ONBOARDINGPARTNER, ONBOARDINGPERSONAL } from 'src/app/shared/constants/generic';
+import { ONBOARDINGDOCUMENTS, ONBOARDINGOCCUPANTS, ONBOARDINGSPOUSE, ONBOARDINGPERSONAL } from 'src/app/shared/constants/generic';
 import { OnboardingEntityType } from 'src/app/shared/generics/generic-model';
 import * as moment from 'moment';
 
 @Component({
-  selector: 'cma-on-boarding-partner-info',
-  templateUrl: './on-boarding-partner-info.component.html',
-  styleUrls: ['./on-boarding-partner-info.component.scss']
+  selector: 'cma-on-boarding-spouse-info',
+  templateUrl: './on-boarding-spouse-info.component.html',
+  styleUrls: ['./on-boarding-spouse-info.component.scss']
 })
 export class OnboardingPartnerInfoComponent extends GenericOnBoardingComponent implements OnInit {
   public files: File[] = [];
 
   constructor(storageSrv: StorageService, router: Router, private _fb: FormBuilder, private store: Store<RooState>,
     cdRef: ChangeDetectorRef, fb: FormBuilder) {
-    super(OnboardingEntityType.ONBOARDINGPARTNER, storageSrv, router, cdRef, fb);
+    super(OnboardingEntityType.ONBOARDINGSPOUSE, storageSrv, router, cdRef, fb);
 
     this.form = this._fb.group({
       lastname: [null],
@@ -33,7 +33,7 @@ export class OnboardingPartnerInfoComponent extends GenericOnBoardingComponent i
       citizenship: [null],
       gender: [null],
       civilStatus: [null],
-      dateOfBirth: [new Date()],
+      dateOfBirth: [null],
       occupation: [null],
       busAddress: [null],
       busContactNo: [null],
@@ -88,16 +88,17 @@ export class OnboardingPartnerInfoComponent extends GenericOnBoardingComponent i
   }
 
   public onNext(): void {
-    super.onNext('/on-boarding/occupants', 'partner', {
+    const { dateOfBirth } = this.form.value;
+    super.onNext('/on-boarding/occupants', 'spouse', {
       ...this.form.value,
-      dateOfBirth: moment(new Date(this.form.value?.dateOfBirth)).format('MM-DD-YYYY')
+      dateOfBirth: dateOfBirth ? moment(new Date(dateOfBirth)).format('MM-DD-YYYY') : null
     });
 
     this.store.dispatch(setOnboardingStepperAction({ step: ONBOARDINGOCCUPANTS }));
   }
 
   public onPrev(): void {
-    super.onPrev('/on-boarding/personal', 'partner', this.form.value);
+    super.onPrev('/on-boarding/personal', 'spouse', this.form.value);
 
     this.store.dispatch(setOnboardingStepperAction({ step: ONBOARDINGPERSONAL }));
   }

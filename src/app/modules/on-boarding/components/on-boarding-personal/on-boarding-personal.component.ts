@@ -11,7 +11,7 @@ import { Store } from '@ngrx/store';
 import { RooState } from 'src/app/store/root.reducer';
 import { Router } from '@angular/router';
 import { setOnboardingStepperAction } from '../../store/onboarding.action';
-import { OCCUPANTOPTIONS, ONBOARDINGPARTNER, ONBOARDINGPERSONAL, ONBOARDINGTYPE } from 'src/app/shared/constants/generic';
+import { OCCUPANTOPTIONS, ONBOARDINGSPOUSE, ONBOARDINGPERSONAL, ONBOARDINGTYPE } from 'src/app/shared/constants/generic';
 import { OnboardingEntityType } from 'src/app/shared/generics/generic-model';
 import * as moment from 'moment';
 @Component({
@@ -81,7 +81,6 @@ export class OnboardingPersonalComponent extends GenericOnBoardingComponent impl
           mimetype: file.type
         }
       })).subscribe((b64Image) => {
-        debugger
         if (formName === 'uploadedIdFile') {
           this.form.get('uploadedFilePreview').patchValue(b64Image?.image);
         }
@@ -98,12 +97,12 @@ export class OnboardingPersonalComponent extends GenericOnBoardingComponent impl
   }
 
   public onNext(): void {
-    super.onNext('/on-boarding/partner', 'personal', {
+    super.onNext('/on-boarding/spouse', 'personal', {
       ...this.form.value,
       dateOfBirth: moment(new Date(this.form.value?.dateOfBirth)).format('MM-DD-YYYY')
     });
 
-    this.store.dispatch(setOnboardingStepperAction({ step: ONBOARDINGPARTNER }));
+    this.store.dispatch(setOnboardingStepperAction({ step: ONBOARDINGSPOUSE }));
 
   }
 

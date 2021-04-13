@@ -35,9 +35,9 @@
       </div>
     </div>
 
-    <!-- partner information -->
+    <!-- spouse information -->
     <div class="content-personal" fxLayout="column" fxLayoutAlign="start start">
-      <h4>Partner Information</h4>
+      <h4>Spouse Information</h4>
       <div fxLayout="row wrap" class="w-100" fxLayoutAlign="start center" fxLayoutGap="15px">
         <cma-input [isReadOnly]="true" [form]="getPartnerForm" controlName="lastname" label="Lastname"></cma-input>
         <cma-input [isReadOnly]="true" [form]="getPartnerForm" controlName="firstname" label="Firstname"></cma-input>
@@ -65,15 +65,17 @@
 
     <!-- occupants -->
     <div [formGroup]="form" class="occupants-container">
-      <h4>Occupants</h4>
-      <div *ngFor="let occupant of form.get('occupants')?.controls; let i = index" fxLayout="column">
-        <ng-container formArrayName="occupants">
-          <div fxFlex fxLayoutGap="20px" [formGroupName]="i" fxLayout="row" fxLayoutAlign="start center">
-            <cma-input [form]="occupant" [isReadOnly]="true" controlName="name" label="Name"></cma-input>
-            <cma-input [form]="occupant" [isReadOnly]="true" controlName="relationship" label="Relationship"></cma-input>
-          </div>
-        </ng-container>
-      </div>
+      <ng-container *ngIf="hasOccupants">
+        <h4>Occupants</h4>
+        <div *ngFor="let occupant of getOccupants; let i = index" fxLayout="column">
+          <ng-container formArrayName="occupants">
+            <div fxFlex fxLayoutGap="20px" [formGroupName]="i" fxLayout="row" fxLayoutAlign="start center">
+              <cma-input [form]="occupant" [isReadOnly]="true" controlName="name" label="Name"></cma-input>
+              <cma-input [form]="occupant" [isReadOnly]="true" controlName="relationship" label="Relationship"></cma-input>
+            </div>
+          </ng-container>
+        </div>
+      </ng-container>
     </div>
 
     <!-- documents -->

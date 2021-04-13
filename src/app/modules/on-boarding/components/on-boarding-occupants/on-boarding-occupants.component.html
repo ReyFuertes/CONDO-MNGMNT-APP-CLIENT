@@ -5,11 +5,12 @@
     <div class="content-occupant" fxLayout="column" fxLayoutAlign="center center">
       <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="25px">
         <div fxLayout="column" fxLayoutAlign="start center">
-          <div class="btn-add-container" fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="20px">
+          <div class="btn-add-container" fxLayout="column" fxLayoutAlign="end center" fxLayoutGap="20px">
+            <i *ngIf="!hasOccupants" class="pi pi-users"></i>
             <button pButton pRipple type="button" (click)="onAdd()" label="Add Occupant" class="p-button-rounded primary"></button>
           </div>
 
-          <div *ngFor="let occupant of form.get('occupants')?.controls; let i = index" fxLayout="column">
+          <div *ngFor="let occupant of getOccupants; let i = index" fxLayout="column">
             <ng-container formArrayName="occupants">
               <div fxFlex fxLayoutGap="20px" [formGroupName]="i" fxLayout="row" fxLayoutAlign="start center">
                 <cma-input [form]="occupant" [isReadOnly]="true" controlName="name" label="Name"></cma-input>

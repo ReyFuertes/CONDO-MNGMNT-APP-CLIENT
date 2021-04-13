@@ -34,20 +34,20 @@ export class GenericOnBoardingComponent extends GenericDestroyPageComponent impl
           let personal = JSON.parse(strPersonal);
           personal = {
             ...personal,
-            dateOfBirth: new Date(personal?.dateOfBirth)
+            dateOfBirth: personal?.dateOfBirth ? new Date(personal?.dateOfBirth) : null
           }
           this.form.patchValue(personal);
         }
         break;
-      case OnboardingEntityType.ONBOARDINGPARTNER:
-        const strPartner = this.storageSrv.get('partner');
-        if (strPartner) {
-          let partner = JSON.parse(strPartner);
-          partner = {
-            ...partner,
-            dateOfBirth: new Date(partner?.dateOfBirth)
+      case OnboardingEntityType.ONBOARDINGSPOUSE:
+        const strSpouse = this.storageSrv.get('spouse');
+        if (strSpouse) {
+          let spouse = JSON.parse(strSpouse);
+          spouse = {
+            ...spouse,
+            dateOfBirth: spouse?.dateOfBirth ? new Date(spouse?.dateOfBirth) : null
           }
-          this.form.patchValue(partner);
+          this.form.patchValue(spouse);
         }
         break;
       case OnboardingEntityType.ONBOARDINGOCCUPANTS:

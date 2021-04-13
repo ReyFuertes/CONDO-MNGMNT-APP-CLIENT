@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 import { StorageService } from 'src/app/services/storage.service';
 import { GenericOnBoardingComponent } from 'src/app/shared/generics/generic-onboarding';
 import { RooState } from 'src/app/store/root.reducer';
-import { ONBOARDINGOCCUPANTS, ONBOARDINGDOCUMENTS, ONBOARDINGPARTNER } from 'src/app/shared/constants/generic';
+import { ONBOARDINGOCCUPANTS, ONBOARDINGDOCUMENTS, ONBOARDINGSPOUSE } from 'src/app/shared/constants/generic';
 import { setOnboardingStepperAction } from '../../store/onboarding.action';
 import { IOccupant } from '../../on-boarding.model';
 import { MatDialog } from '@angular/material/dialog';
@@ -63,6 +63,14 @@ export class OnboardingOccupantsComponent extends GenericOnBoardingComponent imp
     });
   }
 
+  public get getOccupants(): any[] {
+    return this.form.get('occupants')['controls'];
+  }
+
+  public get hasOccupants(): boolean {
+    return this.getOccupants?.length > 0;
+  }
+
   public onNext(): void {
     super.onNext('/on-boarding/documents', 'occupants', this.form.value);
 
@@ -70,8 +78,8 @@ export class OnboardingOccupantsComponent extends GenericOnBoardingComponent imp
   }
 
   public onPrev(): void {
-    super.onPrev('/on-boarding/partner', 'occupants', this.form.value);
+    super.onPrev('/on-boarding/spouse', 'occupants', this.form.value);
 
-    this.store.dispatch(setOnboardingStepperAction({ step: ONBOARDINGPARTNER }));
+    this.store.dispatch(setOnboardingStepperAction({ step: ONBOARDINGSPOUSE }));
   }
 }
