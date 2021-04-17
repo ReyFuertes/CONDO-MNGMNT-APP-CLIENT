@@ -3,6 +3,7 @@ import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { IOccupant } from 'src/app/modules/on-boarding/on-boarding.model';
 import { StorageService } from 'src/app/services/storage.service';
+import { environment } from 'src/environments/environment';
 import { BUILDINGNOOPTIONS, CIVILOPTIONS, GENDEROPTIONS, IDTYPEOPTIONS, PARTKINGNOOPTIONS, RELATIONSOPTIONS, UNITNOOPTIONS } from '../constants/generic';
 import { GenericDestroyPageComponent } from './generic-destroy';
 import { OnboardingEntityType } from './generic-model';
@@ -19,6 +20,8 @@ export class GenericOnBoardingComponent extends GenericDestroyPageComponent impl
   public relationOptions = RELATIONSOPTIONS;
   public _step: string;
   public FormOccupantsArr: FormArray;
+  public FormVehiclesArr: FormArray;
+  public svgPath: string = environment.svgPath;
 
   constructor(step: string, private storageSrv: StorageService, private router: Router, private cdRef: ChangeDetectorRef,
     private fb: FormBuilder) {
@@ -58,6 +61,17 @@ export class GenericOnBoardingComponent extends GenericDestroyPageComponent impl
 
           occupantsArr.forEach(occupant => {
             this.FormOccupantsArr.push(this.createItem(Object.assign({}, occupant)));
+          });
+        }
+        break;
+      case OnboardingEntityType.ONBOARDINGVEHICLES:
+        const vehicles = this.storageSrv.get('vehicles');
+        if (vehicles) {
+          const vehiclesArr = JSON.parse(vehicles)?.vehicles;
+          this.FormVehiclesArr = this.form.get('vehicles') as FormArray;
+
+          vehiclesArr.forEach(vehicle => {
+            this.FormVehiclesArr.push(this.createItem(Object.assign({}, vehicle)));
           });
         }
         break;

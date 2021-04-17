@@ -7,7 +7,7 @@ import { StorageService } from 'src/app/services/storage.service';
 import { RooState } from 'src/app/store/root.reducer';
 import { ONBOARDINGDOCUMENTS, ONBOARDINGSPOUSE, ONBOARDINGPERSONAL, ONBOARDINGTYPE, ONBOARDINGREVIEW, ONBOARDINGOCCUPANTS } from '../../constants/generic';
 import { GenericDestroyPageComponent } from '../../generics/generic-destroy';
-import { ISimpleItem } from '../../generics/generic-model';
+import { ISimpleItem, OnboardingEntityType } from '../../generics/generic-model';
 
 @Component({
   selector: 'cma-stepper',
@@ -22,27 +22,31 @@ export class CMStepperComponent extends GenericDestroyPageComponent implements O
     super();
     this.stepper = [{
       label: 'Type',
-      value: ONBOARDINGTYPE,
+      value: OnboardingEntityType.ONBOARDINGTYPE,
       route: '/on-boarding/type',
     }, {
       label: 'Personal',
-      value: ONBOARDINGPERSONAL,
+      value: OnboardingEntityType.ONBOARDINGPERSONAL,
       route: '/on-boarding/personal',
     }, {
       label: 'Spouse',
-      value: ONBOARDINGSPOUSE,
+      value: OnboardingEntityType.ONBOARDINGSPOUSE,
       route: '/on-boarding/spouse',
     }, {
       label: 'Occupants',
-      value: ONBOARDINGOCCUPANTS,
+      value: OnboardingEntityType.ONBOARDINGOCCUPANTS,
       route: '/on-boarding/occupants',
     }, {
+      label: 'Vehicles',
+      value: OnboardingEntityType.ONBOARDINGVEHICLES,
+      route: '/on-boarding/vehicles',
+    }, {
       label: 'Document',
-      value: ONBOARDINGDOCUMENTS,
+      value: OnboardingEntityType.ONBOARDINGDOCUMENTS,
       route: '/on-boarding/documents',
     }, {
       label: 'Review',
-      value: ONBOARDINGREVIEW,
+      value: OnboardingEntityType.ONBOARDINGREVIEW,
       route: '/on-boarding/review',
     }];
   }

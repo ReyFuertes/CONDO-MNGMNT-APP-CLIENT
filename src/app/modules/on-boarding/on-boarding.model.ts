@@ -14,7 +14,13 @@ export interface IOnboardingPersonal extends IMyInfo {
   building?: IBuilding;
   unit?: IUnit;
   parking?: IParkingSLot;
-  occupantType?: OccupantType;
+  occupantType?: OccupantType
+}
+export interface IVehicle {
+  id?: string;
+  model?: string;
+  make?: string;
+  plateNo?: string;
 }
 export interface IOccupant {
   id?: string;

@@ -78,6 +78,22 @@
       </ng-container>
     </div>
 
+    <!-- vehicles -->
+    <div [formGroup]="form" class="vehicles-container">
+      <ng-container *ngIf="hasVehicles">
+        <h4>Vehicles</h4>
+        <div *ngFor="let vehicle of getVehicles; let i = index" fxLayout="column">
+          <ng-container formArrayName="vehicles">
+            <div fxFlex fxLayoutGap="20px" [formGroupName]="i" fxLayout="row" fxLayoutAlign="start center">
+              <cma-input [form]="vehicle" [isReadOnly]="true" controlName="model" label="Model"></cma-input>
+              <cma-input [form]="vehicle" [isReadOnly]="true" controlName="make" label="Make"></cma-input>
+              <cma-input [form]="vehicle" [isReadOnly]="true" controlName="plateNo" label="Plate No."></cma-input>
+            </div>
+          </ng-container>
+        </div>
+      </ng-container>
+    </div>
+
     <!-- documents -->
     <div *ngIf="hasDocuments" class="documents-container">
       <h4>Documents</h4>

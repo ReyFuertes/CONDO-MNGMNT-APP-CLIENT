@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 import { OnBoardingType } from 'src/app/models/onboarding.model';
 import { StorageService } from 'src/app/services/storage.service';
 import { ONBOARDINGPERSONAL } from 'src/app/shared/constants/generic';
+import { ONBOARDINGPERSONALROUTE } from 'src/app/shared/constants/routes';
 import { OnboardingEntityType } from 'src/app/shared/generics/generic-model';
 import { GenericOnBoardingComponent } from 'src/app/shared/generics/generic-onboarding';
 import { RooState } from 'src/app/store/root.reducer';
@@ -54,7 +55,7 @@ export class OnboardingTypeComponent extends GenericOnBoardingComponent implemen
   }
 
   public onNext(): void {
-    super.onNext('/on-boarding/personal', 'type', this.selectedType);
+    super.onNext(ONBOARDINGPERSONALROUTE, 'type', this.selectedType);
 
     this.store.dispatch(setOnboardingStepperAction({ step: ONBOARDINGPERSONAL }));
   }

@@ -22,41 +22,37 @@ import { CMADialogModule } from '../dialog/dialog.module';
 import { InputTextModule } from 'primeng/inputtext';
 import { MatDialogModule } from '@angular/material/dialog';
 import { OnboardingEffects } from './store/onboarding.effect';
+import { OnboardingVehicleComponent } from './components/on-boarding-vehicle/on-boarding-vehicle.component';
 
 const routes: Routes = [
   {
     path: '',
     component: OnboardingContainerComponent,
-    children: [
-      {
-        path: 'type',
-        component: OnboardingTypeComponent
-      },
-      {
-        path: 'personal',
-        component: OnboardingPersonalComponent
-      },
-      {
-        path: 'spouse',
-        component: OnboardingPartnerInfoComponent
-      },
-      {
-        path: 'occupants',
-        component: OnboardingOccupantsComponent
-      },
-      {
-        path: 'documents',
-        component: OnboardingDocumentComponent
-      },
-      {
-        path: 'review',
-        component: OnboardingReviewComponent
-      },
-      {
-        path: 'for-approval',
-        component: OnboardingForApprovalComponent
-      }
-    ]
+    children: [{
+      path: 'type',
+      component: OnboardingTypeComponent
+    }, {
+      path: 'personal',
+      component: OnboardingPersonalComponent
+    }, {
+      path: 'spouse',
+      component: OnboardingPartnerInfoComponent
+    }, {
+      path: 'occupants',
+      component: OnboardingOccupantsComponent
+    }, {
+      path: 'documents',
+      component: OnboardingDocumentComponent
+    }, {
+      path: 'vehicles',
+      component: OnboardingVehicleComponent
+    }, {
+      path: 'review',
+      component: OnboardingReviewComponent
+    }, {
+      path: 'for-approval',
+      component: OnboardingForApprovalComponent
+    }]
   }
 ];
 
@@ -80,7 +76,8 @@ const materialModules = [
     OnboardingDocumentComponent,
     OnboardingForApprovalComponent,
     OnboardingPartnerInfoComponent,
-    OnboardingOccupantsComponent
+    OnboardingOccupantsComponent,
+    OnboardingVehicleComponent
   ],
   imports: [
     CommonModule,

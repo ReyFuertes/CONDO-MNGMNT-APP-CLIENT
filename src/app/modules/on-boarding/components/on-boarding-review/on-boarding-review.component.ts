@@ -12,6 +12,7 @@ import { environment } from 'src/environments/environment';
 import { createOnboardingAction, setOnboardingStepperAction } from '../../store/onboarding.action';
 import { getDocumentsSelector } from '../../store/onboarding.selector';
 import * as _ from 'lodash';
+import { ONBOARDINGDOCUMENTSROUTE } from 'src/app/shared/constants/routes';
 
 @Component({
   selector: 'cma-on-boarding-review',
@@ -46,6 +47,7 @@ export class OnboardingReviewComponent extends GenericOnBoardingComponent implem
   }];
   public svgPath: string = environment.svgPath;
   public formOccupantsArr: FormArray;
+  public formVehiclesArr: FormArray;
 
   constructor(storageSrv: StorageService, router: Router, private _fb: FormBuilder, private store: Store<RooState>,
     private _storageSrv: StorageService, cdRef: ChangeDetectorRef, fb: FormBuilder) {
@@ -94,6 +96,7 @@ export class OnboardingReviewComponent extends GenericOnBoardingComponent implem
         uploadedFilePreview: [null]
       }),
       occupants: new FormArray([]),
+      vehicles: new FormArray([]),
       documents: this._fb.group({
         amenitiesRegistrationForm: [null],
         moveinNoticeClearanceForm: [null],
@@ -129,6 +132,15 @@ export class OnboardingReviewComponent extends GenericOnBoardingComponent implem
         this.formOccupantsArr.push(this.createItem(Object.assign({}, occupant)));
       });
     }
+    const vehicles = _storageSrv.get('vehicles');
+    if (vehicles) {
+      const vehiclesArr = JSON.parse(vehicles)?.vehicles;
+      this.formVehiclesArr = this.form.get('vehicles') as FormArray;
+
+      vehiclesArr.forEach(vehicle => {
+        this.formVehiclesArr.push(this.createItem(Object.assign({}, vehicle)));
+      });
+    }
     const documents = _storageSrv.get('documents');
     if (documents) {
       this.form.get('documents').patchValue(JSON.parse(documents));
@@ -147,7 +159,7 @@ export class OnboardingReviewComponent extends GenericOnBoardingComponent implem
 
   public onSubmit(): void {
     if (this.form.valid) {
-      const { personal, spouse, occupants } = this.form.value;
+      const { personal, spouse, occupants, vehicles } = this.form.value;
 
       const payload = {
         personal: {
@@ -155,7 +167,8 @@ export class OnboardingReviewComponent extends GenericOnBoardingComponent implem
           civilStatus: this.form.get('personal').value?.civilStatus?.value
         },
         spouse,
-        occupants
+        occupants,
+        vehicles
       }
       this.store.dispatch(createOnboardingAction({ payload }));
     }
@@ -163,6 +176,14 @@ export class OnboardingReviewComponent extends GenericOnBoardingComponent implem
 
   public get getOccupants(): any[] {
     return this.form.get('occupants')['controls'] || [];
+  }
+
+  public get getVehicles(): any[] {
+    return this.form.get('vehicles')['controls'] || [];
+  }
+
+  public get hasVehicles(): boolean {
+    return this.getVehicles.length > 0;
   }
 
   public get hasOccupants(): boolean {
@@ -200,8 +221,12 @@ export class OnboardingReviewComponent extends GenericOnBoardingComponent implem
     return this.form.controls['documents'] as FormGroup;
   }
 
+  public get getVehiclesForm(): FormGroup {
+    return this.form.controls['vehicles'] as FormGroup;
+  }
+
   public onPrev(): void {
-    super.onPrev('/on-boarding/documents');
+    super.onPrev(ONBOARDINGDOCUMENTSROUTE);
 
     this.store.dispatch(setOnboardingStepperAction({ step: ONBOARDINGDOCUMENTS }));
   }

@@ -8,8 +8,9 @@ export const ONBOARDINGTYPE = '1';
 export const ONBOARDINGPERSONAL = '2';
 export const ONBOARDINGSPOUSE = '3';
 export const ONBOARDINGOCCUPANTS = '4';
-export const ONBOARDINGDOCUMENTS = '5';
-export const ONBOARDINGREVIEW = '6';
+export const ONBOARDINGVEHICLES = '5';
+export const ONBOARDINGDOCUMENTS = '6';
+export const ONBOARDINGREVIEW = '7';
 export const OCCUPANTOPTIONS: ISimpleItem[] = [{
   label: 'Home Owner',
   value: String(OccupantType.HomeOwner)

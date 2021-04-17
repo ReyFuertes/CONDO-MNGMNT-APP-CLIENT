@@ -13,6 +13,7 @@ import { setOnboardingStepperAction } from '../../store/onboarding.action';
 import { ONBOARDINGDOCUMENTS, ONBOARDINGOCCUPANTS, ONBOARDINGSPOUSE, ONBOARDINGPERSONAL } from 'src/app/shared/constants/generic';
 import { OnboardingEntityType } from 'src/app/shared/generics/generic-model';
 import * as moment from 'moment';
+import { ONBOARDINGOCCUPANTSROUTE, ONBOARDINGPERSONALROUTE } from 'src/app/shared/constants/routes';
 
 @Component({
   selector: 'cma-on-boarding-spouse-info',
@@ -89,7 +90,7 @@ export class OnboardingPartnerInfoComponent extends GenericOnBoardingComponent i
 
   public onNext(): void {
     const { dateOfBirth } = this.form.value;
-    super.onNext('/on-boarding/occupants', 'spouse', {
+    super.onNext(ONBOARDINGOCCUPANTSROUTE, 'spouse', {
       ...this.form.value,
       dateOfBirth: dateOfBirth ? moment(new Date(dateOfBirth)).format('MM-DD-YYYY') : null
     });
@@ -98,7 +99,7 @@ export class OnboardingPartnerInfoComponent extends GenericOnBoardingComponent i
   }
 
   public onPrev(): void {
-    super.onPrev('/on-boarding/personal', 'spouse', this.form.value);
+    super.onPrev(ONBOARDINGPERSONALROUTE, 'spouse', this.form.value);
 
     this.store.dispatch(setOnboardingStepperAction({ step: ONBOARDINGPERSONAL }));
   }

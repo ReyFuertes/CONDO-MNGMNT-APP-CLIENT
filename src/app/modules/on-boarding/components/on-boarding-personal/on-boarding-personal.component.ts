@@ -14,6 +14,7 @@ import { setOnboardingStepperAction } from '../../store/onboarding.action';
 import { OCCUPANTOPTIONS, ONBOARDINGSPOUSE, ONBOARDINGPERSONAL, ONBOARDINGTYPE } from 'src/app/shared/constants/generic';
 import { OnboardingEntityType } from 'src/app/shared/generics/generic-model';
 import * as moment from 'moment';
+import { ONBOARDINGSPOUSEROUTE, ONBOARDINGTYPEROUTE } from 'src/app/shared/constants/routes';
 @Component({
   selector: 'cma-on-boarding-personal',
   templateUrl: './on-boarding-personal.component.html',
@@ -97,7 +98,7 @@ export class OnboardingPersonalComponent extends GenericOnBoardingComponent impl
   }
 
   public onNext(): void {
-    super.onNext('/on-boarding/spouse', 'personal', {
+    super.onNext(ONBOARDINGSPOUSEROUTE, 'personal', {
       ...this.form.value,
       dateOfBirth: moment(new Date(this.form.value?.dateOfBirth)).format('MM-DD-YYYY')
     });
@@ -107,7 +108,7 @@ export class OnboardingPersonalComponent extends GenericOnBoardingComponent impl
   }
 
   public onPrev(): void {
-    super.onPrev('/on-boarding/type', 'personal', this.form.value);
+    super.onPrev(ONBOARDINGTYPEROUTE, 'personal', this.form.value);
 
     this.store.dispatch(setOnboardingStepperAction({ step: ONBOARDINGTYPE }));
   }

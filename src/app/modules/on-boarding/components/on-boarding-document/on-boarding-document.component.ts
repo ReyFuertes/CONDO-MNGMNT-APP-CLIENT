@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { take } from 'rxjs/operators';
 import { StorageService } from 'src/app/services/storage.service';
-import { ONBOARDINGDOCUMENTS, ONBOARDINGOCCUPANTS, ONBOARDINGREVIEW } from 'src/app/shared/constants/generic';
 import { OnboardingEntityType } from 'src/app/shared/generics/generic-model';
 import { GenericOnBoardingComponent } from 'src/app/shared/generics/generic-onboarding';
 import { RooState } from 'src/app/store/root.reducer';
@@ -12,6 +11,7 @@ import { environment } from 'src/environments/environment';
 import { IOnboardingDocument } from '../../on-boarding.model';
 import { addDocumentsAction, setOnboardingStepperAction } from '../../store/onboarding.action';
 import { getDocumentsSelector } from '../../store/onboarding.selector';
+import { ONBOARDINGVEHICLESROUTE, ONBOARDINGREVIEWROUTE } from 'src/app/shared/constants/routes';
 
 @Component({
   selector: 'cma-on-boarding-document',
@@ -96,14 +96,14 @@ export class OnboardingDocumentComponent extends GenericOnBoardingComponent impl
     /* we need to sstore files in a the state since localstorage doesnt support it */
     this.store.dispatch(addDocumentsAction({ documents: this.form.value }));
 
-    super.onNext('/on-boarding/review', 'documents', this.form.value);
+    super.onNext(ONBOARDINGREVIEWROUTE, 'documents', this.form.value);
 
-    this.store.dispatch(setOnboardingStepperAction({ step: ONBOARDINGREVIEW }));
+    this.store.dispatch(setOnboardingStepperAction({ step: OnboardingEntityType.ONBOARDINGREVIEW }));
   }
 
   public onPrev(): void {
-    super.onPrev('/on-boarding/occupants', 'documents', this.form.value);
+    super.onPrev(ONBOARDINGVEHICLESROUTE, 'documents', this.form.value);
 
-    this.store.dispatch(setOnboardingStepperAction({ step: ONBOARDINGOCCUPANTS }));
+    this.store.dispatch(setOnboardingStepperAction({ step: OnboardingEntityType.ONBOARDINGVEHICLES }));
   }
 }

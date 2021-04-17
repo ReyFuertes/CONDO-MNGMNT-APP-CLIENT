@@ -8,8 +8,9 @@ export enum OnboardingEntityType {
   ONBOARDINGPERSONAL = '2',
   ONBOARDINGSPOUSE = '3',
   ONBOARDINGOCCUPANTS = '4',
-  ONBOARDINGDOCUMENTS = '5',
-  ONBOARDINGREVIEW = '6'
+  ONBOARDINGVEHICLES = '5',
+  ONBOARDINGDOCUMENTS = '6',
+  ONBOARDINGREVIEW = '7'
 }
 export enum AddEditStateType {
   'Add' = 1,

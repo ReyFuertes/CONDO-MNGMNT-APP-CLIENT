@@ -1,4 +1,10 @@
 export const ONBOARDINGTYPEROUTE = '/on-boarding/type';
+export const ONBOARDINGPERSONALROUTE = '/on-boarding/personal';
+export const ONBOARDINGSPOUSEROUTE = '/on-boarding/spouse';
+export const ONBOARDINGOCCUPANTSROUTE = '/on-boarding/occupants';
+export const ONBOARDINGDOCUMENTSROUTE = '/on-boarding/documents';
+export const ONBOARDINGVEHICLESROUTE = '/on-boarding/vehicles';
+export const ONBOARDINGREVIEWROUTE = '/on-boarding/review';
 export const ONBOARDINGFORAPPROVALROUTE = '/on-boarding/for-approval';
 
 export const DASHBOARDROUTE = '/dashboard';
