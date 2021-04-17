@@ -9,6 +9,7 @@ export interface IOnboardingDocument {
   value?: string;
   file?: File;
   formName?: string;
+  fileName?: string;
 }
 export interface IOnboardingPersonal extends IMyInfo {
   building?: IBuilding;

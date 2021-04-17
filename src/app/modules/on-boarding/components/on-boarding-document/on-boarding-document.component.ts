@@ -85,6 +85,8 @@ export class OnboardingDocumentComponent extends GenericOnBoardingComponent impl
 
   public onUpload(event: File, doc: IOnboardingDocument): void {
     doc.file = event;
+    doc.fileName = event?.name;
+
     this.form.get(doc.formName).patchValue(doc);
   }
 

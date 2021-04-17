@@ -13,6 +13,8 @@ import { createOnboardingAction, setOnboardingStepperAction } from '../../store/
 import { getDocumentsSelector } from '../../store/onboarding.selector';
 import * as _ from 'lodash';
 import { ONBOARDINGDOCUMENTSROUTE } from 'src/app/shared/constants/routes';
+import { IOnboardingDocument } from '../../on-boarding.model';
+import { CamelToSnakeCase } from 'src/app/shared/util/formating';
 
 @Component({
   selector: 'cma-on-boarding-review',
@@ -48,6 +50,7 @@ export class OnboardingReviewComponent extends GenericOnBoardingComponent implem
   public svgPath: string = environment.svgPath;
   public formOccupantsArr: FormArray;
   public formVehiclesArr: FormArray;
+  public camelToSnakeCase = CamelToSnakeCase;
 
   constructor(storageSrv: StorageService, router: Router, private _fb: FormBuilder, private store: Store<RooState>,
     private _storageSrv: StorageService, cdRef: ChangeDetectorRef, fb: FormBuilder) {
@@ -122,7 +125,7 @@ export class OnboardingReviewComponent extends GenericOnBoardingComponent implem
     if (spouse) {
       this.form.get('spouse').patchValue(JSON.parse(spouse));
     }
-    
+
     const occupants = _storageSrv.get('occupants');
     if (occupants) {
       const occupantsArr = JSON.parse(occupants)?.occupants;
@@ -159,7 +162,7 @@ export class OnboardingReviewComponent extends GenericOnBoardingComponent implem
 
   public onSubmit(): void {
     if (this.form.valid) {
-      const { personal, spouse, occupants, vehicles } = this.form.value;
+      const { personal, spouse, occupants, vehicles, documents } = this.form.value;
 
       const payload = {
         personal: {
@@ -168,10 +171,29 @@ export class OnboardingReviewComponent extends GenericOnBoardingComponent implem
         },
         spouse,
         occupants,
-        vehicles
+        vehicles,
+        documents: [this.getDocNames(documents)]
       }
       this.store.dispatch(createOnboardingAction({ payload }));
     }
+  }
+
+  public getDocNames(docs: IOnboardingDocument[]): any {
+    let docArrKeys = Object.keys(docs);
+
+    const ret = docArrKeys?.map(d => {
+      let obj = {};
+      let fieldName = String(CamelToSnakeCase(docs[d].formName));
+
+      docs[fieldName] = docs[d]?.fileName;
+      obj[fieldName] = docs[fieldName];
+
+      delete docs[docs[d].formName];
+
+      return obj;
+    });
+    return ret.reduce(
+      (obj, item) => Object.assign(obj, { [Object.keys(item)[0]]: Object.values(item)[0] }), {});
   }
 
   public get getOccupants(): any[] {
@@ -194,7 +216,7 @@ export class OnboardingReviewComponent extends GenericOnBoardingComponent implem
     const docNames = Object.keys(this.form.get('documents').value);
 
     let ret = docNames.map(d => {
-      const docName = this.form.get('documents').get(d).value?.file?.name;
+      const docName = this.form.get('documents').get(d)?.value?.file?.name;
       return docName ? docName : null;
     });
 

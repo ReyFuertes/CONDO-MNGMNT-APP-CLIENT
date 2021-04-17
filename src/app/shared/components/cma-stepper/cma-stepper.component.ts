@@ -41,7 +41,7 @@ export class CMStepperComponent extends GenericDestroyPageComponent implements O
       value: OnboardingEntityType.ONBOARDINGVEHICLES,
       route: '/on-boarding/vehicles',
     }, {
-      label: 'Document',
+      label: 'Documents',
       value: OnboardingEntityType.ONBOARDINGDOCUMENTS,
       route: '/on-boarding/documents',
     }, {
