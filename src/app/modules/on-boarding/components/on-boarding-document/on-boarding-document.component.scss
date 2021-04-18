@@ -56,12 +56,59 @@
 }
 .action-btns {
   margin-top: 20px;
-  border-top: thin #f1f1f1 solid;
+  border-top: thin $color-gray-2 solid;
   padding-top: 20px;
   padding-bottom: 5px;
   width: 100%;
 }
 :host ::ng-deep {
+  .p-message {
+    .p-message-summary {
+      font-weight: 400;
+    }
+    .p-message-wrapper {
+      padding: 0.5rem;
+      font-size: 14px;
+      font-weight: normal;
+    }
+  }
+  .p-fileupload .p-fileupload-row > div {
+    padding: 0.5rem;
+    font-size: 14px;
+    .p-button {
+      background: $color-red;
+      border: thin solid $color-red;
+      color: $color-white;
+    }
+  }
+  p-fileupload, .content {
+    max-width: 100%;
+    width: 100%;
+  }
+  .p-fileupload-row {
+    div {
+      &:first-child {
+        width: 0;
+        padding: 0;
+        min-width: 0;
+        max-width: 0;
+      }
+      &:nth-child(2) {
+        width: 75%;
+      }
+      &:nth-child(3) {
+        width: 10%;
+      }
+      &:nth-child(4) {
+        width: 5%;
+      }
+    }
+  }
+  .p-fileupload .p-fileupload-buttonbar, .p-fileupload-content {
+    border: none !important;
+    background-color: transparent;
+    padding: 0.6rem;
+  }
   cma-input, cma-dropdown {
     margin-bottom: 20px;
   }

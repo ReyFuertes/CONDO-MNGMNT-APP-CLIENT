@@ -23,6 +23,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { MatDialogModule } from '@angular/material/dialog';
 import { OnboardingEffects } from './store/onboarding.effect';
 import { OnboardingVehicleComponent } from './components/on-boarding-vehicle/on-boarding-vehicle.component';
+import { FileUploadModule } from 'primeng/fileupload';
 
 const routes: Routes = [
   {
@@ -59,7 +60,8 @@ const routes: Routes = [
 const primeNgModules = [
   CheckboxModule,
   ButtonModule,
-  InputTextModule
+  InputTextModule,
+  FileUploadModule
 ];
 
 const materialModules = [

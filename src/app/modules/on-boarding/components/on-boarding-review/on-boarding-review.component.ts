@@ -51,6 +51,7 @@ export class OnboardingReviewComponent extends GenericOnBoardingComponent implem
   public formOccupantsArr: FormArray;
   public formVehiclesArr: FormArray;
   public camelToSnakeCase = CamelToSnakeCase;
+  public uploadedDocs: any[] = [];
 
   constructor(storageSrv: StorageService, router: Router, private _fb: FormBuilder, private store: Store<RooState>,
     private _storageSrv: StorageService, cdRef: ChangeDetectorRef, fb: FormBuilder) {
@@ -100,16 +101,7 @@ export class OnboardingReviewComponent extends GenericOnBoardingComponent implem
       }),
       occupants: new FormArray([]),
       vehicles: new FormArray([]),
-      documents: this._fb.group({
-        amenitiesRegistrationForm: [null],
-        moveinNoticeClearanceForm: [null],
-        residentsInformationSheet: [null],
-        vehicleRegistrationCarStickerForm: [null],
-        idCardApplicationForm: [null],
-        signatureInformationCard: [null],
-        waiver: [null],
-        contract: [null]
-      })
+      documents: new FormArray([])
     });
 
     /* get all values from localstorage */
@@ -125,7 +117,6 @@ export class OnboardingReviewComponent extends GenericOnBoardingComponent implem
     if (spouse) {
       this.form.get('spouse').patchValue(JSON.parse(spouse));
     }
-
     const occupants = _storageSrv.get('occupants');
     if (occupants) {
       const occupantsArr = JSON.parse(occupants)?.occupants;
@@ -144,25 +135,36 @@ export class OnboardingReviewComponent extends GenericOnBoardingComponent implem
         this.formVehiclesArr.push(this.createItem(Object.assign({}, vehicle)));
       });
     }
-    const documents = _storageSrv.get('documents');
-    if (documents) {
-      this.form.get('documents').patchValue(JSON.parse(documents));
-    }
   }
 
   ngOnInit(): void {
     this.store.pipe(select(getDocumentsSelector),
       take(1))
       .subscribe(docs => {
-        if (docs) {
-          this.form.get('documents').patchValue(docs);
-        }
+        if (docs) this.uploadedDocs = docs
       });
+  }
+
+  private cnsFileObj(files: FormData): any {
+    return Object.values(this.uploadedDocs?.map(doc => {
+      files.append('files', doc, doc.name);
+      return {
+        name: doc.name,
+        size: doc.size,
+        type: doc.type,
+        lastModified: doc.lastModified,
+        lastModifiedDate: doc.lastModifiedDate
+      }
+    })) || null;
   }
 
   public onSubmit(): void {
     if (this.form.valid) {
-      const { personal, spouse, occupants, vehicles, documents } = this.form.value;
+      const { personal, spouse, occupants, vehicles } = this.form.value;
+      const files = new FormData();
+      files.set('name', `${personal?.firstname} ${personal?.lastname}`);
+
+      const documents = this.cnsFileObj(files)
 
       const payload = {
         personal: {
@@ -172,9 +174,12 @@ export class OnboardingReviewComponent extends GenericOnBoardingComponent implem
         spouse,
         occupants,
         vehicles,
-        documents: [this.getDocNames(documents)]
+        documents,
+        files
       }
-      this.store.dispatch(createOnboardingAction({ payload }));
+      setTimeout(() => {
+        this.store.dispatch(createOnboardingAction({ payload, files }));
+      }, 100);
     }
   }
 
@@ -212,19 +217,8 @@ export class OnboardingReviewComponent extends GenericOnBoardingComponent implem
     return this.getOccupants.length > 0;
   }
 
-  public get getDocuments(): any {
-    const docNames = Object.keys(this.form.get('documents').value);
-
-    let ret = docNames.map(d => {
-      const docName = this.form.get('documents').get(d)?.value?.file?.name;
-      return docName ? docName : null;
-    });
-
-    return ret.filter(i => Boolean(i));
-  }
-
   public get hasDocuments(): boolean {
-    return this.getDocuments.filter(i => Boolean(i))?.length > 0;
+    return this.uploadedDocs.filter(i => Boolean(i))?.length > 0;
   }
 
   public get getPersonalForm(): FormGroup {

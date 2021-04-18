@@ -98,9 +98,9 @@
     <div *ngIf="hasDocuments" class="documents-container">
       <h4>Documents</h4>
       <div fxLayout="row wrap" fxLayoutAlign="start center" fxLayoutGap="5px">
-        <div *ngFor="let docName of getDocuments" pTooltip="Download" class="document-thumb" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="5px">
+        <div *ngFor="let doc of uploadedDocs" pTooltip="Download" class="document-thumb" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="5px">
           <i class="pi pi-file-pdf"></i>
-          <span>{{ docName }}</span>
+          <span>{{ doc?.name }}</span>
         </div>
       </div>
     </div>

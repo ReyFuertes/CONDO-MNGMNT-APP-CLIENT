@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { take } from 'rxjs/operators';
@@ -20,52 +20,13 @@ import { ONBOARDINGVEHICLESROUTE, ONBOARDINGREVIEWROUTE } from 'src/app/shared/c
 })
 export class OnboardingDocumentComponent extends GenericOnBoardingComponent implements OnInit {
   public svgPath: string = environment.svgPath;
-  public uploadDocuments: IOnboardingDocument[] = [{
-    label: 'Amenities Registration Form',
-    value: '1',
-    formName: 'amenitiesRegistrationForm'
-  }, {
-    label: 'Move-in Notice & Clearance Form',
-    value: '2',
-    formName: 'moveinNoticeClearanceForm'
-  }, {
-    label: 'Residents Information Sheet',
-    value: '3',
-    formName: 'residentsInformationSheet'
-  }, {
-    label: 'Vehicle Registration & Car Sticker Form',
-    value: '4',
-    formName: 'vehicleRegistrationCarStickerForm'
-  }, {
-    label: 'ID Card Application Form',
-    value: '5',
-    formName: 'idCardApplicationForm'
-  }, {
-    label: 'Signature Information Card',
-    value: '6',
-    formName: 'signatureInformationCard'
-  }, {
-    label: 'Waiver',
-    value: '7',
-    formName: 'waiver'
-  }, {
-    label: 'Contract',
-    value: '8',
-    formName: 'contract'
-  }];
+  public uploadedDocs: any[] = [];
 
   constructor(storageSrv: StorageService, router: Router, private _fb: FormBuilder, private store: Store<RooState>, cdRef: ChangeDetectorRef, fb: FormBuilder) {
     super(OnboardingEntityType.ONBOARDINGDOCUMENTS, storageSrv, router, cdRef, fb);
 
     this.form = this._fb.group({
-      amenitiesRegistrationForm: [null],
-      moveinNoticeClearanceForm: [null],
-      residentsInformationSheet: [null],
-      vehicleRegistrationCarStickerForm: [null],
-      idCardApplicationForm: [null],
-      signatureInformationCard: [null],
-      waiver: [null],
-      contract: [null]
+      documents: new FormArray([]),
     });
   }
 
@@ -73,9 +34,7 @@ export class OnboardingDocumentComponent extends GenericOnBoardingComponent impl
     this.store.pipe(select(getDocumentsSelector),
       take(1))
       .subscribe(docs => {
-        if (docs) {
-          this.form.patchValue(docs);
-        }
+        if (docs) this.form.patchValue(docs);
       });
   }
 
@@ -83,11 +42,8 @@ export class OnboardingDocumentComponent extends GenericOnBoardingComponent impl
     return this.form.get(document?.formName)?.value?.file?.name || document?.label;
   }
 
-  public onUpload(event: File, doc: IOnboardingDocument): void {
-    doc.file = event;
-    doc.fileName = event?.name;
-
-    this.form.get(doc.formName).patchValue(doc);
+  public onUpload(event: any) {
+    this.uploadedDocs.push(event.files[0]);
   }
 
   public hasFile(prevLabel: any, currLabel: any): boolean {
@@ -96,7 +52,7 @@ export class OnboardingDocumentComponent extends GenericOnBoardingComponent impl
 
   public onNext(): void {
     /* we need to sstore files in a the state since localstorage doesnt support it */
-    this.store.dispatch(addDocumentsAction({ documents: this.form.value }));
+    this.store.dispatch(addDocumentsAction({ documents: this.uploadedDocs }));
 
     super.onNext(ONBOARDINGREVIEWROUTE, 'documents', this.form.value);
 

@@ -11,7 +11,7 @@ export enum OnboardingActionTypes {
 }
 export const createOnboardingAction = createAction(
   OnboardingActionTypes.createOnboardingAction,
-  props<{ payload: IOnboarding }>()
+  props<{ payload: IOnboarding, files?: any }>()
 );
 export const createOnboardingSuccessAction = createAction(
   OnboardingActionTypes.createOnboardingSuccessAction,

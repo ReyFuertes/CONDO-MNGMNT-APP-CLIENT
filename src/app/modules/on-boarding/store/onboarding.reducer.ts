@@ -11,7 +11,7 @@ export interface OnboardingState extends EntityState<IOnboarding> {
   type?: ISimpleItem,
   personal?: IOnboardingPersonal,
   occupants?: IOccupant[],
-  documents?: IOnboardingDocument,
+  documents?: any,
   onboardingSubmitted?: boolean
 }
 export const initialState: OnboardingState = adapter.getInitialState({
