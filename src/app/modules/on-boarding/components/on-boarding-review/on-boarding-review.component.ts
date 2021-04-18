@@ -141,11 +141,11 @@ export class OnboardingReviewComponent extends GenericOnBoardingComponent implem
     this.store.pipe(select(getDocumentsSelector),
       take(1))
       .subscribe(docs => {
-        if (docs) this.uploadedDocs = docs
+        if (docs) this.uploadedDocs = docs;
       });
   }
 
-  private cnsFileObj(files: FormData): any {
+  private processFormData(files: FormData): any {
     return Object.values(this.uploadedDocs?.map(doc => {
       files.append('files', doc, doc.name);
       return {
@@ -162,9 +162,9 @@ export class OnboardingReviewComponent extends GenericOnBoardingComponent implem
     if (this.form.valid) {
       const { personal, spouse, occupants, vehicles } = this.form.value;
       const files = new FormData();
-      files.set('name', `${personal?.firstname} ${personal?.lastname}`);
+      files.set('name', String(`${personal?.firstname}_${personal?.lastname}`).toLowerCase());
 
-      const documents = this.cnsFileObj(files)
+      const documents = this.processFormData(files)
 
       const payload = {
         personal: {
@@ -181,24 +181,6 @@ export class OnboardingReviewComponent extends GenericOnBoardingComponent implem
         this.store.dispatch(createOnboardingAction({ payload, files }));
       }, 100);
     }
-  }
-
-  public getDocNames(docs: IOnboardingDocument[]): any {
-    let docArrKeys = Object.keys(docs);
-
-    const ret = docArrKeys?.map(d => {
-      let obj = {};
-      let fieldName = String(CamelToSnakeCase(docs[d].formName));
-
-      docs[fieldName] = docs[d]?.fileName;
-      obj[fieldName] = docs[fieldName];
-
-      delete docs[docs[d].formName];
-
-      return obj;
-    });
-    return ret.reduce(
-      (obj, item) => Object.assign(obj, { [Object.keys(item)[0]]: Object.values(item)[0] }), {});
   }
 
   public get getOccupants(): any[] {

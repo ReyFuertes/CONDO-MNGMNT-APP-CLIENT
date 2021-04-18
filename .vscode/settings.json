@@ -1,0 +1,4 @@
+{
+  "appService.defaultWebAppToDeploy": "/subscriptions/6f31b2b1-9a5b-4277-b44a-b343cca8ae69/resourceGroups/cma/providers/Microsoft.Web/sites/cma-client",
+  "appService.deploySubpath": "."
+}

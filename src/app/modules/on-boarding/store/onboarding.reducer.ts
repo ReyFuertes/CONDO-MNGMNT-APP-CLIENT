@@ -1,7 +1,7 @@
 import { createReducer, on, Action } from "@ngrx/store";
 import { ISimpleItem } from "src/app/shared/generics/generic-model";
 import { IOccupant, IOnboarding, IOnboardingDocument, IOnboardingPersonal } from "../on-boarding.model";
-import { addDocumentsAction, addOccupantAction, createOnboardingSuccessAction, removeOccupantAction, setOnboardingStepperAction } from "./onboarding.action";
+import { addDocumentsAction, addOccupantAction, clearStepperAction, createOnboardingSuccessAction, removeOccupantAction, setOnboardingStepperAction } from "./onboarding.action";
 import * as _ from 'lodash';
 import { createEntityAdapter, EntityAdapter, EntityState } from "@ngrx/entity";
 
@@ -25,11 +25,14 @@ export const initialState: OnboardingState = adapter.getInitialState({
 
 const onboardingReducer = createReducer(
   initialState,
+  on(clearStepperAction, (state) => {
+    return Object.assign({}, state, { stepper: null });
+  }),
   on(createOnboardingSuccessAction, (state, action) => {
     return adapter.addOne(action.response, state)
   }),
   on(createOnboardingSuccessAction, (state) => {
-    return Object.assign({}, state, { onboardingSubmitted:true });
+    return Object.assign({}, state, { onboardingSubmitted: true });
   }),
   on(addDocumentsAction, (state, action) => {
     return Object.assign({}, state, { documents: action.documents });

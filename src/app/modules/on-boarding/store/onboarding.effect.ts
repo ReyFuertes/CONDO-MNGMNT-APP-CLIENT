@@ -21,8 +21,7 @@ export class OnboardingEffects extends GenericToastComponent {
   createOnboardingAction$ = createEffect(() => this.actions$.pipe(
     ofType(createOnboardingAction),
     switchMap(({ payload, files }) => {
-      debugger
-      return forkJoin([
+      return combineLatest([
         this.onBoardingSrv.post(payload),
         this.onBoardingSrv.upload(files, 'upload'),
         this.store.pipe(select(isLoadingSelector))

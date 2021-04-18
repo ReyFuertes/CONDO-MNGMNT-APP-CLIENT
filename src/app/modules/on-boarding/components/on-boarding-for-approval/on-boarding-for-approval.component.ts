@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { StorageService } from 'src/app/services/storage.service';
+import { RooState } from 'src/app/store/root.reducer';
 import { environment } from 'src/environments/environment';
+import { clearStepperAction } from '../../store/onboarding.action';
 
 @Component({
   selector: 'cma-on-boarding-for-approval',
@@ -11,12 +14,15 @@ import { environment } from 'src/environments/environment';
 export class OnboardingForApprovalComponent implements OnInit {
   public svgPath: string = environment.svgPath;
 
-  constructor(private storageSrv: StorageService, private router: Router) { }
+  constructor(private store: Store<RooState>, private storageSrv: StorageService, private router: Router) { }
 
   ngOnInit(): void { }
 
   public onDone(): void {
-    this.router.navigateByUrl('/on-boarding/type');
-    this.storageSrv.clear();
+    setTimeout(() => {
+      this.router.navigateByUrl('/on-boarding/type');
+      this.store.dispatch(clearStepperAction());
+      this.storageSrv.clear();
+    }, 100);
   }
 }
