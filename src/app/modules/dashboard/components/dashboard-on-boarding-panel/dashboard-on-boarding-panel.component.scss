@@ -52,7 +52,7 @@
     min-width: 120px;
   }
   mat-expansion-panel.mat-expanded {
-    border-left: 2px $color-gray-blue solid;
+    border-left: 2px $color-gray-2 solid;
   }
   .mat-expansion-panel-header {
     padding: 20px 20px 20px 10px;
@@ -65,6 +65,8 @@
     font-family: 'Poppins', sans-serif;
     span.name {
       font-weight: 500;
+      font-size: 14px;
+      color: $color-black-2;
     }
   }
   .mat-expansion-panel-body {

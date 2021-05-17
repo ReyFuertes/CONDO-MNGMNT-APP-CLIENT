@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { select, Store } from '@ngrx/store';
 import { MenuItem } from 'primeng/api';
 import { MenuType } from 'src/app/models/onboarding.model';
 import { ONBOARDINGBREADCRUMBS } from 'src/app/shared/constants/breadcrumbs';
 import { GenericContainer } from 'src/app/shared/generics/generic-container';
 import { ISimpleItem } from 'src/app/shared/generics/generic-model';
+import { RooState } from 'src/app/store/root.reducer';
+import { loadDashboardOnboardingAction } from '../../store/actions/dashboard-onboarding.action';
 
 @Component({
   selector: 'cma-dashboard-on-boarding',
@@ -15,9 +18,11 @@ export class DashboardOnboardingComponent extends GenericContainer implements On
   public settingItems: MenuItem[];
   public actionItems: MenuItem[];
 
-  constructor() { 
+  constructor(private store: Store<RooState>) {
     super();
     localStorage.setItem('nav', JSON.stringify(MenuType.Onboarding));
+
+    this.store.dispatch(loadDashboardOnboardingAction());
 
     this.settingItems = [
       {

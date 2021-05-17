@@ -1,0 +1,13 @@
+.p-menu {
+  .p-submenu-header {
+    padding: 3px 10px;
+  }
+  .p-menuitem-link {
+    padding: 10px;
+  }
+  .p-menuitem-link:not(.p-disabled):hover {
+    .p-menuitem-text, .p-menuitem-icon {
+      color: $color-blue;
+    }
+  }
+}

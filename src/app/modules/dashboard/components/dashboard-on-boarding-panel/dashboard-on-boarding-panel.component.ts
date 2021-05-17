@@ -1,10 +1,11 @@
-import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
-import { MatAccordion } from '@angular/material/expansion';
-import { Router } from '@angular/router';
+import { Component, Input, OnInit } from '@angular/core';
+import { select, Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 import { OnBoardingType } from 'src/app/models/onboarding.model';
-import { ISimpleItem } from 'src/app/shared/generics/generic-model';
+import { IOnboarding } from 'src/app/modules/on-boarding/on-boarding.model';
+import { RooState } from 'src/app/store/root.reducer';
 import { environment } from 'src/environments/environment';
-import { DASHBOARDONBOARDINGROUTE } from 'src/app/shared/constants/routes';
+import { getDashboardOnboardingSelector } from '../../store/selectors/dashboard-onboarding.selector';
 
 @Component({
   selector: 'cma-dashboard-on-boarding-panel',
@@ -14,48 +15,21 @@ import { DASHBOARDONBOARDINGROUTE } from 'src/app/shared/constants/routes';
 export class DashboardOnboardingPanelComponent implements OnInit {
   public svgPath: string = environment.svgPath;
   public imgPath: string = environment.imgPath;
-  public onboaders: any[] = [{
-    name: 'Rey Fuertes',
-    status: 'Approved',
-    type: 'corporate'
-  }, {
-    name: 'John Doe',
-    status: 'Orientation',
-    type: 'individual'
-  }, {
-    name: 'Rody Duterte',
-    status: 'Move-in',
-    type: 'individual'
-  }, {
-    name: 'Bong Go',
-    status: 'Approved',
-    type: 'individual'
-  }, {
-    name: 'Lauro Sams',
-    status: 'Approved',
-    type: 'corporate'
-  }, {
-    name: 'Jake James',
-    status: 'Orientation',
-    type: 'individual'
-  }, {
-    name: 'Pedro Penduko',
-    status: 'Move-in',
-    type: 'individual'
-  }, {
-    name: 'Tunying See',
-    status: 'Approved',
-    type: 'individual'
-  }];
   public isExpanded: any = false;
   public onBoardingType = OnBoardingType;
-
   public onboardingStatus: any[];
+  public $onboardings: Observable<IOnboarding[]>;
 
-  constructor() { }
+  constructor(private store: Store<RooState>) {
+    this.$onboardings = this.store.pipe(select(getDashboardOnboardingSelector));
+  }
 
   ngOnInit(): void {
     this.onboardingStatus = ['Approved', 'Orientation', 'Move-In'];
+  }
+
+  public getFullName(item: IOnboarding): string {
+    return `${item?.personal?.firstname} ${item?.personal?.middlename} ${item?.personal?.lastname}`
   }
 
   public onPanelClick(i: number): void {

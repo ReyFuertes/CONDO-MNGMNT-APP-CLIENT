@@ -1,5 +1,5 @@
 <!-- personal information -->
-<div class="content-container" fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="20px">
+<div *ngIf="item" class="content-container" fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="20px">
   <div>
     <div class="content-title" fxLayout="row" fxLayoutAlign="start center">
       <div fxFlex>Personal Information</div>
@@ -18,41 +18,41 @@
       <div class="pi-thumb" fxFlex="30">
         <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="5px">
           <span>Lastname:</span>
-          <span>Fuertes</span>
+          <span>{{ item?.personal?.lastname }}</span>
         </div>
         <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="5px">
           <span>Firstname:</span>
-          <span>Rey</span>
+          <span>{{ item?.personal?.firstname }}</span>
         </div>
         <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="5px">
           <span>Middlename:</span>
-          <span>Senador</span>
+          <span>{{ item?.personal?.middlename }}</span>
         </div>
       </div>
 
       <div class="pi-thumb" fxFlex="30">
         <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="5px">
           <span>Citizenship:</span>
-          <span>Filipino</span>
+          <span>{{ item?.personal?.citizenship }}</span>
         </div>
         <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="5px">
           <span>Gender:</span>
-          <span>Male</span>
+          <span>{{ item?.personal?.gender }}</span>
         </div>
         <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="5px">
           <span>Marital Status:</span>
-          <span>Married</span>
+          <span>{{ item?.personal?.civilStatus }}</span>
         </div>
       </div>
 
       <div class="pi-thumb" fxFlex="30">
         <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="5px">
           <span>Date of Birth:</span>
-          <span>06-10-1985</span>
+          <span>{{ item?.personal?.dateOfBirth }}</span>
         </div>
         <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="5px">
           <span>Occupation:</span>
-          <span>IT Professional</span>
+          <span>{{ item?.personal?.occupation }}</span>
         </div>
         <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="5px">
           <span>Contact No.:</span>
@@ -63,15 +63,15 @@
       <div class="pi-thumb" fxFlex="30">
         <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="5px">
           <span>ID Type:</span>
-          <span>Phil health</span>
+          <span>{{ item?.personal?.idType }}</span>
         </div>
         <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="5px">
           <span>ID No.:</span>
-          <span>423 2342 25345</span>
+          <span>{{ item?.personal?.idNo }}</span>
         </div>
         <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="5px">
           <span>Uploaded File:</span>
-          <span class="link">driverlicensed_1234.png</span>
+          <span class="link">{{ item?.personal?.uploadedIdFile }}</span>
         </div>
       </div>
     </div>
@@ -144,7 +144,7 @@
           <span>One Oasis Cebu St.</span>
         </div>
         <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="5px">
-          <span>Bus. Contact No.:</span>
+          <span>Bus. Cont No.:</span>
           <span>09564211445</span>
         </div>
         <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="5px">

@@ -33,43 +33,43 @@ import { DashboardHomeownersInfoComponent } from './components/dashboard-homeown
 import { DashboardHomeownersDocumentComponent } from './components/dashboard-homeowners-document/dashboard-homeowners-document.component';
 import { DashboardOnboardingPanelDocumentComponent } from './components/dashboard-on-boarding-panel-document/dashboard-on-boarding-panel-document.component';
 import { DashboardOnboardingPanelContentComponent } from './components/dashboard-on-boarding-panel-content/dashboard-on-boarding-panel-content.component';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { DashboardOnboardingEffects } from './store/effects/dashboard-onboarding.effect';
+import { reducers } from './store/reducers';
 
-const routes: Routes = [
+const routes: Routes = [{
+  path: '',
+  component: DashboardContainerComponent,
+  children: [{
+    path: 'on-boarding/list',
+    component: DashboardOnboardingComponent
+  },
   {
-    path: '',
-    component: DashboardContainerComponent,
-    children: [
-      {
-        path: 'on-boarding/list',
-        component: DashboardOnboardingComponent
-      },
-      {
-        path: 'requests/list',
-        component: DashboardRequestsComponent
-      },
-      {
-        path: 'homeowners/list',
-        component: DashboardHomeownersComponent
-      },
-      {
-        path: 'payments/list',
-        component: DashboardPaymentsComponent
-      },
-      {
-        path: 'documents/list',
-        component: DashboardDocumentsComponent
-      },
-      {
-        path: 'homeowners',
-        component: DashboardHomeownersComponent
-      },
-      {
-        path: 'on-boarding/:id/detail',
-        component: DashboardOnboardingDetailComponent
-      }
-    ]
-  }
-];
+    path: 'requests/list',
+    component: DashboardRequestsComponent
+  },
+  {
+    path: 'homeowners/list',
+    component: DashboardHomeownersComponent
+  },
+  {
+    path: 'payments/list',
+    component: DashboardPaymentsComponent
+  },
+  {
+    path: 'documents/list',
+    component: DashboardDocumentsComponent
+  },
+  {
+    path: 'homeowners',
+    component: DashboardHomeownersComponent
+  },
+  {
+    path: 'on-boarding/:id/detail',
+    component: DashboardOnboardingDetailComponent
+  }]
+}];
 
 const primeNgModules = [
   CheckboxModule,
@@ -118,7 +118,11 @@ const materialModules = [
     ...primeNgModules,
     ...materialModules,
     RouterModule.forChild(routes),
-    SharedModule
+    SharedModule,
+    StoreModule.forFeature('dashboardModule', reducers),
+    EffectsModule.forFeature([
+      DashboardOnboardingEffects
+    ])
   ],
   exports: [],
   providers: [],

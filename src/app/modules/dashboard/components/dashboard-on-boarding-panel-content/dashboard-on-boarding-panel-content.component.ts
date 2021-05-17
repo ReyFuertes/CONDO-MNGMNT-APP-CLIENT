@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { IOnboarding } from 'src/app/modules/on-boarding/on-boarding.model';
 import { DASHBOARDONBOARDINGROUTE } from 'src/app/shared/constants/routes';
 
 @Component({
@@ -8,9 +9,12 @@ import { DASHBOARDONBOARDINGROUTE } from 'src/app/shared/constants/routes';
   styleUrls: ['./dashboard-on-boarding-panel-content.component.scss']
 })
 export class DashboardOnboardingPanelContentComponent implements OnInit {
+  @Input() public item: IOnboarding;
+
   constructor(private router: Router) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+  }
 
   public onEdit(id: string): void {
     this.router.navigateByUrl(`${DASHBOARDONBOARDINGROUTE}/${id}/detail`);

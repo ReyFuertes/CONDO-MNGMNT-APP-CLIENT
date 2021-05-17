@@ -28,6 +28,9 @@
     color: $color-white;
     cursor: pointer;
     font-size: 14px;
+    &:hover {
+      color: $color-gray-3 !important;
+    }
   }
   img {
     width: 25px;
@@ -56,6 +59,9 @@
     height: 55px;
     padding: 0 10px;
     font-size: 14px;
+    &:hover {
+      color: $color-gray-3 !important;
+    }
   }
 }
 .underlined {
