@@ -46,7 +46,6 @@
   box-shadow: $box-shadow;
   background-color: $color-white;
   max-width: 800px;
-  max-height: 605px;
 }
 .content {
   margin-bottom: 20px;
@@ -62,6 +61,9 @@
   width: 100%;
 }
 :host ::ng-deep {
+  .p-progressbar {
+     display: none;
+  }
   .p-message {
     .p-message-summary {
       font-weight: 400;

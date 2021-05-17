@@ -12,9 +12,15 @@ import { GenericToastComponent } from 'src/app/shared/generics/generic-toast';
 import { Router } from '@angular/router';
 import { ONBOARDINGFORAPPROVALROUTE } from 'src/app/shared/constants/routes';
 import { IOnboarding } from '../on-boarding.model';
+import { UploadService } from 'src/app/services/upload.service';
 @Injectable()
 export class OnboardingEffects extends GenericToastComponent {
-  constructor(router: Router, private actions$: Actions, private store: Store<RooState>, private onBoardingSrv: OnboardingService, msgSrv: MessageService) {
+  constructor(router: Router,
+    private uploadSrv: UploadService,
+    private actions$: Actions,
+    private store: Store<RooState>,
+    private onBoardingSrv: OnboardingService,
+    msgSrv: MessageService) {
     super(router, msgSrv);
   }
 
@@ -23,7 +29,7 @@ export class OnboardingEffects extends GenericToastComponent {
     switchMap(({ payload, files }) => {
       return combineLatest([
         this.onBoardingSrv.post(payload),
-        this.onBoardingSrv.upload(files, 'upload'),
+        this.uploadSrv.upload(files),
         this.store.pipe(select(isLoadingSelector))
       ]).pipe(
         map(([response, fileDoc, loader]) => {

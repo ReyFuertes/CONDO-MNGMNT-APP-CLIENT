@@ -174,12 +174,14 @@ export class DashboardOnboardingDetailComponent extends GenericDestroyPageCompon
   }
 
   private onConvertBlobToBase64(event: any, file: any, formName: string): any {
+    const filename = `${uuid()}.${file.name.split('.').pop()}`;
+
     convertBlobToBase64(event).pipe(take(1),
       takeUntil(this.$unsubscribe),
       map(b64Result => {
         return {
           image: b64Result,
-          filename: `${uuid()}.${file.name.split('?')[0].split('.').pop()}`,
+          filename,
           file: file,
           size: file.size,
           mimetype: file.type

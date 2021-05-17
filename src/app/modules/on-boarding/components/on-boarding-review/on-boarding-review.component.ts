@@ -13,7 +13,7 @@ import { createOnboardingAction, setOnboardingStepperAction } from '../../store/
 import { getDocumentsSelector } from '../../store/onboarding.selector';
 import * as _ from 'lodash';
 import { ONBOARDINGDOCUMENTSROUTE } from 'src/app/shared/constants/routes';
-import { IOnboardingDocument } from '../../on-boarding.model';
+import { v4 as uuid } from 'uuid';
 import { CamelToSnakeCase } from 'src/app/shared/util/formating';
 
 @Component({
@@ -145,13 +145,21 @@ export class OnboardingReviewComponent extends GenericOnBoardingComponent implem
       });
   }
 
+  public get hasDocs(): boolean {
+    return this.uploadedDocs?.length > 0;
+  }
+
   private processFormData(files: FormData): any {
     return Object.values(this.uploadedDocs?.map(doc => {
-      files.append('files', doc, doc.name);
+      const filename = `${uuid()}.${doc.name.split('.').pop()}`;
+
+      files.append('files', doc, filename);
+
       return {
-        name: doc.name,
+        name: filename,
         size: doc.size,
         type: doc.type,
+        onboarding_id: '',
         lastModified: doc.lastModified,
         lastModifiedDate: doc.lastModifiedDate
       }
@@ -161,11 +169,9 @@ export class OnboardingReviewComponent extends GenericOnBoardingComponent implem
   public onSubmit(): void {
     if (this.form.valid) {
       const { personal, spouse, occupants, vehicles } = this.form.value;
-      const files = new FormData();
-      files.set('name', String(`${personal?.firstname}_${personal?.lastname}`).toLowerCase());
 
-      const documents = this.processFormData(files)
-
+      let files = new FormData();
+      const documents = this.processFormData(files);
       const payload = {
         personal: {
           ...personal,
@@ -176,7 +182,7 @@ export class OnboardingReviewComponent extends GenericOnBoardingComponent implem
         vehicles,
         documents,
         files
-      }
+      };
       setTimeout(() => {
         this.store.dispatch(createOnboardingAction({ payload, files }));
       }, 100);

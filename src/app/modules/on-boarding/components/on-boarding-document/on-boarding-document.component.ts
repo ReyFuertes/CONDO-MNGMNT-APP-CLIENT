@@ -22,7 +22,7 @@ export class OnboardingDocumentComponent extends GenericOnBoardingComponent impl
   public svgPath: string = environment.svgPath;
   public uploadedDocs: any[] = [];
 
-  constructor(storageSrv: StorageService, router: Router, private _fb: FormBuilder, private store: Store<RooState>, cdRef: ChangeDetectorRef, fb: FormBuilder) {
+  constructor(storageSrv: StorageService, router: Router, private _fb: FormBuilder, private store: Store<RooState>, cdRef: ChangeDetectorRef, fb: FormBuilder, private _storageSrv: StorageService) {
     super(OnboardingEntityType.ONBOARDINGDOCUMENTS, storageSrv, router, cdRef, fb);
 
     this.form = this._fb.group({
@@ -34,7 +34,14 @@ export class OnboardingDocumentComponent extends GenericOnBoardingComponent impl
     this.store.pipe(select(getDocumentsSelector),
       take(1))
       .subscribe(docs => {
-        if (docs) this.form.patchValue(docs);
+        if (docs) {
+          this.form.patchValue(docs);
+        } else {
+          // const docs = this._storageSrv.get('documents');
+          // if (docs) {
+          //   this.form.patchValue(JSON.parse(docs));
+          // }
+        }
       });
   }
 

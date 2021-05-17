@@ -2,7 +2,7 @@
   <h2>Upload Documents</h2>
 
   <div class="content" fxLayout="row wrap" fxLayoutAlign="start start" fxLayoutGap="20px">
-    <p-fileUpload name="docs[]" multiple="multiple" (onSelect)="onUpload($event)" [showUploadButton]="false" [showCancelButton]="false" accept="application/pdf,application/msword,
+    <p-fileUpload name="docs[]" multiple="multiple" (onSelect)="onUpload($event)" [customUpload]="true" [showUploadButton]="false" [showCancelButton]="false" accept="application/pdf,application/msword,
     application/vnd.openxmlformats-officedocument.wordprocessingml.document" maxFileSize="1000000">
     </p-fileUpload>
 

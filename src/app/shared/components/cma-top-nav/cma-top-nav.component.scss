@@ -16,9 +16,9 @@
   border-radius: 0;
   background-color: $color-gray-blue;
   border: thin $color-gray-blue solid;
-  max-height: 58px;
-  min-height: 58px;
-  height: 58px;
+  max-height: 55px;
+  min-height: 55px;
+  height: 55px;
   padding-right: 15px;
   .pi {
     color: $color-white;
@@ -27,6 +27,7 @@
   span {
     color: $color-white;
     cursor: pointer;
+    font-size: 14px;
   }
   img {
     width: 25px;
@@ -48,12 +49,13 @@
 .menus {
   background-color: $color-gray-blue;
   color: $color-white;
-  height: 58px;
+  height: 55px;
   padding-left: 30px;
   .menu-item {
     cursor: pointer;
-    height: 58px;
+    height: 55px;
     padding: 0 10px;
+    font-size: 14px;
   }
 }
 .underlined {

@@ -7,6 +7,6 @@ export class GenericContainer extends GenericDestroyPageComponent implements OnI
     super();
   }
   ngOnInit() {
-    setTimeout(() => this.active = !this.active, 100);
+    setTimeout(() => this.active = !this.active);
   }
 }
