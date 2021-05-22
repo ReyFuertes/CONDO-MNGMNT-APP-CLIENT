@@ -20,7 +20,7 @@ import { ONBOARDINGOCCUPANTSROUTE, ONBOARDINGPERSONALROUTE } from 'src/app/share
   templateUrl: './on-boarding-spouse-info.component.html',
   styleUrls: ['./on-boarding-spouse-info.component.scss']
 })
-export class OnboardingPartnerInfoComponent extends GenericOnBoardingComponent implements OnInit {
+export class OnboardingSpouseInfoComponent extends GenericOnBoardingComponent implements OnInit {
   public files: File[] = [];
 
   constructor(storageSrv: StorageService, router: Router, private _fb: FormBuilder, private store: Store<RooState>,
@@ -42,14 +42,14 @@ export class OnboardingPartnerInfoComponent extends GenericOnBoardingComponent i
       tin: [null],
       idType: [null],
       idNo: [null],
-      uploadedIdFile: [null],
-      uploadedFilePreview: [null]
+      spouseUploadedIdFile: [null],
+      spouseUploadedFilePreview: [null]
     });
   }
 
   ngOnInit(): void { }
 
-  public onPartnerImageChange(event: any): void {
+  public onSpouseImageChange(event: any): void {
     let file: any
     if (_.isObject(event)) {
       file = event;
@@ -57,7 +57,7 @@ export class OnboardingPartnerInfoComponent extends GenericOnBoardingComponent i
       file = event.target.files[0];
     }
     this.files.push(file);
-    this.onConvertBlobToBase64(event, file, 'partnerUploadedIdFile');
+    this.onConvertBlobToBase64(event, file, 'spouseUploadedIdFile');
   }
 
   private onConvertBlobToBase64(event: any, file: any, formName: string): any {
@@ -73,15 +73,15 @@ export class OnboardingPartnerInfoComponent extends GenericOnBoardingComponent i
           mimetype: file.type
         }
       })).subscribe((b64Image) => {
-        if (formName === 'partnerUploadedIdFile') {
-          this.form.get('partnerUploadedFilePreview').patchValue(b64Image?.image);
+        if (formName === 'spouseUploadedIdFile') {
+          this.form.get('spouseUploadedFilePreview').patchValue(b64Image?.image);
         }
         this.form.get(formName).patchValue(b64Image);
       });
   }
 
-  public get getPartnerUploadedFilePreview(): any {
-    return this.form.get('partnerUploadedFilePreview')?.value;
+  public get getSpouseUploadedFilePreview(): any {
+    return this.form.get('spouseUploadedFilePreview')?.value;
   }
 
   public getImagePreview(formName: string): any {

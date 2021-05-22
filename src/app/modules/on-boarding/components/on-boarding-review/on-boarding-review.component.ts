@@ -213,7 +213,7 @@ export class OnboardingReviewComponent extends GenericOnBoardingComponent implem
     return this.form.controls['personal'] as FormGroup;
   }
 
-  public get getPartnerForm(): FormGroup {
+  public get getSpouseForm(): FormGroup {
     return this.form.controls['spouse'] as FormGroup;
   }
 

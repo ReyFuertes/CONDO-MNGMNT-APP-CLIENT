@@ -1,14 +1,13 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import { take } from 'rxjs/operators';
+import { take, takeUntil } from 'rxjs/operators';
 import { StorageService } from 'src/app/services/storage.service';
 import { OnboardingEntityType } from 'src/app/shared/generics/generic-model';
 import { GenericOnBoardingComponent } from 'src/app/shared/generics/generic-onboarding';
 import { RooState } from 'src/app/store/root.reducer';
 import { environment } from 'src/environments/environment';
-import { IOnboardingDocument } from '../../on-boarding.model';
 import { addDocumentsAction, setOnboardingStepperAction } from '../../store/onboarding.action';
 import { getDocumentsSelector } from '../../store/onboarding.selector';
 import { ONBOARDINGVEHICLESROUTE, ONBOARDINGREVIEWROUTE } from 'src/app/shared/constants/routes';
@@ -18,11 +17,12 @@ import { ONBOARDINGVEHICLESROUTE, ONBOARDINGREVIEWROUTE } from 'src/app/shared/c
   templateUrl: './on-boarding-document.component.html',
   styleUrls: ['./on-boarding-document.component.scss']
 })
-export class OnboardingDocumentComponent extends GenericOnBoardingComponent implements OnInit {
+export class OnboardingDocumentComponent extends GenericOnBoardingComponent implements OnInit, AfterViewInit {
   public svgPath: string = environment.svgPath;
   public uploadedDocs: any[] = [];
+  public tmpFiles: any[] = [];
 
-  constructor(storageSrv: StorageService, router: Router, private _fb: FormBuilder, private store: Store<RooState>, cdRef: ChangeDetectorRef, fb: FormBuilder, private _storageSrv: StorageService) {
+  constructor(private _cdRef: ChangeDetectorRef, storageSrv: StorageService, router: Router, private _fb: FormBuilder, private store: Store<RooState>, cdRef: ChangeDetectorRef, fb: FormBuilder, private _storageSrv: StorageService) {
     super(OnboardingEntityType.ONBOARDINGDOCUMENTS, storageSrv, router, cdRef, fb);
 
     this.form = this._fb.group({
@@ -30,17 +30,18 @@ export class OnboardingDocumentComponent extends GenericOnBoardingComponent impl
     });
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void { }
+
+  ngAfterViewInit(): void {
     this.store.pipe(select(getDocumentsSelector),
-      take(1))
+      takeUntil(this.$unsubscribe))
       .subscribe(docs => {
         if (docs) {
           this.form.patchValue(docs);
-        } else {
-          // const docs = this._storageSrv.get('documents');
-          // if (docs) {
-          //   this.form.patchValue(JSON.parse(docs));
-          // }
+          this.tmpFiles.push(...Object.assign([], docs));
+          this.uploadedDocs = this.tmpFiles;
+
+          this._cdRef.detectChanges();
         }
       });
   }

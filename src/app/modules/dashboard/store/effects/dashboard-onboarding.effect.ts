@@ -25,7 +25,6 @@ export class DashboardOnboardingEffects extends GenericToastComponent {
     switchMap(() => {
       return this.dashboardOnboardingSrv.getAll().pipe(
         map((response) => {
-          debugger
           return loadDashboardOnboardingActionSuccess({ response });
         })
       )

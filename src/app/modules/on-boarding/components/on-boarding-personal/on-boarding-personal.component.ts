@@ -47,7 +47,7 @@ export class OnboardingPersonalComponent extends GenericOnBoardingComponent impl
       tin: [null, [Validators.required]],
       idType: [null, [Validators.required]],
       idNo: [null, [Validators.required]],
-      uploadedIdFile: [null],
+      uploadedIdFile: [null, [Validators.required]],
       uploadedFilePreview: [null]
     });
   }

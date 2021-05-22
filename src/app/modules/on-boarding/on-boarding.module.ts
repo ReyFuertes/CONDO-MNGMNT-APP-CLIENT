@@ -12,7 +12,7 @@ import { OnboardingPersonalComponent } from './components/on-boarding-personal/o
 import { OnboardingReviewComponent } from './components/on-boarding-review/on-boarding-review.component';
 import { OnboardingDocumentComponent } from './components/on-boarding-document/on-boarding-document.component';
 import { OnboardingForApprovalComponent } from './components/on-boarding-for-approval/on-boarding-for-approval.component';
-import { OnboardingPartnerInfoComponent } from './components/on-boarding-spouse-info/on-boarding-spouse-info.component';
+import { OnboardingSpouseInfoComponent } from './components/on-boarding-spouse-info/on-boarding-spouse-info.component';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { OnboardingReducer } from './store/onboarding.reducer';
@@ -37,7 +37,7 @@ const routes: Routes = [
       component: OnboardingPersonalComponent
     }, {
       path: 'spouse',
-      component: OnboardingPartnerInfoComponent
+      component: OnboardingSpouseInfoComponent
     }, {
       path: 'occupants',
       component: OnboardingOccupantsComponent
@@ -77,7 +77,7 @@ const materialModules = [
     OnboardingReviewComponent,
     OnboardingDocumentComponent,
     OnboardingForApprovalComponent,
-    OnboardingPartnerInfoComponent,
+    OnboardingSpouseInfoComponent,
     OnboardingOccupantsComponent,
     OnboardingVehicleComponent
   ],

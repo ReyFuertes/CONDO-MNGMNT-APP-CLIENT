@@ -3,6 +3,10 @@
   @include onboarding-host-start ;
   place-content: flex-start !important;
 }
+ul {
+  list-style-type: none;
+  padding: 0 0 0 10px;
+}
 .upload-thumb {
   > div {
     height: 140px;
