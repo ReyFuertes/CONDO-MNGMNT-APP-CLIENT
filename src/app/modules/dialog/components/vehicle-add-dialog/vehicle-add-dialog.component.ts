@@ -4,7 +4,7 @@ import { RooState } from 'src/app/store/root.reducer';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormBuilder, Validators } from '@angular/forms';
 import { GenericAddEditComponent } from 'src/app/shared/generics/generic-ae';
-import { IVehicle, IOnboardingPersonal } from 'src/app/modules/on-boarding/on-boarding.model';
+import { IOnboardingVehicle, IOnboardingPersonal } from 'src/app/modules/on-boarding/on-boarding.model';
 import { ISimpleItem } from 'src/app/shared/generics/generic-model';
 import { RELATIONSOPTIONS } from 'src/app/shared/constants/generic';
 import * as _ from 'lodash';
@@ -13,7 +13,7 @@ import * as _ from 'lodash';
   templateUrl: './vehicle-add-dialog.component.html',
   styleUrls: ['./vehicle-add-dialog.component.scss']
 })
-export class VehicleAddDialogComponent extends GenericAddEditComponent<IVehicle> implements OnInit {
+export class VehicleAddDialogComponent extends GenericAddEditComponent<IOnboardingVehicle> implements OnInit {
   public relationOptions = RELATIONSOPTIONS;
 
   constructor(private store: Store<RooState>, public dialogRef: MatDialogRef<VehicleAddDialogComponent>,
@@ -32,7 +32,7 @@ export class VehicleAddDialogComponent extends GenericAddEditComponent<IVehicle>
 
   ngOnInit(): void { }
 
-  public valuesToForm = (entity: IVehicle): void => {
+  public valuesToForm = (entity: IOnboardingVehicle): void => {
     if (!entity) return;
     try {
       const { id, model, make, plateNo } = entity;

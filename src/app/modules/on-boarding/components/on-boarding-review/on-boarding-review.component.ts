@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { take } from 'rxjs/operators';
 import { StorageService } from 'src/app/services/storage.service';
-import { ONBOARDINGDOCUMENTS, ONBOARDINGREVIEW } from 'src/app/shared/constants/generic';
+import { ONBOARDINGDOCUMENTS, ONBOARDINGREVIEW, STRDOCUMENTS, STROCCUPANTS, STRPERSONAL, STRSPOUSE, STRVEHICLES } from 'src/app/shared/constants/generic';
 import { ISimpleItem } from 'src/app/shared/generics/generic-model';
 import { GenericOnBoardingComponent } from 'src/app/shared/generics/generic-onboarding';
 import { RooState } from 'src/app/store/root.reducer';
@@ -53,9 +53,9 @@ export class OnboardingReviewComponent extends GenericOnBoardingComponent implem
   public camelToSnakeCase = CamelToSnakeCase;
   public uploadedDocs: any[] = [];
 
-  constructor(storageSrv: StorageService, router: Router, private _fb: FormBuilder, private store: Store<RooState>,
-    private _storageSrv: StorageService, cdRef: ChangeDetectorRef, fb: FormBuilder) {
-    super(ONBOARDINGREVIEW, storageSrv, router, cdRef, fb);
+  constructor(storageSrv: StorageService, router: Router, private _fb: FormBuilder, private _store: Store<RooState>,
+    private _storageSrv: StorageService, cdRef: ChangeDetectorRef, fb: FormBuilder, store: Store<RooState>) {
+    super(ONBOARDINGREVIEW, storageSrv, router, cdRef, fb, store);
 
     this.form = this._fb.group({
       type: [null, [Validators.required]],
@@ -109,36 +109,36 @@ export class OnboardingReviewComponent extends GenericOnBoardingComponent implem
     if (type) {
       this.form.get('type').patchValue(JSON.parse(type))
     }
-    const personal = _storageSrv.get('personal');
+    const personal = _storageSrv.get(STRPERSONAL);
     if (personal) {
-      this.form.get('personal').patchValue(JSON.parse(personal));
+      this.form.get(STRPERSONAL).patchValue(JSON.parse(personal));
     }
-    const spouse = _storageSrv.get('spouse');
+    const spouse = _storageSrv.get(STRSPOUSE);
     if (spouse) {
-      this.form.get('spouse').patchValue(JSON.parse(spouse));
+      this.form.get(STRSPOUSE).patchValue(JSON.parse(spouse));
     }
-    const occupants = _storageSrv.get('occupants');
+    const occupants = _storageSrv.get(STROCCUPANTS);
     if (occupants) {
       const occupantsArr = JSON.parse(occupants)?.occupants;
-      this.formOccupantsArr = this.form.get('occupants') as FormArray;
+      this.formOccupantsArr = this.form.get(STROCCUPANTS) as FormArray;
 
       occupantsArr.forEach(occupant => {
-        this.formOccupantsArr.push(this.createItem(Object.assign({}, occupant)));
+        this.formOccupantsArr.push(this.createOccupantItem(Object.assign({}, occupant)));
       });
     }
-    const vehicles = _storageSrv.get('vehicles');
+    const vehicles = _storageSrv.get(STRVEHICLES);
     if (vehicles) {
       const vehiclesArr = JSON.parse(vehicles)?.vehicles;
-      this.formVehiclesArr = this.form.get('vehicles') as FormArray;
+      this.formVehiclesArr = this.form.get(STRVEHICLES) as FormArray;
 
       vehiclesArr.forEach(vehicle => {
-        this.formVehiclesArr.push(this.createItem(Object.assign({}, vehicle)));
+        this.formVehiclesArr.push(this.createOccupantItem(Object.assign({}, vehicle)));
       });
     }
   }
 
   ngOnInit(): void {
-    this.store.pipe(select(getDocumentsSelector),
+    this._store.pipe(select(getDocumentsSelector),
       take(1))
       .subscribe(docs => {
         if (docs) this.uploadedDocs = docs;
@@ -175,7 +175,7 @@ export class OnboardingReviewComponent extends GenericOnBoardingComponent implem
       const payload = {
         personal: {
           ...personal,
-          civilStatus: this.form.get('personal').value?.civilStatus?.value
+          civilStatus: this.form.get(STRPERSONAL).value?.civilStatus?.value
         },
         spouse,
         occupants,
@@ -184,17 +184,17 @@ export class OnboardingReviewComponent extends GenericOnBoardingComponent implem
         files
       };
       setTimeout(() => {
-        this.store.dispatch(createOnboardingAction({ payload, files }));
+        this._store.dispatch(createOnboardingAction({ payload, files }));
       }, 100);
     }
   }
 
   public get getOccupants(): any[] {
-    return this.form.get('occupants')['controls'] || [];
+    return this.form.get(STROCCUPANTS)['controls'] || [];
   }
 
   public get getVehicles(): any[] {
-    return this.form.get('vehicles')['controls'] || [];
+    return this.form.get(STRVEHICLES)['controls'] || [];
   }
 
   public get hasVehicles(): boolean {
@@ -210,28 +210,28 @@ export class OnboardingReviewComponent extends GenericOnBoardingComponent implem
   }
 
   public get getPersonalForm(): FormGroup {
-    return this.form.controls['personal'] as FormGroup;
+    return this.form.controls[STRPERSONAL] as FormGroup;
   }
 
   public get getSpouseForm(): FormGroup {
-    return this.form.controls['spouse'] as FormGroup;
+    return this.form.controls[STRSPOUSE] as FormGroup;
   }
 
   public get getOccupantsForm(): FormArray {
-    return this.form.controls['occupants'] as FormArray;
+    return this.form.controls[STROCCUPANTS] as FormArray;
   }
 
   public get getDocumentsForm(): FormGroup {
-    return this.form.controls['documents'] as FormGroup;
+    return this.form.controls[STRDOCUMENTS] as FormGroup;
   }
 
   public get getVehiclesForm(): FormGroup {
-    return this.form.controls['vehicles'] as FormGroup;
+    return this.form.controls[STRVEHICLES] as FormGroup;
   }
 
   public onPrev(): void {
     super.onPrev(ONBOARDINGDOCUMENTSROUTE);
 
-    this.store.dispatch(setOnboardingStepperAction({ step: ONBOARDINGDOCUMENTS }));
+    this._store.dispatch(setOnboardingStepperAction({ step: ONBOARDINGDOCUMENTS }));
   }
 }

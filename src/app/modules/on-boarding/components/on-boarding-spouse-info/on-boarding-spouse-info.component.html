@@ -29,7 +29,7 @@
     <div fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="20px">
       <cma-dropdown [form]="form" controlName="idType" label="ID Type" [options]="IdTypeOptions" placeholder="ID Type"></cma-dropdown>
       <cma-input [form]="form" controlName="idNo" label="ID No." placeholder="ID No."></cma-input>
-      <cma-upload [preview]="getSpouseUploadedFilePreview" (fileEmitter)="onSpouseImageChange($event)" [fileName]="getImagePreview('spouseUploadedIdFile')"></cma-upload>
+      <cma-upload (fileEmitter)="onSpouseImageChange($event)" [file]="form.get('uploadSpouseIdFile').value" [fileName]="getFileName('uploadSpouseIdFile')"></cma-upload>
     </div>
   </div>
 

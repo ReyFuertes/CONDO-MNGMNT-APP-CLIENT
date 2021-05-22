@@ -24,9 +24,9 @@ export class OnboardingTypeComponent extends GenericOnBoardingComponent implemen
   public selectedType: any;
   public onboardingType = OnBoardingType;
 
-  constructor(storageSrv: StorageService, router: Router, private store: Store<RooState>,
-    public _storageSrv: StorageService, cdRef: ChangeDetectorRef, fb: FormBuilder) {
-    super(OnboardingEntityType.ONBOARDINGTYPE, storageSrv, router, cdRef, fb);
+  constructor(storageSrv: StorageService, router: Router, private _store: Store<RooState>,
+    public _storageSrv: StorageService, cdRef: ChangeDetectorRef, fb: FormBuilder, store: Store<RooState>) {
+    super(OnboardingEntityType.ONBOARDINGTYPE, storageSrv, router, cdRef, fb, store);
   }
 
   ngOnInit(): void {
@@ -57,7 +57,7 @@ export class OnboardingTypeComponent extends GenericOnBoardingComponent implemen
   public onNext(): void {
     super.onNext(ONBOARDINGPERSONALROUTE, 'type', this.selectedType);
 
-    this.store.dispatch(setOnboardingStepperAction({ step: ONBOARDINGPERSONAL }));
+    this._store.dispatch(setOnboardingStepperAction({ step: ONBOARDINGPERSONAL }));
   }
 
   public get isDisabled(): boolean {

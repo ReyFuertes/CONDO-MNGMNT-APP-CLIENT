@@ -4,7 +4,7 @@ import { RooState } from 'src/app/store/root.reducer';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormBuilder, Validators } from '@angular/forms';
 import { GenericAddEditComponent } from 'src/app/shared/generics/generic-ae';
-import { IOccupant, IOnboardingPersonal } from 'src/app/modules/on-boarding/on-boarding.model';
+import { IOnboardingOccupant, IOnboardingPersonal } from 'src/app/modules/on-boarding/on-boarding.model';
 import { ISimpleItem } from 'src/app/shared/generics/generic-model';
 import { RELATIONSOPTIONS } from 'src/app/shared/constants/generic';
 import * as _ from 'lodash';
@@ -13,7 +13,7 @@ import * as _ from 'lodash';
   templateUrl: './occupants-add-dialog.component.html',
   styleUrls: ['./occupants-add-dialog.component.scss']
 })
-export class OccupantsAddDialogComponent extends GenericAddEditComponent<IOccupant> implements OnInit {
+export class OccupantsAddDialogComponent extends GenericAddEditComponent<IOnboardingOccupant> implements OnInit {
   public relationOptions = RELATIONSOPTIONS;
 
   constructor(private store: Store<RooState>, public dialogRef: MatDialogRef<OccupantsAddDialogComponent>,
@@ -31,7 +31,7 @@ export class OccupantsAddDialogComponent extends GenericAddEditComponent<IOccupa
 
   ngOnInit(): void { }
 
-  public valuesToForm = (entity: IOccupant): void => {
+  public valuesToForm = (entity: IOnboardingOccupant): void => {
     if (!entity) return;
     try {
       const { id, name, relationship } = entity;

@@ -1,6 +1,12 @@
 import { OccupantType } from "src/app/models/onboarding.model";
 import { ISimpleItem } from "../generics/generic-model";
 
+export const STRPERSONAL = 'personal';
+export const STRSPOUSE = 'spouse';
+export const STROCCUPANTS = 'occupants';
+export const STRDOCUMENTS = 'documents';
+export const STRVEHICLES = 'vehicles';
+
 export const APPTIMING = 1000;
 export const BTNTEXTUPDATE = 'Update';
 export const BTNTEXTSAVE = 'Save';

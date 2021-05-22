@@ -1,7 +1,7 @@
 export enum TOASTTYPE {
   SAVE = 1,
   UPDATED = 2,
-  DELETED = 3 
+  DELETED = 3
 }
 export enum OnboardingEntityType {
   ONBOARDINGTYPE = '1',
@@ -28,8 +28,10 @@ export interface IMyInfo {
   tin?: string;
   idType?: string;
   idNo?: string;
-  uploadedIdFile?: string;
-  uploadedFilePreview?: string;
+  uploadePersonalIdFile?: File;
+  uploadeSpouseIdFile?: File;
+  uploadedPersonalFilePreview?: any;
+  uploadedSpouseFilePreview?: any;
 }
 export interface IBuilding { }
 export interface IUnit { }

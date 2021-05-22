@@ -5,9 +5,9 @@ import { Store } from '@ngrx/store';
 import { StorageService } from 'src/app/services/storage.service';
 import { GenericOnBoardingComponent } from 'src/app/shared/generics/generic-onboarding';
 import { RooState } from 'src/app/store/root.reducer';
-import { ONBOARDINGDOCUMENTS, ONBOARDINGOCCUPANTS, ONBOARDINGSPOUSE } from 'src/app/shared/constants/generic';
-import { setOnboardingStepperAction } from '../../store/onboarding.action';
-import { IVehicle } from '../../on-boarding.model';
+import { ONBOARDINGDOCUMENTS, ONBOARDINGOCCUPANTS, ONBOARDINGSPOUSE, STRVEHICLES } from 'src/app/shared/constants/generic';
+import { addToVehiclesAction, setOnboardingStepperAction } from '../../store/onboarding.action';
+import { IOnboardingVehicle } from '../../on-boarding.model';
 import { MatDialog } from '@angular/material/dialog';
 import { AddEditStateType, OnboardingEntityType } from 'src/app/shared/generics/generic-model';
 import * as _ from 'lodash';
@@ -21,10 +21,9 @@ import { ONBOARDINGDOCUMENTSROUTE, ONBOARDINGOCCUPANTSROUTE } from 'src/app/shar
 })
 export class OnboardingVehicleComponent extends GenericOnBoardingComponent implements OnInit {
   public files: File[] = [];
-  public formVehiclesArr: FormArray;
 
-  constructor(public dialog: MatDialog, storageSrv: StorageService, router: Router, private _fb: FormBuilder, private store: Store<RooState>, cdRef: ChangeDetectorRef, fb: FormBuilder) {
-    super(OnboardingEntityType.ONBOARDINGVEHICLES, storageSrv, router, cdRef, fb);
+  constructor(public dialog: MatDialog, storageSrv: StorageService, router: Router, private _fb: FormBuilder, private _store: Store<RooState>, cdRef: ChangeDetectorRef, fb: FormBuilder, store: Store<RooState>) {
+    super(OnboardingEntityType.ONBOARDINGVEHICLES, storageSrv, router, cdRef, fb, store);
 
     this.form = this._fb.group({
       vehicles: new FormArray([]),
@@ -34,17 +33,17 @@ export class OnboardingVehicleComponent extends GenericOnBoardingComponent imple
   ngOnInit(): void { }
 
   public get vehicles(): FormArray {
-    return this.form.get('vehicles') as FormArray;
+    return this.form.get(STRVEHICLES) as FormArray;
   }
 
-  public newVehicle(occupant: IVehicle): FormGroup {
-    return this._fb.group(occupant)
+  public newVehicle(vehicle: IOnboardingVehicle): FormGroup {
+    return this._fb.group(vehicle)
   }
 
-  public onRemove(item: IVehicle, i: number): void {
+  public onRemove(item: IOnboardingVehicle, i: number): void {
     if (item) {
-      this.formVehiclesArr = this.form.get('vehicles') as FormArray;
-      this.formVehiclesArr.removeAt(i);
+      this.FormVehiclesArr = this.form.get(STRVEHICLES) as FormArray;
+      this.FormVehiclesArr.removeAt(i);
     }
   }
 
@@ -58,14 +57,14 @@ export class OnboardingVehicleComponent extends GenericOnBoardingComponent imple
     });
     dialogRef.afterClosed().subscribe((payload) => {
       if (payload) {
-        this.formVehiclesArr = this.form.get('vehicles') as FormArray;
-        this.formVehiclesArr.push(this.createItem(Object.assign({}, payload)));
+        this.FormVehiclesArr = this.form.get(STRVEHICLES) as FormArray;
+        this.FormVehiclesArr.push(this.createVehicleItem(Object.assign({}, payload)));
       }
     });
   }
 
   public get getVehicles(): any[] {
-    return this.form.get('vehicles')['controls'];
+    return this.form.get(STRVEHICLES)['controls'] as any;
   }
 
   public get hasVehicles(): boolean {
@@ -73,14 +72,16 @@ export class OnboardingVehicleComponent extends GenericOnBoardingComponent imple
   }
 
   public onNext(): void {
-    super.onNext(ONBOARDINGDOCUMENTSROUTE, 'vehicles', this.form.value);
+    super.onNext(ONBOARDINGDOCUMENTSROUTE, STRVEHICLES, this.form.value);
 
-    this.store.dispatch(setOnboardingStepperAction({ step: ONBOARDINGDOCUMENTS }));
+    this._store.dispatch(addToVehiclesAction({ payload: this.form.value?.vehicles }));
+    this._store.dispatch(setOnboardingStepperAction({ step: ONBOARDINGDOCUMENTS }));
   }
 
   public onPrev(): void {
-    super.onPrev(ONBOARDINGOCCUPANTSROUTE, 'vehicles', this.form.value);
+    super.onPrev(ONBOARDINGOCCUPANTSROUTE, STRVEHICLES, this.form.value);
 
-    this.store.dispatch(setOnboardingStepperAction({ step: ONBOARDINGOCCUPANTS }));
+    this._store.dispatch(addToVehiclesAction({ payload: this.form.value?.vehicles }));
+    this._store.dispatch(setOnboardingStepperAction({ step: ONBOARDINGOCCUPANTS }));
   }
 }

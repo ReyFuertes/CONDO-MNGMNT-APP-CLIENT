@@ -17,19 +17,22 @@ export interface IOnboardingDocument {
   formName?: string;
   fileName?: string;
 }
+export interface IOnboardingSpouse extends IMyInfo {
+  occupantType?: OccupantType
+}
 export interface IOnboardingPersonal extends IMyInfo {
   building?: IBuilding;
   unit?: IUnit;
   parking?: IParkingSLot;
   occupantType?: OccupantType
 }
-export interface IVehicle {
+export interface IOnboardingVehicle {
   id?: string;
   model?: string;
   make?: string;
   plateNo?: string;
 }
-export interface IOccupant {
+export interface IOnboardingOccupant {
   id?: string;
   name?: string;
   relationship?: string;

@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { IOccupant, IOnboarding } from '../on-boarding.model';
+import { IOnboardingOccupant, IOnboarding, IOnboardingPersonal, IOnboardingSpouse, IOnboardingVehicle, IOnboardingDocument } from '../on-boarding.model';
 
 export enum OnboardingActionTypes {
   setOnboardingStepperAction = '[Onboarding] set Stepper',
@@ -8,8 +8,28 @@ export enum OnboardingActionTypes {
   addDocumentsAction = '[Onboarding] add documents',
   createOnboardingAction = '[Onboarding] create onboarding',
   createOnboardingSuccessAction = '[Onboarding] create onboarding (success)',
-  clearStepperAction = "[Onboarding] clear onboarding stepper"
+  clearStepperAction = "[Onboarding] clear onboarding stepper",
+  addToPersonalAction = '[Onboarding] add to personal',
+  addToSpouseAction = '[Onboarding] add to spouse',
+  addToVehiclesAction = '[Onboarding] add to vehicle',
+  addToOccupantsAction = '[Onboarding] add to occupant',
 }
+export const addToOccupantsAction = createAction(
+  OnboardingActionTypes.addToOccupantsAction,
+  props<{ payload: IOnboardingOccupant[] }>()
+);
+export const addToVehiclesAction = createAction(
+  OnboardingActionTypes.addToVehiclesAction,
+  props<{ payload: IOnboardingVehicle[] }>()
+);
+export const addToSpouseAction = createAction(
+  OnboardingActionTypes.addToSpouseAction,
+  props<{ payload: IOnboardingSpouse }>()
+);
+export const addToPersonalAction = createAction(
+  OnboardingActionTypes.addToPersonalAction,
+  props<{ payload: IOnboardingPersonal }>()
+);
 export const clearStepperAction = createAction(
   OnboardingActionTypes.clearStepperAction
 );
@@ -23,15 +43,15 @@ export const createOnboardingSuccessAction = createAction(
 );
 export const addDocumentsAction = createAction(
   OnboardingActionTypes.addDocumentsAction,
-  props<{ documents: any }>()
+  props<{ documents: IOnboardingDocument[] }>()
 );
 export const removeOccupantAction = createAction(
   OnboardingActionTypes.removeOccupantAction,
-  props<{ item: IOccupant }>()
+  props<{ item: IOnboardingOccupant }>()
 );
 export const addOccupantAction = createAction(
   OnboardingActionTypes.addOccupantAction,
-  props<{ response: IOccupant }>()
+  props<{ response: IOnboardingOccupant }>()
 );
 export const setOnboardingStepperAction = createAction(
   OnboardingActionTypes.setOnboardingStepperAction,

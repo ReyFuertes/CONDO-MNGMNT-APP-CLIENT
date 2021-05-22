@@ -7,14 +7,16 @@ import { map, take, takeUntil, tap } from 'rxjs/operators';
 import { v4 as uuid } from 'uuid';
 import { GenericOnBoardingComponent } from 'src/app/shared/generics/generic-onboarding';
 import { StorageService } from 'src/app/services/storage.service';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { RooState } from 'src/app/store/root.reducer';
 import { Router } from '@angular/router';
-import { setOnboardingStepperAction } from '../../store/onboarding.action';
-import { OCCUPANTOPTIONS, ONBOARDINGSPOUSE, ONBOARDINGPERSONAL, ONBOARDINGTYPE } from 'src/app/shared/constants/generic';
+import { addToPersonalAction, setOnboardingStepperAction } from '../../store/onboarding.action';
+import { OCCUPANTOPTIONS, ONBOARDINGSPOUSE, ONBOARDINGPERSONAL, ONBOARDINGTYPE, STRPERSONAL } from 'src/app/shared/constants/generic';
 import { OnboardingEntityType } from 'src/app/shared/generics/generic-model';
 import * as moment from 'moment';
 import { ONBOARDINGSPOUSEROUTE, ONBOARDINGTYPEROUTE } from 'src/app/shared/constants/routes';
+import { getOnboardingPersonalSelector } from '../../store/onboarding.selector';
+import { IOnboarding, IOnboardingPersonal } from '../../on-boarding.model';
 @Component({
   selector: 'cma-on-boarding-personal',
   templateUrl: './on-boarding-personal.component.html',
@@ -24,9 +26,9 @@ export class OnboardingPersonalComponent extends GenericOnBoardingComponent impl
   public occupantOptions = OCCUPANTOPTIONS;
   public files: File[] = [];
 
-  constructor(storageSrv: StorageService, router: Router, private _fb: FormBuilder, private store: Store<RooState>,
-    public _storageSrv: StorageService, cdRef: ChangeDetectorRef, fb: FormBuilder) {
-    super(OnboardingEntityType.ONBOARDINGPERSONAL, storageSrv, router, cdRef, fb);
+  constructor(storageSrv: StorageService, router: Router, private _fb: FormBuilder, private _store: Store<RooState>,
+    public _storageSrv: StorageService, cdRef: ChangeDetectorRef, fb: FormBuilder, store: Store<RooState>) {
+    super(OnboardingEntityType.ONBOARDINGPERSONAL, storageSrv, router, cdRef, fb, store);
 
     this.form = this._fb.group({
       buildingNo: [null, [Validators.required]],
@@ -47,8 +49,8 @@ export class OnboardingPersonalComponent extends GenericOnBoardingComponent impl
       tin: [null, [Validators.required]],
       idType: [null, [Validators.required]],
       idNo: [null, [Validators.required]],
-      uploadedIdFile: [null, [Validators.required]],
-      uploadedFilePreview: [null]
+      uploadPersonalIdFile: [null],
+      getPersonalUploadedFilePreview: [null]
     });
   }
 
@@ -66,50 +68,26 @@ export class OnboardingPersonalComponent extends GenericOnBoardingComponent impl
     } else {
       file = event.target.files[0];
     }
-    this.files.push(file);
-    this.onConvertBlobToBase64(event, file, 'uploadedIdFile');
+    this.form.get('uploadPersonalIdFile').patchValue(file);
   }
 
-  private onConvertBlobToBase64(event: any, file: any, formName: string): any {
-    convertBlobToBase64(event).pipe(take(1),
-      takeUntil(this.$unsubscribe),
-      map(b64Result => {
-        return {
-          image: b64Result,
-          filename: `${uuid()}.${file.name.split('?')[0].split('.').pop()}`,
-          file: file,
-          size: file.size,
-          mimetype: file.type
-        }
-      })).subscribe((b64Image) => {
-        if (formName === 'uploadedIdFile') {
-          this.form.get('uploadedFilePreview').patchValue(b64Image?.image);
-        }
-        this.form.get(formName).patchValue(b64Image);
-      });
-  }
-
-  public get getPersonalUploadedFilePreview(): any {
-    return this.form.get('uploadedFilePreview')?.value;
-  }
-
-  public getImagePreview(formName: string): any {
-    return this.form.get(formName)?.value?.filename;
+  public getFileName(formName: string): string {
+    return this.form.get(formName)?.value?.name;
   }
 
   public onNext(): void {
-    super.onNext(ONBOARDINGSPOUSEROUTE, 'personal', {
+    super.onNext(ONBOARDINGSPOUSEROUTE, STRPERSONAL, {
       ...this.form.value,
       dateOfBirth: moment(new Date(this.form.value?.dateOfBirth)).format('MM-DD-YYYY')
     });
-
-    this.store.dispatch(setOnboardingStepperAction({ step: ONBOARDINGSPOUSE }));
-
+    this._store.dispatch(addToPersonalAction({ payload: this.form.value }));
+    this._store.dispatch(setOnboardingStepperAction({ step: ONBOARDINGSPOUSE }));
   }
 
   public onPrev(): void {
-    super.onPrev(ONBOARDINGTYPEROUTE, 'personal', this.form.value);
+    super.onPrev(ONBOARDINGTYPEROUTE, STRPERSONAL, this.form.value);
 
-    this.store.dispatch(setOnboardingStepperAction({ step: ONBOARDINGTYPE }));
+    this._store.dispatch(addToPersonalAction({ payload: this.form.value }));
+    this._store.dispatch(setOnboardingStepperAction({ step: ONBOARDINGTYPE }));
   }
 }

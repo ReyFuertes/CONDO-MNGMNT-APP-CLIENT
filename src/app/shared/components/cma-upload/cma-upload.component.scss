@@ -16,10 +16,12 @@
   text-overflow: ellipsis;
 }
 img.icon {
+  cursor: pointer;
   height: 20px;
   width: 20px;
 }
 img.preview {
+  cursor: pointer;
   width: auto;
   height: 300px;
 }
