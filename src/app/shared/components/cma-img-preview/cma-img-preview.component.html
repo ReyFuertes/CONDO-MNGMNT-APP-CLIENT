@@ -1,0 +1,7 @@
+<div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+  <div *ngIf="fileName" class="filename" (click)="onPreview(op, $event)" [pTooltip]="fileName">{{ fileName }}</div>
+</div>
+
+<p-overlayPanel appendTo="body" #op [dismissable]="true">
+  <img class="preview" [src]="preview" />
+</p-overlayPanel>
