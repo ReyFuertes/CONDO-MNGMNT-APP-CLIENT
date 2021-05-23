@@ -2,9 +2,6 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { OccupantType } from 'src/app/models/onboarding.model';
 import * as _ from 'lodash';
-import { convertBlobToBase64 } from 'src/app/shared/util/convert-to-blob';
-import { map, take, takeUntil, tap } from 'rxjs/operators';
-import { v4 as uuid } from 'uuid';
 import { GenericOnBoardingComponent } from 'src/app/shared/generics/generic-onboarding';
 import { StorageService } from 'src/app/services/storage.service';
 import { select, Store } from '@ngrx/store';
@@ -15,8 +12,6 @@ import { OCCUPANTOPTIONS, ONBOARDINGSPOUSE, ONBOARDINGPERSONAL, ONBOARDINGTYPE, 
 import { OnboardingEntityType } from 'src/app/shared/generics/generic-model';
 import * as moment from 'moment';
 import { ONBOARDINGSPOUSEROUTE, ONBOARDINGTYPEROUTE } from 'src/app/shared/constants/routes';
-import { getOnboardingPersonalSelector } from '../../store/onboarding.selector';
-import { IOnboarding, IOnboardingPersonal } from '../../on-boarding.model';
 @Component({
   selector: 'cma-on-boarding-personal',
   templateUrl: './on-boarding-personal.component.html',

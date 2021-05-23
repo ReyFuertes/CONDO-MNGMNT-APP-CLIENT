@@ -3,12 +3,12 @@ import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { takeUntil } from 'rxjs/operators';
-import { IOnboardingDocument, IOnboardingOccupant, IOnboardingPersonal, IOnboardingSpouse, IOnboardingVehicle } from 'src/app/modules/on-boarding/on-boarding.model';
-import { getOnboardingPersonalSelector, getOnboardingSelector, getOnboardingSpouseSelector, getOnboardingVehicleSelector } from 'src/app/modules/on-boarding/store/onboarding.selector';
+import { IOnboardingDocument, IOnboardingOccupant, IOnboardingVehicle } from 'src/app/modules/on-boarding/on-boarding.model';
+import { getOnboardingSelector} from 'src/app/modules/on-boarding/store/onboarding.selector';
 import { StorageService } from 'src/app/services/storage.service';
 import { RooState } from 'src/app/store/root.reducer';
 import { environment } from 'src/environments/environment';
-import { BUILDINGNOOPTIONS, CIVILOPTIONS, GENDEROPTIONS, IDTYPEOPTIONS, PARTKINGNOOPTIONS, RELATIONSOPTIONS, STRDOCUMENTS, STROCCUPANTS, STRPERSONAL, STRSPOUSE, STRVEHICLES, UNITNOOPTIONS } from '../constants/generic';
+import { BUILDINGNOOPTIONS, CIVILOPTIONS, GENDEROPTIONS, IDTYPEOPTIONS, PARTKINGNOOPTIONS, RELATIONSOPTIONS, STRDOCUMENTS, STROCCUPANTS, STRPERSONAL, STRSPOUSE, STRVEHICLES, UNITNOOPTIONS, STRTYPE } from '../constants/generic';
 import { GenericDestroyPageComponent } from './generic-destroy';
 import { OnboardingEntityType } from './generic-model';
 
@@ -37,9 +37,19 @@ export class GenericOnBoardingComponent extends GenericDestroyPageComponent impl
   ngAfterViewInit(): void {
     this.store.pipe(select(getOnboardingSelector), takeUntil(this.$unsubscribe))
       .subscribe(res => {
-        const { personal, spouse, occupants, vehicles, documents } = res;
-        console.log('res', res)
+        const { type, personal, spouse, occupants, vehicles, documents } = res;
+
         switch (this._step) {
+          case OnboardingEntityType.ONBOARDINGTYPE:
+            if (type) this.form.get(STRTYPE).patchValue(type);
+            else {
+              const strType = this.storageSrv.get(STRTYPE);
+              if (strType) {
+                let t = JSON.parse(strType);
+                this.form.get(STRTYPE).patchValue(t);
+              }
+            }
+            break;
           case OnboardingEntityType.ONBOARDINGPERSONAL:
             if (personal) this.form.patchValue(personal);
             else {

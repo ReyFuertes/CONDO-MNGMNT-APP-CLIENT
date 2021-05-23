@@ -49,9 +49,7 @@ export class OnboardingOccupantsComponent extends GenericOnBoardingComponent imp
 
   public onAdd(): void {
     const dialogRef = this.dialog.open(OccupantsAddDialogComponent, {
-      data: {
-        state: AddEditStateType.Add
-      },
+      data: { state: AddEditStateType.Add },
       height: '282px',
       autoFocus: true
     });

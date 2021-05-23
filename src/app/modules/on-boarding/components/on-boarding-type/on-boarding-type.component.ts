@@ -10,7 +10,7 @@ import { OnboardingEntityType } from 'src/app/shared/generics/generic-model';
 import { GenericOnBoardingComponent } from 'src/app/shared/generics/generic-onboarding';
 import { RooState } from 'src/app/store/root.reducer';
 import { environment } from 'src/environments/environment';
-import { setOnboardingStepperAction } from '../../store/onboarding.action';
+import { addToTypeAction, setOnboardingStepperAction } from '../../store/onboarding.action';
 
 @Component({
   selector: 'cma-on-boarding-type',
@@ -21,7 +21,7 @@ export class OnboardingTypeComponent extends GenericOnBoardingComponent implemen
   public svgPath: string = environment.svgPath;
   public selectedTypeIsIndividual: any;
   public selectedTypeICorporate: any;
-  public selectedType: any;
+  public selectedType: OnBoardingType;
   public onboardingType = OnBoardingType;
 
   constructor(storageSrv: StorageService, router: Router, private _store: Store<RooState>,
@@ -57,6 +57,7 @@ export class OnboardingTypeComponent extends GenericOnBoardingComponent implemen
   public onNext(): void {
     super.onNext(ONBOARDINGPERSONALROUTE, 'type', this.selectedType);
 
+    this._store.dispatch(addToTypeAction({ payload: this.selectedType }));
     this._store.dispatch(setOnboardingStepperAction({ step: ONBOARDINGPERSONAL }));
   }
 

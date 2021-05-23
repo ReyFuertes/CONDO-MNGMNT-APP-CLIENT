@@ -2,15 +2,15 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import { take } from 'rxjs/operators';
+import { take, takeUntil } from 'rxjs/operators';
 import { StorageService } from 'src/app/services/storage.service';
-import { ONBOARDINGDOCUMENTS, ONBOARDINGREVIEW, STRDOCUMENTS, STROCCUPANTS, STRPERSONAL, STRSPOUSE, STRVEHICLES } from 'src/app/shared/constants/generic';
-import { ISimpleItem } from 'src/app/shared/generics/generic-model';
+import { ONBOARDINGDOCUMENTS, ONBOARDINGREVIEW, STRDOCUMENTS, STROCCUPANTS, STRPERSONAL, STRSPOUSE, STRTYPE, STRVEHICLES } from 'src/app/shared/constants/generic';
+import { ISimpleItem, OnboardingEntityType } from 'src/app/shared/generics/generic-model';
 import { GenericOnBoardingComponent } from 'src/app/shared/generics/generic-onboarding';
 import { RooState } from 'src/app/store/root.reducer';
 import { environment } from 'src/environments/environment';
 import { createOnboardingAction, setOnboardingStepperAction } from '../../store/onboarding.action';
-import { getDocumentsSelector } from '../../store/onboarding.selector';
+import { getDocumentsSelector, getOnboardingSelector } from '../../store/onboarding.selector';
 import * as _ from 'lodash';
 import { ONBOARDINGDOCUMENTSROUTE } from 'src/app/shared/constants/routes';
 import { v4 as uuid } from 'uuid';
@@ -48,8 +48,6 @@ export class OnboardingReviewComponent extends GenericOnBoardingComponent implem
     value: ''
   }];
   public svgPath: string = environment.svgPath;
-  public formOccupantsArr: FormArray;
-  public formVehiclesArr: FormArray;
   public camelToSnakeCase = CamelToSnakeCase;
   public uploadedDocs: any[] = [];
 
@@ -58,28 +56,28 @@ export class OnboardingReviewComponent extends GenericOnBoardingComponent implem
     super(ONBOARDINGREVIEW, storageSrv, router, cdRef, fb, store);
 
     this.form = this._fb.group({
-      type: [null, [Validators.required]],
+      type: [null],
       personal: this._fb.group({
-        buildingNo: [null, [Validators.required]],
-        unitNo: [null, [Validators.required]],
-        parkingSlot: [null, [Validators.required]],
-        occupantType: [null, [Validators.required]],
-        lastname: [null, [Validators.required]],
-        firstname: [null, [Validators.required]],
-        middlename: [null, [Validators.required]],
-        citizenship: [null, [Validators.required]],
-        gender: [null, [Validators.required]],
-        civilStatus: [null, [Validators.required]],
-        dateOfBirth: [null, [Validators.required]],
-        occupation: [null, [Validators.required]],
-        busAddress: [null, [Validators.required]],
-        busContactNo: [null, [Validators.required]],
-        busEmail: [null, [Validators.required]],
-        tin: [null, [Validators.required]],
-        idType: [null, [Validators.required]],
-        idNo: [null, [Validators.required]],
-        uploadedIdFile: [null],
-        uploadedFilePreview: [null]
+        buildingNo: [null],
+        unitNo: [null],
+        parkingSlot: [null],
+        occupantType: [null],
+        lastname: [null],
+        firstname: [null],
+        middlename: [null],
+        citizenship: [null],
+        gender: [null],
+        civilStatus: [null],
+        dateOfBirth: [null],
+        occupation: [null],
+        busAddress: [null],
+        busContactNo: [null],
+        busEmail: [null],
+        tin: [null],
+        idType: [null],
+        idNo: [null],
+        uploadPersonalIdFile: [null],
+        getPersonalUploadedFilePreview: [null]
       }),
       spouse: this._fb.group({
         lastname: [null],
@@ -96,57 +94,52 @@ export class OnboardingReviewComponent extends GenericOnBoardingComponent implem
         tin: [null],
         idType: [null],
         idNo: [null],
-        uploadedIdFile: [null],
-        uploadedFilePreview: [null]
+        uploadSpouseIdFile: [null],
+        uploadSpouseIdFilePreview: [null]
       }),
       occupants: new FormArray([]),
       vehicles: new FormArray([]),
       documents: new FormArray([])
     });
-
-    /* get all values from localstorage */
-    const type = _storageSrv.get('type');
-    if (type) {
-      this.form.get('type').patchValue(JSON.parse(type))
-    }
-    const personal = _storageSrv.get(STRPERSONAL);
-    if (personal) {
-      this.form.get(STRPERSONAL).patchValue(JSON.parse(personal));
-    }
-    const spouse = _storageSrv.get(STRSPOUSE);
-    if (spouse) {
-      this.form.get(STRSPOUSE).patchValue(JSON.parse(spouse));
-    }
-    const occupants = _storageSrv.get(STROCCUPANTS);
-    if (occupants) {
-      const occupantsArr = JSON.parse(occupants)?.occupants;
-      this.formOccupantsArr = this.form.get(STROCCUPANTS) as FormArray;
-
-      occupantsArr.forEach(occupant => {
-        this.formOccupantsArr.push(this.createOccupantItem(Object.assign({}, occupant)));
-      });
-    }
-    const vehicles = _storageSrv.get(STRVEHICLES);
-    if (vehicles) {
-      const vehiclesArr = JSON.parse(vehicles)?.vehicles;
-      this.formVehiclesArr = this.form.get(STRVEHICLES) as FormArray;
-
-      vehiclesArr.forEach(vehicle => {
-        this.formVehiclesArr.push(this.createOccupantItem(Object.assign({}, vehicle)));
-      });
-    }
   }
 
   ngOnInit(): void {
-    this._store.pipe(select(getDocumentsSelector),
-      take(1))
-      .subscribe(docs => {
-        if (docs) this.uploadedDocs = docs;
-      });
+    this._store.pipe(select(getOnboardingSelector), takeUntil(this.$unsubscribe))
+      .subscribe(res => {
+        const { type, personal, spouse, occupants, vehicles, documents } = res;
+        
+        if (type) this.form.get(STRTYPE).patchValue(type);
+
+        if (personal) this.form.get(STRPERSONAL).patchValue(personal);
+
+        if (spouse) this.form.get(STRSPOUSE).patchValue(spouse);
+
+        if (occupants) {
+          this.FormOccupantsArr = this.form.get(STROCCUPANTS) as FormArray;
+          occupants?.forEach(occupant => {
+            this.FormOccupantsArr.push(this.createOccupantItem(occupant));
+          });
+        };
+        if (vehicles) {
+          this.FormVehiclesArr = this.form.get(STRVEHICLES) as FormArray;
+          vehicles?.forEach(vehicle => {
+            this.FormVehiclesArr.push(this.createVehicleItem(vehicle));
+          });
+        };
+        if (documents) this.uploadedDocs = documents;
+      })
   }
 
   public get hasDocs(): boolean {
     return this.uploadedDocs?.length > 0;
+  }
+
+  public get getPersonalIdFileName(): any {
+    return this.form.get('personal')?.value?.uploadPersonalIdFile?.name;
+  }
+
+  public get getSpouseIdFileName(): any {
+    return this.form.get('spouse')?.value?.uploadSpouseIdFile?.name;
   }
 
   private processFormData(files: FormData): any {

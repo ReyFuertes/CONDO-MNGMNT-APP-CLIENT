@@ -32,7 +32,7 @@
       <div fxLayout="row wrap" class="w-100" fxLayoutAlign="start center" fxLayoutGap="15px">
         <cma-input [isReadOnly]="true" [form]="getPersonalForm" controlName="idType" label="ID Type"></cma-input>
         <cma-input [isReadOnly]="true" [form]="getPersonalForm" controlName="idNo" label="ID No."></cma-input>
-        <cma-input [isReadOnly]="true" [form]="getPersonalForm" controlName="uploadedIdFile" label="Upload File"></cma-input>
+        <cma-img-preview fxFlex="195px" [file]="form.get('personal').value?.uploadPersonalIdFile" [fileName]="getPersonalIdFileName"></cma-img-preview>
       </div>
     </div>
 
@@ -60,7 +60,7 @@
       <div fxLayout="row wrap" class="w-100" fxLayoutAlign="start center" fxLayoutGap="15px">
         <cma-input [isReadOnly]="true" [form]="getSpouseForm" controlName="idType" label="ID Type"></cma-input>
         <cma-input [isReadOnly]="true" [form]="getSpouseForm" controlName="idNo" label="ID No."></cma-input>
-        <cma-input [isReadOnly]="true" [form]="getSpouseForm" controlName="uploadedIdFile" label="Upload File"></cma-input>
+        <cma-img-preview fxFlex="195px" [file]="form.get('spouse').value?.uploadSpouseIdFile" [fileName]="getSpouseIdFileName"></cma-img-preview>
       </div>
     </div>
 

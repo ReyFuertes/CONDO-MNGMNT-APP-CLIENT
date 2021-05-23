@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { GenericControl } from '../../generics/generic-control';
 import { ISimpleItem } from '../../generics/generic-model';
+import * as moment from 'moment';
 
 @Component({
   selector: 'cma-datepicker',
@@ -8,9 +9,14 @@ import { ISimpleItem } from '../../generics/generic-model';
   styleUrls: ['./cmd-datepicker.component.scss']
 })
 export class CMADatepickerComponent extends GenericControl<ISimpleItem> implements OnInit {
-  constructor() { 
+  constructor() {
     super();
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    if (this.form.get(this.controlName).value) {
+      const toDate = new Date(this.form.get(this.controlName).value);
+      this.form.get(this.controlName).patchValue(toDate);
+    }
+  }
 }

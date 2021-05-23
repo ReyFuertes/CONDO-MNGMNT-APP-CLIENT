@@ -23,5 +23,7 @@ img.icon {
 img.preview {
   cursor: pointer;
   width: auto;
-  height: 300px;
+  height: 250px;
+  max-width: 250px;
+  max-height: 250px;
 }

@@ -1,14 +1,15 @@
 import { createReducer, on, Action } from "@ngrx/store";
 import { ISimpleItem } from "src/app/shared/generics/generic-model";
 import { IOnboardingOccupant, IOnboarding, IOnboardingDocument, IOnboardingPersonal, IOnboardingSpouse, IOnboardingVehicle } from "../on-boarding.model";
-import { addDocumentsAction, addOccupantAction, addToPersonalAction, addToSpouseAction, addToVehiclesAction, clearStepperAction, createOnboardingSuccessAction, removeOccupantAction, setOnboardingStepperAction, addToOccupantsAction } from "./onboarding.action";
+import { addDocumentsAction, addToOccupantAction, addToPersonalAction, addToSpouseAction, addToVehiclesAction, clearStepperAction, createOnboardingSuccessAction, removeOccupantAction, setOnboardingStepperAction, addToOccupantsAction, addToTypeAction } from "./onboarding.action";
 import * as _ from 'lodash';
 import { createEntityAdapter, EntityAdapter, EntityState } from "@ngrx/entity";
+import { OnBoardingType } from "src/app/models/onboarding.model";
 
 export const adapter: EntityAdapter<IOnboarding> = createEntityAdapter<IOnboarding>({});
 export interface OnboardingState extends EntityState<IOnboarding> {
   stepper?: string,
-  type?: ISimpleItem,
+  type?: OnBoardingType,
   personal?: IOnboardingPersonal,
   spouse?: IOnboardingSpouse,
   vehicles?: IOnboardingVehicle[],
@@ -29,6 +30,9 @@ export const initialState: OnboardingState = adapter.getInitialState({
 
 const onboardingReducer = createReducer(
   initialState,
+  on(addToTypeAction, (state, action) => {
+    return Object.assign({}, state, { type: action.payload });
+  }),
   on(addToOccupantsAction, (state, action) => {
     return Object.assign({}, state, { occupants: action.payload });
   }),
@@ -61,7 +65,7 @@ const onboardingReducer = createReducer(
     }
     return Object.assign({}, state, { occupants });
   }),
-  on(addOccupantAction, (state, action) => {
+  on(addToOccupantAction, (state, action) => {
     let occupants = Object.assign([], state.occupants);
     if (!occupants.includes(action.response)) {
       occupants.push(action.response);

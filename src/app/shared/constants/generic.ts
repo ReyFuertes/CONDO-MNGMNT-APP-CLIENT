@@ -1,6 +1,7 @@
 import { OccupantType } from "src/app/models/onboarding.model";
 import { ISimpleItem } from "../generics/generic-model";
 
+export const STRTYPE = 'type';
 export const STRPERSONAL = 'personal';
 export const STRSPOUSE = 'spouse';
 export const STROCCUPANTS = 'occupants';

@@ -32,6 +32,7 @@ import { CMStepperComponent } from './components/cma-stepper/cma-stepper.compone
 import { TimelineModule } from 'primeng/timeline';
 import { CMAUploadThumbComponent } from './components/cma-upload-thumb/cma-upload-thumb.component';
 import { NgxFileDropModule } from 'ngx-file-drop';
+import { CMAImgPreviewComponent } from './components/cma-img-preview/cma-img-preview.component';
 
 const primeNgModules = [
   CheckboxModule,
@@ -68,7 +69,8 @@ const sharedComponents = [
   CMAMultiSelectComponent,
   CMATextareaComponent,
   CMStepperComponent,
-  CMAUploadThumbComponent
+  CMAUploadThumbComponent,
+  CMAImgPreviewComponent
 ]
 
 @NgModule({

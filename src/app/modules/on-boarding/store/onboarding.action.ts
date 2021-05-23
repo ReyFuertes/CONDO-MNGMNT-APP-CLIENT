@@ -1,9 +1,10 @@
 import { createAction, props } from '@ngrx/store';
+import { OnBoardingType } from 'src/app/models/onboarding.model';
 import { IOnboardingOccupant, IOnboarding, IOnboardingPersonal, IOnboardingSpouse, IOnboardingVehicle, IOnboardingDocument } from '../on-boarding.model';
 
 export enum OnboardingActionTypes {
   setOnboardingStepperAction = '[Onboarding] set Stepper',
-  addOccupantAction = '[Onboarding] add occupant',
+  addToOccupantAction = '[Onboarding] add occupant',
   removeOccupantAction = '[Onboarding] remove occupant',
   addDocumentsAction = '[Onboarding] add documents',
   createOnboardingAction = '[Onboarding] create onboarding',
@@ -13,14 +14,11 @@ export enum OnboardingActionTypes {
   addToSpouseAction = '[Onboarding] add to spouse',
   addToVehiclesAction = '[Onboarding] add to vehicle',
   addToOccupantsAction = '[Onboarding] add to occupant',
+  addToTypeAction = '[Onboarding] add to type',
 }
-export const addToOccupantsAction = createAction(
-  OnboardingActionTypes.addToOccupantsAction,
-  props<{ payload: IOnboardingOccupant[] }>()
-);
-export const addToVehiclesAction = createAction(
-  OnboardingActionTypes.addToVehiclesAction,
-  props<{ payload: IOnboardingVehicle[] }>()
+export const addToTypeAction = createAction(
+  OnboardingActionTypes.addToTypeAction,
+  props<{ payload: OnBoardingType }>()
 );
 export const addToSpouseAction = createAction(
   OnboardingActionTypes.addToSpouseAction,
@@ -29,6 +27,18 @@ export const addToSpouseAction = createAction(
 export const addToPersonalAction = createAction(
   OnboardingActionTypes.addToPersonalAction,
   props<{ payload: IOnboardingPersonal }>()
+);
+export const addToOccupantAction = createAction(
+  OnboardingActionTypes.addToOccupantAction,
+  props<{ response: IOnboardingOccupant }>()
+);
+export const addToOccupantsAction = createAction(
+  OnboardingActionTypes.addToOccupantsAction,
+  props<{ payload: IOnboardingOccupant[] }>()
+);
+export const addToVehiclesAction = createAction(
+  OnboardingActionTypes.addToVehiclesAction,
+  props<{ payload: IOnboardingVehicle[] }>()
 );
 export const clearStepperAction = createAction(
   OnboardingActionTypes.clearStepperAction
@@ -48,10 +58,6 @@ export const addDocumentsAction = createAction(
 export const removeOccupantAction = createAction(
   OnboardingActionTypes.removeOccupantAction,
   props<{ item: IOnboardingOccupant }>()
-);
-export const addOccupantAction = createAction(
-  OnboardingActionTypes.addOccupantAction,
-  props<{ response: IOnboardingOccupant }>()
 );
 export const setOnboardingStepperAction = createAction(
   OnboardingActionTypes.setOnboardingStepperAction,

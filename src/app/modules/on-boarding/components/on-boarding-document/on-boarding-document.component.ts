@@ -33,7 +33,10 @@ export class OnboardingDocumentComponent extends GenericOnBoardingComponent {
   }
 
   public onUpload(event: any) {
-    this.uploadedDocs.push(event?.files[0]);
+    let uploadedDocs = Object.assign([], this.uploadedDocs);
+    uploadedDocs.push(event?.files[0]);
+
+    this.uploadedDocs = uploadedDocs;
   }
 
   public onRemove(event: any): void {
