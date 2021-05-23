@@ -2,6 +2,7 @@ import { OccupantType } from "src/app/models/onboarding.model";
 import { IMyInfo, IBuilding, IUnit, IParkingSLot } from "src/app/shared/generics/generic-model";
 
 export interface IOnboarding {
+  id?: string;
   personal?: IOnboardingPersonal;
   spouse?: any;
   occupants?: any;

@@ -15,14 +15,24 @@ export enum OnboardingActionTypes {
   addToVehiclesAction = '[Onboarding] add to vehicle',
   addToOccupantsAction = '[Onboarding] add to occupant',
   addToTypeAction = '[Onboarding] add to type',
+  saveAndUploadImageAction = '[Onboarding] save and upload image',
+  saveAndUploadImageSuccessAction = '[Onboarding] save and upload image (success)',
 }
-export const addToTypeAction = createAction(
-  OnboardingActionTypes.addToTypeAction,
-  props<{ payload: OnBoardingType }>()
+export const saveAndUploadImageAction = createAction(
+  OnboardingActionTypes.saveAndUploadImageAction,
+  props<{ payload: any, images?: any }>()
+);
+export const saveAndUploadImageSuccessAction = createAction(
+  OnboardingActionTypes.saveAndUploadImageSuccessAction,
+  props<{ response: any }>()
 );
 export const addToSpouseAction = createAction(
   OnboardingActionTypes.addToSpouseAction,
   props<{ payload: IOnboardingSpouse }>()
+);
+export const addToTypeAction = createAction(
+  OnboardingActionTypes.addToTypeAction,
+  props<{ payload: OnBoardingType }>()
 );
 export const addToPersonalAction = createAction(
   OnboardingActionTypes.addToPersonalAction,
@@ -45,7 +55,7 @@ export const clearStepperAction = createAction(
 );
 export const createOnboardingAction = createAction(
   OnboardingActionTypes.createOnboardingAction,
-  props<{ payload: IOnboarding, files?: any }>()
+  props<{ payload: IOnboarding, files?: any, personalIdAttachment?: any, spouseIdAttachment?: any }>()
 );
 export const createOnboardingSuccessAction = createAction(
   OnboardingActionTypes.createOnboardingSuccessAction,

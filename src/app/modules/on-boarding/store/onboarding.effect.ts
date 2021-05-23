@@ -1,18 +1,19 @@
 import { select, Store } from '@ngrx/store';
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { createOnboardingAction, createOnboardingSuccessAction } from './onboarding.action';
+import { createOnboardingAction, createOnboardingSuccessAction, saveAndUploadImageAction, saveAndUploadImageSuccessAction } from './onboarding.action';
 import { OnboardingService } from '../on-boarding.service';
-import { map, switchMap, tap } from 'rxjs/operators';
-import { combineLatest, forkJoin, of } from 'rxjs';
+import { map, mergeMap, switchMap, tap } from 'rxjs/operators';
+import { combineLatest, forkJoin, of, zip } from 'rxjs';
 import { MessageService } from 'primeng/api';
 import { RooState } from 'src/app/store/root.reducer';
 import { isLoadingSelector } from 'src/app/store/selector/app.selector';
 import { GenericToastComponent } from 'src/app/shared/generics/generic-toast';
 import { Router } from '@angular/router';
 import { ONBOARDINGFORAPPROVALROUTE } from 'src/app/shared/constants/routes';
-import { IOnboarding } from '../on-boarding.model';
+import { IOnboarding, IOnboardingPersonal } from '../on-boarding.model';
 import { UploadService } from 'src/app/services/upload.service';
+import { ImageService } from 'src/app/services/image.service';
 @Injectable()
 export class OnboardingEffects extends GenericToastComponent {
   constructor(router: Router,
@@ -20,19 +21,53 @@ export class OnboardingEffects extends GenericToastComponent {
     private actions$: Actions,
     private store: Store<RooState>,
     private onBoardingSrv: OnboardingService,
+    private imageSrv: ImageService,
     msgSrv: MessageService) {
     super(router, msgSrv);
   }
 
+  saveAndUploadImageAction$ = createEffect(() => this.actions$.pipe(
+    ofType(saveAndUploadImageAction),
+    mergeMap(({ payload, images }) => {
+      return zip(
+        this.imageSrv.post(payload),
+        this.uploadSrv.upload(images, 'images'),
+        this.store.pipe(select(isLoadingSelector))
+      ).pipe(
+        map(([response, fileDoc, loader]) => {
+          return saveAndUploadImageSuccessAction({ response });
+        })
+      )
+    })
+  ));
+
   createOnboardingAction$ = createEffect(() => this.actions$.pipe(
     ofType(createOnboardingAction),
-    switchMap(({ payload, files }) => {
-      return combineLatest([
+    mergeMap(({ payload, files, personalIdAttachment, spouseIdAttachment }) => {
+      return zip(
         this.onBoardingSrv.post(payload),
         this.uploadSrv.upload(files),
         this.store.pipe(select(isLoadingSelector))
-      ]).pipe(
+      ).pipe(
         map(([response, fileDoc, loader]) => {
+          const { personal, spouse } = <IOnboarding>response;
+          debugger
+          this.store.dispatch(saveAndUploadImageAction({
+            payload: {
+              name: personalIdAttachment?.image?.name,
+              personal: { id: <IOnboardingPersonal>personal?.id }
+            },
+            images: personalIdAttachment?.data
+          }));
+
+          this.store.dispatch(saveAndUploadImageAction({
+            payload: {
+              name: spouseIdAttachment?.image?.name,
+              spouse: { id: <IOnboardingPersonal>spouse?.id }
+            },
+            images: spouseIdAttachment?.data
+          }));
+
           if (loader === null) {
             this.triggerSaveToast(ONBOARDINGFORAPPROVALROUTE);
           }

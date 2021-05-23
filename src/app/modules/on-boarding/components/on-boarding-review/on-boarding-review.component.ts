@@ -107,7 +107,7 @@ export class OnboardingReviewComponent extends GenericOnBoardingComponent implem
     this._store.pipe(select(getOnboardingSelector), takeUntil(this.$unsubscribe))
       .subscribe(res => {
         const { type, personal, spouse, occupants, vehicles, documents } = res;
-        
+
         if (type) this.form.get(STRTYPE).patchValue(type);
 
         if (personal) this.form.get(STRPERSONAL).patchValue(personal);
@@ -159,12 +159,33 @@ export class OnboardingReviewComponent extends GenericOnBoardingComponent implem
     })) || null;
   }
 
+  private processImageData(image: any, files: FormData): any {
+    files.append('files', image, image?.name);
+ 
+    return {
+      name: image?.name,
+      size: image.size,
+      type: image.type,
+      onboarding_id: '',
+      lastModified: image.lastModified
+    }
+  }
+
   public onSubmit(): void {
     if (this.form.valid) {
       const { personal, spouse, occupants, vehicles } = this.form.value;
+      const { uploadPersonalIdFile } = personal;
+      const { uploadSpouseIdFile } = spouse;
 
       let files = new FormData();
       const documents = this.processFormData(files);
+
+      let personalFormData = new FormData();
+      const personalImageData = this.processImageData(uploadPersonalIdFile, personalFormData);
+
+      let spouseFormData = new FormData();
+      const spouseImageData = this.processImageData(uploadSpouseIdFile, spouseFormData)
+
       const payload = {
         personal: {
           ...personal,
@@ -177,7 +198,18 @@ export class OnboardingReviewComponent extends GenericOnBoardingComponent implem
         files
       };
       setTimeout(() => {
-        this._store.dispatch(createOnboardingAction({ payload, files }));
+        this._store.dispatch(createOnboardingAction({
+          payload,
+          files,
+          personalIdAttachment: {
+            data: personalFormData,
+            image: personalImageData
+          },
+          spouseIdAttachment: {
+            data: spouseFormData,
+            image: spouseImageData
+          }
+        }));
       }, 100);
     }
   }

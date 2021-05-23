@@ -17,6 +17,7 @@ export enum AddEditStateType {
   'Edit' = 2
 }
 export interface IMyInfo {
+  id?: string;
   lastname?: string;
   firstname?: string;
   middlename?: string;
