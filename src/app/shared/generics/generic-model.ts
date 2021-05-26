@@ -42,5 +42,6 @@ export interface ISimpleItem extends ISimpleAttribute {
   value?: string;
 }
 export interface ISimpleAttribute {
-  route?: string
+  route?: string;
+  keyword?: string;
 }

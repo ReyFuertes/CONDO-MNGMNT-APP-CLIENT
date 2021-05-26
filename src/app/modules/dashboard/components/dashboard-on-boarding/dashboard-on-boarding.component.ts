@@ -48,11 +48,11 @@ export class DashboardOnboardingComponent extends GenericContainer implements On
     ];
   }
 
-  public onSearch(keyword): void {
-    setTimeout(() => {
-      if (keyword?.length > 3) {
-        this.store.dispatch(loadDashboardOnboardingAction({ keyword }));
-      }
-    }, 400);
+  public onSearch(keyword: any): void {
+    if (keyword?.length > 3) {
+      this.store.dispatch(loadDashboardOnboardingAction({ keyword }));
+    } else if (keyword?.length === 0) {
+      this.store.dispatch(loadDashboardOnboardingAction({}));
+    }
   }
 }
