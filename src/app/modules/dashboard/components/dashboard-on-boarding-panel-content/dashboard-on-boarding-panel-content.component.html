@@ -4,11 +4,13 @@
     <div class="content-title" fxLayout="row" fxLayoutAlign="start center">
       <div fxFlex>Personal Information</div>
 
-      <div fxFlex="135px" fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="20px">
+      <div fxFlex="155px" fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="20px">
         <div class="actions-btns" fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="5px">
           <span class="p-buttonset" styleClass="p-button-sm">
-            <button styleClass="p-button-sm" tooltipPosition="left" pTooltip="Done" pButton pRipple class="btn-done success" icon="pi pi-check"></button>
+            <button styleClass="p-button-sm" tooltipPosition="left" pTooltip="Approve" pButton pRipple class="btn-done success" icon="pi pi-check"></button>
             <button type="button" (click)="onEdit('12524b05-d8a2-4b1c-9c1f-79c321aa64d4')" styleClass="p-button-sm" tooltipPosition="top" pTooltip="Edit" pButton pRipple class="btn-edit default" icon="pi pi-pencil"></button>
+            <button type="button" (click)="onEdit('12524b05-d8a2-4b1c-9c1f-79c321aa64d4')" styleClass="p-button-sm" tooltipPosition="top" pTooltip="Archive" pButton pRipple class="btn-edit default" icon="pi pi-folder-open
+            "></button>
             <button styleClass="p-button-sm" tooltipPosition="top" pTooltip="Remove" pButton pRipple class="btn-remove danger" icon="pi pi-trash"></button>
           </span>
         </div>
