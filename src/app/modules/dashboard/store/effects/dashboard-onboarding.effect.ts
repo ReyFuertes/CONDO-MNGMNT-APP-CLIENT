@@ -22,8 +22,8 @@ export class DashboardOnboardingEffects extends GenericToastComponent {
 
   getOnboardingAction$ = createEffect(() => this.actions$.pipe(
     ofType(loadDashboardOnboardingAction),
-    switchMap(() => {
-      return this.dashboardOnboardingSrv.getAll().pipe(
+    switchMap(({ keyword }) => {
+      return this.dashboardOnboardingSrv.getAll(`keyword=${keyword}`).pipe(
         map((response) => {
           return loadDashboardOnboardingActionSuccess({ response });
         })

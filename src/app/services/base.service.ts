@@ -64,7 +64,7 @@ export abstract class BaseService<T> {
   }
 
   private fmtParam(param?: string): string {
-    return `${param ? '/' + param : ''}`
+    return `?${param}`
   }
 
   public getAll(param?: string): Observable<T[]> {
