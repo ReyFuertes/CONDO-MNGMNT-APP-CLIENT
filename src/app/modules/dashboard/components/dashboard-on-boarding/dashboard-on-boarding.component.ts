@@ -22,7 +22,7 @@ export class DashboardOnboardingComponent extends GenericContainer implements On
     super();
     localStorage.setItem('nav', JSON.stringify(MenuType.Onboarding));
 
-    this.store.dispatch(loadDashboardOnboardingAction());
+    this.store.dispatch(loadDashboardOnboardingAction({}));
 
     this.settingItems = [
       {
@@ -46,5 +46,13 @@ export class DashboardOnboardingComponent extends GenericContainer implements On
         ]
       }
     ];
+  }
+
+  public onSearch(keyword): void {
+    setTimeout(() => {
+      if (keyword?.length > 3) {
+        this.store.dispatch(loadDashboardOnboardingAction({ keyword }));
+      }
+    }, 400);
   }
 }

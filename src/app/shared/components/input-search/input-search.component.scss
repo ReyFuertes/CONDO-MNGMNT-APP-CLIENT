@@ -1,5 +1,7 @@
 @import "src/styleguide/index";
-
+.pi-times {
+  cursor: pointer;
+}
 :host ::ng-deep {
   .p-input-icon-left>i,
   .p-input-icon-right>i {

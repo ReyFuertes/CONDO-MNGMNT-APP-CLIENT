@@ -1,4 +1,3 @@
-
 <div class="page-container" [ngClass]="{'active': active}">
   <div fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="5px">
     <div class="breadcrumb-container" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
@@ -11,7 +10,7 @@
     </div>
     <div class="panel-actions" fxLayout="row" fxLayoutAlign="start center">
       <div fxFlex fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="10px">
-        <cma-input-search fxFlex="70"></cma-input-search>
+        <cma-input-search (valueEmitter)="onSearch($event)" fxFlex="70"></cma-input-search>
         <cma-multi-select fxFlex></cma-multi-select>
       </div>
       <p-paginator [rows]="10" [totalRecords]="120" [rowsPerPageOptions]="[10,20,30]"></p-paginator>
@@ -19,4 +18,3 @@
     <cma-dashboard-on-boarding-panel></cma-dashboard-on-boarding-panel>
   </div>
 </div>
-
