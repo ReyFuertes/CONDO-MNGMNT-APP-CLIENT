@@ -20,6 +20,10 @@ export class CMAInputSearchComponent extends GenericControl<ISimpleItem> impleme
     this.input.nativeElement.value = '';
   }
 
+  public get hasLen(): boolean {
+    return this.input?.nativeElement?.value?.length > 0;
+  }
+
   public onInput(event: any, len: number = 3): void {
     if (event?.target?.value?.length > len) {
       this.valueEmitter.emit(event?.target?.value);
