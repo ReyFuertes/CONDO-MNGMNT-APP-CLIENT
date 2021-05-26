@@ -25,37 +25,35 @@ import { OnboardingEffects } from './store/onboarding.effect';
 import { OnboardingVehicleComponent } from './components/on-boarding-vehicle/on-boarding-vehicle.component';
 import { FileUploadModule } from 'primeng/fileupload';
 
-const routes: Routes = [
-  {
-    path: '',
-    component: OnboardingContainerComponent,
-    children: [{
-      path: 'type',
-      component: OnboardingTypeComponent
-    }, {
-      path: 'personal',
-      component: OnboardingPersonalComponent
-    }, {
-      path: 'spouse',
-      component: OnboardingSpouseInfoComponent
-    }, {
-      path: 'occupants',
-      component: OnboardingOccupantsComponent
-    }, {
-      path: 'documents',
-      component: OnboardingDocumentComponent
-    }, {
-      path: 'vehicles',
-      component: OnboardingVehicleComponent
-    }, {
-      path: 'review',
-      component: OnboardingReviewComponent
-    }, {
-      path: 'for-approval',
-      component: OnboardingForApprovalComponent
-    }]
-  }
-];
+const routes: Routes = [{
+  path: '',
+  component: OnboardingContainerComponent,
+  children: [{
+    path: 'type/:id',
+    component: OnboardingTypeComponent
+  }, {
+    path: 'personal/:id',
+    component: OnboardingPersonalComponent
+  }, {
+    path: 'spouse/:id',
+    component: OnboardingSpouseInfoComponent
+  }, {
+    path: 'occupants/:id',
+    component: OnboardingOccupantsComponent
+  }, {
+    path: 'documents/:id',
+    component: OnboardingDocumentComponent
+  }, {
+    path: 'vehicles/:id',
+    component: OnboardingVehicleComponent
+  }, {
+    path: 'review/:id',
+    component: OnboardingReviewComponent
+  }, {
+    path: 'for-approval/:id',
+    component: OnboardingForApprovalComponent
+  }]
+}];
 
 const primeNgModules = [
   CheckboxModule,
