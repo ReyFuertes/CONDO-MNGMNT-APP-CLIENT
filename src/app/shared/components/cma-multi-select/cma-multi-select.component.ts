@@ -7,12 +7,16 @@ import { ISimpleItem } from '../../generics/generic-model';
   templateUrl: './cma-multi-select.component.html',
   styleUrls: ['./cma-multi-select.component.scss']
 })
-export class CMAMultiSelectComponent extends GenericControl<ISimpleItem> implements OnInit {
+export class CMAMultiSelectComponent extends GenericControl<ISimpleItem> {
   @Input() options: ISimpleItem[];
 
   constructor() {
     super();
   }
 
-  ngOnInit(): void { }
+  public onChange(event: any): void {
+    if(event?.value) {
+      //this.form.get(this.controlName).patchValue(event?.value);
+    }
+  }
 }

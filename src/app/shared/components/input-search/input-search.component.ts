@@ -29,6 +29,7 @@ export class CMAInputSearchComponent extends GenericControl<string> implements O
 
   public onClear(): void {
     this.input.nativeElement.value = '';
+    this.valueEmitter.emit(null);
   }
 
   public get hasLen(): boolean {

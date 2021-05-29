@@ -9,6 +9,7 @@ import { GenericContainer } from 'src/app/shared/generics/generic-container';
 import { ISimpleItem } from 'src/app/shared/generics/generic-model';
 import { RooState } from 'src/app/store/root.reducer';
 import { loadDashboardOnboardingAction } from '../../store/actions/dashboard-onboarding.action';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'cma-dashboard-on-boarding',
@@ -51,13 +52,15 @@ export class DashboardOnboardingComponent extends GenericContainer implements On
     { label: 'Gender', value: 'gender' }
   ];
   public form: FormGroup;
-  public params: string;
+  public filterParams: string;
+  public filterChanged: boolean = false;
 
   constructor(private fb: FormBuilder, private store: Store<RooState>) {
     super();
     localStorage.setItem('nav', JSON.stringify(MenuType.Onboarding));
 
     this.form = this.fb.group({
+      filterKeyword: [null],
       fieldFilter: [null]
     });
 
@@ -66,10 +69,18 @@ export class DashboardOnboardingComponent extends GenericContainer implements On
     this.form.valueChanges.pipe(takeUntil(this.$unsubscribe))
       .subscribe(({ fieldFilter }) => {
         if (fieldFilter) {
-          const params = fieldFilter?.map((ff) => {
+
+          const filterParams = fieldFilter?.map((ff) => {
             return `personal.${ff?.value}=@searchValue&spouse.${ff?.value}=@searchValue`;
           });
-          this.params = `&${params.join("&")}`;
+          this.filterChanged = filterParams !== _.clone(filterParams, true);
+
+          this.filterParams = `&${filterParams.join("&")}`;
+
+          const searchKeyword = this.form.get('filterKeyword')?.value;
+          if (searchKeyword) {
+            this.onSearch(searchKeyword);
+          }
         }
       })
   }
@@ -80,6 +91,10 @@ export class DashboardOnboardingComponent extends GenericContainer implements On
 
   public onSearch(keyword: any): void {
     if (keyword?.length > 3) {
+      if (this.form.get('filterKeyword')?.value === keyword && !this.filterParams) return;
+
+      this.form.get('filterKeyword').patchValue(keyword, { emitEvent: false });
+
       const ambigousFields = ['personal', 'spouse'];
       let searchParams: string = '';
 
@@ -87,10 +102,10 @@ export class DashboardOnboardingComponent extends GenericContainer implements On
         searchParams += `${ambigousFields[i]}.firstname=${keyword}&${ambigousFields[i]}.lastname=${keyword}&${ambigousFields[i]}.middlename=${ambigousFields[i]}`;
       };
 
-      let params = this.params?.replace(/@searchValue/g, keyword) || '';
+      let params = this.filterParams?.replace(/@searchValue/g, keyword) || '';
 
       this.store.dispatch(loadDashboardOnboardingAction({ keyword: `${searchParams}${params}` }));
-    } else if (keyword?.length === 0) {
+    } else {
       this.store.dispatch(loadDashboardOnboardingAction({}));
     }
   }
