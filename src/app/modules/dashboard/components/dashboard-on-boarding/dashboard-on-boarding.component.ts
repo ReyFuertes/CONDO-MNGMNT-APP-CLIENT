@@ -44,9 +44,9 @@ export class DashboardOnboardingComponent extends GenericContainer implements On
   public actionItems: MenuItem[];
   public filterOptions: ISimpleItem[] = [
     { label: 'Citizenship', value: 'citizenship' },
-    { label: 'Contact No.', value: 'contact_no' },
-    { label: 'ID No.', value: 'id_no' },
-    { label: 'ID Type', value: 'id_type' },
+    { label: 'Contact No.', value: 'contactNo' },
+    { label: 'ID No.', value: 'idNo' },
+    { label: 'ID Type', value: 'idType' },
     { label: 'Occupation', value: 'occupation' },
     { label: 'Gender', value: 'gender' }
   ];
@@ -66,8 +66,8 @@ export class DashboardOnboardingComponent extends GenericContainer implements On
     this.form.valueChanges.pipe(takeUntil(this.$unsubscribe))
       .subscribe(({ fieldFilter }) => {
         if (fieldFilter) {
-          const params = fieldFilter?.map(ff => {
-            return `${ff?.value}=@searchValue`;
+          const params = fieldFilter?.map((ff) => {
+            return `personal.${ff?.value}=@searchValue&spouse.${ff?.value}=@searchValue`;
           });
           this.params = `&${params.join("&")}`;
         }
@@ -80,9 +80,16 @@ export class DashboardOnboardingComponent extends GenericContainer implements On
 
   public onSearch(keyword: any): void {
     if (keyword?.length > 3) {
-      const params = this.params.replace(/@searchValue/g, keyword);
+      const ambigousFields = ['personal', 'spouse'];
+      let searchParams: string = '';
 
-      this.store.dispatch(loadDashboardOnboardingAction({ keyword: `${keyword}${params}` }));
+      for (let i = 0; i < ambigousFields?.length; i++) {
+        searchParams += `${ambigousFields[i]}.firstname=${keyword}&${ambigousFields[i]}.lastname=${keyword}&${ambigousFields[i]}.middlename=${ambigousFields[i]}`;
+      };
+
+      let params = this.params?.replace(/@searchValue/g, keyword) || '';
+
+      this.store.dispatch(loadDashboardOnboardingAction({ keyword: `${searchParams}${params}` }));
     } else if (keyword?.length === 0) {
       this.store.dispatch(loadDashboardOnboardingAction({}));
     }

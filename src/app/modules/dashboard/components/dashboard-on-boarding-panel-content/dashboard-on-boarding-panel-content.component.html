@@ -58,7 +58,7 @@
         </div>
         <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="5px">
           <span>Contact No.:</span>
-          <span>123454365</span>
+          <span>{{ item?.personal?.contractNo }}</span>
         </div>
       </div>
 
@@ -86,72 +86,60 @@
       <div class="pi-thumb" fxFlex="30">
         <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="5px">
           <span>Lastname:</span>
-          <span>Fuertes</span>
+          <span>{{ item?.spouse?.lastname }}</span>
         </div>
         <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="5px">
           <span>Firstname:</span>
-          <span>Haydee</span>
+          <span>{{ item?.spouse?.firstname }}</span>
         </div>
         <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="5px">
           <span>Middlename:</span>
-          <span>Alolor</span>
-        </div>
-        <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="5px">
-          <span>Citizenship:</span>
-          <span>Filipino</span>
+          <span>{{ item?.spouse?.middlename }}</span>
         </div>
       </div>
 
       <div class="pi-thumb" fxFlex="30">
         <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="5px">
+          <span>Citizenship:</span>
+          <span>{{ item?.spouse?.citizenship }}</span>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="5px">
           <span>Gender:</span>
-          <span>Male</span>
+          <span>{{ item?.spouse?.gender }}</span>
         </div>
         <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="5px">
           <span>Marital Status:</span>
-          <span>Married</span>
+          <span>{{ item?.spouse?.civilStatus }}</span>
         </div>
+      </div>
+
+      <div class="pi-thumb" fxFlex="30">
         <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="5px">
           <span>Date of Birth:</span>
-          <span>06-10-1985</span>
+          <span>{{ item?.spouse?.dateOfBirth }}</span>
         </div>
         <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="5px">
           <span>Occupation:</span>
-          <span>Housewife</span>
+          <span>{{ item?.spouse?.occupation }}</span>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="5px">
+          <span>Contact No.:</span>
+          <span>{{ item?.spouse?.contractNo }}</span>
         </div>
       </div>
 
       <div class="pi-thumb" fxFlex="30">
         <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="5px">
-          <span>Contact No.:</span>
-          <span>123454365</span>
-        </div>
-        <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="5px">
           <span>ID Type:</span>
-          <span>Drivers License</span>
+          <span>{{ item?.spouse?.idType }}</span>
         </div>
         <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="5px">
           <span>ID No.:</span>
-          <span>423 2342 25345</span>
+          <span>{{ item?.spouse?.idNo }}</span>
         </div>
         <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="5px">
           <span>Uploaded File:</span>
-          <span class="link">driverlicensed_1234.png</span>
-        </div>
-      </div>
-
-      <div class="pi-thumb" fxFlex="30">
-        <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="5px">
-          <span>Business Address:</span>
-          <span>One Oasis Cebu St.</span>
-        </div>
-        <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="5px">
-          <span>Bus. Cont No.:</span>
-          <span>09564211445</span>
-        </div>
-        <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="5px">
-          <span>Business Email:</span>
-          <span>haydeeskincare@gmail.com</span>
+          <span class="link">{{ item?.spouse?.uploadedIdFile }}</span>
         </div>
       </div>
     </div>
