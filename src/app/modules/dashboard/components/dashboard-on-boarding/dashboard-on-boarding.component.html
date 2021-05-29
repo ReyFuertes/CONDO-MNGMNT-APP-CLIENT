@@ -11,7 +11,7 @@
     <div class="panel-actions" fxLayout="row" fxLayoutAlign="start center">
       <div fxFlex fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="10px">
         <cma-input-search (valueEmitter)="onSearch($event)" fxFlex="70"></cma-input-search>
-        <cma-multi-select fxFlex></cma-multi-select>
+        <cma-multi-select fxFlex [options]="filterOptions" [form]="form" controlName="fieldFilter" (valueEmitter)="handleValueEmitter($event)"></cma-multi-select>
       </div>
       <p-paginator [rows]="10" [totalRecords]="120" [rowsPerPageOptions]="[10,20,30]"></p-paginator>
     </div>

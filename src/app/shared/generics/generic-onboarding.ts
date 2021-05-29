@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { takeUntil } from 'rxjs/operators';
 import { IOnboardingDocument, IOnboardingOccupant, IOnboardingVehicle } from 'src/app/modules/on-boarding/on-boarding.model';
-import { getOnboardingSelector} from 'src/app/modules/on-boarding/store/onboarding.selector';
+import { getOnboardingSelector } from 'src/app/modules/on-boarding/store/onboarding.selector';
 import { StorageService } from 'src/app/services/storage.service';
 import { RooState } from 'src/app/store/root.reducer';
 import { environment } from 'src/environments/environment';
@@ -14,6 +14,7 @@ import { OnboardingEntityType } from './generic-model';
 
 @Directive()
 export class GenericOnBoardingComponent extends GenericDestroyPageComponent implements AfterViewInit {
+  public id: string = '12524b05-d8a2-4b1c-9c1f-79c321aa64d4';
   public _step: string;
   public form: FormGroup;
   public buildingNoOptions = BUILDINGNOOPTIONS;
@@ -136,7 +137,7 @@ export class GenericOnBoardingComponent extends GenericDestroyPageComponent impl
       this.storageSrv.set(formName, JSON.stringify(formValues));
     }
     this.storageSrv.set('step', String(Number(this._step) + 1));
-    this.router.navigateByUrl(route);
+    this.router.navigateByUrl(`${route}/${this.id}`);
   }
 
   public onPrev(route?: string, formName?: string, formValues?: any): void {
@@ -144,6 +145,6 @@ export class GenericOnBoardingComponent extends GenericDestroyPageComponent impl
       this.storageSrv.set(formName, JSON.stringify(formValues));
     }
     this.storageSrv.set('step', String(Number(this._step) - 1));
-    this.router.navigateByUrl(route);
+    this.router.navigateByUrl(`${route}/${this.id}`);
   }
 }

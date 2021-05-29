@@ -1,1 +1,3 @@
-<p-multiSelect [options]="options" [selectionLimit]="2" defaultLabel="Select Filter" optionLabel="label" display="chip"></p-multiSelect>
+<ng-container [formGroup]="form">
+  <p-multiSelect [options]="options" [formControlName]="controlName" [selectionLimit]="2" defaultLabel="Select Filter" optionLabel="label" display="chip"></p-multiSelect>
+</ng-container>
