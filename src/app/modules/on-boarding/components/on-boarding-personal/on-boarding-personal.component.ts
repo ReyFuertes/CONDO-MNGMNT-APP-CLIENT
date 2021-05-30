@@ -80,7 +80,7 @@ export class OnboardingPersonalComponent extends GenericOnBoardingComponent impl
   }
 
   public onPrev(): void {
-    super.onPrev(ONBOARDINGTYPEROUTE, STRPERSONAL, this.form.value);
+    super.onPrev(ONBOARDINGTYPEROUTE(this.id), STRPERSONAL, this.form.value);
 
     this._store.dispatch(addToPersonalAction({ payload: this.form.value }));
     this._store.dispatch(setOnboardingStepperAction({ step: ONBOARDINGTYPE }));

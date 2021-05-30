@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { filter, takeUntil } from 'rxjs/operators';
 import { StorageService } from 'src/app/services/storage.service';
@@ -16,8 +16,9 @@ import * as moment from 'moment';
 })
 export class OnboardingContainerComponent extends GenericDestroyPageComponent implements OnInit {
   public hideStepper: boolean = false;
+  public id: string;
 
-  constructor(private _storageSrv: StorageService, private store: Store<RooState>, private router: Router) {
+  constructor(private route: ActivatedRoute, private _storageSrv: StorageService, private store: Store<RooState>, private router: Router) {
     super();
   }
 
@@ -52,7 +53,7 @@ export class OnboardingContainerComponent extends GenericDestroyPageComponent im
       const vehiclesArr = JSON.parse(vehicles)?.vehicles;
       this.store.dispatch(addToVehiclesAction({ payload: vehiclesArr }));
     }
-    
+
     this.router.events
       .pipe(filter(e => e instanceof NavigationEnd))
       .subscribe((e: NavigationEnd) => {

@@ -14,7 +14,7 @@ import { OnboardingEntityType } from './generic-model';
 
 @Directive()
 export class GenericOnBoardingComponent extends GenericDestroyPageComponent implements AfterViewInit {
-  public id: string = '12524b05-d8a2-4b1c-9c1f-79c321aa64d4';
+  public id: string;
   public _step: string;
   public form: FormGroup;
   public buildingNoOptions = BUILDINGNOOPTIONS;
@@ -146,5 +146,14 @@ export class GenericOnBoardingComponent extends GenericDestroyPageComponent impl
     }
     this.storageSrv.set('step', String(Number(this._step) - 1));
     this.router.navigateByUrl(`${route}/${this.id}`);
+  }
+
+  protected clearStorage(): void {
+    this.storageSrv.remove('type');
+    this.storageSrv.remove('personal');
+    this.storageSrv.remove('spouse');
+    this.storageSrv.remove('occupants');
+    this.storageSrv.remove('vehicles');
+    this.storageSrv.remove('documents');
   }
 }

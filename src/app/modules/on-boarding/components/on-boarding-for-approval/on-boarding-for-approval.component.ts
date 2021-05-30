@@ -20,7 +20,7 @@ export class OnboardingForApprovalComponent implements OnInit {
 
   public onDone(): void {
     setTimeout(() => {
-      this.router.navigateByUrl('/on-boarding/type');
+      // this.router.navigateByUrl('/on-boarding/type');
       this.store.dispatch(clearStepperAction());
       this.storageSrv.clear();
     }, 100);

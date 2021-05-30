@@ -1,7 +1,7 @@
 import { select, Store } from '@ngrx/store';
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { createOnboardingAction, createOnboardingSuccessAction, saveAndUploadImageAction, saveAndUploadImageSuccessAction } from './onboarding.action';
+import { createOnboardingAction, createOnboardingSuccessAction, getOnboardingByIdAction, getOnboardingByIdSuccessAction, saveAndUploadImageAction, saveAndUploadImageSuccessAction } from './onboarding.action';
 import { OnboardingService } from '../on-boarding.service';
 import { map, mergeMap, switchMap, tap } from 'rxjs/operators';
 import { combineLatest, forkJoin, of, zip } from 'rxjs';
@@ -25,6 +25,20 @@ export class OnboardingEffects extends GenericToastComponent {
     msgSrv: MessageService) {
     super(router, msgSrv);
   }
+  
+  getOnboardingByIdAction$ = createEffect(() => this.actions$.pipe(
+    ofType(getOnboardingByIdAction),
+    mergeMap(({ id }) => {
+      return zip(
+        this.onBoardingSrv.getById(id),
+        this.store.pipe(select(isLoadingSelector))
+      ).pipe(
+        map(([response, loader]) => {
+          return getOnboardingByIdSuccessAction({ response });
+        })
+      )
+    })
+  ));
 
   saveAndUploadImageAction$ = createEffect(() => this.actions$.pipe(
     ofType(saveAndUploadImageAction),

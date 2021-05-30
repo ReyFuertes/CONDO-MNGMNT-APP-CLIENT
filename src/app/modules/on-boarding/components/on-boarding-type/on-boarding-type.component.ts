@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { OnBoardingType } from 'src/app/models/onboarding.model';
 import { StorageService } from 'src/app/services/storage.service';
@@ -10,7 +10,7 @@ import { OnboardingEntityType } from 'src/app/shared/generics/generic-model';
 import { GenericOnBoardingComponent } from 'src/app/shared/generics/generic-onboarding';
 import { RooState } from 'src/app/store/root.reducer';
 import { environment } from 'src/environments/environment';
-import { addToTypeAction, setOnboardingStepperAction } from '../../store/onboarding.action';
+import { addToTypeAction, getOnboardingByIdAction, setOnboardingStepperAction } from '../../store/onboarding.action';
 
 @Component({
   selector: 'cma-on-boarding-type',
@@ -24,9 +24,16 @@ export class OnboardingTypeComponent extends GenericOnBoardingComponent implemen
   public selectedType: OnBoardingType;
   public onboardingType = OnBoardingType;
 
-  constructor(storageSrv: StorageService, router: Router, private _store: Store<RooState>,
+  constructor(private route: ActivatedRoute, storageSrv: StorageService, router: Router, private _store: Store<RooState>,
     public _storageSrv: StorageService, cdRef: ChangeDetectorRef, fb: FormBuilder, store: Store<RooState>) {
     super(OnboardingEntityType.ONBOARDINGTYPE, storageSrv, router, cdRef, fb, store);
+
+    this.id = this.route?.snapshot?.paramMap?.get('id') || null;
+    if (this.id) {
+      this._store.dispatch(getOnboardingByIdAction({ id: this.id }));
+      this.clearStorage();
+      this._storageSrv.set('step', OnboardingEntityType.ONBOARDINGTYPE)
+    }
   }
 
   ngOnInit(): void {

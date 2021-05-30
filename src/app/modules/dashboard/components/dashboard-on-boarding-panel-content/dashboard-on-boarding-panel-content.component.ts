@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { IOnboarding } from 'src/app/modules/on-boarding/on-boarding.model';
+import { StorageService } from 'src/app/services/storage.service';
 import { DASHBOARDONBOARDINGROUTE } from 'src/app/shared/constants/routes';
 
 @Component({
@@ -11,12 +12,12 @@ import { DASHBOARDONBOARDINGROUTE } from 'src/app/shared/constants/routes';
 export class DashboardOnboardingPanelContentComponent implements OnInit {
   @Input() public item: IOnboarding;
 
-  constructor(private router: Router) { }
+  constructor(private storageSrv: StorageService, private router: Router) { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
   public onEdit(id: string): void {
-    this.router.navigateByUrl(`${DASHBOARDONBOARDINGROUTE}/${id}/detail`);
+    this.router.navigateByUrl(`/on-boarding/type/${id}`);
+    this.storageSrv.set('obId', JSON.stringify(id));
   }
 }

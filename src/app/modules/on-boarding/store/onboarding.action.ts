@@ -17,7 +17,17 @@ export enum OnboardingActionTypes {
   addToTypeAction = '[Onboarding] add to type',
   saveAndUploadImageAction = '[Onboarding] save and upload image',
   saveAndUploadImageSuccessAction = '[Onboarding] save and upload image (success)',
+  getOnboardingByIdAction = '[Onboarding] get onboarding',
+  getOnboardingByIdSuccessAction = '[Onboarding] get onboarding (success)',
 }
+export const getOnboardingByIdAction = createAction(
+  OnboardingActionTypes.getOnboardingByIdAction,
+  props<{ id: string }>()
+);
+export const getOnboardingByIdSuccessAction = createAction(
+  OnboardingActionTypes.getOnboardingByIdSuccessAction,
+  props<{ response: IOnboarding }>()
+);
 export const saveAndUploadImageAction = createAction(
   OnboardingActionTypes.saveAndUploadImageAction,
   props<{ payload: any, images?: any }>()

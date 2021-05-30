@@ -1,4 +1,4 @@
-export const ONBOARDINGTYPEROUTE = '/on-boarding/type';
+export const ONBOARDINGTYPEROUTE = (id: string) => `/on-boarding/type/${id}`;
 export const ONBOARDINGPERSONALROUTE = '/on-boarding/personal';
 export const ONBOARDINGSPOUSEROUTE = '/on-boarding/spouse';
 export const ONBOARDINGOCCUPANTSROUTE = '/on-boarding/occupants';

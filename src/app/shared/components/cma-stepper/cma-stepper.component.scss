@@ -22,6 +22,7 @@
   }
   .p-timeline .p-timeline-event-marker {
     border: 2px solid $color-gray-2;
+    height: 0.9rem !important;
   }
   .p-timeline-event {
     &:last-child {
