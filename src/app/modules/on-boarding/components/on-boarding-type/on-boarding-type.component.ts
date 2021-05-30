@@ -1,7 +1,8 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
+import { takeUntil } from 'rxjs/operators';
 import { OnBoardingType } from 'src/app/models/onboarding.model';
 import { StorageService } from 'src/app/services/storage.service';
 import { ONBOARDINGPERSONAL } from 'src/app/shared/constants/generic';
@@ -11,6 +12,7 @@ import { GenericOnBoardingComponent } from 'src/app/shared/generics/generic-onbo
 import { RooState } from 'src/app/store/root.reducer';
 import { environment } from 'src/environments/environment';
 import { addToTypeAction, getOnboardingByIdAction, setOnboardingStepperAction } from '../../store/onboarding.action';
+import { getOnboardingTypeSelector } from '../../store/onboarding.selector';
 
 @Component({
   selector: 'cma-on-boarding-type',
@@ -29,19 +31,27 @@ export class OnboardingTypeComponent extends GenericOnBoardingComponent implemen
     super(OnboardingEntityType.ONBOARDINGTYPE, storageSrv, router, cdRef, fb, store);
 
     this.id = this.route?.snapshot?.paramMap?.get('id') || null;
-    if (this.id) {
-      this._store.dispatch(getOnboardingByIdAction({ id: this.id }));
-      this.clearStorage();
-      this._storageSrv.set('step', OnboardingEntityType.ONBOARDINGTYPE)
-    }
+    
+    this.clearStorage();
+    this._storageSrv.set('step', OnboardingEntityType.ONBOARDINGTYPE)
+
   }
 
   ngOnInit(): void {
-    const type = this._storageSrv.get('type');
-    if (type) {
-      this.selectedType = JSON.parse(type);
-      this.getSelection(this.selectedType);
-    }
+    this._store.pipe(select(getOnboardingTypeSelector),
+      takeUntil(this.$unsubscribe))
+      .subscribe(type => {
+        if (type) {
+          this.selectedType = type;
+          this.getSelection(this.selectedType)
+        } else {
+          const type = this._storageSrv.get('type');
+          if (type) {
+            this.selectedType = JSON.parse(type);
+            this.getSelection(this.selectedType);
+          }
+        }
+      });
   }
 
   public onSelect(chk: any): void {

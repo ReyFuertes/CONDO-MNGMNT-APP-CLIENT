@@ -48,43 +48,52 @@ export const RELATIONSOPTIONS: ISimpleItem[] = [{
   value: 'other'
 }];
 export const BUILDINGNOOPTIONS: ISimpleItem[] = [{
-  label: 'Building #1',
-  value: 'bldg1'
+  label: 'Building 1',
+  value: 'building 1'
 }, {
-  label: 'Building #2',
-  value: 'bldg2'
+  label: 'Building 2',
+  value: 'building 2'
 }, {
-  label: 'Building #3',
-  value: 'bldg3'
+  label: 'Building 3',
+  value: 'building 3'
 }, {
-  label: 'Building #4',
-  value: 'bldg4'
+  label: 'Building 4',
+  value: 'building 4'
 }, {
-  label: 'Building #5',
-  value: 'bldg5'
+  label: 'Building 5',
+  value: 'building 5'
 }, {
-  label: 'Building #9',
-  value: 'bldg9'
+  label: 'Building 6',
+  value: 'building 6'
 }];
 export const UNITNOOPTIONS: ISimpleItem[] = [{
-  label: 'Unit 901'
+  label: 'Unit 901',
+  value: 'unit 901'
 }, {
-  label: 'Unit 902'
+  label: 'Unit 902',
+  value: 'unit 902'
 }, {
-  label: 'Unit 903'
+  label: 'Unit 903',
+  value: 'unit 903'
 }, {
-  label: 'Unit 904'
+  label: 'Unit 904',
+  value: 'unit 904'
 }, {
-  label: 'Unit 905'
+  label: 'Unit 905',
+  value: 'unit 905'
 }];
 export const PARTKINGNOOPTIONS: ISimpleItem[] = [{
-  label: 'Park Slot #1'
+  label: 'Park Slot #1',
+  value: 'park slot #1'
 }, {
-  label: 'Park Slot #2'
+  label: 'Park Slot #2',
+  value: 'park slot #2'
 }, {
-  label: 'Park Slot #3'
+  label: 'Park Slot #3',
+  value: 'park slot #3'
 }, {
-  label: 'Park Slot #4'
+  label: 'Park Slot #4',
+  value: 'park slot #4'
 }];
 export const GENDEROPTIONS: ISimpleItem[] = [{
   label: 'Male',

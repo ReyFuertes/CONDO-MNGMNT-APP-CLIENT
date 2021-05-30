@@ -43,6 +43,9 @@
   width: 100%;
 }
 :host ::ng-deep {
+  .header-content .p-dropdown {
+    width: 200px !important;
+  }
   .filename {
     max-width: 160px;
   }

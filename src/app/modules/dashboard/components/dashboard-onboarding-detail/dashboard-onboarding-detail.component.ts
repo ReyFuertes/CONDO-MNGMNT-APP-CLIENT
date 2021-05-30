@@ -9,6 +9,7 @@ import { convertBlobToBase64 } from 'src/app/shared/util/convert-to-blob';
 import { v4 as uuid } from 'uuid';
 import * as _ from 'lodash';
 import { environment } from 'src/environments/environment';
+import { BUILDINGNOOPTIONS, UNITNOOPTIONS, PARTKINGNOOPTIONS, GENDEROPTIONS, CIVILOPTIONS, IDTYPEOPTIONS } from 'src/app/shared/constants/generic';
 
 @Component({
   selector: 'cma-dashboard-onboarding-detail',
@@ -28,69 +29,12 @@ export class DashboardOnboardingDetailComponent extends GenericDestroyPageCompon
     value: String(OccupantType.AuthorizedRepresentative)
   }];
   public selectedOccupantType: string = String(OccupantType.HomeOwner);
-  public buildingNoOptions: ISimpleItem[] = [{
-    label: 'Building #1',
-    value: 'bldg1'
-  }, {
-    label: 'Building #2',
-    value: 'bldg2'
-  }, {
-    label: 'Building #3',
-    value: 'bldg3'
-  }, {
-    label: 'Building #4',
-    value: 'bldg4'
-  }, {
-    label: 'Building #5',
-    value: 'bldg5'
-  }, {
-    label: 'Building #9',
-    value: 'bldg9'
-  }];
-  public unitNoOptions: ISimpleItem[] = [{
-    label: 'Unit 901'
-  }, {
-    label: 'Unit 902'
-  }, {
-    label: 'Unit 903'
-  }, {
-    label: 'Unit 904'
-  }, {
-    label: 'Unit 905'
-  }];
-  public parkingNoOptions: ISimpleItem[] = [{
-    label: 'Park Slot #1'
-  }, {
-    label: 'Park Slot #2'
-  }, {
-    label: 'Park Slot #3'
-  }, {
-    label: 'Park Slot #4'
-  }];
-  public genderOptions: ISimpleItem[] = [{
-    label: 'Male',
-    value: 'male'
-  }, {
-    label: 'Female',
-    value: 'female'
-  }, {
-    label: 'Other',
-    value: 'other'
-  }];
-  public civilOptions: ISimpleItem[] = [{
-    label: 'Married',
-    value: 'married'
-  }, {
-    label: 'Single',
-    value: 'single'
-  }];
-  public IdTypeOptions: ISimpleItem[] = [{
-    label: 'Passport',
-    value: 'passport'
-  }, {
-    label: 'Drivers License',
-    value: 'driverslicense'
-  }];
+  public buildingNoOptions: ISimpleItem[] = BUILDINGNOOPTIONS;
+  public unitNoOptions: ISimpleItem[] = UNITNOOPTIONS;
+  public parkingNoOptions: ISimpleItem[] = PARTKINGNOOPTIONS;
+  public genderOptions: ISimpleItem[] = GENDEROPTIONS;
+  public civilOptions: ISimpleItem[] = CIVILOPTIONS;
+  public IdTypeOptions: ISimpleItem[] = IDTYPEOPTIONS;
   public files: File[] = [];
   public svgPath: string = environment.svgPath;
   public uploadDocuments: ISimpleItem[] = [{

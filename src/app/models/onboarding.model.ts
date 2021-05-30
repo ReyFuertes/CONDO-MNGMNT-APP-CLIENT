@@ -20,9 +20,9 @@ export enum MenuType {
   Documents = 5
 }
 export enum OccupantType {
-  HomeOwner = 1,
-  Tenant = 2,
-  AuthorizedRepresentative = 3
+  HomeOwner = 'home owner',
+  Tenant = 'tenant',
+  AuthorizedRepresentative = 'authorized representative'
 }
 export enum OnBoardingType {
   Individual = '1',

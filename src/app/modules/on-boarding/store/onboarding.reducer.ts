@@ -1,7 +1,7 @@
 import { createReducer, on, Action } from "@ngrx/store";
 import { ISimpleItem } from "src/app/shared/generics/generic-model";
 import { IOnboardingOccupant, IOnboarding, IOnboardingDocument, IOnboardingPersonal, IOnboardingSpouse, IOnboardingVehicle } from "../on-boarding.model";
-import { addDocumentsAction, addToOccupantAction, addToPersonalAction, addToSpouseAction, addToVehiclesAction, clearStepperAction, createOnboardingSuccessAction, removeOccupantAction, setOnboardingStepperAction, addToOccupantsAction, addToTypeAction } from "./onboarding.action";
+import { addDocumentsAction, addToOccupantAction, addToPersonalAction, addToSpouseAction, addToVehiclesAction, clearStepperAction, createOnboardingSuccessAction, removeOccupantAction, setOnboardingStepperAction, addToOccupantsAction, addToTypeAction, getOnboardingByIdSuccessAction } from "./onboarding.action";
 import * as _ from 'lodash';
 import { createEntityAdapter, EntityAdapter, EntityState } from "@ngrx/entity";
 import { OnBoardingType } from "src/app/models/onboarding.model";
@@ -30,6 +30,17 @@ export const initialState: OnboardingState = adapter.getInitialState({
 
 const onboardingReducer = createReducer(
   initialState,
+  on(getOnboardingByIdSuccessAction, (state, action) => {
+    const onboarding: IOnboarding = {
+      type: action?.response?.type,
+      personal: action?.response?.personal,
+      spouse: action?.response?.spouse,
+      occupants: action?.response?.occupants,
+      documents: action?.response?.documents,
+      vehicles: action?.response?.vehicles,
+    };
+    return Object.assign({}, state, onboarding);
+  }),
   on(addToTypeAction, (state, action) => {
     return Object.assign({}, state, { type: action.payload });
   }),

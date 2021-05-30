@@ -54,53 +54,6 @@ export class OnboardingReviewComponent extends GenericOnBoardingComponent implem
   constructor(storageSrv: StorageService, router: Router, private _fb: FormBuilder, private _store: Store<RooState>,
     private _storageSrv: StorageService, cdRef: ChangeDetectorRef, fb: FormBuilder, store: Store<RooState>) {
     super(ONBOARDINGREVIEW, storageSrv, router, cdRef, fb, store);
-
-    this.form = this._fb.group({
-      type: [null],
-      personal: this._fb.group({
-        buildingNo: [null],
-        unitNo: [null],
-        parkingSlot: [null],
-        occupantType: [null],
-        lastname: [null],
-        firstname: [null],
-        middlename: [null],
-        citizenship: [null],
-        gender: [null],
-        civilStatus: [null],
-        dateOfBirth: [null],
-        occupation: [null],
-        busAddress: [null],
-        busContactNo: [null],
-        busEmail: [null],
-        tin: [null],
-        idType: [null],
-        idNo: [null],
-        uploadPersonalIdFile: [null],
-        getPersonalUploadedFilePreview: [null]
-      }),
-      spouse: this._fb.group({
-        lastname: [null],
-        firstname: [null],
-        middlename: [null],
-        citizenship: [null],
-        gender: [null],
-        civilStatus: [null],
-        dateOfBirth: [null],
-        occupation: [null],
-        busAddress: [null],
-        busContactNo: [null],
-        busEmail: [null],
-        tin: [null],
-        idType: [null],
-        idNo: [null],
-        uploadSpouseIdFile: [null],
-        uploadSpouseIdFilePreview: [null]
-      }),
-      occupants: new FormArray([]),
-      vehicles: new FormArray([]),
-      documents: new FormArray([])
-    });
   }
 
   ngOnInit(): void {
@@ -199,6 +152,7 @@ export class OnboardingReviewComponent extends GenericOnBoardingComponent implem
         documents,
         files
       };
+      
       setTimeout(() => {
         this._store.dispatch(createOnboardingAction({
           payload,

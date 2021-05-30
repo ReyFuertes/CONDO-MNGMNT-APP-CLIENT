@@ -12,6 +12,5 @@ export class CMADropdownComponent extends GenericControl<ISimpleItem> implements
     super();
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 }

@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { takeUntil } from 'rxjs/operators';
 import { IOnboardingDocument, IOnboardingOccupant, IOnboardingVehicle } from 'src/app/modules/on-boarding/on-boarding.model';
+import { getOnboardingByIdAction } from 'src/app/modules/on-boarding/store/onboarding.action';
 import { getOnboardingSelector } from 'src/app/modules/on-boarding/store/onboarding.selector';
 import { StorageService } from 'src/app/services/storage.service';
 import { RooState } from 'src/app/store/root.reducer';
@@ -33,9 +34,62 @@ export class GenericOnBoardingComponent extends GenericDestroyPageComponent impl
     private fb: FormBuilder, private store: Store<RooState>) {
     super();
     this._step = step;
+
+    this.form = this.fb.group({
+      type: [null],
+      personal: this.fb.group({
+        buildingNo: [null],
+        unitNo: [null],
+        parkingSlot: [null],
+        occupantType: [null],
+        lastname: [null],
+        firstname: [null],
+        middlename: [null],
+        citizenship: [null],
+        gender: [null],
+        civilStatus: [null],
+        dateOfBirth: [null],
+        occupation: [null],
+        busAddress: [null],
+        busContactNo: [null],
+        busEmail: [null],
+        tin: [null],
+        idType: [null],
+        idNo: [null],
+        uploadPersonalIdFile: [null],
+        getPersonalUploadedFilePreview: [null]
+      }),
+      spouse: this.fb.group({
+        lastname: [null],
+        firstname: [null],
+        middlename: [null],
+        citizenship: [null],
+        gender: [null],
+        civilStatus: [null],
+        dateOfBirth: [null],
+        occupation: [null],
+        busAddress: [null],
+        busContactNo: [null],
+        busEmail: [null],
+        tin: [null],
+        idType: [null],
+        idNo: [null],
+        uploadSpouseIdFile: [null],
+        uploadSpouseIdFilePreview: [null]
+      }),
+      occupants: new FormArray([]),
+      vehicles: new FormArray([]),
+      documents: new FormArray([])
+    });
   }
 
   ngAfterViewInit(): void {
+    const id = this.storageSrv.get('obId');
+    if (id) {
+      this.id = JSON.parse(id);
+      this.store.dispatch(getOnboardingByIdAction({ id: this.id }));
+    }
+
     this.store.pipe(select(getOnboardingSelector), takeUntil(this.$unsubscribe))
       .subscribe(res => {
         const { type, personal, spouse, occupants, vehicles, documents } = res;
@@ -52,7 +106,7 @@ export class GenericOnBoardingComponent extends GenericDestroyPageComponent impl
             }
             break;
           case OnboardingEntityType.ONBOARDINGPERSONAL:
-            if (personal) this.form.patchValue(personal);
+            if (personal) this.form.get(STRPERSONAL).patchValue(personal);
             else {
               const strPersonal = this.storageSrv.get(STRPERSONAL);  /* get personal data in localstorage */
               if (strPersonal) {
@@ -117,7 +171,10 @@ export class GenericOnBoardingComponent extends GenericDestroyPageComponent impl
             break;
         }
       });
-    this.cdRef.detectChanges();
+
+    setTimeout(() => {
+      this.cdRef.detectChanges();
+    }, 100);
   }
 
   protected createVehicleItem = (item: IOnboardingVehicle): FormGroup => {
@@ -144,6 +201,7 @@ export class GenericOnBoardingComponent extends GenericDestroyPageComponent impl
     if (formName && formValues) {
       this.storageSrv.set(formName, JSON.stringify(formValues));
     }
+
     this.storageSrv.set('step', String(Number(this._step) - 1));
     this.router.navigateByUrl(`${route}/${this.id}`);
   }

@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { OccupantType } from 'src/app/models/onboarding.model';
 import * as _ from 'lodash';
 import { GenericOnBoardingComponent } from 'src/app/shared/generics/generic-onboarding';
@@ -24,36 +24,21 @@ export class OnboardingPersonalComponent extends GenericOnBoardingComponent impl
   constructor(storageSrv: StorageService, router: Router, private _fb: FormBuilder, private _store: Store<RooState>,
     public _storageSrv: StorageService, cdRef: ChangeDetectorRef, fb: FormBuilder, store: Store<RooState>) {
     super(OnboardingEntityType.ONBOARDINGPERSONAL, storageSrv, router, cdRef, fb, store);
+  }
 
-    this.form = this._fb.group({
-      buildingNo: [null, [Validators.required]],
-      unitNo: [null, [Validators.required]],
-      parkingSlot: [null, [Validators.required]],
-      occupantType: [null, [Validators.required]],
-      lastname: [null, [Validators.required]],
-      firstname: [null, [Validators.required]],
-      middlename: [null, [Validators.required]],
-      citizenship: [null, [Validators.required]],
-      gender: [null, [Validators.required]],
-      civilStatus: [null, [Validators.required]],
-      dateOfBirth: [new Date(), [Validators.required]],
-      occupation: [null, [Validators.required]],
-      busAddress: [null, [Validators.required]],
-      busContactNo: [null, [Validators.required]],
-      busEmail: [null, [Validators.required]],
-      tin: [null, [Validators.required]],
-      idType: [null, [Validators.required]],
-      idNo: [null, [Validators.required]],
-      uploadPersonalIdFile: [null],
-      getPersonalUploadedFilePreview: [null]
-    });
+  public get getPersonalForm(): FormGroup {
+    return this.form.get('personal') as FormGroup;
   }
 
   ngOnInit(): void {
-    this.form.get('occupantType').patchValue({
+    this.getPersonalForm.get('occupantType').patchValue({
       label: 'Home Owner',
       value: String(OccupantType.HomeOwner)
     });
+
+    setTimeout(() => {
+      console.log((this.form.get('personal') as FormGroup).value)
+    }, 1000);
   }
 
   public onPersonalImageChange(event: any): void {

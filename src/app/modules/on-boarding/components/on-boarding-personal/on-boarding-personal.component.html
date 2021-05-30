@@ -3,50 +3,50 @@
 
   <div class="header-content" fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="20px">
     <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px">
-      <cma-dropdown-search [form]="form" controlName="buildingNo" [options]="buildingNoOptions" placeholder="Building"></cma-dropdown-search>
-      <cma-dropdown-search [form]="form" controlName="unitNo" [options]="unitNoOptions" placeholder="Unit #"></cma-dropdown-search>
-      <cma-dropdown-search [form]="form" controlName="parkingSlot" [options]="parkingNoOptions" placeholder="Parking Slot"></cma-dropdown-search>
+      <cma-dropdown-search [form]="getPersonalForm" controlName="buildingNo" [options]="buildingNoOptions" placeholder="Building"></cma-dropdown-search>
+      <cma-dropdown-search [form]="getPersonalForm" controlName="unitNo" [options]="unitNoOptions" placeholder="Unit #"></cma-dropdown-search>
+      <cma-dropdown-search [form]="getPersonalForm" controlName="parkingSlot" [options]="parkingNoOptions" placeholder="Parking Slot"></cma-dropdown-search>
     </div>
     <div fxLayout="row" fxLayoutAlign="center center">
-      <cma-select-option [form]="form" controlName="occupantType" [options]="occupantOptions"></cma-select-option>
+      <cma-select-option [form]="getPersonalForm" controlName="occupantType" [options]="occupantOptions"></cma-select-option>
     </div>
   </div>
 
   <div class="content-personal" fxLayout="column" fxLayoutAlign="center center">
     <div fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="20px">
-      <cma-input [form]="form" controlName="lastname" label="Lastname" placeholder="Lastname"></cma-input>
-      <cma-input [form]="form" controlName="firstname" label="Firstname" placeholder="Firstname"></cma-input>
-      <cma-input [form]="form" controlName="middlename" label="Middlename" placeholder="Middlename"></cma-input>
+      <cma-input [form]="getPersonalForm" controlName="lastname" label="Lastname" placeholder="Lastname"></cma-input>
+      <cma-input [form]="getPersonalForm" controlName="firstname" label="Firstname" placeholder="Firstname"></cma-input>
+      <cma-input [form]="getPersonalForm" controlName="middlename" label="Middlename" placeholder="Middlename"></cma-input>
     </div>
 
     <div fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="20px">
-      <cma-input [form]="form" controlName="citizenship" label="Citizenship" placeholder="Citizenship"></cma-input>
-      <cma-dropdown [form]="form" controlName="gender" [options]="genderOptions" label="Gender" placeholder="Gender"></cma-dropdown>
-      <cma-dropdown [form]="form" controlName="civilStatus" [options]="civilOptions" label="Civil Status" placeholder="Civil Status"></cma-dropdown>
+      <cma-input [form]="getPersonalForm" controlName="citizenship" label="Citizenship" placeholder="Citizenship"></cma-input>
+      <cma-dropdown [form]="getPersonalForm" controlName="gender" [options]="genderOptions" label="Gender" placeholder="Gender"></cma-dropdown>
+      <cma-dropdown [form]="getPersonalForm" controlName="civilStatus" [options]="civilOptions" label="Civil Status" placeholder="Civil Status"></cma-dropdown>
     </div>
 
     <div fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="20px">
-      <cma-datepicker [form]="form" controlName="dateOfBirth" label="Date of Birth" placeholder="Date of Birth"></cma-datepicker>
-      <cma-input [form]="form" controlName="occupation" label="Occupation" placeholder="Occupation"></cma-input>
-      <cma-input [form]="form" controlName="tin" label="TIN" placeholder="TIN"></cma-input>
+      <cma-datepicker [form]="getPersonalForm" controlName="dateOfBirth" label="Date of Birth" placeholder="Date of Birth"></cma-datepicker>
+      <cma-input [form]="getPersonalForm" controlName="occupation" label="Occupation" placeholder="Occupation"></cma-input>
+      <cma-input [form]="getPersonalForm" controlName="tin" label="TIN" placeholder="TIN"></cma-input>
     </div>
 
     <div fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="20px">
-      <cma-input [form]="form" controlName="busAddress" label="Bus. Address" placeholder="Bus. Address"></cma-input>
-      <cma-input [form]="form" controlName="busContactNo" label="Bus. Contact No." placeholder="Bus. Contact No."></cma-input>
-      <cma-input [form]="form" controlName="busEmail" label="Bus. Email" placeholder="Bus. Email"></cma-input>
+      <cma-input [form]="getPersonalForm" controlName="busAddress" label="Bus. Address" placeholder="Bus. Address"></cma-input>
+      <cma-input [form]="getPersonalForm" controlName="busContactNo" label="Bus. Contact No." placeholder="Bus. Contact No."></cma-input>
+      <cma-input [form]="getPersonalForm" controlName="busEmail" label="Bus. Email" placeholder="Bus. Email"></cma-input>
     </div>
 
     <div fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="20px">
-      <cma-dropdown [form]="form" controlName="idType" label="ID Type" [options]="IdTypeOptions" placeholder="ID Type"></cma-dropdown>
-      <cma-input [form]="form" controlName="idNo" label="ID No." placeholder="ID No."></cma-input>
-      <cma-upload (fileEmitter)="onPersonalImageChange($event)" [file]="form.get('uploadPersonalIdFile').value" [fileName]="getFileName('uploadPersonalIdFile')"></cma-upload>
+      <cma-dropdown [form]="getPersonalForm" controlName="idType" label="ID Type" [options]="IdTypeOptions" placeholder="ID Type"></cma-dropdown>
+      <cma-input [form]="getPersonalForm" controlName="idNo" label="ID No." placeholder="ID No."></cma-input>
+      <cma-upload (fileEmitter)="onPersonalImageChange($event)" [file]="getPersonalForm.get('uploadPersonalIdFile').value" [fileName]="getFileName('uploadPersonalIdFile')"></cma-upload>
     </div>
   </div>
 
 
   <div class="action-btns" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px">
     <button pButton pRipple type="button" (click)="onPrev()" label="Previous" class="p-button-rounded default"></button>
-    <button [disabled]="!form.valid" pButton pRipple type="button" (click)="onNext()" label="Next" class="p-button-rounded success"></button>
+    <button [disabled]="!getPersonalForm.valid" pButton pRipple type="button" (click)="onNext()" label="Next" class="p-button-rounded success"></button>
   </div>
 </div>
