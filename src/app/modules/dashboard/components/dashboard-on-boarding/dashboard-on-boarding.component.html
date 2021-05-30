@@ -13,7 +13,7 @@
         <cma-input-search (valueEmitter)="onSearch($event)" fxFlex="70"></cma-input-search>
         <cma-multi-select fxFlex [options]="filterOptions" [form]="form" controlName="fieldFilter"></cma-multi-select>
       </div>
-      <p-paginator [rows]="10" [totalRecords]="120" [rowsPerPageOptions]="[10,20,30]"></p-paginator>
+      <p-paginator (onPageChange)="onPaginate($event)" [rows]="pGRowCount" [totalRecords]="$onboardingCount | async" [rowsPerPageOptions]="[10,20,30]"></p-paginator>
     </div>
     <cma-dashboard-on-boarding-panel></cma-dashboard-on-boarding-panel>
   </div>

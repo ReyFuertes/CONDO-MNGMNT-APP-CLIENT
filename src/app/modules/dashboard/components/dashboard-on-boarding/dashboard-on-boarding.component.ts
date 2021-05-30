@@ -10,6 +10,8 @@ import { ISimpleItem } from 'src/app/shared/generics/generic-model';
 import { RooState } from 'src/app/store/root.reducer';
 import { loadDashboardOnboardingAction } from '../../store/actions/dashboard-onboarding.action';
 import * as _ from 'lodash';
+import { Observable } from 'rxjs';
+import { getDashboardOnboardingCountSelector } from '../../store/selectors/dashboard-onboarding.selector';
 
 @Component({
   selector: 'cma-dashboard-on-boarding',
@@ -54,6 +56,10 @@ export class DashboardOnboardingComponent extends GenericContainer implements On
   public form: FormGroup;
   public filterParams: string;
   public filterChanged: boolean = false;
+  public pGRowCount: number = 10;
+  public pGSkipCount: number = 0;
+  public paginationParams: any;
+  public $onboardingCount: Observable<number>;
 
   constructor(private fb: FormBuilder, private store: Store<RooState>) {
     super();
@@ -82,11 +88,18 @@ export class DashboardOnboardingComponent extends GenericContainer implements On
             this.onSearch(searchKeyword);
           }
         }
-      })
+      });
+
+    this.paginationParams = `take=${this.pGRowCount}&skip=${this.pGSkipCount}`;
+
+    this.$onboardingCount = this.store.pipe(select(getDashboardOnboardingCountSelector));
   }
 
-  public handleValueEmitter(event: any): void {
-    console.log(event)
+  public onPaginate(event: any): void {
+    this.paginationParams = `take=${event?.rows}&skip=${event?.first}`;
+
+    const searchKeyword = this.form.get('filterKeyword')?.value || '';
+    this.onSearch(searchKeyword);
   }
 
   public onSearch(keyword: any): void {
@@ -104,9 +117,9 @@ export class DashboardOnboardingComponent extends GenericContainer implements On
 
       let params = this.filterParams?.replace(/@searchValue/g, keyword) || '';
 
-      this.store.dispatch(loadDashboardOnboardingAction({ keyword: `${searchParams}${params}` }));
+      this.store.dispatch(loadDashboardOnboardingAction({ keyword: `${searchParams}${params}${this.paginationParams}` }));
     } else {
-      this.store.dispatch(loadDashboardOnboardingAction({}));
+      this.store.dispatch(loadDashboardOnboardingAction({ keyword: `${this.paginationParams}` }));
     }
   }
 }

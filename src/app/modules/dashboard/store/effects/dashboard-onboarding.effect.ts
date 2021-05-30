@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { UploadService } from 'src/app/services/upload.service';
 import { DashboardOnboardingService } from '../../dashboard.service';
 import { loadDashboardOnboardingAction, loadDashboardOnboardingActionSuccess } from '../actions/dashboard-onboarding.action';
+import { IOnboadingResponseDto } from 'src/app/modules/on-boarding/on-boarding.model';
 
 @Injectable()
 export class DashboardOnboardingEffects extends GenericToastComponent {
@@ -25,7 +26,7 @@ export class DashboardOnboardingEffects extends GenericToastComponent {
     switchMap(({ keyword }) => {
       return this.dashboardOnboardingSrv.getAll(keyword || '').pipe(
         map((response) => {
-          return loadDashboardOnboardingActionSuccess({ response });
+          return loadDashboardOnboardingActionSuccess({ response: <IOnboadingResponseDto>response });
         })
       )
     })

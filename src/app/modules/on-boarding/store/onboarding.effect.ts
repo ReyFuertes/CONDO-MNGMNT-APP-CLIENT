@@ -51,7 +51,7 @@ export class OnboardingEffects extends GenericToastComponent {
       ).pipe(
         map(([response, fileDoc, loader]) => {
           const { personal, spouse } = <IOnboarding>response;
-          debugger
+          
           this.store.dispatch(saveAndUploadImageAction({
             payload: {
               name: personalIdAttachment?.image?.name,

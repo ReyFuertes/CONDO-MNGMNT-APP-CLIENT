@@ -91,16 +91,12 @@ img {
   .mat-expansion-panel-header.mat-expanded:focus, .mat-expansion-panel-header.mat-expanded:hover {
     background: rgba(0,0,0,.04);
   } 
-  
   .p-button {
     padding: 10px;
     font-size: 12px;
   }
   .p-button.p-button-rounded {
     min-width: 120px;
-  }
-  mat-expansion-panel.mat-expanded {
-    border-left: 2px $color-gray-2 solid;
   }
   .mat-expansion-panel-header {
     padding: 20px 20px 20px 10px;

@@ -160,6 +160,8 @@ export class OnboardingReviewComponent extends GenericOnBoardingComponent implem
   }
 
   private processImageData(image: any, files: FormData): any {
+    if(!image?.name) return null;
+    
     files.append('files', image, image?.name);
  
     return {
