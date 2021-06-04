@@ -70,8 +70,6 @@ export class DashboardOnboardingComponent extends GenericContainer implements On
       fieldFilter: [null]
     });
 
-    this.store.dispatch(loadDashboardOnboardingAction({}));
-
     this.form.valueChanges.pipe(takeUntil(this.$unsubscribe))
       .subscribe(({ fieldFilter }) => {
         if (fieldFilter) {

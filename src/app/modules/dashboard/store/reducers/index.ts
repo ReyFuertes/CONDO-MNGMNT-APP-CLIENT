@@ -1,7 +1,6 @@
 import { ActionReducerMap } from '@ngrx/store';
 import * as fromRoot from 'src/app/store/root.reducer';
 import { DashboardOnboardingState, DashboardOnboardingReducer } from './dashboard-onboarding.reducer';
-
 export interface DashboardModuleState {
   dashboardOnboarding: DashboardOnboardingState,
 }

@@ -22,7 +22,6 @@ export class AppComponent extends GenericDestroyPageComponent implements OnInit,
   }
 
   ngOnInit(): void {
-    this.store.subscribe(res => console.log(res))
   }
 
   ngAfterViewInit(): void {
