@@ -1,4 +1,4 @@
-<mat-accordion *ngIf="($onboardings | async) as onboardings; else noRecords">
+<mat-accordion *ngIf="($onboardings | async) as onboardings; else noRecords" [multi]="true">
   <mat-expansion-panel *ngFor="let item of onboardings; let i = index" [expanded]="i === 0">
     <mat-expansion-panel-header>
       <mat-panel-title>
