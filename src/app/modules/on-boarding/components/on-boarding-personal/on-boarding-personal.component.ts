@@ -61,7 +61,6 @@ export class OnboardingPersonalComponent extends GenericOnBoardingComponent impl
   public onNext(): void {
     super.onNext(ONBOARDINGSPOUSEROUTE(this.id));
 
-    //this._store.dispatch(addToPersonalAction({ payload: this.getPersonalForm.value }));
     this._store.dispatch(setOnboardingStepperAction({ step: ONBOARDINGSPOUSE }));
   }
 
@@ -69,7 +68,6 @@ export class OnboardingPersonalComponent extends GenericOnBoardingComponent impl
     setTimeout(() => {
       super.onPrev(ONBOARDINGTYPEROUTE(this.id), STRPERSONAL, this.getPersonalForm.value);
 
-      //this._store.dispatch(addToPersonalAction({ payload: this.getPersonalForm.value }));
       this._store.dispatch(setOnboardingStepperAction({ step: ONBOARDINGTYPE }));
     }, 100);
   }

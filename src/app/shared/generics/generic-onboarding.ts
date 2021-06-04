@@ -108,9 +108,7 @@ export class GenericOnBoardingComponent extends GenericDestroyPageComponent impl
     this.store.pipe(select(getOnboardingSelector), takeUntil(this.$unsubscribe))
       .subscribe(res => {
         if (res) {
-          const { type, personal, spouse, occupants, vehicles, documents } = res;
-
-          
+          const { type, personal, spouse, occupants, vehicles, documents, documentsToUpload } = res;
 
           switch (this._step) {
             case OnboardingEntityType.ONBOARDINGTYPE:
@@ -142,10 +140,14 @@ export class GenericOnBoardingComponent extends GenericDestroyPageComponent impl
               break;
             case OnboardingEntityType.ONBOARDINGDOCUMENTS:
               if (documents) {
+                this.getDocumentsForm.clear();
                 documents?.forEach(document => {
                   this.formDocumentsArr = this.getDocumentsForm;
-                  this.formDocumentsArr.push(this.createDocumentItem(Object.assign({}, document)));
+                  if(document?.id) {
+                    this.formDocumentsArr.push(this.createDocumentItem(Object.assign({}, document)));
+                  }
                 });
+                this.toUploadDocs = documentsToUpload || [];
               }
               break;
             case OnboardingEntityType.ONBOARDINGREVIEW:
@@ -175,7 +177,7 @@ export class GenericOnBoardingComponent extends GenericDestroyPageComponent impl
     return this.form.get(STRVEHICLES) as FormArray;
   }
 
-  public get getOccupantsArr(): any[] {
+  public get getOccupantsArr(): FormArray {
     return this.form.get(STROCCUPANTS)['controls'] as any;
   }
 
@@ -189,10 +191,6 @@ export class GenericOnBoardingComponent extends GenericDestroyPageComponent impl
 
   public get getDocumentsForm(): FormArray {
     return this.form.get(STRDOCUMENTS) as FormArray;
-  }
-
-  public get getDocumentsControls(): any[] {
-    return this.form.get(STRVEHICLES)['controls'] as any;
   }
 
   public get getPersonalForm(): FormGroup {

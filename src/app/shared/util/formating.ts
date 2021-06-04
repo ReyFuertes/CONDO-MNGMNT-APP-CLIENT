@@ -67,6 +67,7 @@ export const FmtFormToPayload = (payload: IOnboarding): IOnboarding => {
     occupants: payload?.occupants,
     vehicles: payload?.vehicles,
     documents: payload?.documents,
+    documentsToUpload: payload?.documentsToUpload
   }
 
   return fmted;
@@ -95,6 +96,7 @@ export const FmtPayloadToForm = (payload: IOnboarding): IOnboarding => {
     occupants: payload?.occupants,
     vehicles: payload?.vehicles,
     documents: payload?.documents,
+    documentsToUpload: payload?.documentsToUpload
   }
   return fmted;
 }

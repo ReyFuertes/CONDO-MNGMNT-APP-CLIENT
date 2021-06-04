@@ -2,7 +2,7 @@
   <div class="content" fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="20px">
     <!-- personal information -->
     <div class="content-personal" fxLayout="column" fxLayoutAlign="start start">
-      <div *ngIf="!hasDocs" class="well-error">No documents uploaded</div>
+      <div *ngIf="!hasToUploadDocs" class="well-error">No documents uploaded</div>
       <h4>Personal Information</h4>
       <div class="w-100" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="15px">
         <cma-input [form]="getPersonalForm" controlName="buildingNo" label="Building #" [value]="'Building #9'"></cma-input>
@@ -68,7 +68,7 @@
     <div [formGroup]="form" class="occupants-container">
       <ng-container *ngIf="hasOccupants">
         <h4>Occupants</h4>
-        <div *ngFor="let occupant of getOccupants; let i = index" fxLayout="column">
+        <div *ngFor="let occupant of getOccupantsArr; let i = index" fxLayout="column">
           <ng-container formArrayName="occupants">
             <div fxFlex fxLayoutGap="20px" [formGroupName]="i" fxLayout="row" fxLayoutAlign="start center">
               <cma-input [form]="occupant" [isReadOnly]="true" controlName="name" label="Name"></cma-input>
@@ -80,10 +80,10 @@
     </div>
 
     <!-- vehicles -->
-    <div [formGroup]="form" class="vehicles-container">
-      <ng-container *ngIf="hasVehicles">
+    <div *ngIf="hasVehicles" [formGroup]="form" class="vehicles-container">
+      <ng-container>
         <h4>Vehicles</h4>
-        <div *ngFor="let vehicle of getVehicles; let i = index" fxLayout="column">
+        <div *ngFor="let vehicle of getVehiclesFormArr; let i = index" fxLayout="column">
           <ng-container formArrayName="vehicles">
             <div fxFlex fxLayoutGap="20px" [formGroupName]="i" fxLayout="row" fxLayoutAlign="start center">
               <cma-input [form]="vehicle" [isReadOnly]="true" controlName="model" label="Model"></cma-input>
@@ -95,9 +95,20 @@
       </ng-container>
     </div>
 
-    <!-- documents -->
-    <div class="documents-container">
-      <h4>Documents</h4>
+    <!-- to Upload documents -->
+    <div *ngIf="hasToUploadDocs" class="documents-container">
+      <h4>To Upload Documents</h4>
+      <div fxLayout="row wrap" fxLayoutAlign="start center" fxLayoutGap="5px">
+        <div *ngFor="let doc of toUploadDocs" pTooltip="Download" class="document-thumb" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="5px">
+          <i class="pi pi-file-pdf"></i>
+          <span>{{ doc?.name }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- uploaded documents -->
+    <div *ngIf="hasUploadedDocs" class="documents-container">
+      <h4>Uploaded Documents</h4>
       <div fxLayout="row wrap" fxLayoutAlign="start center" fxLayoutGap="5px">
         <div *ngFor="let doc of getDocumentFiles" pTooltip="Download" class="document-thumb" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="5px">
           <i class="pi pi-file-pdf"></i>

@@ -7,7 +7,7 @@ import { OnboardingEntityType } from 'src/app/shared/generics/generic-model';
 import { GenericOnBoardingComponent } from 'src/app/shared/generics/generic-onboarding';
 import { RooState } from 'src/app/store/root.reducer';
 import { environment } from 'src/environments/environment';
-import { addDocumentsAction, setOnboardingStepperAction } from '../../store/onboarding.action';
+import { addDocumentsAction, setOnboardingStepperAction, updateOnboardingDocumentsValuesAction } from '../../store/onboarding.action';
 import { ONBOARDINGVEHICLESROUTE, ONBOARDINGREVIEWROUTE } from 'src/app/shared/constants/routes';
 import { STRDOCUMENTS } from 'src/app/shared/constants/generic';
 import * as _ from 'lodash';
@@ -25,7 +25,7 @@ export class OnboardingDocumentComponent extends GenericOnBoardingComponent impl
     super(OnboardingEntityType.ONBOARDINGDOCUMENTS, storageSrv, router, cdRef, fb, store);
   }
 
-  ngOnInit(): void {  }
+  ngOnInit(): void { }
 
   public getFileName(document: any): any {
     return this.getDocumentsForm?.value?.file?.name || document?.label;
@@ -35,7 +35,15 @@ export class OnboardingDocumentComponent extends GenericOnBoardingComponent impl
     let toUploadDocs = Object.assign([], this.toUploadDocs);
     toUploadDocs.push(event?.files[0]);
 
-    this.toUploadDocs = toUploadDocs;
+    this._store.dispatch(updateOnboardingDocumentsValuesAction({ payload: toUploadDocs }));
+  }
+
+  public get hasUploadedDocs(): boolean {
+    return this.getDocumentFiles?.length > 0;
+  }
+
+  public get uploadedDocsCount(): number {
+    return this.getDocumentFiles?.length || 0;
   }
 
   public onRemove(event: any): void {
@@ -45,6 +53,13 @@ export class OnboardingDocumentComponent extends GenericOnBoardingComponent impl
     this.toUploadDocs = uploadedDocs;
   }
 
+  public onRemoveUploadedDoc(item: any, i: any): void {
+    if (item) {
+      this.formDocumentsArr = this.form.get(STRDOCUMENTS) as FormArray;
+      this.formDocumentsArr.removeAt(i);
+    }
+  }
+
   public hasFile(prevLabel: any, currLabel: any): boolean {
     return prevLabel && prevLabel !== currLabel ? true : false;
   }
@@ -52,14 +67,12 @@ export class OnboardingDocumentComponent extends GenericOnBoardingComponent impl
   public onNext(): void {
     super.onNext(ONBOARDINGREVIEWROUTE(this.id));
 
-    //this._store.dispatch(addDocumentsAction({ documents: this.toUploadDocs }));
     this._store.dispatch(setOnboardingStepperAction({ step: OnboardingEntityType.ONBOARDINGREVIEW }));
   }
 
   public onPrev(): void {
     super.onPrev(ONBOARDINGVEHICLESROUTE(this.id));
 
-    //this._store.dispatch(addDocumentsAction({ documents: this.toUploadDocs }));
     this._store.dispatch(setOnboardingStepperAction({ step: OnboardingEntityType.ONBOARDINGVEHICLES }));
   }
 }

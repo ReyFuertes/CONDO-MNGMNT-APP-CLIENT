@@ -12,7 +12,7 @@ export interface IOnboarding {
   occupants?: IOnboardingOccupant[];
   vehicles?: any;
   documents?: any;
-  files?: any;
+  documentsToUpload?: any;
 }
 export interface IOnboardingDocument {
   id?: string;

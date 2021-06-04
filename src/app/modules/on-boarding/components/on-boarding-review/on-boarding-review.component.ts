@@ -34,36 +34,47 @@ export class OnboardingReviewComponent extends GenericOnBoardingComponent implem
   ngOnInit(): void {
     this._store.pipe(select(getOnboardingSelector), takeUntil(this.$unsubscribe))
       .subscribe(res => {
-        const { type, personal, spouse, occupants, vehicles, documents } = FmtFormToPayload(res);
+        const { type, personal, spouse, occupants, vehicles, documents, documentsToUpload } = FmtFormToPayload(res);
 
         if (type) this.form.get(STRTYPE).patchValue(type);
 
-        if (personal) this.getPersonalForm.patchValue(personal);
+        if (personal) this.getPersonalForm.patchValue(personal, { emitEvent: false });
 
-        if (spouse) this.getSpouseForm.patchValue(spouse);
+        if (spouse) this.getSpouseForm.patchValue(spouse, { emitEvent: false });
 
         if (occupants) {
-          this.FormOccupantsArr = this.form.get(STROCCUPANTS) as FormArray;
+          this.getOccupantsForm.clear();
           occupants?.forEach(occupant => {
-            this.FormOccupantsArr.push(this.createOccupantItem(occupant));
+            this.FormOccupantsArr = this.getOccupantsForm;
+            this.FormOccupantsArr.push(this.createOccupantItem(Object.assign({}, occupant)));
           });
-        };
+        }
+
         if (vehicles) {
-          this.FormVehiclesArr = this.form.get(STRVEHICLES) as FormArray;
+          this.getVehiclesForm.clear();
           vehicles?.forEach(vehicle => {
-            this.FormVehiclesArr.push(this.createVehicleItem(vehicle));
+            this.FormVehiclesArr = this.form.get(STRVEHICLES) as FormArray;
+            this.FormVehiclesArr.push(this.createVehicleItem(Object.assign({}, vehicle)));
           });
-        };
+        }
+
         if (documents) {
-          this.formDocumentsArr = this.form.get(STRDOCUMENTS) as FormArray;
+          this.getDocumentsForm.clear();
           documents?.forEach(document => {
-            this.formDocumentsArr.push(this.createDocumentItem(document));
+            this.formDocumentsArr = this.getDocumentsForm;
+            if (document?.id) {
+              this.formDocumentsArr.push(this.createDocumentItem(Object.assign({}, document)));
+            }
           });
-        };
-      })
+          this.toUploadDocs = documentsToUpload || [];
+        }
+      });
   }
 
-  public get hasDocs(): boolean {
+  public get hasToUploadDocs(): boolean {
+    return this.toUploadDocs?.length > 0;
+  }
+  public get hasUploadedDocs(): boolean {
     return this.getDocumentFiles?.length > 0;
   }
 
@@ -148,46 +159,6 @@ export class OnboardingReviewComponent extends GenericOnBoardingComponent implem
         }));
       }, 100);
     }
-  }
-
-  public get getOccupants(): any[] {
-    return this.form.get(STROCCUPANTS)['controls'] || [];
-  }
-
-  public get getVehicles(): any[] {
-    return this.form.get(STRVEHICLES)['controls'] || [];
-  }
-
-  public get hasVehicles(): boolean {
-    return this.getVehicles.length > 0;
-  }
-
-  public get hasOccupants(): boolean {
-    return this.getOccupants.length > 0;
-  }
-
-  public get hasDocuments(): boolean {
-    return this.getDocumentsForm?.value?.filter(i => Boolean(i))?.length > 0;
-  }
-
-  public get getDocuments(): any[] {
-    return this.formDocumentsArr['controls'] || [];
-  }
-
-  public get getPersonalForm(): FormGroup {
-    return this.form.controls[STRPERSONAL] as FormGroup;
-  }
-
-  public get getSpouseForm(): FormGroup {
-    return this.form.controls[STRSPOUSE] as FormGroup;
-  }
-
-  public get getOccupantsForm(): FormArray {
-    return this.form.controls[STROCCUPANTS] as FormArray;
-  }
-
-  public get getVehiclesForm(): FormGroup {
-    return this.form.controls[STRVEHICLES] as FormGroup;
   }
 
   public onPrev(): void {

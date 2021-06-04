@@ -23,7 +23,12 @@ export enum OnboardingActionTypes {
   updateOnboardingSpouseValuesAction = '[Onboarding] update onboarding spouse values',
   updateOnboardingOccupantValuesAction = '[Onboarding] update onboarding occupant values',
   updateOnboardingVehicleValuesAction = '[Onboarding] update onboarding vehicle values',
+  updateOnboardingDocumentsValuesAction = '[Onboarding] update onboarding documents values'
 }
+export const updateOnboardingDocumentsValuesAction = createAction(
+  OnboardingActionTypes.updateOnboardingDocumentsValuesAction,
+  props<{ payload: IOnboardingDocument[] }>()
+);
 export const updateOnboardingVehicleValuesAction = createAction(
   OnboardingActionTypes.updateOnboardingVehicleValuesAction,
   props<{ payload: IOnboardingVehicle[] }>()

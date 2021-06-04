@@ -1,7 +1,7 @@
 import { createReducer, on, Action } from "@ngrx/store";
 import { ISimpleItem } from "src/app/shared/generics/generic-model";
 import { IOnboardingOccupant, IOnboarding, IOnboardingDocument, IOnboardingPersonal, IOnboardingSpouse, IOnboardingVehicle } from "../on-boarding.model";
-import { addDocumentsAction, addToOccupantAction, addToPersonalAction, addToSpouseAction, addToVehiclesAction, clearStepperAction, createOnboardingSuccessAction, removeOccupantAction, setOnboardingStepperAction, addToOccupantsAction, addToTypeAction, getOnboardingByIdSuccessAction, updateOnboardingPersonalValuesAction, updateOnboardingSpouseValuesAction, updateOnboardingOccupantValuesAction, updateOnboardingVehicleValuesAction } from "./onboarding.action";
+import { addDocumentsAction, addToOccupantAction, addToPersonalAction, addToSpouseAction, addToVehiclesAction, clearStepperAction, createOnboardingSuccessAction, removeOccupantAction, setOnboardingStepperAction, addToOccupantsAction, addToTypeAction, getOnboardingByIdSuccessAction, updateOnboardingPersonalValuesAction, updateOnboardingSpouseValuesAction, updateOnboardingOccupantValuesAction, updateOnboardingVehicleValuesAction, updateOnboardingDocumentsValuesAction } from "./onboarding.action";
 import * as _ from 'lodash';
 import { createEntityAdapter, EntityAdapter, EntityState } from "@ngrx/entity";
 import { OnBoardingType } from "src/app/models/onboarding.model";
@@ -34,6 +34,9 @@ export const initialState: OnboardingState = adapter.getInitialState({
 
 const onboardingReducer = createReducer(
   initialState,
+  on(updateOnboardingDocumentsValuesAction, (state, action) => {
+    return Object.assign({}, state, { documentsToUpload: action?.payload });
+  }),
   on(updateOnboardingVehicleValuesAction, (state, action) => {
     return Object.assign({}, state, { vehicles: action?.payload });
   }),
