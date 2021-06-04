@@ -22,12 +22,12 @@ export interface IMyInfo {
   firstname?: string;
   middlename?: string;
   citizenship?: string;
-  gender?: string;
-  civilStatus?: string;
+  gender?: string | ISimpleItem;
+  civilStatus?: string | ISimpleItem;
   dateOfBirth?: string;
   occupation?: string;
   tin?: string;
-  idType?: string;
+  idType?: string | ISimpleItem;
   idNo?: string;
   uploadePersonalIdFile?: File;
   uploadeSpouseIdFile?: File;

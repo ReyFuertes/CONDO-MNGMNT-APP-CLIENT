@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { MessageService } from 'primeng/api';
 import { takeUntil } from 'rxjs/operators';
@@ -13,21 +13,25 @@ import { isLoadingSelector } from './store/selector/app.selector';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent extends GenericDestroyPageComponent implements OnInit {
+export class AppComponent extends GenericDestroyPageComponent implements OnInit, AfterViewInit {
   public appLoading: boolean = false;
   public title = 'CMA';
 
-  constructor(private msgSrv: MessageService, private store: Store<RooState>, public loaderSrv: LoaderInterceptorService) {
+  constructor(private cdRef: ChangeDetectorRef, private store: Store<RooState>, public loaderSrv: LoaderInterceptorService) {
     super();
   }
 
   ngOnInit(): void {
+    this.store.subscribe(res => console.log(res))
+  }
+
+  ngAfterViewInit(): void {
     this.store.pipe(select(isLoadingSelector))
       .pipe(takeUntil(this.$unsubscribe))
       .subscribe(appLoading => {
         this.appLoading = appLoading;
+        this.cdRef.detectChanges();
       });
-    this.store.subscribe(res => console.log(res))
   }
 
   public onReject(): void { }

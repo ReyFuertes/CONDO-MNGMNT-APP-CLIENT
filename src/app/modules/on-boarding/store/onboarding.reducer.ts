@@ -1,7 +1,7 @@
 import { createReducer, on, Action } from "@ngrx/store";
 import { ISimpleItem } from "src/app/shared/generics/generic-model";
 import { IOnboardingOccupant, IOnboarding, IOnboardingDocument, IOnboardingPersonal, IOnboardingSpouse, IOnboardingVehicle } from "../on-boarding.model";
-import { addDocumentsAction, addToOccupantAction, addToPersonalAction, addToSpouseAction, addToVehiclesAction, clearStepperAction, createOnboardingSuccessAction, removeOccupantAction, setOnboardingStepperAction, addToOccupantsAction, addToTypeAction, getOnboardingByIdSuccessAction } from "./onboarding.action";
+import { addDocumentsAction, addToOccupantAction, addToPersonalAction, addToSpouseAction, addToVehiclesAction, clearStepperAction, createOnboardingSuccessAction, removeOccupantAction, setOnboardingStepperAction, addToOccupantsAction, addToTypeAction, getOnboardingByIdSuccessAction, updateOnboardingPersonalValuesAction, updateOnboardingSpouseValuesAction, updateOnboardingOccupantValuesAction, updateOnboardingVehicleValuesAction } from "./onboarding.action";
 import * as _ from 'lodash';
 import { createEntityAdapter, EntityAdapter, EntityState } from "@ngrx/entity";
 import { OnBoardingType } from "src/app/models/onboarding.model";
@@ -15,7 +15,9 @@ export interface OnboardingState extends EntityState<IOnboarding> {
   vehicles?: IOnboardingVehicle[],
   occupants?: IOnboardingOccupant[],
   documents?: any,
-  onboardingSubmitted?: boolean
+  documentsToUpload?: any,
+  onboardingSubmitted?: boolean,
+  onboardingLoaded?: boolean
 }
 export const initialState: OnboardingState = adapter.getInitialState({
   stepper: null,
@@ -24,12 +26,26 @@ export const initialState: OnboardingState = adapter.getInitialState({
   spouse: null,
   occupants: [],
   documents: null,
+  documentsToUpload: null,
   vehicles: null,
-  onboardingSubmitted: null
+  onboardingSubmitted: null,
+  onboardingLoaded: null
 });
 
 const onboardingReducer = createReducer(
   initialState,
+  on(updateOnboardingVehicleValuesAction, (state, action) => {
+    return Object.assign({}, state, { vehicles: action?.payload });
+  }),
+  on(updateOnboardingOccupantValuesAction, (state, action) => {
+    return Object.assign({}, state, { occupants: action?.payload });
+  }),
+  on(updateOnboardingSpouseValuesAction, (state, action) => {
+    return Object.assign({}, state, { spouse: action?.payload?.spouse });
+  }),
+  on(updateOnboardingPersonalValuesAction, (state, action) => {
+    return Object.assign({}, state, { personal: action?.payload?.personal });
+  }),
   on(getOnboardingByIdSuccessAction, (state, action) => {
     const onboarding: IOnboarding = {
       type: action?.response?.type,
@@ -40,6 +56,9 @@ const onboardingReducer = createReducer(
       vehicles: action?.response?.vehicles,
     };
     return Object.assign({}, state, onboarding);
+  }),
+  on(getOnboardingByIdSuccessAction, (state) => {
+    return Object.assign({}, state, { onboardingLoaded: true });
   }),
   on(addToTypeAction, (state, action) => {
     return Object.assign({}, state, { type: action.payload });
@@ -66,7 +85,7 @@ const onboardingReducer = createReducer(
     return Object.assign({}, state, { onboardingSubmitted: true });
   }),
   on(addDocumentsAction, (state, action) => {
-    return Object.assign({}, state, { documents: action.documents });
+    return Object.assign({}, state, { addDocumentsAction: action.documents });
   }),
   on(removeOccupantAction, (state, action) => {
     let occupants: IOnboardingOccupant[] = Object.assign([], state.occupants);

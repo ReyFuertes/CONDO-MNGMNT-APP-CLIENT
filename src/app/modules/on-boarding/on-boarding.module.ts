@@ -12,7 +12,7 @@ import { OnboardingPersonalComponent } from './components/on-boarding-personal/o
 import { OnboardingReviewComponent } from './components/on-boarding-review/on-boarding-review.component';
 import { OnboardingDocumentComponent } from './components/on-boarding-document/on-boarding-document.component';
 import { OnboardingForApprovalComponent } from './components/on-boarding-for-approval/on-boarding-for-approval.component';
-import { OnboardingSpouseInfoComponent } from './components/on-boarding-spouse-info/on-boarding-spouse-info.component';
+import { OnboardingSpouseInfoComponent } from './components/on-boarding-spouse/on-boarding-spouse.component';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { OnboardingReducer } from './store/onboarding.reducer';

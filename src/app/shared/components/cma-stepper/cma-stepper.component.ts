@@ -59,7 +59,7 @@ export class CMStepperComponent extends GenericDestroyPageComponent implements O
     }, {
       label: 'Review',
       value: OnboardingEntityType.ONBOARDINGREVIEW,
-      route: `/on-boarding/review`,
+      route: `/on-boarding/review/${this.getOnboardingIdFromStorage}`,
     }];
 
     this.store.pipe(select(getOnboardingStepperSelector),

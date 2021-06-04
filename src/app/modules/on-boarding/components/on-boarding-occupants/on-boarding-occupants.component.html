@@ -10,7 +10,7 @@
             <button pButton pRipple type="button" (click)="onAdd()" label="Add Occupant" class="p-button-rounded primary"></button>
           </div>
 
-          <div *ngFor="let occupant of getOccupants; let i = index" fxLayout="column">
+          <div *ngFor="let occupant of getOccupantsArr; let i = index" fxLayout="column">
             <ng-container formArrayName="occupants">
               <div fxFlex fxLayoutGap="20px" [formGroupName]="i" fxLayout="row" fxLayoutAlign="start center">
                 <cma-input [form]="occupant" [isReadOnly]="true" controlName="name" label="Name"></cma-input>

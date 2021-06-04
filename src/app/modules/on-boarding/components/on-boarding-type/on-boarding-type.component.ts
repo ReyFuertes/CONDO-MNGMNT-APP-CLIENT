@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
@@ -19,7 +19,7 @@ import { getOnboardingTypeSelector } from '../../store/onboarding.selector';
   templateUrl: './on-boarding-type.component.html',
   styleUrls: ['./on-boarding-type.component.scss']
 })
-export class OnboardingTypeComponent extends GenericOnBoardingComponent implements OnInit {
+export class OnboardingTypeComponent extends GenericOnBoardingComponent implements OnInit, OnChanges {
   public svgPath: string = environment.svgPath;
   public selectedTypeIsIndividual: any;
   public selectedTypeICorporate: any;
@@ -27,14 +27,13 @@ export class OnboardingTypeComponent extends GenericOnBoardingComponent implemen
   public onboardingType = OnBoardingType;
 
   constructor(private route: ActivatedRoute, storageSrv: StorageService, router: Router, private _store: Store<RooState>,
-    public _storageSrv: StorageService, cdRef: ChangeDetectorRef, fb: FormBuilder, store: Store<RooState>) {
+    public _storageSrv: StorageService, cdRef: ChangeDetectorRef, fb: FormBuilder, store: Store<RooState>, private _cdRef: ChangeDetectorRef) {
     super(OnboardingEntityType.ONBOARDINGTYPE, storageSrv, router, cdRef, fb, store);
 
     this.id = this.route?.snapshot?.paramMap?.get('id') || null;
-    
+
     this.clearStorage();
     this._storageSrv.set('step', OnboardingEntityType.ONBOARDINGTYPE)
-
   }
 
   ngOnInit(): void {
@@ -52,6 +51,10 @@ export class OnboardingTypeComponent extends GenericOnBoardingComponent implemen
           }
         }
       });
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log('changes', changes)
   }
 
   public onSelect(chk: any): void {
@@ -72,7 +75,7 @@ export class OnboardingTypeComponent extends GenericOnBoardingComponent implemen
   }
 
   public onNext(): void {
-    super.onNext(ONBOARDINGPERSONALROUTE, 'type', this.selectedType);
+    super.onNext(ONBOARDINGPERSONALROUTE(this.id), 'type', this.selectedType);
 
     this._store.dispatch(addToTypeAction({ payload: this.selectedType }));
     this._store.dispatch(setOnboardingStepperAction({ step: ONBOARDINGPERSONAL }));

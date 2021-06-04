@@ -2,14 +2,15 @@ import { AfterViewInit, ChangeDetectorRef, Directive } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import { takeUntil } from 'rxjs/operators';
-import { IOnboardingDocument, IOnboardingOccupant, IOnboardingVehicle } from 'src/app/modules/on-boarding/on-boarding.model';
+import { map, takeUntil } from 'rxjs/operators';
+import { IOnboarding, IOnboardingDocument, IOnboardingOccupant, IOnboardingVehicle } from 'src/app/modules/on-boarding/on-boarding.model';
 import { getOnboardingByIdAction } from 'src/app/modules/on-boarding/store/onboarding.action';
-import { getOnboardingSelector } from 'src/app/modules/on-boarding/store/onboarding.selector';
+import { getOnboardingSelector, onboardingLoadedSelector } from 'src/app/modules/on-boarding/store/onboarding.selector';
 import { StorageService } from 'src/app/services/storage.service';
 import { RooState } from 'src/app/store/root.reducer';
 import { environment } from 'src/environments/environment';
 import { BUILDINGNOOPTIONS, CIVILOPTIONS, GENDEROPTIONS, IDTYPEOPTIONS, PARTKINGNOOPTIONS, RELATIONSOPTIONS, STRDOCUMENTS, STROCCUPANTS, STRPERSONAL, STRSPOUSE, STRVEHICLES, UNITNOOPTIONS, STRTYPE } from '../constants/generic';
+import { FmtPayloadToForm } from '../util/formating';
 import { GenericDestroyPageComponent } from './generic-destroy';
 import { OnboardingEntityType } from './generic-model';
 
@@ -27,8 +28,10 @@ export class GenericOnBoardingComponent extends GenericDestroyPageComponent impl
   public relationOptions = RELATIONSOPTIONS;
   public FormOccupantsArr: FormArray;
   public FormVehiclesArr: FormArray;
+  public formDocumentsArr: FormArray;
   public svgPath: string = environment.svgPath;
-  public uploadedDocs: any[] = [];
+  public toUploadDocs: any[] = [];
+  public onboardingLoaded: boolean = false;
 
   constructor(step: string, private storageSrv: StorageService, private router: Router, private cdRef: ChangeDetectorRef,
     private fb: FormBuilder, private store: Store<RooState>) {
@@ -38,6 +41,7 @@ export class GenericOnBoardingComponent extends GenericDestroyPageComponent impl
     this.form = this.fb.group({
       type: [null],
       personal: this.fb.group({
+        id: [null],
         buildingNo: [null],
         unitNo: [null],
         parkingSlot: [null],
@@ -60,6 +64,7 @@ export class GenericOnBoardingComponent extends GenericDestroyPageComponent impl
         getPersonalUploadedFilePreview: [null]
       }),
       spouse: this.fb.group({
+        id: [null],
         lastname: [null],
         firstname: [null],
         middlename: [null],
@@ -81,100 +86,121 @@ export class GenericOnBoardingComponent extends GenericDestroyPageComponent impl
       vehicles: new FormArray([]),
       documents: new FormArray([])
     });
+
+    this.store.pipe(select(onboardingLoadedSelector),
+      takeUntil(this.$unsubscribe))
+      .subscribe(res => {
+        this.onboardingLoaded = res;
+      });
   }
 
   ngAfterViewInit(): void {
     const id = this.storageSrv.get('obId');
     if (id) {
       this.id = JSON.parse(id);
-      this.store.dispatch(getOnboardingByIdAction({ id: this.id }));
+
+      //if the onboarding is not loaded yet, then load it
+      if (!this.onboardingLoaded) {
+        this.store.dispatch(getOnboardingByIdAction({ id: this.id }));
+      }
     }
 
     this.store.pipe(select(getOnboardingSelector), takeUntil(this.$unsubscribe))
       .subscribe(res => {
-        const { type, personal, spouse, occupants, vehicles, documents } = res;
+        if (res) {
+          const { type, personal, spouse, occupants, vehicles, documents } = res;
 
-        switch (this._step) {
-          case OnboardingEntityType.ONBOARDINGTYPE:
-            if (type) this.form.get(STRTYPE).patchValue(type);
-            else {
-              const strType = this.storageSrv.get(STRTYPE);
-              if (strType) {
-                let t = JSON.parse(strType);
-                this.form.get(STRTYPE).patchValue(t);
-              }
-            }
-            break;
-          case OnboardingEntityType.ONBOARDINGPERSONAL:
-            if (personal) this.form.get(STRPERSONAL).patchValue(personal);
-            else {
-              const strPersonal = this.storageSrv.get(STRPERSONAL);  /* get personal data in localstorage */
-              if (strPersonal) {
-                let p = JSON.parse(strPersonal);
-                this.form.patchValue({ ...p, dateOfBirth: p?.dateOfBirth ? new Date(p?.dateOfBirth) : null });
-              }
-            }
-            break;
-          case OnboardingEntityType.ONBOARDINGSPOUSE:
-            if (spouse) this.form.patchValue(spouse);
-            else {
-              const strSpouse = this.storageSrv.get(STRSPOUSE);  /* get spouse data in localstorage */
-              if (strSpouse) {
-                let s = JSON.parse(strSpouse);
-                s = { ...s, dateOfBirth: s?.dateOfBirth ? new Date(s?.dateOfBirth) : null }
-                this.form.patchValue(s);
-              }
-            }
-            break;
-          case OnboardingEntityType.ONBOARDINGOCCUPANTS:
-            if (occupants) {
-              occupants?.forEach(occupant => {
-                this.FormOccupantsArr = this.form.get(STROCCUPANTS) as FormArray;
-                this.FormOccupantsArr.push(this.createOccupantItem(Object.assign({}, occupant)));
-              });
-            } else {
-              const o = this.storageSrv.get(STROCCUPANTS);
-              if (o) {
-                const occupantsArr = JSON.parse(o)?.occupants;
-                this.FormOccupantsArr = this.form.get(STROCCUPANTS) as FormArray;
+          
 
-                occupantsArr?.forEach(occupant => {
+          switch (this._step) {
+            case OnboardingEntityType.ONBOARDINGTYPE:
+              if (type) this.form.get(STRTYPE).patchValue(type);
+              break;
+            case OnboardingEntityType.ONBOARDINGPERSONAL:
+              if (personal) this.getPersonalForm.patchValue(personal, { emitEvent: false });
+              break;
+            case OnboardingEntityType.ONBOARDINGSPOUSE:
+              if (spouse) this.getSpouseForm.patchValue(spouse, { emitEvent: false });
+              break;
+            case OnboardingEntityType.ONBOARDINGOCCUPANTS:
+              if (occupants) {
+                this.getOccupantsForm.clear();
+                occupants?.forEach(occupant => {
+                  this.FormOccupantsArr = this.getOccupantsForm;
                   this.FormOccupantsArr.push(this.createOccupantItem(Object.assign({}, occupant)));
                 });
               }
-            }
-            break;
-          case OnboardingEntityType.ONBOARDINGVEHICLES:
-            if (vehicles) {
-              vehicles?.forEach(vehicle => {
-                this.FormVehiclesArr = this.form.get(STRVEHICLES) as FormArray;
-                this.FormVehiclesArr.push(this.createVehicleItem(Object.assign({}, vehicle)));
-              });
-            } else {
-              const vehicles = this.storageSrv.get(STRVEHICLES);
+              break;
+            case OnboardingEntityType.ONBOARDINGVEHICLES:
               if (vehicles) {
-                const vehiclesArr = JSON.parse(vehicles)?.vehicles;
-                this.FormVehiclesArr = this.form.get(STRVEHICLES) as FormArray;
-
-                vehiclesArr?.forEach(vehicle => {
+                this.getVehiclesForm.clear();
+                vehicles?.forEach(vehicle => {
+                  this.FormVehiclesArr = this.form.get(STRVEHICLES) as FormArray;
                   this.FormVehiclesArr.push(this.createVehicleItem(Object.assign({}, vehicle)));
                 });
               }
-            }
-            break;
-          case OnboardingEntityType.ONBOARDINGDOCUMENTS:
-            if (documents) {
-              this.uploadedDocs = documents;
-            };
-            break;
-          case OnboardingEntityType.ONBOARDINGREVIEW:
-            break;
+              break;
+            case OnboardingEntityType.ONBOARDINGDOCUMENTS:
+              if (documents) {
+                documents?.forEach(document => {
+                  this.formDocumentsArr = this.getDocumentsForm;
+                  this.formDocumentsArr.push(this.createDocumentItem(Object.assign({}, document)));
+                });
+              }
+              break;
+            case OnboardingEntityType.ONBOARDINGREVIEW:
+              break;
+          }
         }
       });
+    this.cdRef.detectChanges();
+  }
 
-    setTimeout(() => {
-      this.cdRef.detectChanges();
-    }, 100);
+  public get getDocumentFiles(): any {
+    const ret = this.formDocumentsArr?.controls.map(doc => {
+      return doc?.value;
+    });
+    return ret;
+  }
+
+  public get getVehiclesFormArr(): FormArray {
+    return this.form.get(STRVEHICLES)['controls'] as any;
+  }
+
+  public get hasVehicles(): boolean {
+    return this.getVehiclesFormArr?.length > 0;
+  }
+
+  public get getVehiclesForm(): FormArray {
+    return this.form.get(STRVEHICLES) as FormArray;
+  }
+
+  public get getOccupantsArr(): any[] {
+    return this.form.get(STROCCUPANTS)['controls'] as any;
+  }
+
+  public get hasOccupants(): boolean {
+    return this.getOccupantsArr?.length > 0;
+  }
+
+  public get getOccupantsForm(): FormArray {
+    return this.form.get(STROCCUPANTS) as FormArray;
+  }
+
+  public get getDocumentsForm(): FormArray {
+    return this.form.get(STRDOCUMENTS) as FormArray;
+  }
+
+  public get getDocumentsControls(): any[] {
+    return this.form.get(STRVEHICLES)['controls'] as any;
+  }
+
+  public get getPersonalForm(): FormGroup {
+    return this.form.get(STRPERSONAL) as FormGroup;
+  }
+
+  public get getSpouseForm(): FormGroup {
+    return this.form.get(STRSPOUSE) as FormGroup;
   }
 
   protected createVehicleItem = (item: IOnboardingVehicle): FormGroup => {
@@ -193,8 +219,9 @@ export class GenericOnBoardingComponent extends GenericDestroyPageComponent impl
     if (formName && formValues) {
       this.storageSrv.set(formName, JSON.stringify(formValues));
     }
+
     this.storageSrv.set('step', String(Number(this._step) + 1));
-    this.router.navigateByUrl(`${route}/${this.id}`);
+    this.router.navigateByUrl(route);
   }
 
   public onPrev(route?: string, formName?: string, formValues?: any): void {
@@ -203,7 +230,7 @@ export class GenericOnBoardingComponent extends GenericDestroyPageComponent impl
     }
 
     this.storageSrv.set('step', String(Number(this._step) - 1));
-    this.router.navigateByUrl(`${route}/${this.id}`);
+    this.router.navigateByUrl(route);
   }
 
   protected clearStorage(): void {

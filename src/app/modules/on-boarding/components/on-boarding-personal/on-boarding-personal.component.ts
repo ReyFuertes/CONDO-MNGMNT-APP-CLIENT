@@ -7,11 +7,14 @@ import { StorageService } from 'src/app/services/storage.service';
 import { select, Store } from '@ngrx/store';
 import { RooState } from 'src/app/store/root.reducer';
 import { Router } from '@angular/router';
-import { addToPersonalAction, setOnboardingStepperAction } from '../../store/onboarding.action';
+import { addToPersonalAction, setOnboardingStepperAction, updateOnboardingPersonalValuesAction } from '../../store/onboarding.action';
 import { OCCUPANTOPTIONS, ONBOARDINGSPOUSE, ONBOARDINGPERSONAL, ONBOARDINGTYPE, STRPERSONAL } from 'src/app/shared/constants/generic';
 import { OnboardingEntityType } from 'src/app/shared/generics/generic-model';
 import * as moment from 'moment';
 import { ONBOARDINGSPOUSEROUTE, ONBOARDINGTYPEROUTE } from 'src/app/shared/constants/routes';
+import { takeUntil } from 'rxjs/operators';
+import { FmtPayloadToForm } from 'src/app/shared/util/formating';
+import { IOnboarding } from '../../on-boarding.model';
 @Component({
   selector: 'cma-on-boarding-personal',
   templateUrl: './on-boarding-personal.component.html',
@@ -22,12 +25,15 @@ export class OnboardingPersonalComponent extends GenericOnBoardingComponent impl
   public files: File[] = [];
 
   constructor(storageSrv: StorageService, router: Router, private _fb: FormBuilder, private _store: Store<RooState>,
-    public _storageSrv: StorageService, cdRef: ChangeDetectorRef, fb: FormBuilder, store: Store<RooState>) {
+    public _storageSrv: StorageService, cdRef: ChangeDetectorRef, fb: FormBuilder, store: Store<RooState>, private _cdRef: ChangeDetectorRef) {
     super(OnboardingEntityType.ONBOARDINGPERSONAL, storageSrv, router, cdRef, fb, store);
-  }
 
-  public get getPersonalForm(): FormGroup {
-    return this.form.get('personal') as FormGroup;
+    this.form.valueChanges.pipe(takeUntil(this.$unsubscribe))
+      .subscribe((payload: IOnboarding) => {
+        if (payload?.personal?.id) {
+          this._store.dispatch(updateOnboardingPersonalValuesAction({ payload }));
+        }
+      });
   }
 
   ngOnInit(): void {
@@ -35,10 +41,7 @@ export class OnboardingPersonalComponent extends GenericOnBoardingComponent impl
       label: 'Home Owner',
       value: String(OccupantType.HomeOwner)
     });
-
-    setTimeout(() => {
-      console.log((this.form.get('personal') as FormGroup).value)
-    }, 1000);
+    this._cdRef.detectChanges();
   }
 
   public onPersonalImageChange(event: any): void {
@@ -48,26 +51,26 @@ export class OnboardingPersonalComponent extends GenericOnBoardingComponent impl
     } else {
       file = event.target.files[0];
     }
-    this.form.get('uploadPersonalIdFile').patchValue(file);
+    this.getPersonalForm.get('uploadPersonalIdFile').patchValue(file);
   }
 
   public getFileName(formName: string): string {
-    return this.form.get(formName)?.value?.name;
+    return this.getPersonalForm.get(formName)?.value?.name;
   }
 
   public onNext(): void {
-    super.onNext(ONBOARDINGSPOUSEROUTE, STRPERSONAL, {
-      ...this.form.value,
-      dateOfBirth: moment(new Date(this.form.value?.dateOfBirth)).format('MM-DD-YYYY')
-    });
-    this._store.dispatch(addToPersonalAction({ payload: this.form.value }));
+    super.onNext(ONBOARDINGSPOUSEROUTE(this.id));
+
+    //this._store.dispatch(addToPersonalAction({ payload: this.getPersonalForm.value }));
     this._store.dispatch(setOnboardingStepperAction({ step: ONBOARDINGSPOUSE }));
   }
 
   public onPrev(): void {
-    super.onPrev(ONBOARDINGTYPEROUTE(this.id), STRPERSONAL, this.form.value);
+    setTimeout(() => {
+      super.onPrev(ONBOARDINGTYPEROUTE(this.id), STRPERSONAL, this.getPersonalForm.value);
 
-    this._store.dispatch(addToPersonalAction({ payload: this.form.value }));
-    this._store.dispatch(setOnboardingStepperAction({ step: ONBOARDINGTYPE }));
+      //this._store.dispatch(addToPersonalAction({ payload: this.getPersonalForm.value }));
+      this._store.dispatch(setOnboardingStepperAction({ step: ONBOARDINGTYPE }));
+    }, 100);
   }
 }

@@ -1,10 +1,25 @@
 <div class="upload-container" fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="20px">
   <h2>Upload Documents</h2>
 
-  <div class="content" fxLayout="row wrap" fxLayoutAlign="start start" fxLayoutGap="20px">
-    <p-fileUpload name="uploadedDocs[]" [files]="uploadedDocs" multiple="multiple" (onSelect)="onUpload($event)" [showUploadButton]="false" [showCancelButton]="false" (onRemove)="onRemove($event)" accept="application/pdf,application/msword,
+  <div class="content" fxLayout="column" fxLayoutAlign="start start">
+    <p-fileUpload name="uploadedDocs[]" [files]="toUploadDocs" multiple="multiple" (onSelect)="onUpload($event)" [showUploadButton]="false" [showCancelButton]="false" (onRemove)="onRemove($event)" accept="application/pdf,application/msword,
     application/vnd.openxmlformats-officedocument.wordprocessingml.document" maxFileSize="10000000">
     </p-fileUpload>
+
+    <div class="uploaded-files" fxLayout="column" fxLayoutAlign="start start">
+      <div fxLayout="row" fxLayoutAlign="start center">
+        <h5>Uploaded documents</h5>
+      </div>
+      <div *ngFor="let doc of getDocumentFiles" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
+        <div fxFlex>{{ doc?.name }}</div>
+        <div fxFlex="95px" fxLayoutAlign="start center">{{ doc?.size }} KB</div>
+        <div fxFlex="40px" fxLayoutAlign="end center"><button pButton pRipple type="button" (click)="onRemoveUploadedDoc(doc)" class="danger">
+            <div fxLayout="row" fxLayoutAlign="center center">
+              <i class="pi pi-times"></i>
+            </div>
+          </button></div>
+      </div>
+    </div>
   </div>
 
   <div class="action-btns" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px">

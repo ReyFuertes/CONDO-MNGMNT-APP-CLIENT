@@ -1,0 +1,40 @@
+<div class="spouse-container" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="20px">
+  <h2>Spouse Information</h2>
+
+  <div class="content">
+    <div fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="20px">
+      <cma-input [form]="getSpouseForm" controlName="lastname" label="Lastname" placeholder="Lastname"></cma-input>
+      <cma-input [form]="getSpouseForm" controlName="firstname" label="Firstname" placeholder="Firstname"></cma-input>
+      <cma-input [form]="getSpouseForm" controlName="middlename" label="Middlename" placeholder="Middlename"></cma-input>
+    </div>
+
+    <div fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="20px">
+      <cma-input [form]="getSpouseForm" controlName="citizenship" label="Citizenship" placeholder="Citizenship"></cma-input>
+      <cma-dropdown [form]="getSpouseForm" controlName="gender" [options]="genderOptions" label="Gender" placeholder="Gender"></cma-dropdown>
+      <cma-dropdown [form]="getSpouseForm" controlName="civilStatus" [options]="civilOptions" label="Civil Status" placeholder="Civil Status"></cma-dropdown>
+    </div>
+
+    <div fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="20px">
+      <cma-datepicker [form]="getSpouseForm" controlName="dateOfBirth" label="Date of Birth" placeholder="Date of Birth"></cma-datepicker>
+      <cma-input [form]="getSpouseForm" controlName="occupation" label="Occupation" placeholder="Occupation"></cma-input>
+      <cma-input [form]="getSpouseForm" controlName="tin" label="TIN" placeholder="TIN"></cma-input>
+    </div>
+
+    <div fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="20px">
+      <cma-input [form]="getSpouseForm" controlName="busAddress" label="Bus. Address" placeholder="Bus. Address"></cma-input>
+      <cma-input [form]="getSpouseForm" controlName="busContactNo" label="Bus. Contact No." placeholder="Bus. Contact No."></cma-input>
+      <cma-input [form]="getSpouseForm" controlName="busEmail" label="Bus. Email" placeholder="Bus. Email"></cma-input>
+    </div>
+
+    <div fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="20px">
+      <cma-dropdown [form]="getSpouseForm" controlName="idType" label="ID Type" [options]="IdTypeOptions" placeholder="ID Type"></cma-dropdown>
+      <cma-input [form]="getSpouseForm" controlName="idNo" label="ID No." placeholder="ID No."></cma-input>
+      <cma-upload (fileEmitter)="onSpouseImageChange($event)" [file]="getSpouseForm.get('uploadSpouseIdFile').value" [fileName]="getFileName('uploadSpouseIdFile')"></cma-upload>
+    </div>
+  </div>
+
+  <div class="action-btns" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px">
+    <button pButton pRipple type="button" (click)="onPrev()" label="Previous" class="p-button-rounded default"></button>
+    <button [disabled]="!getSpouseForm.valid" pButton pRipple type="button" (click)="onNext()" label="Next" class="p-button-rounded success"></button>
+  </div>
+</div>

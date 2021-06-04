@@ -6,7 +6,7 @@ import { StorageService } from 'src/app/services/storage.service';
 import { GenericOnBoardingComponent } from 'src/app/shared/generics/generic-onboarding';
 import { RooState } from 'src/app/store/root.reducer';
 import { ONBOARDINGDOCUMENTS, ONBOARDINGOCCUPANTS, ONBOARDINGSPOUSE, STRVEHICLES } from 'src/app/shared/constants/generic';
-import { addToVehiclesAction, setOnboardingStepperAction } from '../../store/onboarding.action';
+import { addToVehiclesAction, setOnboardingStepperAction, updateOnboardingVehicleValuesAction } from '../../store/onboarding.action';
 import { IOnboardingVehicle } from '../../on-boarding.model';
 import { MatDialog } from '@angular/material/dialog';
 import { AddEditStateType, OnboardingEntityType } from 'src/app/shared/generics/generic-model';
@@ -24,17 +24,9 @@ export class OnboardingVehicleComponent extends GenericOnBoardingComponent imple
 
   constructor(public dialog: MatDialog, storageSrv: StorageService, router: Router, private _fb: FormBuilder, private _store: Store<RooState>, cdRef: ChangeDetectorRef, fb: FormBuilder, store: Store<RooState>) {
     super(OnboardingEntityType.ONBOARDINGVEHICLES, storageSrv, router, cdRef, fb, store);
-
-    this.form = this._fb.group({
-      vehicles: new FormArray([]),
-    });
   }
 
   ngOnInit(): void { }
-
-  public get vehicles(): FormArray {
-    return this.form.get(STRVEHICLES) as FormArray;
-  }
 
   public newVehicle(vehicle: IOnboardingVehicle): FormGroup {
     return this._fb.group(vehicle)
@@ -42,8 +34,10 @@ export class OnboardingVehicleComponent extends GenericOnBoardingComponent imple
 
   public onRemove(item: IOnboardingVehicle, i: number): void {
     if (item) {
-      this.FormVehiclesArr = this.form.get(STRVEHICLES) as FormArray;
+      this.FormVehiclesArr = this.getVehiclesForm;
       this.FormVehiclesArr.removeAt(i);
+
+      this.updateVehicles();
     }
   }
 
@@ -55,33 +49,37 @@ export class OnboardingVehicleComponent extends GenericOnBoardingComponent imple
       height: '380px',
       autoFocus: true
     });
-    dialogRef.afterClosed().subscribe((payload) => {
-      if (payload) {
-        this.FormVehiclesArr = this.form.get(STRVEHICLES) as FormArray;
-        this.FormVehiclesArr.push(this.createVehicleItem(Object.assign({}, payload)));
+    dialogRef.afterClosed().subscribe((res) => {
+      if (res) {
+        this.FormVehiclesArr = this.getVehiclesForm;
+        this.FormVehiclesArr.push(this.createVehicleItem(Object.assign({}, res)));
+
+        this.updateVehicles();
       }
     });
   }
 
-  public get getVehicles(): any[] {
-    return this.form.get(STRVEHICLES)['controls'] as any;
-  }
-
-  public get hasVehicles(): boolean {
-    return this.getVehicles?.length > 0;
+  private updateVehicles(): void {
+    const payload = this.FormVehiclesArr?.value?.map(v => {
+      return {
+        id: v?.id,
+        model: v?.model,
+        make: v?.make,
+        plateNo: v?.plateNo
+      };
+    });
+    this._store.dispatch(updateOnboardingVehicleValuesAction({ payload }));
   }
 
   public onNext(): void {
-    super.onNext(ONBOARDINGDOCUMENTSROUTE, STRVEHICLES, this.form.value);
+    super.onNext(ONBOARDINGDOCUMENTSROUTE(this.id));
 
-    this._store.dispatch(addToVehiclesAction({ payload: this.form.value?.vehicles }));
     this._store.dispatch(setOnboardingStepperAction({ step: ONBOARDINGDOCUMENTS }));
   }
 
   public onPrev(): void {
-    super.onPrev(ONBOARDINGOCCUPANTSROUTE, STRVEHICLES, this.form.value);
+    super.onPrev(ONBOARDINGOCCUPANTSROUTE(this.id));
 
-    this._store.dispatch(addToVehiclesAction({ payload: this.form.value?.vehicles }));
     this._store.dispatch(setOnboardingStepperAction({ step: ONBOARDINGOCCUPANTS }));
   }
 }

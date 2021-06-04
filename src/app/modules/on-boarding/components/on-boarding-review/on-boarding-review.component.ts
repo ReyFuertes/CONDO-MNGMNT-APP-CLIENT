@@ -14,39 +14,14 @@ import { getDocumentsSelector, getOnboardingSelector } from '../../store/onboard
 import * as _ from 'lodash';
 import { ONBOARDINGDOCUMENTSROUTE } from 'src/app/shared/constants/routes';
 import { v4 as uuid } from 'uuid';
-import { CamelToSnakeCase } from 'src/app/shared/util/formating';
-
+import { CamelToSnakeCase, FmtFormToPayload } from 'src/app/shared/util/formating';
 @Component({
   selector: 'cma-on-boarding-review',
   templateUrl: './on-boarding-review.component.html',
   styleUrls: ['./on-boarding-review.component.scss']
 })
 export class OnboardingReviewComponent extends GenericOnBoardingComponent implements OnInit {
-  public uploadDocuments: ISimpleItem[] = [{
-    label: 'Amenities Registration Form',
-    value: ''
-  }, {
-    label: 'Move-in Notice & Clearance Form',
-    value: ''
-  }, {
-    label: 'Residents Information Sheet',
-    value: ''
-  }, {
-    label: 'Vehicle Registration & Car Sticker Form',
-    value: ''
-  }, {
-    label: 'ID Card Application Form',
-    value: ''
-  }, {
-    label: 'Signature Information Card',
-    value: ''
-  }, {
-    label: 'Waiver',
-    value: ''
-  }, {
-    label: 'Contract',
-    value: ''
-  }];
+  public uploadDocuments: ISimpleItem[] = [];
   public svgPath: string = environment.svgPath;
   public camelToSnakeCase = CamelToSnakeCase;
   public uploadedDocs: any[] = [];
@@ -59,13 +34,13 @@ export class OnboardingReviewComponent extends GenericOnBoardingComponent implem
   ngOnInit(): void {
     this._store.pipe(select(getOnboardingSelector), takeUntil(this.$unsubscribe))
       .subscribe(res => {
-        const { type, personal, spouse, occupants, vehicles, documents } = res;
+        const { type, personal, spouse, occupants, vehicles, documents } = FmtFormToPayload(res);
 
         if (type) this.form.get(STRTYPE).patchValue(type);
 
-        if (personal) this.form.get(STRPERSONAL).patchValue(personal);
+        if (personal) this.getPersonalForm.patchValue(personal);
 
-        if (spouse) this.form.get(STRSPOUSE).patchValue(spouse);
+        if (spouse) this.getSpouseForm.patchValue(spouse);
 
         if (occupants) {
           this.FormOccupantsArr = this.form.get(STROCCUPANTS) as FormArray;
@@ -79,12 +54,17 @@ export class OnboardingReviewComponent extends GenericOnBoardingComponent implem
             this.FormVehiclesArr.push(this.createVehicleItem(vehicle));
           });
         };
-        if (documents) this.uploadedDocs = documents;
+        if (documents) {
+          this.formDocumentsArr = this.form.get(STRDOCUMENTS) as FormArray;
+          documents?.forEach(document => {
+            this.formDocumentsArr.push(this.createDocumentItem(document));
+          });
+        };
       })
   }
 
   public get hasDocs(): boolean {
-    return this.uploadedDocs?.length > 0;
+    return this.getDocumentFiles?.length > 0;
   }
 
   public get getPersonalIdFileName(): any {
@@ -113,10 +93,10 @@ export class OnboardingReviewComponent extends GenericOnBoardingComponent implem
   }
 
   private processImageData(image: any, files: FormData): any {
-    if(!image?.name) return null;
-    
+    if (!image?.name) return null;
+
     files.append('files', image, image?.name);
- 
+
     return {
       name: image?.name,
       size: image.size,
@@ -152,7 +132,7 @@ export class OnboardingReviewComponent extends GenericOnBoardingComponent implem
         documents,
         files
       };
-      
+
       setTimeout(() => {
         this._store.dispatch(createOnboardingAction({
           payload,
@@ -187,7 +167,11 @@ export class OnboardingReviewComponent extends GenericOnBoardingComponent implem
   }
 
   public get hasDocuments(): boolean {
-    return this.uploadedDocs.filter(i => Boolean(i))?.length > 0;
+    return this.getDocumentsForm?.value?.filter(i => Boolean(i))?.length > 0;
+  }
+
+  public get getDocuments(): any[] {
+    return this.formDocumentsArr['controls'] || [];
   }
 
   public get getPersonalForm(): FormGroup {
@@ -202,16 +186,12 @@ export class OnboardingReviewComponent extends GenericOnBoardingComponent implem
     return this.form.controls[STROCCUPANTS] as FormArray;
   }
 
-  public get getDocumentsForm(): FormGroup {
-    return this.form.controls[STRDOCUMENTS] as FormGroup;
-  }
-
   public get getVehiclesForm(): FormGroup {
     return this.form.controls[STRVEHICLES] as FormGroup;
   }
 
   public onPrev(): void {
-    super.onPrev(ONBOARDINGDOCUMENTSROUTE);
+    super.onPrev(ONBOARDINGDOCUMENTSROUTE(this.id));
 
     this._store.dispatch(setOnboardingStepperAction({ step: ONBOARDINGDOCUMENTS }));
   }

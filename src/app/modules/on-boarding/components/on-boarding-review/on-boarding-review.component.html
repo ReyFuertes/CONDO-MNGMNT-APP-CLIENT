@@ -96,10 +96,10 @@
     </div>
 
     <!-- documents -->
-    <div *ngIf="hasDocuments" class="documents-container">
+    <div class="documents-container">
       <h4>Documents</h4>
       <div fxLayout="row wrap" fxLayoutAlign="start center" fxLayoutGap="5px">
-        <div *ngFor="let doc of uploadedDocs" pTooltip="Download" class="document-thumb" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="5px">
+        <div *ngFor="let doc of getDocumentFiles" pTooltip="Download" class="document-thumb" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="5px">
           <i class="pi pi-file-pdf"></i>
           <span>{{ doc?.name }}</span>
         </div>

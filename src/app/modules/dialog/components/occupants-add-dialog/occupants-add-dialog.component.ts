@@ -8,6 +8,7 @@ import { IOnboardingOccupant, IOnboardingPersonal } from 'src/app/modules/on-boa
 import { ISimpleItem } from 'src/app/shared/generics/generic-model';
 import { RELATIONSOPTIONS } from 'src/app/shared/constants/generic';
 import * as _ from 'lodash';
+import { FmtToValue } from 'src/app/shared/util/formating';
 @Component({
   selector: 'cma-occupants-add-dialog',
   templateUrl: './occupants-add-dialog.component.html',
@@ -35,10 +36,10 @@ export class OccupantsAddDialogComponent extends GenericAddEditComponent<IOnboar
     if (!entity) return;
     try {
       const { id, name, relationship } = entity;
-      
+
       this.form.controls['id'].patchValue(id);
       this.form.controls['name'].patchValue(name);
-      this.form.controls['relationship'].patchValue(relationship);
+      this.form.controls['relationship'].patchValue(FmtToValue(relationship));
     }
     catch (error) { }
   }
@@ -51,7 +52,7 @@ export class OccupantsAddDialogComponent extends GenericAddEditComponent<IOnboar
     if (this.form.valid) {
       const formValues = {
         ...this.form.value,
-        //id: uuid()
+        relationship: FmtToValue(this.form.get('relationship').value)
       };
 
       this.dialogRef.close(_.pickBy(formValues, _.identity));

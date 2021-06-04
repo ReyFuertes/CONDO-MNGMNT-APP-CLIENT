@@ -19,7 +19,27 @@ export enum OnboardingActionTypes {
   saveAndUploadImageSuccessAction = '[Onboarding] save and upload image (success)',
   getOnboardingByIdAction = '[Onboarding] get onboarding',
   getOnboardingByIdSuccessAction = '[Onboarding] get onboarding (success)',
+  updateOnboardingPersonalValuesAction = '[Onboarding] update onboarding personal values',
+  updateOnboardingSpouseValuesAction = '[Onboarding] update onboarding spouse values',
+  updateOnboardingOccupantValuesAction = '[Onboarding] update onboarding occupant values',
+  updateOnboardingVehicleValuesAction = '[Onboarding] update onboarding vehicle values',
 }
+export const updateOnboardingVehicleValuesAction = createAction(
+  OnboardingActionTypes.updateOnboardingVehicleValuesAction,
+  props<{ payload: IOnboardingVehicle[] }>()
+);
+export const updateOnboardingSpouseValuesAction = createAction(
+  OnboardingActionTypes.updateOnboardingSpouseValuesAction,
+  props<{ payload: IOnboarding }>()
+);
+export const updateOnboardingOccupantValuesAction = createAction(
+  OnboardingActionTypes.updateOnboardingOccupantValuesAction,
+  props<{ payload: IOnboardingOccupant[] }>()
+);
+export const updateOnboardingPersonalValuesAction = createAction(
+  OnboardingActionTypes.updateOnboardingPersonalValuesAction,
+  props<{ payload: IOnboarding }>()
+);
 export const getOnboardingByIdAction = createAction(
   OnboardingActionTypes.getOnboardingByIdAction,
   props<{ id: string }>()

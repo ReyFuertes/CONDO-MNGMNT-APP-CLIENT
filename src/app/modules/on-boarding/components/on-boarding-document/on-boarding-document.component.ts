@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -11,39 +11,38 @@ import { addDocumentsAction, setOnboardingStepperAction } from '../../store/onbo
 import { ONBOARDINGVEHICLESROUTE, ONBOARDINGREVIEWROUTE } from 'src/app/shared/constants/routes';
 import { STRDOCUMENTS } from 'src/app/shared/constants/generic';
 import * as _ from 'lodash';
+import { IOnboardingDocument } from '../../on-boarding.model';
 
 @Component({
   selector: 'cma-on-boarding-document',
   templateUrl: './on-boarding-document.component.html',
   styleUrls: ['./on-boarding-document.component.scss']
 })
-export class OnboardingDocumentComponent extends GenericOnBoardingComponent {
+export class OnboardingDocumentComponent extends GenericOnBoardingComponent implements OnInit {
   public svgPath: string = environment.svgPath;
 
   constructor(private _cdRef: ChangeDetectorRef, storageSrv: StorageService, router: Router, private _fb: FormBuilder, private _store: Store<RooState>, cdRef: ChangeDetectorRef, fb: FormBuilder, private _storageSrv: StorageService, store: Store<RooState>) {
     super(OnboardingEntityType.ONBOARDINGDOCUMENTS, storageSrv, router, cdRef, fb, store);
-
-    this.form = this._fb.group({
-      documents: new FormArray([]),
-    });
   }
 
+  ngOnInit(): void {  }
+
   public getFileName(document: any): any {
-    return this.form.get(document?.formName)?.value?.file?.name || document?.label;
+    return this.getDocumentsForm?.value?.file?.name || document?.label;
   }
 
   public onUpload(event: any) {
-    let uploadedDocs = Object.assign([], this.uploadedDocs);
-    uploadedDocs.push(event?.files[0]);
+    let toUploadDocs = Object.assign([], this.toUploadDocs);
+    toUploadDocs.push(event?.files[0]);
 
-    this.uploadedDocs = uploadedDocs;
+    this.toUploadDocs = toUploadDocs;
   }
 
   public onRemove(event: any): void {
-    let uploadedDocs = Object.assign([], this.uploadedDocs);
+    let uploadedDocs = Object.assign([], this.toUploadDocs);
 
     _.remove(uploadedDocs, { name: event?.file?.name });
-    this.uploadedDocs = uploadedDocs;
+    this.toUploadDocs = uploadedDocs;
   }
 
   public hasFile(prevLabel: any, currLabel: any): boolean {
@@ -51,16 +50,17 @@ export class OnboardingDocumentComponent extends GenericOnBoardingComponent {
   }
 
   public onNext(): void {
-    super.onNext(ONBOARDINGREVIEWROUTE, STRDOCUMENTS, this.form.value);
+    super.onNext(ONBOARDINGREVIEWROUTE(this.id));
 
-    this._store.dispatch(addDocumentsAction({ documents: this.uploadedDocs }));
+    //this._store.dispatch(addDocumentsAction({ documents: this.toUploadDocs }));
     this._store.dispatch(setOnboardingStepperAction({ step: OnboardingEntityType.ONBOARDINGREVIEW }));
   }
 
   public onPrev(): void {
-    super.onPrev(ONBOARDINGVEHICLESROUTE, STRDOCUMENTS, this.form.value);
+    super.onPrev(ONBOARDINGVEHICLESROUTE(this.id));
 
-    this._store.dispatch(addDocumentsAction({ documents: this.uploadedDocs }));
+    //this._store.dispatch(addDocumentsAction({ documents: this.toUploadDocs }));
     this._store.dispatch(setOnboardingStepperAction({ step: OnboardingEntityType.ONBOARDINGVEHICLES }));
   }
 }
+

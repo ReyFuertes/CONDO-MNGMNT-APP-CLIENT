@@ -6,13 +6,14 @@ import { StorageService } from 'src/app/services/storage.service';
 import { GenericOnBoardingComponent } from 'src/app/shared/generics/generic-onboarding';
 import { RooState } from 'src/app/store/root.reducer';
 import { ONBOARDINGSPOUSE, ONBOARDINGVEHICLES, STROCCUPANTS } from 'src/app/shared/constants/generic';
-import { addToOccupantsAction, setOnboardingStepperAction } from '../../store/onboarding.action';
+import { addToOccupantsAction, setOnboardingStepperAction, updateOnboardingOccupantValuesAction } from '../../store/onboarding.action';
 import { IOnboardingOccupant } from '../../on-boarding.model';
 import { MatDialog } from '@angular/material/dialog';
 import { OccupantsAddDialogComponent } from 'src/app/modules/dialog/components/occupants-add-dialog/occupants-add-dialog.component';
 import { AddEditStateType, OnboardingEntityType } from 'src/app/shared/generics/generic-model';
 import * as _ from 'lodash';
 import { ONBOARDINGSPOUSEROUTE, ONBOARDINGVEHICLESROUTE } from 'src/app/shared/constants/routes';
+import { RemoveNullOrUndefinedFromObj, FmtToValue } from 'src/app/shared/util/formating';
 
 @Component({
   selector: 'cma-on-boarding-occupants',
@@ -24,26 +25,20 @@ export class OnboardingOccupantsComponent extends GenericOnBoardingComponent imp
 
   constructor(public dialog: MatDialog, storageSrv: StorageService, router: Router, private _fb: FormBuilder, private _store: Store<RooState>, cdRef: ChangeDetectorRef, fb: FormBuilder, store: Store<RooState>) {
     super(OnboardingEntityType.ONBOARDINGOCCUPANTS, storageSrv, router, cdRef, fb, store);
-
-    this.form = this._fb.group({
-      occupants: new FormArray([]),
-    });
   }
 
   ngOnInit(): void { }
 
-  public get occupants(): FormArray {
-    return this.form.get(STROCCUPANTS) as FormArray;
-  }
-
   public newOccupant(occupant: IOnboardingOccupant): FormGroup {
-    return this._fb.group(occupant)
+    return this._fb.group(occupant);
   }
 
   public onRemove(item: IOnboardingOccupant, i: number): void {
     if (item) {
       this.FormOccupantsArr = this.form.get(STROCCUPANTS) as FormArray;
       this.FormOccupantsArr.removeAt(i);
+
+      this.updateOccupants();
     }
   }
 
@@ -53,33 +48,36 @@ export class OnboardingOccupantsComponent extends GenericOnBoardingComponent imp
       height: '282px',
       autoFocus: true
     });
-    dialogRef.afterClosed().subscribe((payload) => {
-      if (payload) {
+    dialogRef.afterClosed().subscribe((res) => {
+      if (res) {
         this.FormOccupantsArr = this.form.get(STROCCUPANTS) as FormArray;
-        this.FormOccupantsArr.push(this.createOccupantItem(Object.assign({}, payload)));
+        this.FormOccupantsArr.push(this.createOccupantItem(Object.assign({}, res)));
+
+        this.updateOccupants();
       }
     });
   }
 
-  public get getOccupants(): any[] {
-    return this.form.get(STROCCUPANTS)['controls'] as any;
-  }
-
-  public get hasOccupants(): boolean {
-    return this.getOccupants?.length > 0;
+  private updateOccupants(): void {
+    const payload = this.FormOccupantsArr?.value?.map(v => {
+      return {
+        id: v?.id,
+        name: v?.name,
+        relationship: v?.relationship?.toLowerCase() || null
+      };
+    });
+    this._store.dispatch(updateOnboardingOccupantValuesAction({ payload }));
   }
 
   public onNext(): void {
-    super.onNext(ONBOARDINGVEHICLESROUTE, STROCCUPANTS, this.form.value);
+    super.onNext(ONBOARDINGVEHICLESROUTE(this.id));
 
-    this._store.dispatch(addToOccupantsAction({ payload: this.form.value?.occupants }));
     this._store.dispatch(setOnboardingStepperAction({ step: ONBOARDINGVEHICLES }));
   }
 
   public onPrev(): void {
-    super.onPrev(ONBOARDINGSPOUSEROUTE, STROCCUPANTS, this.form.value);
+    super.onPrev(ONBOARDINGSPOUSEROUTE(this.id));
 
-    this._store.dispatch(addToOccupantsAction({ payload: this.form.value?.occupants }));
     this._store.dispatch(setOnboardingStepperAction({ step: ONBOARDINGSPOUSE }));
   }
 }
