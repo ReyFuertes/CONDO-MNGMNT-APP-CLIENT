@@ -20,6 +20,7 @@ import { IOnboardingDocument } from '../../on-boarding.model';
 })
 export class OnboardingDocumentComponent extends GenericOnBoardingComponent implements OnInit {
   public svgPath: string = environment.svgPath;
+  public documentUrl: string = environment.documentUrl;
 
   constructor(private _cdRef: ChangeDetectorRef, storageSrv: StorageService, router: Router, private _fb: FormBuilder, private _store: Store<RooState>, cdRef: ChangeDetectorRef, fb: FormBuilder, private _storageSrv: StorageService, store: Store<RooState>) {
     super(OnboardingEntityType.ONBOARDINGDOCUMENTS, storageSrv, router, cdRef, fb, store);

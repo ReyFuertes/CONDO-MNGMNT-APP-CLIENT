@@ -9,6 +9,10 @@ export const RemoveNullOrUndefinedFromArr = (arr: any) => {
   return arr?.filter(i => Boolean(i))
 }
 
+export const ReplaceByUnderscore = (str: string): string => {
+  return str.replace(/ /g, '_')?.toLowerCase();
+}
+
 export const FmtToValue = (object: any) => {
   return object?.value?.toLowerCase() || null;
 }
@@ -46,6 +50,7 @@ export const FmtSimpleItemToValue = (state: any, field: string, entity: string) 
 
 export const FmtFormToPayload = (payload: IOnboarding): IOnboarding => {
   const fmted = {
+    id: payload?.id,
     type: payload?.type,
     personal: {
       ...payload?.personal,
@@ -75,6 +80,7 @@ export const FmtFormToPayload = (payload: IOnboarding): IOnboarding => {
 
 export const FmtPayloadToForm = (payload: IOnboarding): IOnboarding => {
   const fmted = {
+    id: payload?.id,
     type: payload?.type,
     personal: {
       ...payload?.personal,

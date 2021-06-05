@@ -1,7 +1,7 @@
 import { select, Store } from '@ngrx/store';
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { createOnboardingAction, createOnboardingSuccessAction, getOnboardingByIdAction, getOnboardingByIdSuccessAction, saveAndUploadImageAction, saveAndUploadImageSuccessAction } from './onboarding.action';
+import { createOnboardingAction, createOnboardingSuccessAction, getOnboardingByIdAction, getOnboardingByIdSuccessAction, saveAndUploadImageAction, saveAndUploadImageSuccessAction, updateOnboardingAction, updateOnboardingSuccessAction } from './onboarding.action';
 import { OnboardingService } from '../on-boarding.service';
 import { map, mergeMap, switchMap, tap } from 'rxjs/operators';
 import { combineLatest, forkJoin, of, zip } from 'rxjs';
@@ -50,6 +50,42 @@ export class OnboardingEffects extends GenericToastComponent {
       ).pipe(
         map(([response, fileDoc, loader]) => {
           return saveAndUploadImageSuccessAction({ response });
+        })
+      )
+    })
+  ));
+
+  updateOnboardingAction$ = createEffect(() => this.actions$.pipe(
+    ofType(updateOnboardingAction),
+    mergeMap(({ payload, files, personalIdAttachment, spouseIdAttachment }) => {
+      return zip(
+        this.onBoardingSrv.patch(payload),
+        this.uploadSrv.upload(files),
+        this.store.pipe(select(isLoadingSelector))
+      ).pipe(
+        map(([response, fileDoc, loader]) => {
+          const { personal, spouse } = <IOnboarding>response;
+          
+          this.store.dispatch(saveAndUploadImageAction({
+            payload: {
+              name: personalIdAttachment?.image?.name,
+              personal: { id: <IOnboardingPersonal>personal?.id }
+            },
+            images: personalIdAttachment?.data
+          }));
+
+          this.store.dispatch(saveAndUploadImageAction({
+            payload: {
+              name: spouseIdAttachment?.image?.name,
+              spouse: { id: <IOnboardingPersonal>spouse?.id }
+            },
+            images: spouseIdAttachment?.data
+          }));
+
+          if (loader === null) {
+            this.triggerSaveToast(ONBOARDINGFORAPPROVALROUTE);
+          }
+          return updateOnboardingSuccessAction({ response: <IOnboarding>response });
         })
       )
     })

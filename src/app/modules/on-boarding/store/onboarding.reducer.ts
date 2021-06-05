@@ -51,6 +51,7 @@ const onboardingReducer = createReducer(
   }),
   on(getOnboardingByIdSuccessAction, (state, action) => {
     const onboarding: IOnboarding = {
+      id: action?.response?.id,
       type: action?.response?.type,
       personal: action?.response?.personal,
       spouse: action?.response?.spouse,

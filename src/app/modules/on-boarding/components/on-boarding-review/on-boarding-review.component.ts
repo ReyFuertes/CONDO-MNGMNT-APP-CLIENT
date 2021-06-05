@@ -9,12 +9,13 @@ import { ISimpleItem, OnboardingEntityType } from 'src/app/shared/generics/gener
 import { GenericOnBoardingComponent } from 'src/app/shared/generics/generic-onboarding';
 import { RooState } from 'src/app/store/root.reducer';
 import { environment } from 'src/environments/environment';
-import { createOnboardingAction, setOnboardingStepperAction } from '../../store/onboarding.action';
+import { createOnboardingAction, setOnboardingStepperAction, updateOnboardingAction } from '../../store/onboarding.action';
 import { getDocumentsSelector, getOnboardingSelector } from '../../store/onboarding.selector';
 import * as _ from 'lodash';
 import { ONBOARDINGDOCUMENTSROUTE } from 'src/app/shared/constants/routes';
 import { v4 as uuid } from 'uuid';
-import { CamelToSnakeCase, FmtFormToPayload } from 'src/app/shared/util/formating';
+import { CamelToSnakeCase, FmtFormToPayload, ReplaceByUnderscore } from 'src/app/shared/util/formating';
+import * as moment from 'moment';
 @Component({
   selector: 'cma-on-boarding-review',
   templateUrl: './on-boarding-review.component.html',
@@ -23,7 +24,6 @@ import { CamelToSnakeCase, FmtFormToPayload } from 'src/app/shared/util/formatin
 export class OnboardingReviewComponent extends GenericOnBoardingComponent implements OnInit {
   public uploadDocuments: ISimpleItem[] = [];
   public svgPath: string = environment.svgPath;
-  public camelToSnakeCase = CamelToSnakeCase;
   public uploadedDocs: any[] = [];
 
   constructor(storageSrv: StorageService, router: Router, private _fb: FormBuilder, private _store: Store<RooState>,
@@ -86,9 +86,10 @@ export class OnboardingReviewComponent extends GenericOnBoardingComponent implem
     return this.form.get('spouse')?.value?.uploadSpouseIdFile?.name;
   }
 
-  private processFormData(files: FormData): any {
-    return Object.values(this.uploadedDocs?.map(doc => {
-      const filename = `${uuid()}.${doc.name.split('.').pop()}`;
+  private processFormData(files: FormData, onboarding_id: string): any {
+    return Object.values(this.toUploadDocs?.map(doc => {
+      const docArr = doc.name.split('.');
+      const filename = `${ReplaceByUnderscore(docArr[0])}_${moment().format('MM_DD_YYYY')}.${docArr[1]}`;
 
       files.append('files', doc, filename);
 
@@ -98,7 +99,8 @@ export class OnboardingReviewComponent extends GenericOnBoardingComponent implem
         type: doc.type,
         onboarding_id: '',
         lastModified: doc.lastModified,
-        lastModifiedDate: doc.lastModifiedDate
+        lastModifiedDate: doc.lastModifiedDate,
+        onboarding: { id: onboarding_id }
       }
     })) || null;
   }
@@ -106,10 +108,13 @@ export class OnboardingReviewComponent extends GenericOnBoardingComponent implem
   private processImageData(image: any, files: FormData): any {
     if (!image?.name) return null;
 
-    files.append('files', image, image?.name);
+    const docArr = image?.name?.split('.');
+    const filename = `${ReplaceByUnderscore(docArr[0])}_${moment().format('MM_DD_YYYY')}.${docArr[1]}`;
+
+    files.append('files', image, filename);
 
     return {
-      name: image?.name,
+      name: filename,
       size: image.size,
       type: image.type,
       onboarding_id: '',
@@ -119,12 +124,13 @@ export class OnboardingReviewComponent extends GenericOnBoardingComponent implem
 
   public onSubmit(): void {
     if (this.form.valid) {
-      const { personal, spouse, occupants, vehicles } = this.form.value;
+      const { id, personal, spouse, occupants, vehicles, documents } = this.form.value;
       const { uploadPersonalIdFile } = personal;
       const { uploadSpouseIdFile } = spouse;
 
       let files = new FormData();
-      const documents = this.processFormData(files);
+      let toUploadDocuments = this.processFormData(files, id);
+      toUploadDocuments = toUploadDocuments.concat(documents);
 
       let personalFormData = new FormData();
       const personalImageData = this.processImageData(uploadPersonalIdFile, personalFormData);
@@ -133,6 +139,7 @@ export class OnboardingReviewComponent extends GenericOnBoardingComponent implem
       const spouseImageData = this.processImageData(uploadSpouseIdFile, spouseFormData)
 
       const payload = {
+        id,
         personal: {
           ...personal,
           civilStatus: this.form.get(STRPERSONAL).value?.civilStatus?.value
@@ -140,12 +147,12 @@ export class OnboardingReviewComponent extends GenericOnBoardingComponent implem
         spouse,
         occupants,
         vehicles,
-        documents,
+        documents: toUploadDocuments,
         files
       };
 
       setTimeout(() => {
-        this._store.dispatch(createOnboardingAction({
+        this._store.dispatch(updateOnboardingAction({
           payload,
           files,
           personalIdAttachment: {

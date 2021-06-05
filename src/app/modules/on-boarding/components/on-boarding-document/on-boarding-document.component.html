@@ -11,7 +11,7 @@
         <h5>Uploaded documents ({{uploadedDocsCount}})</h5>
       </div>
       <div *ngFor="let doc of getDocumentFiles; let i = index" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
-        <div fxFlex>{{ doc?.name }}</div>
+        <div fxFlex><a [href]="documentUrl + doc?.name" target="_blank">{{ doc?.name }}</a></div>
         <div fxFlex="95px" fxLayoutAlign="start center">{{ doc?.size }} KB</div>
         <div fxFlex="40px" fxLayoutAlign="end center"><button pButton pRipple type="button" (click)="onRemoveUploadedDoc(doc, i)" class="danger">
             <div fxLayout="row" fxLayoutAlign="center center">

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { MenuItem } from 'primeng/api';
 import { MenuType } from 'src/app/models/onboarding.model';
 import { REQUESTSBREADCRUMBS } from 'src/app/shared/constants/breadcrumbs';
@@ -14,9 +15,24 @@ export class DashboardRequestsComponent extends GenericContainer implements OnIn
   public breadCrumbItems: ISimpleItem[] = REQUESTSBREADCRUMBS;
   public settingItems: MenuItem[];
   public actionItems: MenuItem[];
-
-  constructor() {
+  public filterOptions: ISimpleItem[] = [
+    { label: 'Citizenship', value: 'citizenship' },
+    { label: 'Contact No.', value: 'contactNo' },
+    { label: 'ID No.', value: 'idNo' },
+    { label: 'ID Type', value: 'idType' },
+    { label: 'Occupation', value: 'occupation' },
+    { label: 'Gender', value: 'gender' }
+  ];
+  public form: FormGroup;
+  
+  constructor(private fb: FormBuilder) {
     super();
+
+    this.form = this.fb.group({
+      filterKeyword: [null],
+      fieldFilter: [null]
+    });
+
     localStorage.setItem('nav', JSON.stringify(MenuType.Requests));
     
     this.settingItems = [

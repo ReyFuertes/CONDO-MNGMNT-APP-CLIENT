@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { MenuItem } from 'primeng/api';
 import { PAYMENTSBREADCRUMBS } from 'src/app/shared/constants/breadcrumbs';
+import { GenericContainer } from 'src/app/shared/generics/generic-container';
 import { ISimpleItem } from 'src/app/shared/generics/generic-model';
 
 @Component({
@@ -8,12 +10,28 @@ import { ISimpleItem } from 'src/app/shared/generics/generic-model';
   templateUrl: './dashboard-payments.component.html',
   styleUrls: ['./dashboard-payments.component.scss']
 })
-export class DashboardPaymentsComponent implements OnInit {
+export class DashboardPaymentsComponent extends GenericContainer implements OnInit {
   public breadCrumbItems: ISimpleItem[] = PAYMENTSBREADCRUMBS;
   public settingItems: MenuItem[];
   public actionItems: MenuItem[];
+  public filterOptions: ISimpleItem[] = [
+    { label: 'Citizenship', value: 'citizenship' },
+    { label: 'Contact No.', value: 'contactNo' },
+    { label: 'ID No.', value: 'idNo' },
+    { label: 'ID Type', value: 'idType' },
+    { label: 'Occupation', value: 'occupation' },
+    { label: 'Gender', value: 'gender' }
+  ];
+  public form: FormGroup;
 
-  constructor() { }
+  constructor(private fb: FormBuilder) {
+    super();
+
+    this.form = this.fb.group({
+      filterKeyword: [null],
+      fieldFilter: [null]
+    });
+  }
 
   ngOnInit(): void {
     this.settingItems = [

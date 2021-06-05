@@ -1,5 +1,5 @@
 import { AfterViewInit, ChangeDetectorRef, Directive } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { map, takeUntil } from 'rxjs/operators';
@@ -39,6 +39,7 @@ export class GenericOnBoardingComponent extends GenericDestroyPageComponent impl
     this._step = step;
 
     this.form = this.fb.group({
+      id: [null, Validators.required],
       type: [null],
       personal: this.fb.group({
         id: [null],
@@ -108,8 +109,10 @@ export class GenericOnBoardingComponent extends GenericDestroyPageComponent impl
     this.store.pipe(select(getOnboardingSelector), takeUntil(this.$unsubscribe))
       .subscribe(res => {
         if (res) {
-          const { type, personal, spouse, occupants, vehicles, documents, documentsToUpload } = res;
+          const { id, type, personal, spouse, occupants, vehicles, documents, documentsToUpload } = res;
 
+          this.form.get('id').patchValue(id);
+    
           switch (this._step) {
             case OnboardingEntityType.ONBOARDINGTYPE:
               if (type) this.form.get(STRTYPE).patchValue(type);

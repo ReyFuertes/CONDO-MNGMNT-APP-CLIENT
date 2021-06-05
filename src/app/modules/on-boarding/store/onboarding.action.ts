@@ -9,6 +9,8 @@ export enum OnboardingActionTypes {
   addDocumentsAction = '[Onboarding] add documents',
   createOnboardingAction = '[Onboarding] create onboarding',
   createOnboardingSuccessAction = '[Onboarding] create onboarding (success)',
+  updateOnboardingAction = '[Onboarding] update onboarding',
+  updateOnboardingSuccessAction = '[Onboarding] update onboarding (success)',
   clearStepperAction = "[Onboarding] clear onboarding stepper",
   addToPersonalAction = '[Onboarding] add to personal',
   addToSpouseAction = '[Onboarding] add to spouse',
@@ -87,6 +89,14 @@ export const addToVehiclesAction = createAction(
 );
 export const clearStepperAction = createAction(
   OnboardingActionTypes.clearStepperAction
+);
+export const updateOnboardingAction = createAction(
+  OnboardingActionTypes.updateOnboardingAction,
+  props<{ payload: IOnboarding, files?: any, personalIdAttachment?: any, spouseIdAttachment?: any }>()
+);
+export const updateOnboardingSuccessAction = createAction(
+  OnboardingActionTypes.updateOnboardingSuccessAction,
+  props<{ response: IOnboarding }>()
 );
 export const createOnboardingAction = createAction(
   OnboardingActionTypes.createOnboardingAction,
