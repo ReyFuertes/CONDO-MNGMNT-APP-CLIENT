@@ -2,7 +2,7 @@
   <div class="content" fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="20px">
     <!-- personal information -->
     <div class="content-personal" fxLayout="column" fxLayoutAlign="start start">
-      <div *ngIf="!hasToUploadDocs" class="well-error">No documents uploaded</div>
+      <div *ngIf="!hasDocs" class="well-error">No documents uploaded</div>
       <h4>Personal Information</h4>
       <div class="w-100" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="15px">
         <cma-input [form]="getPersonalForm" controlName="buildingNo" label="Building #" [value]="'Building #9'"></cma-input>
@@ -20,7 +20,7 @@
       <div fxLayout="row wrap" class="w-100" fxLayoutAlign="start center" fxLayoutGap="15px">
         <cma-input [isReadOnly]="true" [form]="getPersonalForm" controlName="gender" label="Gender"></cma-input>
         <cma-input [isReadOnly]="true" [form]="getPersonalForm" controlName="civilStatus" label="Civil Status"></cma-input>
-        <cma-input [isReadOnly]="true" [form]="getPersonalForm" controlName="dateOfBirth" label="Date of Birth"></cma-input>
+        <cma-input [isReadOnly]="true" [form]="getPersonalForm" controlName="dateOfBirth" [isDate]="true" label="Date of Birth"></cma-input>
         <cma-input [isReadOnly]="true" [form]="getPersonalForm" controlName="occupation" label="Occupation"></cma-input>
       </div>
       <div fxLayout="row wrap" class="w-100" fxLayoutAlign="start center" fxLayoutGap="15px">
@@ -32,7 +32,7 @@
       <div fxLayout="row wrap" class="w-100" fxLayoutAlign="start center" fxLayoutGap="15px">
         <cma-input [isReadOnly]="true" [form]="getPersonalForm" controlName="idType" label="ID Type"></cma-input>
         <cma-input [isReadOnly]="true" [form]="getPersonalForm" controlName="idNo" label="ID No."></cma-input>
-        <cma-img-preview fxFlex="195px" [file]="form.get('personal').value?.uploadPersonalIdFile" [fileName]="getPersonalIdFileName"></cma-img-preview>
+        <cma-img-preview fxFlex="195px" label="Uploaded ID" [file]="getPersonalForm?.value?.uploadPersonalIdFile" [fileName]="getPersonalIdFileName"></cma-img-preview>
       </div>
     </div>
 
@@ -48,7 +48,7 @@
       <div fxLayout="row wrap" class="w-100" fxLayoutAlign="start center" fxLayoutGap="15px">
         <cma-input [isReadOnly]="true" [form]="getSpouseForm" controlName="gender" label="Gender"></cma-input>
         <cma-input [isReadOnly]="true" [form]="getSpouseForm" controlName="civilStatus" label="Civil Status"></cma-input>
-        <cma-input [isReadOnly]="true" [form]="getSpouseForm" controlName="dateOfBirth" label="Date of Birth"></cma-input>
+        <cma-input [isReadOnly]="true" [form]="getSpouseForm" controlName="dateOfBirth" [isDate]="true" label="Date of Birth"></cma-input>
         <cma-input [isReadOnly]="true" [form]="getSpouseForm" controlName="occupation" label="Occupation"></cma-input>
       </div>
       <div fxLayout="row wrap" class="w-100" fxLayoutAlign="start center" fxLayoutGap="15px">
@@ -60,7 +60,7 @@
       <div fxLayout="row wrap" class="w-100" fxLayoutAlign="start center" fxLayoutGap="15px">
         <cma-input [isReadOnly]="true" [form]="getSpouseForm" controlName="idType" label="ID Type"></cma-input>
         <cma-input [isReadOnly]="true" [form]="getSpouseForm" controlName="idNo" label="ID No."></cma-input>
-        <cma-img-preview fxFlex="195px" [file]="form.get('spouse').value?.uploadSpouseIdFile" [fileName]="getSpouseIdFileName"></cma-img-preview>
+        <cma-img-preview fxFlex="195px" label="Uploaded ID" [file]="getSpouseForm.value?.uploadSpouseIdFile" [fileName]="getSpouseIdFileName"></cma-img-preview>
       </div>
     </div>
 
@@ -119,7 +119,7 @@
 
     <div class="action-btns" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px">
       <button pButton pRipple type="button" (click)="onPrev()" label="Previous" class="p-button-rounded default"></button>
-      <button [disabled]="!form.valid || !hasToUploadDocs" pButton pRipple type="button" (click)="onSubmit()" label="Submit" class="p-button-rounded success"></button>
+      <button [disabled]="!form.valid" pButton pRipple type="button" (click)="onSubmit()" label="Submit" class="p-button-rounded success"></button>
     </div>
   </div>
 

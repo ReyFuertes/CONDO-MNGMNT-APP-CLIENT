@@ -40,10 +40,9 @@
     <div fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="20px">
       <cma-dropdown [form]="getPersonalForm" controlName="idType" label="ID Type" [options]="IdTypeOptions" placeholder="ID Type"></cma-dropdown>
       <cma-input [form]="getPersonalForm" controlName="idNo" label="ID No." placeholder="ID No."></cma-input>
-      <cma-upload (fileEmitter)="onPersonalImageChange($event)" [file]="getPersonalForm.get('uploadPersonalIdFile').value" [fileName]="getFileName('uploadPersonalIdFile')"></cma-upload>
+      <cma-upload [disabled]="uploadPersonalIdFileDisabled" (fileEmitter)="onPersonalImageChange($event)" [file]="getPersonalForm.get('uploadPersonalIdFile').value" [fileName]="getFileName('uploadPersonalIdFile')"></cma-upload>
     </div>
   </div>
-
 
   <div class="action-btns" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px">
     <button pButton pRipple type="button" (click)="onPrev()" label="Previous" class="p-button-rounded default"></button>

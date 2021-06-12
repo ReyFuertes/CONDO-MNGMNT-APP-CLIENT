@@ -1,20 +1,19 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import { take, takeUntil } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 import { StorageService } from 'src/app/services/storage.service';
-import { ONBOARDINGDOCUMENTS, ONBOARDINGREVIEW, STRDOCUMENTS, STROCCUPANTS, STRPERSONAL, STRSPOUSE, STRTYPE, STRVEHICLES } from 'src/app/shared/constants/generic';
-import { ISimpleItem, OnboardingEntityType } from 'src/app/shared/generics/generic-model';
+import { ONBOARDINGDOCUMENTS, ONBOARDINGREVIEW, STRPERSONAL, STRTYPE, STRVEHICLES } from 'src/app/shared/constants/generic';
+import { ISimpleItem } from 'src/app/shared/generics/generic-model';
 import { GenericOnBoardingComponent } from 'src/app/shared/generics/generic-onboarding';
 import { RooState } from 'src/app/store/root.reducer';
 import { environment } from 'src/environments/environment';
-import { createOnboardingAction, setOnboardingStepperAction, updateOnboardingAction } from '../../store/onboarding.action';
-import { getDocumentsSelector, getOnboardingSelector } from '../../store/onboarding.selector';
+import { setOnboardingStepperAction, updateOnboardingAction } from '../../store/onboarding.action';
+import { getOnboardingSelector } from '../../store/onboarding.selector';
 import * as _ from 'lodash';
 import { ONBOARDINGDOCUMENTSROUTE } from 'src/app/shared/constants/routes';
-import { v4 as uuid } from 'uuid';
-import { CamelToSnakeCase, FmtFormToPayload, ReplaceByUnderscore } from 'src/app/shared/util/formating';
+import { FmtFormToPayload, ReplaceByUnderscore } from 'src/app/shared/util/formating';
 import * as moment from 'moment';
 @Component({
   selector: 'cma-on-boarding-review',
@@ -37,11 +36,20 @@ export class OnboardingReviewComponent extends GenericOnBoardingComponent implem
         const { type, personal, spouse, occupants, vehicles, documents, documentsToUpload } = FmtFormToPayload(res);
 
         if (type) this.form.get(STRTYPE).patchValue(type);
-
-        if (personal) this.getPersonalForm.patchValue(personal, { emitEvent: false });
-
-        if (spouse) this.getSpouseForm.patchValue(spouse, { emitEvent: false });
-
+        if (personal) {
+          const _personal = {
+            ...personal,
+            dateOfBirth: moment(personal?.dateOfBirth || new Date()).format('MM-DD-YYYY'),
+          };
+          this.getPersonalForm.patchValue(_personal, { emitEvent: false });
+        }
+        if (spouse) {
+          const _spouse = {
+            ...spouse,
+            dateOfBirth: moment(spouse?.dateOfBirth || new Date()).format('MM-DD-YYYY'),
+          };
+          this.getSpouseForm.patchValue(_spouse, { emitEvent: false });
+        }
         if (occupants) {
           this.getOccupantsForm.clear();
           occupants?.forEach(occupant => {
@@ -49,7 +57,6 @@ export class OnboardingReviewComponent extends GenericOnBoardingComponent implem
             this.FormOccupantsArr.push(this.createOccupantItem(Object.assign({}, occupant)));
           });
         }
-
         if (vehicles) {
           this.getVehiclesForm.clear();
           vehicles?.forEach(vehicle => {
@@ -57,7 +64,6 @@ export class OnboardingReviewComponent extends GenericOnBoardingComponent implem
             this.FormVehiclesArr.push(this.createVehicleItem(Object.assign({}, vehicle)));
           });
         }
-
         if (documents) {
           this.getDocumentsForm.clear();
           documents?.forEach(document => {
@@ -69,27 +75,32 @@ export class OnboardingReviewComponent extends GenericOnBoardingComponent implem
           this.toUploadDocs = documentsToUpload || [];
         }
       });
+
+    setTimeout(() => {
+      console.log('this.form', this.form);
+      console.log('this.form.value', this.form.value);
+    }, 100);
   }
 
-  public get hasToUploadDocs(): boolean {
-    return this.toUploadDocs?.length > 0;
+  public get hasDocs(): boolean {
+    return this.toUploadDocs?.length > 0 || this.getDocumentFiles?.length > 0;
   }
   public get hasUploadedDocs(): boolean {
     return this.getDocumentFiles?.length > 0;
   }
 
   public get getPersonalIdFileName(): any {
-    return this.form.get('personal')?.value?.uploadPersonalIdFile?.name;
+    return this.getPersonalForm?.value?.uploadPersonalIdFile;
   }
 
   public get getSpouseIdFileName(): any {
-    return this.form.get('spouse')?.value?.uploadSpouseIdFile?.name;
+    return this.getSpouseForm?.value?.uploadSpouseIdFile;
   }
 
   private processFormData(files: FormData, onboarding_id: string): any {
     return Object.values(this.toUploadDocs?.map(doc => {
       const docArr = doc.name.split('.');
-      const filename = `${ReplaceByUnderscore(docArr[0])}_${moment().format('MM_DD_YYYY')}.${docArr[1]}`;
+      const filename = `${ReplaceByUnderscore(docArr[0])}_${moment().format('MMDDYYYY')}.${docArr[1]}`;
 
       files.append('files', doc, filename);
 
@@ -105,20 +116,22 @@ export class OnboardingReviewComponent extends GenericOnBoardingComponent implem
     })) || null;
   }
 
-  private processImageData(image: any, files: FormData): any {
-    if (!image?.name) return null;
+  private processImageData(fileImage: any, files: FormData): any {    
+    if (!fileImage?.fileObj?.name) return null;
 
-    const docArr = image?.name?.split('.');
-    const filename = `${ReplaceByUnderscore(docArr[0])}_${moment().format('MM_DD_YYYY')}.${docArr[1]}`;
+    const { fileObj, file } = fileImage;
 
-    files.append('files', image, filename);
+    const docArr = fileObj?.name?.split('.');
+    const filename = `${ReplaceByUnderscore(docArr[0])}_${moment().format('MMDDYYYY')}.${docArr[1]}`;
+
+    files.append('files', file, filename);
 
     return {
       name: filename,
-      size: image.size,
-      type: image.type,
+      size: fileObj?.size,
+      type: fileObj?.type,
       onboarding_id: '',
-      lastModified: image.lastModified
+      lastModified: fileObj?.lastModified
     }
   }
 
@@ -142,15 +155,20 @@ export class OnboardingReviewComponent extends GenericOnBoardingComponent implem
         id,
         personal: {
           ...personal,
-          civilStatus: this.form.get(STRPERSONAL).value?.civilStatus?.value
+          uploadPersonalIdFile: personalImageData?.name,
+          civilStatus: this.getPersonalForm.value?.civilStatus
         },
-        spouse,
+        spouse: {
+          ...spouse,
+          uploadSpouseIdFile: spouseImageData?.name,
+          civilStatus: this.getSpouseForm.value?.civilStatus
+        },
         occupants,
         vehicles,
         documents: toUploadDocuments,
         files
       };
-
+   
       setTimeout(() => {
         this._store.dispatch(updateOnboardingAction({
           payload,

@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import * as moment from 'moment';
 import { GenericControl } from '../../generics/generic-control';
 import { ISimpleItem } from '../../generics/generic-model';
 
@@ -18,12 +19,14 @@ export class CMAInputComponent extends GenericControl<ISimpleItem> implements On
   }
 
   ngOnInit(): void {
-    const value = this.form.get(this.controlName)?.value || '';
-    if(value) {
-      if (typeof (value) === 'object') {
-        this.form.get(this.controlName).patchValue(value?.label);
+    let value = this.form.get(this.controlName)?.value || '';
+    if (value) {
+      if (value instanceof Date) {
+        this.form.get(this.controlName).patchValue(moment(value).format('MM-DD-YYYY'), { emitEvent: false });
+      } else if (typeof (value) === 'object') {
+        this.form.get(this.controlName).patchValue(value?.label, { emitEvent: false });
       } else {
-        this.form.get(this.controlName).patchValue(value);
+        this.form.get(this.controlName).patchValue(value, { emitEvent: false });
       }
     }
   }

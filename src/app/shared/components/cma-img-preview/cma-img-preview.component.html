@@ -1,4 +1,5 @@
-<div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+<div fxLayout="column" fxLayoutAlign="start start">
+  <label>{{ label }}</label>
   <div *ngIf="fileName" class="filename" (click)="onPreview(op, $event)" [pTooltip]="fileName">{{ fileName }}</div>
 </div>
 

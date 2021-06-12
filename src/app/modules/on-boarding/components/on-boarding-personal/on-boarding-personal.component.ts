@@ -1,19 +1,16 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { OccupantType } from 'src/app/models/onboarding.model';
+import { FormBuilder } from '@angular/forms';
 import * as _ from 'lodash';
 import { GenericOnBoardingComponent } from 'src/app/shared/generics/generic-onboarding';
 import { StorageService } from 'src/app/services/storage.service';
-import { select, Store } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { RooState } from 'src/app/store/root.reducer';
 import { Router } from '@angular/router';
-import { addToPersonalAction, setOnboardingStepperAction, updateOnboardingPersonalValuesAction } from '../../store/onboarding.action';
+import { setOnboardingStepperAction, updateOnboardingPersonalValuesAction } from '../../store/onboarding.action';
 import { OCCUPANTOPTIONS, ONBOARDINGSPOUSE, ONBOARDINGPERSONAL, ONBOARDINGTYPE, STRPERSONAL } from 'src/app/shared/constants/generic';
 import { OnboardingEntityType } from 'src/app/shared/generics/generic-model';
-import * as moment from 'moment';
 import { ONBOARDINGSPOUSEROUTE, ONBOARDINGTYPEROUTE } from 'src/app/shared/constants/routes';
 import { takeUntil } from 'rxjs/operators';
-import { FmtPayloadToForm } from 'src/app/shared/util/formating';
 import { IOnboarding } from '../../on-boarding.model';
 @Component({
   selector: 'cma-on-boarding-personal',
@@ -23,6 +20,7 @@ import { IOnboarding } from '../../on-boarding.model';
 export class OnboardingPersonalComponent extends GenericOnBoardingComponent implements OnInit {
   public occupantOptions = OCCUPANTOPTIONS;
   public files: File[] = [];
+  public uploadPersonalIdFileDisabled: boolean = true;
 
   constructor(storageSrv: StorageService, router: Router, private _fb: FormBuilder, private _store: Store<RooState>,
     public _storageSrv: StorageService, cdRef: ChangeDetectorRef, fb: FormBuilder, store: Store<RooState>, private _cdRef: ChangeDetectorRef) {
@@ -37,25 +35,33 @@ export class OnboardingPersonalComponent extends GenericOnBoardingComponent impl
   }
 
   ngOnInit(): void {
-    this.getPersonalForm.get('occupantType').patchValue({
-      label: 'Home Owner',
-      value: String(OccupantType.HomeOwner)
-    });
-    this._cdRef.detectChanges();
+    this.getSpouseForm.get('lastname').valueChanges
+      .pipe(takeUntil(this.$unsubscribe))
+      .subscribe(res => {
+        this.uploadPersonalIdFileDisabled = !res;
+      });
   }
 
   public onPersonalImageChange(event: any): void {
-    let file: any
-    if (_.isObject(event)) {
-      file = event;
-    } else {
-      file = event.target.files[0];
+    let fileObj = {
+      lastModified: event?.lastModified,
+      lastModifiedDate: event?.lastModifiedDate,
+      name: `${this.getPersonalName}.${event?.name?.split('.')?.pop()}`,
+      size: event?.size,
+      type: event?.type,
+      webkitRelativePath: event?.webkitRelativePath,
     }
-    this.getPersonalForm.get('uploadPersonalIdFile').patchValue(file);
+    let file = event;
+
+    this.getPersonalForm.get('uploadPersonalIdFile').patchValue({ fileObj, file });
   }
 
   public getFileName(formName: string): string {
-    return this.getPersonalForm.get(formName)?.value?.name;
+    return this.getPersonalForm.get(formName)?.value?.fileObj?.name || this.getPersonalForm.get(formName)?.value;
+  }
+
+  public get getPersonalName(): string {
+    return this.getName(this.getPersonalForm, STRPERSONAL);
   }
 
   public onNext(): void {
@@ -65,10 +71,8 @@ export class OnboardingPersonalComponent extends GenericOnBoardingComponent impl
   }
 
   public onPrev(): void {
-    setTimeout(() => {
-      super.onPrev(ONBOARDINGTYPEROUTE(this.id), STRPERSONAL, this.getPersonalForm.value);
+    super.onPrev(ONBOARDINGTYPEROUTE(this.id));
 
-      this._store.dispatch(setOnboardingStepperAction({ step: ONBOARDINGTYPE }));
-    }, 100);
+    this._store.dispatch(setOnboardingStepperAction({ step: ONBOARDINGTYPE }));
   }
 }

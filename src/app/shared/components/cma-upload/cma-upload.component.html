@@ -1,7 +1,7 @@
 <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
   <img class="icon" (click)="uploader.click()" [src]="svgPath + '24x24/upload.svg'">
   <div *ngIf="fileName" class="filename" (click)="onPreview(op, $event)" [pTooltip]="fileName">{{ fileName }}</div>
-  <div *ngIf="!fileName" class="select-file" (click)="uploader.click()" pTooltip="Select a file">Select a file</div>
+  <div *ngIf="!fileName" class="select-file" (click)="!disabled ? uploader.click(): null" pTooltip="Select a file">Select a file</div>
   <input hidden type="file" #uploader (change)="onUpload($event)" accept="image/*" />
 </div>
 

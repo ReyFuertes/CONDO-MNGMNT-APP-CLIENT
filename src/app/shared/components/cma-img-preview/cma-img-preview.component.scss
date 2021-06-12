@@ -6,6 +6,9 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  min-height: 35px;
+  position: relative;
+  top: -4px;
 }
 img.preview {
   cursor: pointer;
@@ -13,4 +16,9 @@ img.preview {
   height: 250px;
   max-width: 250px;
   max-height: 250px;
+}
+:host ::ng-deep {
+  label {
+    margin-bottom: 10px !important;
+  }
 }

@@ -1,6 +1,10 @@
 import { IOnboarding } from "src/app/modules/on-boarding/on-boarding.model";
 import * as _ from 'lodash';
 
+export const GetFirstLetter = (str: string): string => {
+  return str?.substring(0, 1)?.toLowerCase() || '';
+}
+
 export const RemoveNullOrUndefinedFromObj = (obj: any) => {
   return _.pick(obj, _.identity)
 }
@@ -31,9 +35,10 @@ export const FmtToSimpleItem = (state: any, field: string, entity: string) => {
     _value = state[entity][field]?.toLowerCase();
   }
 
-  return {
-    label: _label,
-    value: _value
+  if (_label && _value) {
+    return { label: _label, value: _value }
+  } else {
+    return null;
   }
 }
 

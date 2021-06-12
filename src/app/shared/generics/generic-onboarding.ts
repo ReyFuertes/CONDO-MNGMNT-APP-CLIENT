@@ -2,7 +2,7 @@ import { AfterViewInit, ChangeDetectorRef, Directive } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import { map, takeUntil } from 'rxjs/operators';
+import { debounceTime, map, takeUntil } from 'rxjs/operators';
 import { IOnboarding, IOnboardingDocument, IOnboardingOccupant, IOnboardingVehicle } from 'src/app/modules/on-boarding/on-boarding.model';
 import { getOnboardingByIdAction } from 'src/app/modules/on-boarding/store/onboarding.action';
 import { getOnboardingSelector, onboardingLoadedSelector } from 'src/app/modules/on-boarding/store/onboarding.selector';
@@ -10,9 +10,10 @@ import { StorageService } from 'src/app/services/storage.service';
 import { RooState } from 'src/app/store/root.reducer';
 import { environment } from 'src/environments/environment';
 import { BUILDINGNOOPTIONS, CIVILOPTIONS, GENDEROPTIONS, IDTYPEOPTIONS, PARTKINGNOOPTIONS, RELATIONSOPTIONS, STRDOCUMENTS, STROCCUPANTS, STRPERSONAL, STRSPOUSE, STRVEHICLES, UNITNOOPTIONS, STRTYPE } from '../constants/generic';
-import { FmtPayloadToForm } from '../util/formating';
+import * as moment from "moment";
 import { GenericDestroyPageComponent } from './generic-destroy';
 import { OnboardingEntityType } from './generic-model';
+import { GetFirstLetter } from '../util/formating';
 
 @Directive()
 export class GenericOnBoardingComponent extends GenericDestroyPageComponent implements AfterViewInit {
@@ -40,28 +41,28 @@ export class GenericOnBoardingComponent extends GenericDestroyPageComponent impl
 
     this.form = this.fb.group({
       id: [null, Validators.required],
-      type: [null],
+      type: [null, Validators.required],
       personal: this.fb.group({
-        id: [null],
-        buildingNo: [null],
-        unitNo: [null],
-        parkingSlot: [null],
-        occupantType: [null],
-        lastname: [null],
-        firstname: [null],
-        middlename: [null],
-        citizenship: [null],
-        gender: [null],
-        civilStatus: [null],
-        dateOfBirth: [null],
-        occupation: [null],
+        id: [null, Validators.required],
+        buildingNo: [null, Validators.required],
+        unitNo: [null, Validators.required],
+        parkingSlot: [null, Validators.required],
+        occupantType: [null, Validators.required],
+        lastname: [null, Validators.required],
+        firstname: [null, Validators.required],
+        middlename: [null, Validators.required],
+        citizenship: [null, Validators.required],
+        gender: [null, Validators.required],
+        civilStatus: [null, Validators.required],
+        dateOfBirth: [new Date(), Validators.required],
+        occupation: [null, Validators.required],
         busAddress: [null],
         busContactNo: [null],
         busEmail: [null],
         tin: [null],
-        idType: [null],
-        idNo: [null],
-        uploadPersonalIdFile: [null],
+        idType: [null, Validators.required],
+        idNo: [null, Validators.required],
+        uploadPersonalIdFile: [null, Validators.required],
         getPersonalUploadedFilePreview: [null]
       }),
       spouse: this.fb.group({
@@ -90,9 +91,7 @@ export class GenericOnBoardingComponent extends GenericDestroyPageComponent impl
 
     this.store.pipe(select(onboardingLoadedSelector),
       takeUntil(this.$unsubscribe))
-      .subscribe(res => {
-        this.onboardingLoaded = res;
-      });
+      .subscribe(res => this.onboardingLoaded = res);
   }
 
   ngAfterViewInit(): void {
@@ -111,17 +110,29 @@ export class GenericOnBoardingComponent extends GenericDestroyPageComponent impl
         if (res) {
           const { id, type, personal, spouse, occupants, vehicles, documents, documentsToUpload } = res;
 
-          this.form.get('id').patchValue(id);
-    
+          this.form.get('id').patchValue(id, { emitEvent: false });
+
           switch (this._step) {
             case OnboardingEntityType.ONBOARDINGTYPE:
               if (type) this.form.get(STRTYPE).patchValue(type);
               break;
             case OnboardingEntityType.ONBOARDINGPERSONAL:
-              if (personal) this.getPersonalForm.patchValue(personal, { emitEvent: false });
+              if (personal) {
+                const _personal = {
+                  ...personal,
+                  dateOfBirth: moment(personal?.dateOfBirth || new Date()).toDate(),
+                };
+                this.getPersonalForm.patchValue(_personal, { emitEvent: false });
+              }
               break;
             case OnboardingEntityType.ONBOARDINGSPOUSE:
-              if (spouse) this.getSpouseForm.patchValue(spouse, { emitEvent: false });
+              if (spouse) {
+                const _spouse = {
+                  ...spouse,
+                  dateOfBirth: moment(spouse?.dateOfBirth || new Date()).toDate(),
+                };
+                this.getSpouseForm.patchValue(_spouse, { emitEvent: false });
+              }
               break;
             case OnboardingEntityType.ONBOARDINGOCCUPANTS:
               if (occupants) {
@@ -146,7 +157,7 @@ export class GenericOnBoardingComponent extends GenericDestroyPageComponent impl
                 this.getDocumentsForm.clear();
                 documents?.forEach(document => {
                   this.formDocumentsArr = this.getDocumentsForm;
-                  if(document?.id) {
+                  if (document?.id) {
                     this.formDocumentsArr.push(this.createDocumentItem(Object.assign({}, document)));
                   }
                 });
@@ -159,6 +170,14 @@ export class GenericOnBoardingComponent extends GenericDestroyPageComponent impl
         }
       });
     this.cdRef.detectChanges();
+  }
+
+  protected getName(form: FormGroup, compName: string = ''): any {
+    return `${GetFirstLetter(form.get('lastname')?.value)}${GetFirstLetter(form.get('firstname')?.value)}_${compName}`.toLowerCase()?.replace(/ /g,'_');
+  }
+
+  public get hasToUploadDocs(): boolean {
+    return this.toUploadDocs?.length > 0;
   }
 
   public get getDocumentFiles(): any {

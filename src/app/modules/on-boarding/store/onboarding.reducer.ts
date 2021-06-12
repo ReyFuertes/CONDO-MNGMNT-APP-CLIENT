@@ -5,6 +5,7 @@ import { addDocumentsAction, addToOccupantAction, addToPersonalAction, addToSpou
 import * as _ from 'lodash';
 import { createEntityAdapter, EntityAdapter, EntityState } from "@ngrx/entity";
 import { OnBoardingType } from "src/app/models/onboarding.model";
+import * as moment from "moment";
 
 export const adapter: EntityAdapter<IOnboarding> = createEntityAdapter<IOnboarding>({});
 export interface OnboardingState extends EntityState<IOnboarding> {
@@ -44,21 +45,36 @@ const onboardingReducer = createReducer(
     return Object.assign({}, state, { occupants: action?.payload });
   }),
   on(updateOnboardingSpouseValuesAction, (state, action) => {
-    return Object.assign({}, state, { spouse: action?.payload?.spouse });
+    const spouse = {
+      ...action?.payload?.spouse,
+      dateOfBirth: moment(action?.payload?.spouse?.dateOfBirth || new Date()).format('MM-DD-YYYY'),
+    }
+    return Object.assign({}, state, { spouse });
   }),
   on(updateOnboardingPersonalValuesAction, (state, action) => {
-    return Object.assign({}, state, { personal: action?.payload?.personal });
+    const personal = {
+      ...action?.payload?.personal,
+      dateOfBirth: moment(action?.payload?.personal?.dateOfBirth || new Date()).format('MM-DD-YYYY'),
+    }
+    return Object.assign({}, state, { personal });
   }),
   on(getOnboardingByIdSuccessAction, (state, action) => {
     const onboarding: IOnboarding = {
       id: action?.response?.id,
       type: action?.response?.type,
-      personal: action?.response?.personal,
-      spouse: action?.response?.spouse,
+      personal: {
+        ...action?.response?.personal,
+        dateOfBirth: moment(action?.response?.personal?.dateOfBirth || new Date()).format('MM-DD-YYYY'),
+      },
+      spouse: {
+        ...action?.response?.spouse,
+        dateOfBirth: moment(action?.response?.spouse?.dateOfBirth || new Date()).format('MM-DD-YYYY'),
+      },
       occupants: action?.response?.occupants,
       documents: action?.response?.documents,
       vehicles: action?.response?.vehicles,
     };
+
     return Object.assign({}, state, onboarding);
   }),
   on(getOnboardingByIdSuccessAction, (state) => {

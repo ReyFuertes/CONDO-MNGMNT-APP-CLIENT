@@ -13,6 +13,7 @@ import { v4 as uuid } from 'uuid';
 export class CMAUploadComponent extends GenericDestroyPageComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() fileName: string;
   @Input() file: File;
+  @Input() disabled: boolean;
   @Input() preview: any;
   @Output() public fileEmitter = new EventEmitter<File>();
 
@@ -25,7 +26,6 @@ export class CMAUploadComponent extends GenericDestroyPageComponent implements O
   ngOnInit(): void { }
 
   ngAfterViewInit(): void {
-    console.log(this.fileName)
     this.cdRef.detectChanges();
   }
 

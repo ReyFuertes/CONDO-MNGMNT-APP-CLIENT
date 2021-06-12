@@ -24,7 +24,7 @@ export interface IMyInfo {
   citizenship?: string;
   gender?: string | ISimpleItem;
   civilStatus?: string | ISimpleItem;
-  dateOfBirth?: string;
+  dateOfBirth?: string | Date;
   occupation?: string;
   tin?: string;
   idType?: string | ISimpleItem;

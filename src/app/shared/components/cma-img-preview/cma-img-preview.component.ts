@@ -12,14 +12,13 @@ export class CMAImgPreviewComponent extends GenericDestroyPageComponent implemen
   @Input() fileName: string;
   @Input() file: File;
   @Input() preview: any;
+  @Input() label: string = '';
 
   constructor() {
     super();
   }
 
-  ngOnInit(): void { 
-    console.log('fileName', this.fileName)
-  }
+  ngOnInit(): void { }
 
   public onPreview(op: any, event: any): void {
     this.onConvertBlobToBase64(this.file);

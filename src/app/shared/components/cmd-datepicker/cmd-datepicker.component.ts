@@ -14,9 +14,7 @@ export class CMADatepickerComponent extends GenericControl<ISimpleItem> implemen
   }
 
   ngOnInit(): void {
-    if (this.form.get(this.controlName).value) {
-      const toDate = new Date(this.form.get(this.controlName).value);
-      this.form.get(this.controlName).patchValue(toDate);
-    }
+    const toDate = new Date(this.form.get(this.controlName).value || new Date());
+    this.form.get(this.controlName).patchValue(toDate);
   }
 }
