@@ -110,7 +110,7 @@ export class DashboardOnboardingComponent extends GenericContainer implements On
       let searchParams: string = '';
 
       for (let i = 0; i < ambigousFields?.length; i++) {
-        searchParams += `${ambigousFields[i]}.firstname=${keyword}&${ambigousFields[i]}.lastname=${keyword}&${ambigousFields[i]}.middlename=${ambigousFields[i]}`;
+        searchParams += `${ambigousFields[i]}.firstname=${keyword}&${ambigousFields[i]}.lastname=${keyword}&${ambigousFields[i]}.middlename=${keyword}&`;
       };
 
       let params = this.filterParams?.replace(/@searchValue/g, keyword) || '';

@@ -19,7 +19,7 @@ export class CMAInputSearchComponent extends GenericControl<string> implements O
 
   ngOnInit(): void {
     this.search$.pipe(
-      debounceTime(400),
+      debounceTime(600),
       distinctUntilChanged(),
       takeUntil(this.$unsubscribe)
     ).subscribe((keyword) => {
