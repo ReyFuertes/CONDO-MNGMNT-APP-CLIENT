@@ -12,6 +12,10 @@ import { loadDashboardOnboardingAction } from '../../store/actions/dashboard-onb
 import * as _ from 'lodash';
 import { Observable } from 'rxjs';
 import { getDashboardOnboardingCountSelector } from '../../store/selectors/dashboard-onboarding.selector';
+import { v4 as uuid } from 'uuid';
+import { Router } from '@angular/router';
+import { StorageService } from 'src/app/services/storage.service';
+import { ONBOARDINGTYPEROUTE } from 'src/app/shared/constants/routes';
 
 @Component({
   selector: 'cma-dashboard-on-boarding',
@@ -61,7 +65,7 @@ export class DashboardOnboardingComponent extends GenericContainer implements On
   public paginationParams: any;
   public $onboardingCount: Observable<number>;
 
-  constructor(private fb: FormBuilder, private store: Store<RooState>) {
+  constructor(private storageSrv: StorageService, private router: Router, private fb: FormBuilder, private store: Store<RooState>) {
     super();
     localStorage.setItem('nav', JSON.stringify(MenuType.Onboarding));
 
@@ -91,6 +95,12 @@ export class DashboardOnboardingComponent extends GenericContainer implements On
     this.paginationParams = `take=${this.pGRowCount}&skip=${this.pGSkipCount}`;
 
     this.$onboardingCount = this.store.pipe(select(getDashboardOnboardingCountSelector));
+  }
+
+  public createNew(): void {
+    const newId = uuid();
+    this.storageSrv.set('obId', JSON.stringify(newId));
+    this.router.navigateByUrl(ONBOARDINGTYPEROUTE(newId));
   }
 
   public onPaginate(event: any): void {

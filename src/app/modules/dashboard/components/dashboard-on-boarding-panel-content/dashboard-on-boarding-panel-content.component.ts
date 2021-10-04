@@ -17,7 +17,7 @@ export class DashboardOnboardingPanelContentComponent implements OnInit {
   ngOnInit(): void { }
 
   public onEdit(id: string): void {
-    this.router.navigateByUrl(`/on-boarding/type/${id}`);
     this.storageSrv.set('obId', JSON.stringify(id));
+    this.router.navigateByUrl(`/on-boarding/type/${id}`);
   }
 }

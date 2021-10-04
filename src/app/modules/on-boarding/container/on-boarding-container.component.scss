@@ -5,6 +5,18 @@ div {
   min-height: 100%;
   max-height: 100%;
 }
+::ng-deep {
+  .action-btns {
+    margin-top: 20px;
+    border-top: thin $color-gray-3 solid;
+    padding-top: 20px;
+    padding-bottom: 5px;
+    width: 100%;
+    button.default {
+      color: $color-black-3 !important;
+    }
+  }
+}
 :host ::ng-deep {
   h2 {
     margin-top: 10px !important;

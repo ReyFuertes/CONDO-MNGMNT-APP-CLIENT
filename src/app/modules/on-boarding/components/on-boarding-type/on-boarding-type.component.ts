@@ -6,7 +6,7 @@ import { takeUntil } from 'rxjs/operators';
 import { OnBoardingType } from 'src/app/models/onboarding.model';
 import { StorageService } from 'src/app/services/storage.service';
 import { ONBOARDINGPERSONAL } from 'src/app/shared/constants/generic';
-import { ONBOARDINGPERSONALROUTE } from 'src/app/shared/constants/routes';
+import { DASHBOARDONBOARDINGLISTROUTE, ONBOARDINGPERSONALROUTE, ONBOARDINGTYPEROUTE } from 'src/app/shared/constants/routes';
 import { OnboardingEntityType } from 'src/app/shared/generics/generic-model';
 import { GenericOnBoardingComponent } from 'src/app/shared/generics/generic-onboarding';
 import { RooState } from 'src/app/store/root.reducer';
@@ -53,9 +53,7 @@ export class OnboardingTypeComponent extends GenericOnBoardingComponent implemen
       });
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log('changes', changes)
-  }
+  ngOnChanges(changes: SimpleChanges): void {}
 
   public onSelect(chk: any): void {
     chk.checked = !chk.checked;
@@ -79,6 +77,10 @@ export class OnboardingTypeComponent extends GenericOnBoardingComponent implemen
 
     this._store.dispatch(addToTypeAction({ payload: this.selectedType }));
     this._store.dispatch(setOnboardingStepperAction({ step: ONBOARDINGPERSONAL }));
+  }
+
+  public onCancel(): void {
+    super.routeTo(DASHBOARDONBOARDINGLISTROUTE);
   }
 
   public get isDisabled(): boolean {

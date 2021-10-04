@@ -2,7 +2,8 @@
   <div fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="5px">
     <div class="breadcrumb-container" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
       <cma-breadcrumb fxFlex [items]="breadCrumbItems"></cma-breadcrumb>
-      <div class="settings" fxFlex="100px" fxLayout="row" fxLayoutAlign="end center">
+      <div class="settings" fxFlex="150px" fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="10px">
+        <i pTooltip="Create New" tooltipPosition="top" class="pi pi-user-plus" (click)="createNew()"></i>
         <i pTooltip="Refresh" tooltipPosition="top" class="pi pi-refresh"></i>
         <i pTooltip="Actions" tooltipPosition="top" (click)="menu.toggle($event)" class="pi pi-cog"></i>
         <p-menu #menu [popup]="true" [model]="settingItems"></p-menu>

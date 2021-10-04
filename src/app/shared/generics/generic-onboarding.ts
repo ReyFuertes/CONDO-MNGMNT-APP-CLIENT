@@ -253,6 +253,10 @@ export class GenericOnBoardingComponent extends GenericDestroyPageComponent impl
     this.router.navigateByUrl(route);
   }
 
+  protected routeTo(url: string): void {
+    this.router.navigateByUrl(url);
+  }
+
   protected clearStorage(): void {
     this.storageSrv.remove('type');
     this.storageSrv.remove('personal');
