@@ -2,18 +2,18 @@ import { AfterViewInit, ChangeDetectorRef, Directive } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import { debounceTime, map, takeUntil } from 'rxjs/operators';
-import { IOnboarding, IOnboardingDocument, IOnboardingOccupant, IOnboardingVehicle } from 'src/app/modules/on-boarding/on-boarding.model';
+import { takeUntil } from 'rxjs/operators';
+import { IOnboardingDocument, IOnboardingOccupant, IOnboardingVehicle } from 'src/app/modules/on-boarding/on-boarding.model';
 import { getOnboardingByIdAction } from 'src/app/modules/on-boarding/store/onboarding.action';
 import { getOnboardingSelector, onboardingLoadedSelector } from 'src/app/modules/on-boarding/store/onboarding.selector';
 import { StorageService } from 'src/app/services/storage.service';
 import { RooState } from 'src/app/store/root.reducer';
 import { environment } from 'src/environments/environment';
-import { BUILDINGNOOPTIONS, CIVILOPTIONS, GENDEROPTIONS, IDTYPEOPTIONS, PARTKINGNOOPTIONS, RELATIONSOPTIONS, STRDOCUMENTS, STROCCUPANTS, STRPERSONAL, STRSPOUSE, STRVEHICLES, UNITNOOPTIONS, STRTYPE } from '../constants/generic';
+import { BUILDINGNOOPTIONS, CIVILOPTIONS, GENDEROPTIONS, IDTYPEOPTIONS, PARTKINGNOOPTIONS, RELATIONSOPTIONS, STRDOCUMENTS, STROCCUPANTS, STRPERSONAL, STRSPOUSE, STRVEHICLES, UNITNOOPTIONS, STRTYPE, ONBOARDINGACTIONID } from '../constants/generic';
 import * as moment from "moment";
 import { GenericDestroyPageComponent } from './generic-destroy';
 import { OnboardingEntityType } from './generic-model';
-import { GetFirstLetter } from '../util/formating';
+import { FmtFormToPayload, FmtPayloadToForm, GetFirstLetter } from '../util/formating';
 
 @Directive()
 export class GenericOnBoardingComponent extends GenericDestroyPageComponent implements AfterViewInit {
@@ -40,10 +40,10 @@ export class GenericOnBoardingComponent extends GenericDestroyPageComponent impl
     this._step = step;
 
     this.form = this.fb.group({
-      id: [null, Validators.required],
+      id: [null],
       type: [null, Validators.required],
       personal: this.fb.group({
-        id: [null, Validators.required],
+        id: [null],
         buildingNo: [null, Validators.required],
         unitNo: [null, Validators.required],
         parkingSlot: [null, Validators.required],
@@ -95,7 +95,7 @@ export class GenericOnBoardingComponent extends GenericDestroyPageComponent impl
   }
 
   ngAfterViewInit(): void {
-    const id = this.storageSrv.get('obId');
+    const id = this.storageSrv.get(ONBOARDINGACTIONID);
     if (id) {
       this.id = JSON.parse(id);
 
@@ -109,7 +109,7 @@ export class GenericOnBoardingComponent extends GenericDestroyPageComponent impl
       .subscribe(res => {
         if (res) {
           const { id, type, personal, spouse, occupants, vehicles, documents, documentsToUpload } = res;
-
+          
           this.form.get('id').patchValue(id, { emitEvent: false });
 
           switch (this._step) {
@@ -173,7 +173,7 @@ export class GenericOnBoardingComponent extends GenericDestroyPageComponent impl
   }
 
   protected getName(form: FormGroup, compName: string = ''): any {
-    return `${GetFirstLetter(form.get('lastname')?.value)}${GetFirstLetter(form.get('firstname')?.value)}_${compName}`.toLowerCase()?.replace(/ /g,'_');
+    return `${GetFirstLetter(form.get('lastname')?.value)}${GetFirstLetter(form.get('firstname')?.value)}_${compName}`.toLowerCase()?.replace(/ /g, '_');
   }
 
   public get hasToUploadDocs(): boolean {
@@ -239,7 +239,7 @@ export class GenericOnBoardingComponent extends GenericDestroyPageComponent impl
     if (formName && formValues) {
       this.storageSrv.set(formName, JSON.stringify(formValues));
     }
-
+    
     this.storageSrv.set('step', String(Number(this._step) + 1));
     this.router.navigateByUrl(route);
   }
@@ -255,6 +255,14 @@ export class GenericOnBoardingComponent extends GenericDestroyPageComponent impl
 
   protected routeTo(url: string): void {
     this.router.navigateByUrl(url);
+  }
+
+  protected getActionFromStorage(name: string): string {
+    let _name = JSON.parse(this.storageSrv.get(name));
+    if (_name) {
+      return _name;
+    }
+    return null;
   }
 
   protected clearStorage(): void {

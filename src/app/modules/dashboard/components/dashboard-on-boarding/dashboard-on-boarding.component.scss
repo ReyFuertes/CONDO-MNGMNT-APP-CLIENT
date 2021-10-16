@@ -11,6 +11,9 @@
 .settings i {
   cursor: pointer;
   min-width: 25px;
+  &:hover {
+    color: $color-blue;
+  }
 }
 .pi-user-plus {
   font-size: 1.1rem;

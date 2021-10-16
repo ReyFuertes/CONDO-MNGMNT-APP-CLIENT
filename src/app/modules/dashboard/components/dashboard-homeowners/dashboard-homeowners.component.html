@@ -13,19 +13,20 @@
         </mat-panel-description>
       </mat-expansion-panel-header>
       <div class="noselect" fxLayout="row" fxLayoutAlign="start start">
-        <div class="content" fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="20px">
+        <div class="content" fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="10px">
           <mat-tab-group>
             <mat-tab label="Personal Information">
               <cma-dashboard-homeowners-info></cma-dashboard-homeowners-info>
             </mat-tab>
-            <mat-tab label="Tenants">
+            <mat-tab label="Occupants">
+            </mat-tab>
+            <mat-tab label="Vehicles">
             </mat-tab>
             <mat-tab label="Documents">
               <cma-dashboard-homeowners-document></cma-dashboard-homeowners-document>
             </mat-tab>
-            <mat-tab label="Payments">
-            </mat-tab>
-            <mat-tab label="Other">
+            <mat-tab label="Tenants">
+              <cma-dashboard-homeowners-tenant></cma-dashboard-homeowners-tenant>
             </mat-tab>
           </mat-tab-group>
         </div>
@@ -34,7 +35,7 @@
 
       <div class="btn-actions" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px">
         <i pTooltip="Edit" tooltipPosition="left" class="pi pi-pencil"></i>
-        <i pTooltip="Delete" tooltipPosition="right" class="pi pi-times"></i>
+        <i pTooltip="Remove" tooltipPosition="right" class="pi pi-trash"></i>
       </div>
     </mat-expansion-panel>
   </mat-accordion>

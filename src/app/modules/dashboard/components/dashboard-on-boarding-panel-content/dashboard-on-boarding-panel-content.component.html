@@ -7,11 +7,11 @@
       <div fxFlex="155px" fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="20px">
         <div class="actions-btns" fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="5px">
           <span class="p-buttonset" styleClass="p-button-sm">
-            <button styleClass="p-button-sm" tooltipPosition="left" pTooltip="Approve" pButton pRipple class="btn-done success" icon="pi pi-check"></button>
+            <button (click)="onApprove(item)" styleClass="p-button-sm" tooltipPosition="left" pTooltip="Approve" pButton pRipple class="btn-done success" icon="pi pi-check"></button>
             <button type="button" (click)="onEdit(item?.id)" styleClass="p-button-sm" tooltipPosition="top" pTooltip="Edit" pButton pRipple class="btn-edit default" icon="pi pi-pencil"></button>
-            <button type="button" (click)="onEdit(item?.id)" styleClass="p-button-sm" tooltipPosition="top" pTooltip="Archive" pButton pRipple class="btn-edit default" icon="pi pi-folder-open
+            <button type="button" (click)="onArchived(item)" styleClass="p-button-sm" tooltipPosition="top" pTooltip="Archive" pButton pRipple class="btn-edit default" icon="pi pi-folder-open
             "></button>
-            <button styleClass="p-button-sm" tooltipPosition="top" pTooltip="Remove" pButton pRipple class="btn-remove danger" icon="pi pi-trash"></button>
+            <button (click)="onDelete(item)" styleClass="p-button-sm" tooltipPosition="top" pTooltip="Remove" pButton pRipple class="btn-remove danger" icon="pi pi-trash"></button>
           </span>
         </div>
       </div>

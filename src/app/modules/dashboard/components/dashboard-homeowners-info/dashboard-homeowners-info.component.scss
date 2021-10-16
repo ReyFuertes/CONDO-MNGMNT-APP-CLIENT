@@ -9,18 +9,19 @@ div {
 .pi-thumb {
   > div:not(.upload-thumb) {
     border-bottom: thin $color-gray-3 solid;
-    height: 35px;
+    min-height: 30px;
+    max-height: 30px;
     padding-bottom: 0;
     width: 100%;
     span {
       &:nth-child(1) {
         font-weight: 500;
-        font-size: 14px;
+        font-size: 13px;
         color: $color-black-3;
       }
       &:nth-child(2) {
         font-weight: 400;
-        font-size: 14px;
+        font-size: 13px;
         color: $color-black-1;
       }
     }
@@ -54,7 +55,6 @@ div {
     align-items: center;
     margin-bottom: 5px;
     cursor: pointer;
-    margin-top: 20px;
   }
   flex-direction: column;
   box-sizing: border-box;

@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { select, Store } from '@ngrx/store';
 import { MenuItem } from 'primeng/api';
 import { takeUntil } from 'rxjs/operators';
-import { MenuType } from 'src/app/models/onboarding.model';
+import { MenuType, RouteActionsType } from 'src/app/models/onboarding.model';
 import { ONBOARDINGBREADCRUMBS } from 'src/app/shared/constants/breadcrumbs';
 import { GenericContainer } from 'src/app/shared/generics/generic-container';
 import { ISimpleItem } from 'src/app/shared/generics/generic-model';
@@ -16,6 +16,7 @@ import { v4 as uuid } from 'uuid';
 import { Router } from '@angular/router';
 import { StorageService } from 'src/app/services/storage.service';
 import { ONBOARDINGTYPEROUTE } from 'src/app/shared/constants/routes';
+import { ONBOARDINGACTIONID, ROUTEACTIONSTYPE } from 'src/app/shared/constants/generic';
 
 @Component({
   selector: 'cma-dashboard-on-boarding',
@@ -65,8 +66,8 @@ export class DashboardOnboardingComponent extends GenericContainer implements On
   public paginationParams: any;
   public $onboardingCount: Observable<number>;
 
-  constructor(private storageSrv: StorageService, private router: Router, private fb: FormBuilder, private store: Store<RooState>) {
-    super();
+  constructor(storageSrv: StorageService, private router: Router, private fb: FormBuilder, private store: Store<RooState>) {
+    super(storageSrv);
     localStorage.setItem('nav', JSON.stringify(MenuType.Onboarding));
 
     this.form = this.fb.group({
@@ -99,8 +100,9 @@ export class DashboardOnboardingComponent extends GenericContainer implements On
 
   public createNew(): void {
     const newId = uuid();
-    this.storageSrv.set('obId', JSON.stringify(newId));
-    this.router.navigateByUrl(ONBOARDINGTYPEROUTE(newId));
+    super.routeTo(ONBOARDINGACTIONID, newId);
+    super.routeTo(ROUTEACTIONSTYPE, RouteActionsType.Add);
+    this.router.navigateByUrl(ONBOARDINGTYPEROUTE(newId, RouteActionsType.Add));
   }
 
   public onPaginate(event: any): void {

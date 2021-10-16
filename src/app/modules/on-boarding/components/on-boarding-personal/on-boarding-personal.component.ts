@@ -6,12 +6,13 @@ import { StorageService } from 'src/app/services/storage.service';
 import { Store } from '@ngrx/store';
 import { RooState } from 'src/app/store/root.reducer';
 import { Router } from '@angular/router';
-import { setOnboardingStepperAction, updateOnboardingPersonalValuesAction } from '../../store/onboarding.action';
+import { addToPersonalAction, setOnboardingStepperAction, updateOnboardingPersonalValuesAction } from '../../store/onboarding.action';
 import { OCCUPANTOPTIONS, ONBOARDINGSPOUSE, ONBOARDINGPERSONAL, ONBOARDINGTYPE, STRPERSONAL } from 'src/app/shared/constants/generic';
 import { OnboardingEntityType } from 'src/app/shared/generics/generic-model';
 import { ONBOARDINGSPOUSEROUTE, ONBOARDINGTYPEROUTE } from 'src/app/shared/constants/routes';
 import { takeUntil } from 'rxjs/operators';
 import { IOnboarding } from '../../on-boarding.model';
+import { RouteActionsType } from 'src/app/models/onboarding.model';
 @Component({
   selector: 'cma-on-boarding-personal',
   templateUrl: './on-boarding-personal.component.html',
@@ -30,7 +31,7 @@ export class OnboardingPersonalComponent extends GenericOnBoardingComponent impl
       .subscribe((payload: IOnboarding) => {
         if (payload?.personal?.id) {
           this._store.dispatch(updateOnboardingPersonalValuesAction({ payload }));
-        }
+        };
       });
   }
 
@@ -65,8 +66,9 @@ export class OnboardingPersonalComponent extends GenericOnBoardingComponent impl
   }
 
   public onNext(): void {
-    super.onNext(ONBOARDINGSPOUSEROUTE(this.id));
+    super.onNext(ONBOARDINGSPOUSEROUTE(this.id, RouteActionsType.Add), STRPERSONAL, this.getPersonalForm.value);
 
+    this._store.dispatch(addToPersonalAction({ payload: this.getPersonalForm.value }));
     this._store.dispatch(setOnboardingStepperAction({ step: ONBOARDINGSPOUSE }));
   }
 

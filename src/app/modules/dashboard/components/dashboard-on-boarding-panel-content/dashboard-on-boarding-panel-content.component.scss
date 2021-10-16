@@ -16,19 +16,19 @@
       white-space: nowrap;
       &:nth-child(1) {
         font-weight: 500;
-        font-size: 14px;
+        font-size: 13px;
         color: $color-black-3;
       }
       &:nth-child(2) {
         font-weight: 400;
-        font-size: 14px;
+        font-size: 13px;
         color: $color-black-1;
       }
     }
   }
 }
 .content-title {
-  font-weight: 600;
+  font-weight: 500;
   color: $color-black-2;
   position: relative;
   left: -5px;

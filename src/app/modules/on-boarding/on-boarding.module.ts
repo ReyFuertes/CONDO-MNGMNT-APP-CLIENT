@@ -29,28 +29,52 @@ const routes: Routes = [{
   path: '',
   component: OnboardingContainerComponent,
   children: [{
-    path: 'type/:id',
-    component: OnboardingTypeComponent
+    path: 'type/:id/edit',
+    component: OnboardingTypeComponent,
   }, {
-    path: 'personal/:id',
+    path: 'type/:id/add',
+    component: OnboardingTypeComponent,
+  }, {
+    path: 'personal/:id/add',
     component: OnboardingPersonalComponent
   }, {
-    path: 'spouse/:id',
+    path: 'personal/:id/edit',
+    component: OnboardingPersonalComponent
+  }, {
+    path: 'spouse/:id/add',
     component: OnboardingSpouseInfoComponent
   }, {
-    path: 'occupants/:id',
+    path: 'spouse/:id/edit',
+    component: OnboardingSpouseInfoComponent
+  }, {
+    path: 'occupants/:id/add',
     component: OnboardingOccupantsComponent
   }, {
-    path: 'documents/:id',
+    path: 'occupants/:id/edit',
+    component: OnboardingOccupantsComponent
+  }, {
+    path: 'documents/:id/add',
     component: OnboardingDocumentComponent
   }, {
-    path: 'vehicles/:id',
+    path: 'documents/:id/edit',
+    component: OnboardingDocumentComponent
+  }, {
+    path: 'vehicles/:id/add',
     component: OnboardingVehicleComponent
   }, {
-    path: 'review/:id',
+    path: 'vehicles/:id/edit',
+    component: OnboardingVehicleComponent
+  }, {
+    path: 'review/:id/add',
     component: OnboardingReviewComponent
   }, {
-    path: 'for-approval/:id',
+    path: 'review/:id/edit',
+    component: OnboardingReviewComponent
+  }, {
+    path: 'for-approval/:id/add',
+    component: OnboardingForApprovalComponent
+  }, {
+    path: 'for-approval/:id/edit',
     component: OnboardingForApprovalComponent
   }]
 }];

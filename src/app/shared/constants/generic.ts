@@ -1,6 +1,9 @@
 import { OccupantType } from "src/app/models/onboarding.model";
 import { ISimpleItem } from "../generics/generic-model";
 
+export const ONBOARDINGACTIONID = 'onboardingId';
+export const ROUTEACTIONSTYPE = 'routeActionsType';
+
 export const STRTYPE = 'type';
 export const STRPERSONAL = 'personal';
 export const STRSPOUSE = 'spouse';

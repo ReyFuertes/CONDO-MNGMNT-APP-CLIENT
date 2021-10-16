@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { takeUntil } from 'rxjs/operators';
 import { StorageService } from 'src/app/services/storage.service';
-import { ONBOARDINGDOCUMENTS, ONBOARDINGREVIEW, STRPERSONAL, STRTYPE, STRVEHICLES } from 'src/app/shared/constants/generic';
+import { ONBOARDINGDOCUMENTS, ONBOARDINGREVIEW, STRTYPE, STRVEHICLES } from 'src/app/shared/constants/generic';
 import { ISimpleItem } from 'src/app/shared/generics/generic-model';
 import { GenericOnBoardingComponent } from 'src/app/shared/generics/generic-onboarding';
 import { RooState } from 'src/app/store/root.reducer';
@@ -34,7 +34,7 @@ export class OnboardingReviewComponent extends GenericOnBoardingComponent implem
     this._store.pipe(select(getOnboardingSelector), takeUntil(this.$unsubscribe))
       .subscribe(res => {
         const { type, personal, spouse, occupants, vehicles, documents, documentsToUpload } = FmtFormToPayload(res);
-
+ 
         if (type) this.form.get(STRTYPE).patchValue(type);
         if (personal) {
           const _personal = {

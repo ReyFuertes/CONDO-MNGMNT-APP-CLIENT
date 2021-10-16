@@ -2,19 +2,19 @@
   <div class="document-content" fxLayout="column" fxLayoutAlign="center start" fxLayoutGap="20px">
     <div fxLayout="row wrap" fxLayoutAlign="center start" fxLayoutGap="20px">
       <div *ngFor="let document of uploadDocuments" class="upload-thumb">
-        <div>
-          <img [src]="svgPath + '24x24/upload.svg'" />
-          <span>Drag file to upload</span>
+        <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="5px">
+          <i class="pi pi-upload"></i>
+          <span>Click to upload</span>
         </div>
-        <span>{{ document?.label }}</span>
+        <span class="label">{{ document?.label }}</span>
       </div>
     </div>
   </div>
   
-  <div fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="5px">
+  <!-- <div fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="5px">
     <div *ngFor="let document of uploadDocuments" class="document-thumb" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="5px">
       <img [src]="svgPath + '24x24/word.svg'" />
       <span>{{ document?.label }}</span>
     </div>
-  </div>
+  </div> -->
 </div>

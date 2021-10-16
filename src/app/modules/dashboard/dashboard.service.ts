@@ -10,3 +10,10 @@ export class DashboardOnboardingService extends BaseService<IOnboarding | IOnboa
     super(http, 'onboarding', storageSrv);
   }
 }
+
+@Injectable({  providedIn: 'root'})
+export class DashboardHomeownersService extends BaseService<any> {
+  constructor(http: HttpClient, storageSrv: StorageService) {
+    super(http, 'homeowner', storageSrv);
+  }
+}

@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatAccordion } from '@angular/material/expansion';
 import { Router } from '@angular/router';
-import { MenuItem } from 'primeng/api';
+import { select, Store } from '@ngrx/store';
 import { OnBoardingType } from 'src/app/models/onboarding.model';
-import { HOMEOWNERSBREADCRUMBS } from 'src/app/shared/constants/breadcrumbs';
+import { StorageService } from 'src/app/services/storage.service';
 import { DASHBOARDONBOARDINGROUTE } from 'src/app/shared/constants/routes';
 import { GenericContainer } from 'src/app/shared/generics/generic-container';
 import { ISimpleItem } from 'src/app/shared/generics/generic-model';
@@ -56,11 +56,11 @@ export class DashboardHomeownersComponent extends GenericContainer implements On
   public onBoardingType = OnBoardingType;
   public onboardingStatus: any[];
 
-  constructor(private router: Router) {
-    super();
+  constructor(private store: Store<Store>, storageSrv: StorageService, private router: Router) {
+    super(storageSrv);
     this.onboardingStatus = ['Approved', 'Orientation', 'Move-In'];
   }
-  
+
   public onEdit(id: string): void {
     this.router.navigateByUrl(`${DASHBOARDONBOARDINGROUTE}/${id}/detail`);
   }

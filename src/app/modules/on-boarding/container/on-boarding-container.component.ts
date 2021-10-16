@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { select, Store } from '@ngrx/store';
-import { filter, takeUntil } from 'rxjs/operators';
+import { Store } from '@ngrx/store';
+import { filter } from 'rxjs/operators';
 import { StorageService } from 'src/app/services/storage.service';
 import { STROCCUPANTS, STRPERSONAL, STRSPOUSE, STRVEHICLES } from 'src/app/shared/constants/generic';
 import { GenericDestroyPageComponent } from 'src/app/shared/generics/generic-destroy';
 import { RooState } from 'src/app/store/root.reducer';
 import { addToOccupantsAction, addToPersonalAction, addToSpouseAction, addToTypeAction, addToVehiclesAction } from '../store/onboarding.action';
-import * as moment from 'moment';
 
 @Component({
   selector: 'cma-on-boarding-container',

@@ -1,11 +1,10 @@
 .p-button {
   background: $color-gray-blue;
-  border: thin solid $color-gray-blue;
   max-height: 35px;
   font-size: 14px;
-  &:hover {
-    background: $color-gray-blue;
-    border: thin solid $color-gray-blue;
+  font-weight: 500;
+  &.default:hover {
+    color: $color-blue !important;
   }
   &.primary {
     &:hover {
@@ -53,6 +52,5 @@
 }
 .p-button.p-button-secondary:enabled:hover, .p-buttonset.p-button-secondary > .p-button:enabled:hover, .p-splitbutton.p-button-secondary > .p-button:enabled:hover {
   background-color: $color-gray-3;
-  border-color: $color-gray-3;
   color: $color-black-0;
 }

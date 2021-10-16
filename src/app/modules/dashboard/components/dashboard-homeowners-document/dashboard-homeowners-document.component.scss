@@ -25,15 +25,31 @@
   width: 100%;
   > div {
     width: 100%;
+    display: flex;
+    align-items: center;
+    align-items: center;
+  }
+  .pi {
+    font-size: 1.4rem;
   }
 }
 .document-container {
   margin-bottom: 0 !important;
 }
 .upload-thumb {
+  flex-direction: column;
+  box-sizing: border-box;
+  display: flex;
+  place-content: center;
+  align-items: center;
+  margin-right: 20px;
+  max-width: 120px;
+  width: 120px;
+  text-align: center;
+  margin-bottom: 0;
   > div {
-    height: 120px;
-    width: 120px;
+    height: 100px;
+    width: 100px;
     border: thin $color-gray-2 dashed;
     border-radius: 2px;
     background-color: $color-gray-3;
@@ -46,18 +62,12 @@
     margin-bottom: 5px;
     cursor: pointer;
   }
-  flex-direction: column;
-  box-sizing: border-box;
-  display: flex;
-  place-content: center;
-  align-items: center;
-  margin-right: 20px;
-  margin-bottom: 20px;
-  max-width: 120px;
-  width: 120px;
-  text-align: center;
   span {
     font-size: 12px;
+    color: $color-black-3;
+  }
+  span.label {
+    color: $color-black-1;
   }
   img {
     height: 25px;

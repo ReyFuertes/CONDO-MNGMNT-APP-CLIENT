@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MenuItem } from 'primeng/api';
+import { StorageService } from 'src/app/services/storage.service';
 import { PAYMENTSBREADCRUMBS } from 'src/app/shared/constants/breadcrumbs';
 import { GenericContainer } from 'src/app/shared/generics/generic-container';
 import { ISimpleItem } from 'src/app/shared/generics/generic-model';
@@ -24,8 +25,8 @@ export class DashboardPaymentsComponent extends GenericContainer implements OnIn
   ];
   public form: FormGroup;
 
-  constructor(private fb: FormBuilder) {
-    super();
+  constructor(storageSrv: StorageService, private fb: FormBuilder) {
+    super(storageSrv);
 
     this.form = this.fb.group({
       filterKeyword: [null],

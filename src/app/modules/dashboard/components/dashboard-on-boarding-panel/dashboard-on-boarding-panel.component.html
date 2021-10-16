@@ -1,32 +1,33 @@
-<mat-accordion *ngIf="($onboardings | async) as onboardings; else noRecords" [multi]="true">
-  <mat-expansion-panel *ngFor="let item of onboardings; let i = index" [expanded]="i === 0">
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
-          <div class="sel-chk" (click)="$event.stopPropagation()">
-            <p-checkbox name="groupname"></p-checkbox>
+<ng-container *ngIf="($onboardings | async) as onboardings; else noRecords">
+  <mat-accordion [multi]="true">
+    <mat-expansion-panel *ngFor="let item of onboardings; let i = index" [expanded]="i === 0">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+            <div class="sel-chk" (click)="$event.stopPropagation()">
+              <p-checkbox name="groupname"></p-checkbox>
+            </div>
+            <span class="name">{{ getFullName(item) }}</span>
           </div>
-          <span class="name">{{ getFullName(item) }}</span>
-        </div>
-      </mat-panel-title>
-      <mat-panel-description>
-        <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="10px">
-          <p-chip [pTooltip]="item?.status + ' Date: 10/10/2012 4:15:00 AM'" tooltipPosition="top" [label]="item?.status" [ngClass]="('chip-' + item?.status) | lowercase"></p-chip>
-        </div>
-      </mat-panel-description>
-    </mat-expansion-panel-header>
-    <div class="noselect" fxLayout="row" fxLayoutAlign="start start">
-      <div class="content" fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="20px">
+        </mat-panel-title>
+        <mat-panel-description>
+          <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="10px">
+            <p-chip [pTooltip]="item?.status + ' Date: 10/10/2012 4:15:00 AM'" tooltipPosition="top" [label]="item?.status" [ngClass]="('chip-' + item?.status) | lowercase"></p-chip>
+          </div>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="noselect" fxLayout="row" fxLayoutAlign="start start">
+        <div class="content" fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="20px">
 
-        <cma-dashboard-on-boarding-panel-content [item]="item"></cma-dashboard-on-boarding-panel-content>
+          <cma-dashboard-on-boarding-panel-content [item]="item"></cma-dashboard-on-boarding-panel-content>
 
-        <cma-dashboard-on-boarding-panel-document [item]="item"></cma-dashboard-on-boarding-panel-document>
+          <cma-dashboard-on-boarding-panel-document [item]="item"></cma-dashboard-on-boarding-panel-document>
+        </div>
+        <div></div>
       </div>
-      <div></div>
-    </div>
-  </mat-expansion-panel>
-</mat-accordion>
-
+    </mat-expansion-panel>
+  </mat-accordion>
+</ng-container>
 <ng-template #noRecords>
-  <div>No records</div>
+  <div fxLayoutAlign="center center"><h4>No records</h4></div>
 </ng-template>

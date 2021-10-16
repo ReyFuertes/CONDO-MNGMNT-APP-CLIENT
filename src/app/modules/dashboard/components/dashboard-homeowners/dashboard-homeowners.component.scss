@@ -7,7 +7,7 @@
 }
 .content {
   width: 100%;
-  min-height: 380px;
+  min-height: 200px;
   > div {
     &:first-child {
       margin-bottom: 0 !important;
@@ -39,10 +39,12 @@ img {
 }
 :host ::ng-deep {
   .mat-tab-body-wrapper {
-    min-height: 325px;
+    min-height: 200px;
   }
   .mat-tab-body-content {
-    padding: 20px 0;
+    display: flex;
+    align-content: center;
+    align-items: center;
   }
   .mat-tab-group {
     width: 100%;
@@ -65,7 +67,7 @@ img {
     }
     &:not(:nth-child(1)) {
       .p-timeline-event-marker {
-        border: 2px solid #CCC;
+        border: 2px solid $color-gray-4;
       }
     }
     &:last-child {
@@ -113,7 +115,7 @@ img {
   }
   .mat-expansion-panel-body {
     background-color: $color-gray-4;
-    padding: 20px 0 0 0;
+    padding: 10px 0 0 0;
     border-top: thin $color-gray-3 solid;
     > div {
       width: 100%;

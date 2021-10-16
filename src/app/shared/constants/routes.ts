@@ -1,10 +1,12 @@
-export const ONBOARDINGTYPEROUTE = (id: string) => `/on-boarding/type/${id}`;
-export const ONBOARDINGPERSONALROUTE = (id: string) => `/on-boarding/personal/${id}`;
-export const ONBOARDINGSPOUSEROUTE = (id: string) => `/on-boarding/spouse/${id}`;
-export const ONBOARDINGOCCUPANTSROUTE = (id: string) => `/on-boarding/occupants/${id}`;
-export const ONBOARDINGDOCUMENTSROUTE = (id: string) => `/on-boarding/documents/${id}`;
-export const ONBOARDINGVEHICLESROUTE =(id: string) => `/on-boarding/vehicles/${id}`;
-export const ONBOARDINGREVIEWROUTE = (id: string) => `/on-boarding/review/${id}`;
+import { RouteActionsType } from "src/app/models/onboarding.model";
+
+export const ONBOARDINGTYPEROUTE = (id: string, action: RouteActionsType = RouteActionsType.Add) => `/on-boarding/type/${id}/${action}`;
+export const ONBOARDINGPERSONALROUTE = (id: string, action: RouteActionsType = RouteActionsType.Add) => `/on-boarding/personal/${id}/${action}`;
+export const ONBOARDINGSPOUSEROUTE = (id: string, action: RouteActionsType = RouteActionsType.Add) => `/on-boarding/spouse/${id}/${action}`;
+export const ONBOARDINGOCCUPANTSROUTE = (id: string, action: RouteActionsType = RouteActionsType.Add) => `/on-boarding/occupants/${id}/${action}`;
+export const ONBOARDINGDOCUMENTSROUTE = (id: string, action: RouteActionsType = RouteActionsType.Add) => `/on-boarding/documents/${id}/${action}`;
+export const ONBOARDINGVEHICLESROUTE = (id: string, action: RouteActionsType = RouteActionsType.Add) => `/on-boarding/vehicles/${id}/${action}`;
+export const ONBOARDINGREVIEWROUTE = (id: string, action: RouteActionsType = RouteActionsType.Add) => `/on-boarding/review/${id}/${action}`;
 export const ONBOARDINGFORAPPROVALROUTE = '/on-boarding/for-approval';
 
 export const DASHBOARDROUTE = '/dashboard';

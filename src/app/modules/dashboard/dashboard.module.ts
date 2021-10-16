@@ -37,6 +37,10 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { DashboardOnboardingEffects } from './store/effects/dashboard-onboarding.effect';
 import { reducers } from './store/reducers';
+import { DashboardHomeownersTenantComponent } from './components/dashboard-homeowners-tenant/dashboard-homeowners-tenant.component';
+import { DashboardHomeownersEffects } from './store/effects/dashboard-homeowners.action';
+import { MatDialogModule } from '@angular/material/dialog';
+import { CMADialogModule } from '../dialog/dialog.module';
 
 const routes: Routes = [{
   path: '',
@@ -81,7 +85,7 @@ const primeNgModules = [
   MenuModule,
   TimelineModule,
   TableModule,
-  InputTextModule
+  InputTextModule,
 ];
 
 const materialModules = [
@@ -89,7 +93,8 @@ const materialModules = [
   MatExpansionModule,
   MatFormFieldModule,
   MatTableModule,
-  MatTabsModule
+  MatTabsModule,
+  MatDialogModule
 ];
 
 @NgModule({
@@ -108,12 +113,14 @@ const materialModules = [
     DashboardHomeownersDocumentComponent,
     DashboardOnboardingPanelDocumentComponent,
     DashboardOnboardingPanelContentComponent,
-    DashboardOnboardingPanelContentComponent
+    DashboardOnboardingPanelContentComponent,
+    DashboardHomeownersTenantComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    CMADialogModule,
     FlexLayoutModule,
     ...primeNgModules,
     ...materialModules,
@@ -121,7 +128,8 @@ const materialModules = [
     SharedModule,
     StoreModule.forFeature('dashboardModule', reducers),
     EffectsModule.forFeature([
-      DashboardOnboardingEffects
+      DashboardOnboardingEffects,
+      DashboardHomeownersEffects
     ])
   ],
   exports: [],
