@@ -4,7 +4,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { MessageService } from 'primeng/api';
 import { RooState } from 'src/app/store/root.reducer';
-import { GenericToastComponent } from 'src/app/shared/generics/generic-toast';
+import { GenericNotificationComponent } from 'src/app/shared/generics/generic-toast';
 import { Router } from '@angular/router';
 import { DashboardOnboardingService } from '../../dashboard.service';
 import { approveDashboardOnboardingAction, approveDashboardOnboardingActionSuccess, archiveDashboardOnboardingAction, archiveDashboardOnboardingActionSuccess, deleteDashboardOnboardingAction, deleteDashboardOnboardingActionSuccess, loadDashboardOnboardingAction, loadDashboardOnboardingActionSuccess } from '../actions/dashboard-onboarding.action';
@@ -13,7 +13,7 @@ import { appNotificationAction } from 'src/app/store/action/notification.action'
 import { of } from 'rxjs';
 
 @Injectable()
-export class DashboardOnboardingEffects extends GenericToastComponent {
+export class DashboardOnboardingEffects extends GenericNotificationComponent {
   constructor(router: Router,
     private actions$: Actions,
     private dashboardOnboardingSrv: DashboardOnboardingService,

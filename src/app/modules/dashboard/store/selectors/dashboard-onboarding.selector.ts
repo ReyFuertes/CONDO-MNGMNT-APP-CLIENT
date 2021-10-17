@@ -8,5 +8,8 @@ export const getDashboardOnboardingCountSelector = createSelector(
 );
 export const getDashboardOnboardingSelector = createSelector(
   selectDashboardModuleState,
-  state => state?.dashboardOnboarding?.ids?.length > 0 ? Object.values(state?.dashboardOnboarding?.entities) : null
+  state => {
+    if (state?.dashboardOnboarding?.ids?.length === 0) return;
+    return Object.values(state?.dashboardOnboarding?.entities)
+  }
 );

@@ -27,5 +27,16 @@
   </mat-accordion>
 </ng-container>
 <ng-template #noRecords>
-  <div class="no-records" fxLayoutAlign="center center"><h4>No records</h4></div>
+  <div fxLayout="column" class="no-records">
+    <div>
+      <div fxLayoutGap="5px" fxLayoutAlign="center center">
+        <i class="pi pi-info-circle"></i>
+        <h4>No records</h4>
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="center center">
+        <button (click)="onReload()" pButton pRipple type="button" label="Reload" class="p-button-rounded default"></button>
+      </div>
+    </div>
+  </div>
 </ng-template>

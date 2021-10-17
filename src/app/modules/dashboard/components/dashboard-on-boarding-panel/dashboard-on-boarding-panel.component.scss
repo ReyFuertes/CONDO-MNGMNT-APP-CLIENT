@@ -1,4 +1,7 @@
 @import "src/styleguide/index";
+.page-container {
+  @include page-container;
+}
 :host {
   width: 100%;
 }
@@ -33,6 +36,10 @@
   }
 }
 :host ::ng-deep {
+  .pi-info-circle {
+    font-size: 1.5rem;
+    color: $color-black-2;
+  }
   .mat-accordion .mat-expansion-panel:first-of-type {
     border-top-right-radius: 2px;
     border-top-left-radius: 2px;

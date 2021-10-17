@@ -165,7 +165,7 @@ export class OnboardingReviewComponent extends GenericOnBoardingComponent implem
         documents: toUploadDocuments,
         files
       };
-
+      
       setTimeout(() => {
         const onBoardingPayload = {
           payload,

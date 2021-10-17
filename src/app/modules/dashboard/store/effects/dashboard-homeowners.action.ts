@@ -4,13 +4,13 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { map, switchMap, tap } from 'rxjs/operators';
 import { MessageService } from 'primeng/api';
 import { RooState } from 'src/app/store/root.reducer';
-import { GenericToastComponent } from 'src/app/shared/generics/generic-toast';
+import { GenericNotificationComponent } from 'src/app/shared/generics/generic-toast';
 import { Router } from '@angular/router';
 import { DashboardHomeownersService } from '../../dashboard.service';
 import { loadDashboardHomeownersAction, loadDashboardHomeownersActionSuccess } from '../actions/dashboard-homeowners.action';
 
 @Injectable()
-export class DashboardHomeownersEffects extends GenericToastComponent {
+export class DashboardHomeownersEffects extends GenericNotificationComponent {
   constructor(router: Router,
     private actions$: Actions,
     private dashboardHomeownersSrv: DashboardHomeownersService,

@@ -4,18 +4,18 @@
       <cma-breadcrumb fxFlex [items]="breadCrumbItems"></cma-breadcrumb>
       <div class="settings" fxFlex="150px" fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="10px">
         <i pTooltip="Create New" tooltipPosition="top" class="pi pi-user-plus" (click)="createNew()"></i>
-        <i pTooltip="Refresh" tooltipPosition="top" class="pi pi-refresh"></i>
+        <i pTooltip="Refresh" tooltipPosition="top" class="pi pi-refresh" (click)="onRefresh()"></i>
         <i pTooltip="Actions" tooltipPosition="top" (click)="menu.toggle($event)" class="pi pi-cog"></i>
         <p-menu #menu [popup]="true" [model]="settingItems"></p-menu>
       </div>
     </div>
     <div class="panel-actions" fxLayout="row" fxLayoutAlign="start center">
       <div fxFlex fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="10px">
-        <cma-input-search (valueEmitter)="onSearch($event)" fxFlex="70"></cma-input-search>
+        <cma-input-search #searchInput (valueEmitter)="onSearch($event)" fxFlex="70"></cma-input-search>
         <cma-multi-select fxFlex [options]="filterOptions" [form]="form" controlName="fieldFilter"></cma-multi-select>
       </div>
-      <p-paginator (onPageChange)="onPaginate($event)" [rows]="pGRowCount" [totalRecords]="$onboardingCount | async" [rowsPerPageOptions]="[10,20,30]"></p-paginator>
+      <p-paginator (onPageChange)="onPaginate($event)" [rows]="pGRowCount" [totalRecords]="($onboardingCount | async)" [rowsPerPageOptions]="rowsPerPageOptions"></p-paginator>
     </div>
-    <cma-dashboard-on-boarding-panel></cma-dashboard-on-boarding-panel>
+    <cma-dashboard-on-boarding-panel [paginationParams]="paginationParams" (reloadEmitter)="reloadEmitter($event)"></cma-dashboard-on-boarding-panel>
   </div>
 </div>

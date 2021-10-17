@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { select, Store } from '@ngrx/store';
 import { MenuItem } from 'primeng/api';
@@ -17,6 +17,8 @@ import { Router } from '@angular/router';
 import { StorageService } from 'src/app/services/storage.service';
 import { ONBOARDINGTYPEROUTE } from 'src/app/shared/constants/routes';
 import { ONBOARDINGACTIONID, ROUTEACTIONSTYPE } from 'src/app/shared/constants/generic';
+import { clearStepperAction } from 'src/app/modules/on-boarding/store/onboarding.action';
+import { CMAInputSearchComponent } from 'src/app/shared/components/input-search/input-search.component';
 
 @Component({
   selector: 'cma-dashboard-on-boarding',
@@ -24,6 +26,8 @@ import { ONBOARDINGACTIONID, ROUTEACTIONSTYPE } from 'src/app/shared/constants/g
   styleUrls: ['./dashboard-on-boarding.component.scss']
 })
 export class DashboardOnboardingComponent extends GenericContainer implements AfterViewInit {
+  @ViewChild('searchInput', { static: false }) searchInput: CMAInputSearchComponent;
+
   public breadCrumbItems: ISimpleItem[] = ONBOARDINGBREADCRUMBS;
   public settingItems: MenuItem[] = [{
     label: 'Invite',
@@ -63,11 +67,13 @@ export class DashboardOnboardingComponent extends GenericContainer implements Af
   public filterChanged: boolean = false;
   public pGRowCount: number = 10;
   public pGSkipCount: number = 0;
-  public paginationParams: any;
+  public paginationParams: string;
   public $onboardingCount: Observable<number>;
   public defaultSearchFields: string = '';
+  public rowsPerPageOptions: number[] = [3, 10, 20, 30];
+  public fmtFilterParams: string = '';
 
-  constructor(storageSrv: StorageService, private router: Router, private fb: FormBuilder, private store: Store<RooState>) {
+  constructor(private _storageSrv: StorageService, storageSrv: StorageService, private router: Router, private fb: FormBuilder, private store: Store<RooState>) {
     super(storageSrv);
 
     localStorage.setItem('nav', JSON.stringify(MenuType.Onboarding));
@@ -96,11 +102,10 @@ export class DashboardOnboardingComponent extends GenericContainer implements Af
           }
         }
       });
-
   }
 
   ngAfterViewInit(): void {
-    this.load();
+    this.$onboardingCount = this.store.pipe(select(getDashboardOnboardingCountSelector));
   }
 
   public createNew(): void {
@@ -111,10 +116,19 @@ export class DashboardOnboardingComponent extends GenericContainer implements Af
   }
 
   public onPaginate(event: any): void {
-    // this.paginationParams = `take=${event?.rows}&skip=${event?.first}`;
+    this.paginationParams = `take=${event?.rows}&skip=${event?.first}`;
 
-    // const searchKeyword = this.form.get('filterKeyword')?.value || '';
-    // this.onSearch(searchKeyword);
+    const searchKeyword = this.form.get('filterKeyword')?.value;
+    this.onSearch(searchKeyword);
+  }
+
+  public reloadEmitter(): void {
+    this.form.reset();
+    this.searchInput.input.nativeElement.value = '';
+  }
+
+  public onRefresh(): void {
+    this.load();
   }
 
   private load(): void {
@@ -122,20 +136,23 @@ export class DashboardOnboardingComponent extends GenericContainer implements Af
   }
 
   public onSearch(keyword: any, filter?: any): void {
-    if (keyword?.length === 0) this.load();
+    if (keyword === null || keyword?.length === 0) {
+      this.load();
+      this.form.get('filterKeyword').patchValue(null);
+    } else {
+      this.form.get('filterKeyword').patchValue(keyword, { emitEvent: false });
 
-    this.form.get('filterKeyword').patchValue(keyword, { emitEvent: false });
+      const defaultSearchFieldsArr = ['personal', 'spouse'] || '';
+      this.defaultSearchFields = '';
 
-    const defaultSearchFieldsArr = ['personal', 'spouse'] || '';
-    this.defaultSearchFields = '';
+      for (let i = 0; i < defaultSearchFieldsArr?.length; i++) {
+        this.defaultSearchFields += `${defaultSearchFieldsArr[i]}.firstname=${keyword}&${defaultSearchFieldsArr[i]}.lastname=${keyword}&${defaultSearchFieldsArr[i]}.middlename=${keyword}&`;
+      };
 
-    for (let i = 0; i < defaultSearchFieldsArr?.length; i++) {
-      this.defaultSearchFields += `${defaultSearchFieldsArr[i]}.firstname=${keyword}&${defaultSearchFieldsArr[i]}.lastname=${keyword}&${defaultSearchFieldsArr[i]}.middlename=${keyword}&`;
-    };
+      this.fmtFilterParams = filter || this.form.get('strFieldFilter').value;
+      this.fmtFilterParams = this.fmtFilterParams?.replace(/@searchValue/g, keyword) || '';
 
-    let fmtFilterParams: string = filter || this.form.get('strFieldFilter').value;
-    fmtFilterParams = fmtFilterParams?.replace(/@searchValue/g, keyword) || '';
-
-    this.store.dispatch(loadDashboardOnboardingAction({ keyword: `${this.defaultSearchFields}${fmtFilterParams}${this.paginationParams}` }));
+      this.store.dispatch(loadDashboardOnboardingAction({ keyword: `${this.defaultSearchFields}${this.fmtFilterParams}${this.paginationParams}` }));
+    }
   }
 }

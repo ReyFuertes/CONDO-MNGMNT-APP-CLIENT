@@ -1,20 +1,21 @@
 import { Directive, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { MessageService } from 'primeng/api';
 import { Subject } from 'rxjs';
+import { appNotificationAction } from 'src/app/store/action/notification.action';
+import { RooState } from 'src/app/store/root.reducer';
 import { APPTIMING } from '../constants/generic';
 import { TOASTSADDSUCCESS, TOASTSEVERITYSUCCESS } from '../constants/toast';
 
 @Directive()
-export class GenericToastComponent {
-  constructor(private router: Router, private msgSrv: MessageService) { }
+export class GenericNotificationComponent {
+  constructor(private router: Router, private store: Store<RooState>) { }
 
-  public triggerSaveToast(routeUrl?: string): void {
-    this.msgSrv.add({
-      key: 't',
-      severity: TOASTSEVERITYSUCCESS,
-      summary: TOASTSADDSUCCESS(), life: APPTIMING
-    });
+  public show(routeUrl?: string, message?: string): void {
+    this.store.dispatch(appNotificationAction({
+      notification: { success: true, message: message }
+    }));
 
     if (routeUrl) {
       setTimeout(() => {

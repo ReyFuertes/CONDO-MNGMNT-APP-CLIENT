@@ -11,7 +11,7 @@ import { OnboardingEntityType } from 'src/app/shared/generics/generic-model';
 import { GenericOnBoardingComponent } from 'src/app/shared/generics/generic-onboarding';
 import { RooState } from 'src/app/store/root.reducer';
 import { environment } from 'src/environments/environment';
-import { addToTypeAction, setOnboardingStepperAction } from '../../store/onboarding.action';
+import { addToTypeAction, clearStepperAction, setOnboardingStepperAction } from '../../store/onboarding.action';
 import { getOnboardingTypeSelector } from '../../store/onboarding.selector';
 
 @Component({
@@ -27,11 +27,11 @@ export class OnboardingTypeComponent extends GenericOnBoardingComponent implemen
   public onboardingType = OnBoardingType;
 
   constructor(private route: ActivatedRoute, storageSrv: StorageService, router: Router, private _store: Store<RooState>,
-    public _storageSrv: StorageService, cdRef: ChangeDetectorRef, fb: FormBuilder, store: Store<RooState>, private _cdRef: ChangeDetectorRef) {
+    public _storageSrv: StorageService, cdRef: ChangeDetectorRef, fb: FormBuilder, store: Store<RooState>, private _router: Router) {
     super(OnboardingEntityType.ONBOARDINGTYPE, storageSrv, router, cdRef, fb, store);
 
     this.id = this.route?.snapshot?.paramMap?.get('id') || null;
-    if(this.id) {
+    if (this.id) {
       this.form.get('id').patchValue(this.id);
     }
     this.clearStorage();
@@ -55,7 +55,7 @@ export class OnboardingTypeComponent extends GenericOnBoardingComponent implemen
       });
   }
 
-  ngOnChanges(changes: SimpleChanges): void {}
+  ngOnChanges(changes: SimpleChanges): void { }
 
   public onSelect(chk: any): void {
     chk.checked = !chk.checked;
@@ -82,6 +82,11 @@ export class OnboardingTypeComponent extends GenericOnBoardingComponent implemen
   }
 
   public onCancel(): void {
+    setTimeout(() => {
+      this._store.dispatch(clearStepperAction());
+      this._storageSrv.clear();
+      this._router.navigateByUrl('/dashboard/on-boarding/list');
+    }, 100);
     super.routeTo(DASHBOARDONBOARDINGLISTROUTE);
   }
 

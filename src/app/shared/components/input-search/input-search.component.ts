@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { GenericControl } from '../../generics/generic-control';
@@ -14,7 +14,7 @@ export class CMAInputSearchComponent extends GenericControl<string> implements O
   }
   private search$ = new BehaviorSubject('');
 
-  @ViewChild('input', { static: false }) input: any;
+  @ViewChild('input', { static: false }) input: ElementRef;
 
   ngOnInit(): void {
     this.search$.pipe(

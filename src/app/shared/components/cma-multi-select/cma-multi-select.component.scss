@@ -1,4 +1,13 @@
+@import "src/styleguide/index";
 :host ::ng-deep {
+  .p-multiselect .p-multiselect-label.p-placeholder {
+    color: $color-gray-2;
+  }
+  .p-multiselect-label-container {
+    display: flex;
+    align-items: center;
+    align-content: center;
+  }
   .p-multiselect .p-multiselect-label {
     padding: 7px;
     font-size: 14px;
