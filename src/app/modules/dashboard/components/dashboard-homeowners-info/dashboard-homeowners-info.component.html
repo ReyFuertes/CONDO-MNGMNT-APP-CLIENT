@@ -1,6 +1,4 @@
 <div fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="10px">
-
-  <!-- personal information -->
   <div>
     <div class="content-title" fxLayout="row" fxLayoutAlign="start center">
 
@@ -27,19 +25,19 @@
         <div fxFlex class="upload-side-text pi-thumb" fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="10px">
           <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
             <span>Lastname:</span>
-            <span>Fuertes</span>
+            <span class="truncate">{{ personal?.lastname }}</span>
           </div>
           <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
             <span>Firstname:</span>
-            <span>Rey</span>
+            <span class="truncate">{{ personal?.firstname }}</span>
           </div>
           <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
             <span>Middlename:</span>
-            <span>Senador</span>
+            <span class="truncate">{{ personal?.middlename }}</span>
           </div>
           <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
             <span>Citizenship:</span>
-            <span>Filipino</span>
+            <span class="truncate">{{ personal?.citizenship }}</span>
           </div>
         </div>
       </div>
@@ -47,38 +45,38 @@
       <div class="pi-thumb" fxFlex="25" fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="10px">
         <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
           <span>Gender:</span>
-          <span>Male</span>
+          <span class="truncate">{{ personal?.gender }}</span>
         </div>
         <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
-          <span>Marital Status:</span>
-          <span>Married</span>
+          <span>Civil Status:</span>
+          <span class="truncate">{{ personal?.civilStatus }}</span>
         </div>
         <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
           <span>Date of Birth:</span>
-          <span>06-10-1985</span>
+          <span class="truncate">{{ personal?.dateOfBirth }}</span>
         </div>
         <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
           <span>Occupation:</span>
-          <span>IT Professional</span>
+          <span class="truncate">{{ personal?.occupation }}</span>
         </div>
       </div>
 
       <div class="pi-thumb" fxFlex="25" fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="10px">
         <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
           <span>Contact No.:</span>
-          <span>123454365</span>
+          <span class="truncate">{{ personal?.contactNo }}</span>
         </div>
         <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
           <span>ID Type:</span>
-          <span>Phil health</span>
+          <span class="truncate">{{ personal?.idType }}</span>
         </div>
         <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
           <span>ID No.:</span>
-          <span>423 2342 25345</span>
+          <span class="truncate">{{ personal?.idNo }}</span>
         </div>
         <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
           <span>Uploaded File:</span>
-          <span class="link">driverlicensed_1234.png</span>
+          <span class="link truncate">{{ personal?.uploadPersonalIdFile }}</span>
         </div>
       </div>
     </div>

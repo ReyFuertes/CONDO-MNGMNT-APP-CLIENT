@@ -7,7 +7,7 @@ import { Store } from '@ngrx/store';
 import { RooState } from 'src/app/store/root.reducer';
 import { Router } from '@angular/router';
 import { addToPersonalAction, setOnboardingStepperAction, updateOnboardingPersonalValuesAction } from '../../store/onboarding.action';
-import { OCCUPANTOPTIONS, ONBOARDINGSPOUSE, ONBOARDINGPERSONAL, ONBOARDINGTYPE, STRPERSONAL } from 'src/app/shared/constants/generic';
+import { OCCUPANTOPTIONS, ONBOARDINGSPOUSE, ONBOARDINGPERSONAL, ONBOARDINGTYPE, STRPERSONAL, ROUTEACTIONSTYPE } from 'src/app/shared/constants/generic';
 import { OnboardingEntityType } from 'src/app/shared/generics/generic-model';
 import { ONBOARDINGSPOUSEROUTE, ONBOARDINGTYPEROUTE } from 'src/app/shared/constants/routes';
 import { takeUntil } from 'rxjs/operators';
@@ -26,13 +26,6 @@ export class OnboardingPersonalComponent extends GenericOnBoardingComponent impl
   constructor(storageSrv: StorageService, router: Router, private _fb: FormBuilder, private _store: Store<RooState>,
     public _storageSrv: StorageService, cdRef: ChangeDetectorRef, fb: FormBuilder, store: Store<RooState>, private _cdRef: ChangeDetectorRef) {
     super(OnboardingEntityType.ONBOARDINGPERSONAL, storageSrv, router, cdRef, fb, store);
-
-    this.form.valueChanges.pipe(takeUntil(this.$unsubscribe))
-      .subscribe((payload: IOnboarding) => {
-        if (payload?.personal?.id) {
-          this._store.dispatch(updateOnboardingPersonalValuesAction({ payload }));
-        };
-      });
   }
 
   ngOnInit(): void {
@@ -40,6 +33,13 @@ export class OnboardingPersonalComponent extends GenericOnBoardingComponent impl
       .pipe(takeUntil(this.$unsubscribe))
       .subscribe(res => {
         this.uploadPersonalIdFileDisabled = !res;
+      });
+
+    this.form.valueChanges.pipe(takeUntil(this.$unsubscribe))
+      .subscribe((payload: IOnboarding) => {
+        if (payload?.personal?.id) {
+          this._store.dispatch(updateOnboardingPersonalValuesAction({ payload }));
+        };
       });
   }
 
@@ -66,7 +66,7 @@ export class OnboardingPersonalComponent extends GenericOnBoardingComponent impl
   }
 
   public onNext(): void {
-    super.onNext(ONBOARDINGSPOUSEROUTE(this.id, RouteActionsType.Add), STRPERSONAL, this.getPersonalForm.value);
+    super.onNext(ONBOARDINGSPOUSEROUTE(this.id, <RouteActionsType>this.getActionFromStorage(ROUTEACTIONSTYPE)), STRPERSONAL, this.getPersonalForm.value);
 
     this._store.dispatch(addToPersonalAction({ payload: this.getPersonalForm.value }));
     this._store.dispatch(setOnboardingStepperAction({ step: ONBOARDINGSPOUSE }));

@@ -108,7 +108,7 @@ export const createOnboardingSuccessAction = createAction(
 );
 export const addDocumentsAction = createAction(
   OnboardingActionTypes.addDocumentsAction,
-  props<{ documents: IOnboardingDocument[] }>()
+  props<{ payload: IOnboardingDocument[] }>()
 );
 export const removeOccupantAction = createAction(
   OnboardingActionTypes.removeOccupantAction,

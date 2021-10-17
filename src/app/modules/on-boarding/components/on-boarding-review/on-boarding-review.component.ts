@@ -4,17 +4,18 @@ import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { takeUntil } from 'rxjs/operators';
 import { StorageService } from 'src/app/services/storage.service';
-import { ONBOARDINGDOCUMENTS, ONBOARDINGREVIEW, STRTYPE, STRVEHICLES } from 'src/app/shared/constants/generic';
+import { ONBOARDINGDOCUMENTS, ONBOARDINGREVIEW, ROUTEACTIONSTYPE, STRTYPE, STRVEHICLES } from 'src/app/shared/constants/generic';
 import { ISimpleItem } from 'src/app/shared/generics/generic-model';
 import { GenericOnBoardingComponent } from 'src/app/shared/generics/generic-onboarding';
 import { RooState } from 'src/app/store/root.reducer';
 import { environment } from 'src/environments/environment';
-import { setOnboardingStepperAction, updateOnboardingAction } from '../../store/onboarding.action';
+import { createOnboardingAction, setOnboardingStepperAction, updateOnboardingAction } from '../../store/onboarding.action';
 import { getOnboardingSelector } from '../../store/onboarding.selector';
 import * as _ from 'lodash';
 import { ONBOARDINGDOCUMENTSROUTE } from 'src/app/shared/constants/routes';
 import { FmtFormToPayload, ReplaceByUnderscore } from 'src/app/shared/util/formating';
 import * as moment from 'moment';
+import { RouteActionsType } from 'src/app/models/onboarding.model';
 @Component({
   selector: 'cma-on-boarding-review',
   templateUrl: './on-boarding-review.component.html',
@@ -34,7 +35,7 @@ export class OnboardingReviewComponent extends GenericOnBoardingComponent implem
     this._store.pipe(select(getOnboardingSelector), takeUntil(this.$unsubscribe))
       .subscribe(res => {
         const { type, personal, spouse, occupants, vehicles, documents, documentsToUpload } = FmtFormToPayload(res);
- 
+
         if (type) this.form.get(STRTYPE).patchValue(type);
         if (personal) {
           const _personal = {
@@ -75,11 +76,6 @@ export class OnboardingReviewComponent extends GenericOnBoardingComponent implem
           this.toUploadDocs = documentsToUpload || [];
         }
       });
-
-    setTimeout(() => {
-      console.log('this.form', this.form);
-      console.log('this.form.value', this.form.value);
-    }, 100);
   }
 
   public get hasDocs(): boolean {
@@ -90,11 +86,11 @@ export class OnboardingReviewComponent extends GenericOnBoardingComponent implem
   }
 
   public get getPersonalIdFileName(): any {
-    return this.getPersonalForm?.value?.uploadPersonalIdFile;
+    return this.getPersonalForm?.value?.uploadPersonalIdFile?.file?.name || this.getPersonalForm?.value?.uploadPersonalIdFile;
   }
 
   public get getSpouseIdFileName(): any {
-    return this.getSpouseForm?.value?.uploadSpouseIdFile;
+    return this.getSpouseForm?.value?.uploadSpouseIdFile?.file?.name || this.getSpouseForm?.value?.uploadSpouseIdFile;
   }
 
   private processFormData(files: FormData, onboarding_id: string): any {
@@ -108,15 +104,15 @@ export class OnboardingReviewComponent extends GenericOnBoardingComponent implem
         name: filename,
         size: doc.size,
         type: doc.type,
-        onboarding_id: '',
+        onboarding_id: null,
         lastModified: doc.lastModified,
         lastModifiedDate: doc.lastModifiedDate,
-        onboarding: { id: onboarding_id }
+        onboarding: onboarding_id ? { id: onboarding_id } : null
       }
     })) || null;
   }
 
-  private processImageData(fileImage: any, files: FormData): any {    
+  private processImageData(fileImage: any, files: FormData): any {
     if (!fileImage?.fileObj?.name) return null;
 
     const { fileObj, file } = fileImage;
@@ -137,10 +133,10 @@ export class OnboardingReviewComponent extends GenericOnBoardingComponent implem
 
   public onSubmit(): void {
     if (this.form.valid) {
-      const { id, personal, spouse, occupants, vehicles, documents } = this.form.value;
+      const { id, type, personal, spouse, occupants, vehicles, documents } = this.form.value;
       const { uploadPersonalIdFile } = personal;
       const { uploadSpouseIdFile } = spouse;
-
+      
       let files = new FormData();
       let toUploadDocuments = this.processFormData(files, id);
       toUploadDocuments = toUploadDocuments.concat(documents);
@@ -153,6 +149,7 @@ export class OnboardingReviewComponent extends GenericOnBoardingComponent implem
 
       const payload = {
         id,
+        type,
         personal: {
           ...personal,
           uploadPersonalIdFile: personalImageData?.name,
@@ -168,9 +165,9 @@ export class OnboardingReviewComponent extends GenericOnBoardingComponent implem
         documents: toUploadDocuments,
         files
       };
-   
+
       setTimeout(() => {
-        this._store.dispatch(updateOnboardingAction({
+        const onBoardingPayload = {
           payload,
           files,
           personalIdAttachment: {
@@ -181,7 +178,12 @@ export class OnboardingReviewComponent extends GenericOnBoardingComponent implem
             data: spouseFormData,
             image: spouseImageData
           }
-        }));
+        }
+        if (this.getActionFromStorage(ROUTEACTIONSTYPE) === RouteActionsType.Add) {
+          this._store.dispatch(createOnboardingAction(onBoardingPayload));
+        } else {
+          this._store.dispatch(updateOnboardingAction(onBoardingPayload));
+        }
       }, 100);
     }
   }

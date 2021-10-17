@@ -9,7 +9,7 @@ import { getOnboardingSelector, onboardingLoadedSelector } from 'src/app/modules
 import { StorageService } from 'src/app/services/storage.service';
 import { RooState } from 'src/app/store/root.reducer';
 import { environment } from 'src/environments/environment';
-import { BUILDINGNOOPTIONS, CIVILOPTIONS, GENDEROPTIONS, IDTYPEOPTIONS, PARTKINGNOOPTIONS, RELATIONSOPTIONS, STRDOCUMENTS, STROCCUPANTS, STRPERSONAL, STRSPOUSE, STRVEHICLES, UNITNOOPTIONS, STRTYPE, ONBOARDINGACTIONID } from '../constants/generic';
+import { BUILDINGNOOPTIONS, CIVILOPTIONS, GENDEROPTIONS, IDTYPEOPTIONS, PARTKINGNOOPTIONS, RELATIONSOPTIONS, STRDOCUMENTS, STROCCUPANTS, STRPERSONAL, STRSPOUSE, STRVEHICLES, UNITNOOPTIONS, STRTYPE, ONBOARDINGACTIONID, OCCUPANTOPTIONS, ROUTEACTIONSTYPE } from '../constants/generic';
 import * as moment from "moment";
 import { GenericDestroyPageComponent } from './generic-destroy';
 import { OnboardingEntityType } from './generic-model';
@@ -98,7 +98,7 @@ export class GenericOnBoardingComponent extends GenericDestroyPageComponent impl
     const id = this.storageSrv.get(ONBOARDINGACTIONID);
     if (id) {
       this.id = JSON.parse(id);
-
+      this.form.get('id').patchValue(id);
       //if the onboarding is not loaded yet, then load it
       if (!this.onboardingLoaded) {
         this.store.dispatch(getOnboardingByIdAction({ id: this.id }));
@@ -109,7 +109,7 @@ export class GenericOnBoardingComponent extends GenericDestroyPageComponent impl
       .subscribe(res => {
         if (res) {
           const { id, type, personal, spouse, occupants, vehicles, documents, documentsToUpload } = res;
-          
+
           this.form.get('id').patchValue(id, { emitEvent: false });
 
           switch (this._step) {
@@ -121,6 +121,7 @@ export class GenericOnBoardingComponent extends GenericDestroyPageComponent impl
                 const _personal = {
                   ...personal,
                   dateOfBirth: moment(personal?.dateOfBirth || new Date()).toDate(),
+                  occupantType: personal?.occupantType || OCCUPANTOPTIONS[0]
                 };
                 this.getPersonalForm.patchValue(_personal, { emitEvent: false });
               }
@@ -239,7 +240,6 @@ export class GenericOnBoardingComponent extends GenericDestroyPageComponent impl
     if (formName && formValues) {
       this.storageSrv.set(formName, JSON.stringify(formValues));
     }
-    
     this.storageSrv.set('step', String(Number(this._step) + 1));
     this.router.navigateByUrl(route);
   }
@@ -248,7 +248,6 @@ export class GenericOnBoardingComponent extends GenericDestroyPageComponent impl
     if (formName && formValues) {
       this.storageSrv.set(formName, JSON.stringify(formValues));
     }
-
     this.storageSrv.set('step', String(Number(this._step) - 1));
     this.router.navigateByUrl(route);
   }
@@ -263,6 +262,10 @@ export class GenericOnBoardingComponent extends GenericDestroyPageComponent impl
       return _name;
     }
     return null;
+  }
+
+  protected setActionToStorage(value: string): void {
+    this.storageSrv.set(ROUTEACTIONSTYPE, JSON.stringify(value));
   }
 
   protected clearStorage(): void {

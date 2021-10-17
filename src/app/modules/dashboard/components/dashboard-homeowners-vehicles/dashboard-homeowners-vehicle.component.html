@@ -1,0 +1,21 @@
+<div>
+  <p-table [value]="vehicles" selectionMode="single" dataKey="id" responsiveLayout="scroll">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Model</th>
+        <th>Make</th>
+        <th>Plate No.</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-vehicle>
+      <tr>
+        <td>{{vehicle?.model}}</td>
+        <td>{{vehicle?.make}}</td>
+        <td>{{vehicle?.plateno}}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+  <div fxLayout="row" fxLayoutAlign="end center">
+    <p-paginator [rows]="10" [totalRecords]="100"></p-paginator>
+  </div>
+</div>

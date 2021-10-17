@@ -19,3 +19,8 @@
     opacity: 1;
   }
 }
+@mixin truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

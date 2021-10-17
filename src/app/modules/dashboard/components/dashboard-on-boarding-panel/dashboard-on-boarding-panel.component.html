@@ -18,9 +18,7 @@
       </mat-expansion-panel-header>
       <div class="noselect" fxLayout="row" fxLayoutAlign="start start">
         <div class="content" fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="20px">
-
           <cma-dashboard-on-boarding-panel-content [item]="item"></cma-dashboard-on-boarding-panel-content>
-
           <cma-dashboard-on-boarding-panel-document [item]="item"></cma-dashboard-on-boarding-panel-document>
         </div>
         <div></div>
@@ -29,5 +27,5 @@
   </mat-accordion>
 </ng-container>
 <ng-template #noRecords>
-  <div fxLayoutAlign="center center"><h4>No records</h4></div>
+  <div class="no-records" fxLayoutAlign="center center"><h4>No records</h4></div>
 </ng-template>

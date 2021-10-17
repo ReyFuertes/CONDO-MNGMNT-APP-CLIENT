@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Tenant } from 'src/app/models/onboarding.model';
+import { ITenant } from 'src/app/models/homeowners.model';
 
 @Component({
   selector: 'cma-dashboard-homeowners-tenant',
@@ -7,7 +7,7 @@ import { Tenant } from 'src/app/models/onboarding.model';
   styleUrls: ['./dashboard-homeowners-tenant.component.scss']
 })
 export class DashboardHomeownersTenantComponent implements OnInit {
-  public tenants: Tenant[] = [{
+  public tenants: ITenant[] = [{
     id: '1',
     firstname: 'rey',
     lastname: 'fuertes',

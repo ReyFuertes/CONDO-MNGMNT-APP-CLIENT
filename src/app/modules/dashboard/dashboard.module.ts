@@ -41,6 +41,8 @@ import { DashboardHomeownersTenantComponent } from './components/dashboard-homeo
 import { DashboardHomeownersEffects } from './store/effects/dashboard-homeowners.action';
 import { MatDialogModule } from '@angular/material/dialog';
 import { CMADialogModule } from '../dialog/dialog.module';
+import { DashboardHomeownersOccupantComponent } from './components/dashboard-homeowners-occupant/dashboard-homeowners-occupant.component';
+import { DashboardHomeownersVehicleComponent } from './components/dashboard-homeowners-vehicles/dashboard-homeowners-vehicle.component';
 
 const routes: Routes = [{
   path: '',
@@ -114,7 +116,9 @@ const materialModules = [
     DashboardOnboardingPanelDocumentComponent,
     DashboardOnboardingPanelContentComponent,
     DashboardOnboardingPanelContentComponent,
-    DashboardHomeownersTenantComponent
+    DashboardHomeownersTenantComponent,
+    DashboardHomeownersOccupantComponent,
+    DashboardHomeownersVehicleComponent
   ],
   imports: [
     CommonModule,

@@ -6,7 +6,7 @@ import { takeUntil } from 'rxjs/operators';
 import { OnBoardingType, RouteActionsType } from 'src/app/models/onboarding.model';
 import { StorageService } from 'src/app/services/storage.service';
 import { ONBOARDINGPERSONAL, ROUTEACTIONSTYPE, STRTYPE } from 'src/app/shared/constants/generic';
-import { DASHBOARDONBOARDINGLISTROUTE, ONBOARDINGPERSONALROUTE, ONBOARDINGTYPEROUTE } from 'src/app/shared/constants/routes';
+import { DASHBOARDONBOARDINGLISTROUTE, ONBOARDINGPERSONALROUTE } from 'src/app/shared/constants/routes';
 import { OnboardingEntityType } from 'src/app/shared/generics/generic-model';
 import { GenericOnBoardingComponent } from 'src/app/shared/generics/generic-onboarding';
 import { RooState } from 'src/app/store/root.reducer';
@@ -31,6 +31,9 @@ export class OnboardingTypeComponent extends GenericOnBoardingComponent implemen
     super(OnboardingEntityType.ONBOARDINGTYPE, storageSrv, router, cdRef, fb, store);
 
     this.id = this.route?.snapshot?.paramMap?.get('id') || null;
+    if(this.id) {
+      this.form.get('id').patchValue(this.id);
+    }
     this.clearStorage();
     this._storageSrv.set('step', OnboardingEntityType.ONBOARDINGTYPE)
   }
@@ -72,7 +75,7 @@ export class OnboardingTypeComponent extends GenericOnBoardingComponent implemen
   }
 
   public onNext(): void {
-    super.onNext(ONBOARDINGPERSONALROUTE(this.id, RouteActionsType[this.getActionFromStorage(ROUTEACTIONSTYPE)]), STRTYPE, this.selectedType);
+    super.onNext(ONBOARDINGPERSONALROUTE(this.id, <RouteActionsType>this.getActionFromStorage(ROUTEACTIONSTYPE)), STRTYPE, this.selectedType);
 
     this._store.dispatch(addToTypeAction({ payload: this.selectedType }));
     this._store.dispatch(setOnboardingStepperAction({ step: ONBOARDINGPERSONAL }));

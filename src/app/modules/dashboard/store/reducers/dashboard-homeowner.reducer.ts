@@ -2,9 +2,10 @@ import { createReducer, on, Action } from "@ngrx/store";
 import * as _ from 'lodash';
 import { createEntityAdapter, EntityAdapter, EntityState } from "@ngrx/entity";
 import { loadDashboardHomeownersActionSuccess } from "../actions/dashboard-homeowners.action";
+import { IHomeowner } from "src/app/models/homeowners.model";
 
 export const adapter: EntityAdapter<any> = createEntityAdapter<any>({});
-export interface DashboardHomeownerState extends EntityState<any> {
+export interface DashboardHomeownerState extends EntityState<IHomeowner> {
   
 }
 

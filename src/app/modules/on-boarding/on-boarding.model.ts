@@ -8,10 +8,10 @@ export interface IOnboarding {
   id?: string;
   type?: OnBoardingType;
   personal?: IOnboardingPersonal;
-  spouse?: any;
+  spouse?: IOnboardingSpouse;
   occupants?: IOnboardingOccupant[];
-  vehicles?: any;
-  documents?: any;
+  vehicles?: IOnboardingVehicle[];
+  documents?: IOnboardingDocument[];
   documentsToUpload?: any;
 }
 export interface IOnboardingDocument {

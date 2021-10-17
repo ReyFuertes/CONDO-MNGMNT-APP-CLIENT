@@ -9,9 +9,9 @@ import { RooState } from 'src/app/store/root.reducer';
 import { environment } from 'src/environments/environment';
 import { addDocumentsAction, setOnboardingStepperAction, updateOnboardingDocumentsValuesAction } from '../../store/onboarding.action';
 import { ONBOARDINGVEHICLESROUTE, ONBOARDINGREVIEWROUTE } from 'src/app/shared/constants/routes';
-import { STRDOCUMENTS } from 'src/app/shared/constants/generic';
+import { ROUTEACTIONSTYPE, STRDOCUMENTS } from 'src/app/shared/constants/generic';
 import * as _ from 'lodash';
-import { IOnboardingDocument } from '../../on-boarding.model';
+import { RouteActionsType } from 'src/app/models/onboarding.model';
 
 @Component({
   selector: 'cma-on-boarding-document',
@@ -66,8 +66,9 @@ export class OnboardingDocumentComponent extends GenericOnBoardingComponent impl
   }
 
   public onNext(): void {
-    super.onNext(ONBOARDINGREVIEWROUTE(this.id));
+    super.onNext(ONBOARDINGREVIEWROUTE(this.id, <RouteActionsType>this.getActionFromStorage(ROUTEACTIONSTYPE)), STRDOCUMENTS, this.getDocumentsForm.value);
 
+    this._store.dispatch(addDocumentsAction({ payload: this.getDocumentsForm.value }));
     this._store.dispatch(setOnboardingStepperAction({ step: OnboardingEntityType.ONBOARDINGREVIEW }));
   }
 

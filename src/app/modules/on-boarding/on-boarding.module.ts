@@ -71,10 +71,7 @@ const routes: Routes = [{
     path: 'review/:id/edit',
     component: OnboardingReviewComponent
   }, {
-    path: 'for-approval/:id/add',
-    component: OnboardingForApprovalComponent
-  }, {
-    path: 'for-approval/:id/edit',
+    path: 'for-approval',
     component: OnboardingForApprovalComponent
   }]
 }];

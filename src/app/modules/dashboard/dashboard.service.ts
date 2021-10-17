@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { IHomeowner } from 'src/app/models/homeowners.model';
 import { BaseService } from 'src/app/services/base.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { IOnboadingResponseDto, IOnboarding } from '../on-boarding/on-boarding.model';
@@ -12,7 +13,7 @@ export class DashboardOnboardingService extends BaseService<IOnboarding | IOnboa
 }
 
 @Injectable({  providedIn: 'root'})
-export class DashboardHomeownersService extends BaseService<any> {
+export class DashboardHomeownersService extends BaseService<IHomeowner> {
   constructor(http: HttpClient, storageSrv: StorageService) {
     super(http, 'homeowner', storageSrv);
   }

@@ -27,7 +27,7 @@ export class AppComponent extends GenericDestroyPageComponent implements OnInit,
   }
 
   ngOnInit(): void {
-    this.$notify = this.store.pipe(select(getSuccessSelector), delay(100), takeUntil(this.$unsubscribe));
+    this.$notify = this.store.pipe(select(getSuccessSelector), delay(300), takeUntil(this.$unsubscribe));
   }
 
   public onClose(): void {

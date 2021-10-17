@@ -9,10 +9,10 @@ import { convertBlobToBase64 } from '../../util/convert-to-blob';
   styleUrls: ['./cma-img-preview.component.scss']
 })
 export class CMAImgPreviewComponent extends GenericDestroyPageComponent implements OnInit {
-  @Input() fileName: string;
-  @Input() file: File;
-  @Input() preview: any;
-  @Input() label: string = '';
+  @Input() public fileName: string;
+  @Input() public file: File;
+  @Input() public preview: any;
+  @Input() public label: string = '';
 
   constructor() {
     super();
@@ -26,7 +26,7 @@ export class CMAImgPreviewComponent extends GenericDestroyPageComponent implemen
   }
 
   private onConvertBlobToBase64(file: any): any {
-    convertBlobToBase64(file).pipe(
+    return convertBlobToBase64(file).pipe(
       takeUntil(this.$unsubscribe),
       map(b64Result => {
         return { image: b64Result }

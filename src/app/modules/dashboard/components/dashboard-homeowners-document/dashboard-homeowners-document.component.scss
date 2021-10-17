@@ -48,8 +48,8 @@
   text-align: center;
   margin-bottom: 0;
   > div {
-    height: 100px;
-    width: 100px;
+    height: 120px;
+    width: 120px;
     border: thin $color-gray-2 dashed;
     border-radius: 2px;
     background-color: $color-gray-3;
@@ -61,17 +61,28 @@
     align-items: center;
     margin-bottom: 5px;
     cursor: pointer;
+    padding: 10px;
+    > div {
+      padding: 5px;
+    }
   }
   span {
     font-size: 12px;
     color: $color-black-3;
+    overflow-wrap: anywhere;
   }
   span.label {
     color: $color-black-1;
+    line-height: 16px;
   }
   img {
     height: 25px;
     width: 25px;
     margin-bottom: 10px;
+  }
+}
+:host ::ng-deep {
+  .mat-tab-body-content {
+    padding: 20px !important;
   }
 }

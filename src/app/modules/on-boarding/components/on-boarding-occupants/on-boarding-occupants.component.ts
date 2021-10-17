@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 import { StorageService } from 'src/app/services/storage.service';
 import { GenericOnBoardingComponent } from 'src/app/shared/generics/generic-onboarding';
 import { RooState } from 'src/app/store/root.reducer';
-import { ONBOARDINGSPOUSE, ONBOARDINGVEHICLES, STROCCUPANTS } from 'src/app/shared/constants/generic';
+import { ONBOARDINGSPOUSE, ONBOARDINGVEHICLES, ROUTEACTIONSTYPE, STROCCUPANTS } from 'src/app/shared/constants/generic';
 import { addToOccupantsAction, setOnboardingStepperAction, updateOnboardingOccupantValuesAction } from '../../store/onboarding.action';
 import { IOnboardingOccupant } from '../../on-boarding.model';
 import { MatDialog } from '@angular/material/dialog';
@@ -14,6 +14,7 @@ import { AddEditStateType, OnboardingEntityType } from 'src/app/shared/generics/
 import * as _ from 'lodash';
 import { ONBOARDINGSPOUSEROUTE, ONBOARDINGVEHICLESROUTE } from 'src/app/shared/constants/routes';
 import { RemoveNullOrUndefinedFromObj, FmtToValue } from 'src/app/shared/util/formating';
+import { RouteActionsType } from 'src/app/models/onboarding.model';
 
 @Component({
   selector: 'cma-on-boarding-occupants',
@@ -70,8 +71,9 @@ export class OnboardingOccupantsComponent extends GenericOnBoardingComponent imp
   }
 
   public onNext(): void {
-    super.onNext(ONBOARDINGVEHICLESROUTE(this.id));
+    super.onNext(ONBOARDINGVEHICLESROUTE(this.id, <RouteActionsType>this.getActionFromStorage(ROUTEACTIONSTYPE)), STROCCUPANTS, this.getOccupantsForm.value);
 
+    this._store.dispatch(addToOccupantsAction({ payload: this.getOccupantsForm.value }));
     this._store.dispatch(setOnboardingStepperAction({ step: ONBOARDINGVEHICLES }));
   }
 

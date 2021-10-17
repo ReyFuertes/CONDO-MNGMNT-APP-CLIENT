@@ -36,6 +36,9 @@
   padding-top: 15px;
 }
 :host ::ng-deep {
+  .p-buttonset .p-button {
+    background-color: $color-gray-4;
+  }
   .header-content .p-dropdown {
     width: 200px !important;
   }

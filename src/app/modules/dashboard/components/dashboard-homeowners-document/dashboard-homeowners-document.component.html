@@ -1,16 +1,17 @@
-<div class="document-container" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="20px">
-  <div class="document-content" fxLayout="column" fxLayoutAlign="center start" fxLayoutGap="20px">
+<div class="document-container">
+  <div class="document-content" fxLayout="row wrap" fxLayoutAlign="center start" fxLayoutGap="20px">
     <div fxLayout="row wrap" fxLayoutAlign="center start" fxLayoutGap="20px">
-      <div *ngFor="let document of uploadDocuments" class="upload-thumb">
-        <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="5px">
-          <i class="pi pi-upload"></i>
-          <span>Click to upload</span>
+      <div *ngFor="let document of documents" class="upload-thumb">
+        <div fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="5px">
+          <i class="pi pi-file-pdf"></i>
+          <div>
+            <span class="label link">{{ document?.name }}</span>
+          </div>
         </div>
-        <span class="label">{{ document?.label }}</span>
       </div>
     </div>
   </div>
-  
+
   <!-- <div fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="5px">
     <div *ngFor="let document of uploadDocuments" class="document-thumb" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="5px">
       <img [src]="svgPath + '24x24/word.svg'" />

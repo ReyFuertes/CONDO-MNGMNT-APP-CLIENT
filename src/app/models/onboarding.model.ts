@@ -1,12 +1,3 @@
-
-export interface Tenant {
-  id: string;
-  firstname?: string;
-  middlename?: string;
-  lastname?: string;
-  contactNo?: string;
-  email?: string;
-}
 export enum RouteActionsType {
   Add = 'add',
   Edit = 'edit'

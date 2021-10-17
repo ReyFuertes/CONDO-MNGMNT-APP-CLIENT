@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 import { StorageService } from 'src/app/services/storage.service';
 import { GenericOnBoardingComponent } from 'src/app/shared/generics/generic-onboarding';
 import { RooState } from 'src/app/store/root.reducer';
-import { ONBOARDINGDOCUMENTS, ONBOARDINGOCCUPANTS, ONBOARDINGSPOUSE, STRVEHICLES } from 'src/app/shared/constants/generic';
+import { ONBOARDINGDOCUMENTS, ONBOARDINGOCCUPANTS, ONBOARDINGREVIEW, ONBOARDINGSPOUSE, ROUTEACTIONSTYPE, STRDOCUMENTS, STRVEHICLES } from 'src/app/shared/constants/generic';
 import { addToVehiclesAction, setOnboardingStepperAction, updateOnboardingVehicleValuesAction } from '../../store/onboarding.action';
 import { IOnboardingVehicle } from '../../on-boarding.model';
 import { MatDialog } from '@angular/material/dialog';
@@ -13,6 +13,7 @@ import { AddEditStateType, OnboardingEntityType } from 'src/app/shared/generics/
 import * as _ from 'lodash';
 import { VehicleAddDialogComponent } from 'src/app/modules/dialog/components/vehicle-add-dialog/vehicle-add-dialog.component';
 import { ONBOARDINGDOCUMENTSROUTE, ONBOARDINGOCCUPANTSROUTE } from 'src/app/shared/constants/routes';
+import { RouteActionsType } from 'src/app/models/onboarding.model';
 
 @Component({
   selector: 'cma-on-boarding-vehicle',
@@ -72,8 +73,9 @@ export class OnboardingVehicleComponent extends GenericOnBoardingComponent imple
   }
 
   public onNext(): void {
-    super.onNext(ONBOARDINGDOCUMENTSROUTE(this.id));
+    super.onNext(ONBOARDINGDOCUMENTSROUTE(this.id, <RouteActionsType>this.getActionFromStorage(ROUTEACTIONSTYPE)), STRDOCUMENTS, this.getVehiclesForm.value);
 
+    this._store.dispatch(addToVehiclesAction({ payload: this.getVehiclesForm.value }));
     this._store.dispatch(setOnboardingStepperAction({ step: ONBOARDINGDOCUMENTS }));
   }
 

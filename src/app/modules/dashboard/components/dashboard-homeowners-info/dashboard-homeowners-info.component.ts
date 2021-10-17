@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { IHomeowner } from 'src/app/models/homeowners.model';
 import { DASHBOARDONBOARDINGROUTE } from 'src/app/shared/constants/routes';
 import { environment } from 'src/environments/environment';
 
@@ -9,12 +10,15 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./dashboard-homeowners-info.component.scss']
 })
 export class DashboardHomeownersInfoComponent implements OnInit {
+  @Input()
+  public personal: IHomeowner[];
+
   public svgPath: string = environment.svgPath;
   public imgPath: string = environment.imgPath;
 
   constructor(private router: Router) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {  }
 
   public onEdit(id: string): void {
     this.router.navigateByUrl(`${DASHBOARDONBOARDINGROUTE}/${id}/detail`);

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { IOnboardingDocument } from 'src/app/modules/on-boarding/on-boarding.model';
 import { ISimpleItem } from 'src/app/shared/generics/generic-model';
 import { environment } from 'src/environments/environment';
 
@@ -8,35 +9,11 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./dashboard-homeowners-document.component.scss']
 })
 export class DashboardHomeownersDocumentComponent implements OnInit {
+  @Input() documents: IOnboardingDocument[];
   public svgPath: string = environment.svgPath;
   public imgPath: string = environment.imgPath;
-  public uploadDocuments: ISimpleItem[] = [{
-    label: 'Amenities Registration Form',
-    value: ''
-  }, {
-    label: 'Move-in Notice & Clearance Form',
-    value: ''
-  }, {
-    label: 'Residents Information Sheet',
-    value: ''
-  }, {
-    label: 'Vehicle Registration & Car Sticker Form',
-    value: ''
-  }, {
-    label: 'ID Card Application Form',
-    value: ''
-  }, {
-    label: 'Signature Information Card',
-    value: ''
-  }, {
-    label: 'Waiver',
-    value: ''
-  }, {
-    label: 'Contract',
-    value: ''
-  }];
 
   constructor() { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {  }
 }

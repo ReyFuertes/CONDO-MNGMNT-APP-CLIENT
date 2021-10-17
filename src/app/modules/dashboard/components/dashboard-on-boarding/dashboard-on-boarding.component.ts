@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { select, Store } from '@ngrx/store';
 import { MenuItem } from 'primeng/api';
-import { takeUntil } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { MenuType, RouteActionsType } from 'src/app/models/onboarding.model';
 import { ONBOARDINGBREADCRUMBS } from 'src/app/shared/constants/breadcrumbs';
 import { GenericContainer } from 'src/app/shared/generics/generic-container';
@@ -23,7 +23,7 @@ import { ONBOARDINGACTIONID, ROUTEACTIONSTYPE } from 'src/app/shared/constants/g
   templateUrl: './dashboard-on-boarding.component.html',
   styleUrls: ['./dashboard-on-boarding.component.scss']
 })
-export class DashboardOnboardingComponent extends GenericContainer implements OnInit {
+export class DashboardOnboardingComponent extends GenericContainer implements AfterViewInit {
   public breadCrumbItems: ISimpleItem[] = ONBOARDINGBREADCRUMBS;
   public settingItems: MenuItem[] = [{
     label: 'Invite',
@@ -65,37 +65,42 @@ export class DashboardOnboardingComponent extends GenericContainer implements On
   public pGSkipCount: number = 0;
   public paginationParams: any;
   public $onboardingCount: Observable<number>;
+  public defaultSearchFields: string = '';
 
   constructor(storageSrv: StorageService, private router: Router, private fb: FormBuilder, private store: Store<RooState>) {
     super(storageSrv);
+
     localStorage.setItem('nav', JSON.stringify(MenuType.Onboarding));
+    this.paginationParams = `take=${this.pGRowCount}&skip=${this.pGSkipCount}`;
 
     this.form = this.fb.group({
       filterKeyword: [null],
-      fieldFilter: [null]
+      fieldFilter: [null],
+      strFieldFilter: [null]
     });
 
-    this.form.valueChanges.pipe(takeUntil(this.$unsubscribe))
+    this.form.valueChanges.pipe(takeUntil(this.$unsubscribe), debounceTime(600))
       .subscribe(({ fieldFilter }) => {
         if (fieldFilter) {
-
+          const keyword = this.form.get('filterKeyword').value;
           const filterParams = fieldFilter?.map((ff) => {
             return `personal.${ff?.value}=@searchValue&spouse.${ff?.value}=@searchValue`;
           });
+
           this.filterChanged = filterParams !== _.clone(filterParams, true);
+          const fmtFilterParams = `${filterParams.join("&")}&`;
 
-          this.filterParams = `&${filterParams.join("&")}`;
-
-          const searchKeyword = this.form.get('filterKeyword')?.value;
-          if (searchKeyword) {
-            this.onSearch(searchKeyword);
+          this.form.get('strFieldFilter').patchValue(fmtFilterParams, { emitEvent: false });
+          if (keyword) {
+            this.onSearch(keyword, fmtFilterParams);
           }
         }
       });
 
-    this.paginationParams = `take=${this.pGRowCount}&skip=${this.pGSkipCount}`;
+  }
 
-    this.$onboardingCount = this.store.pipe(select(getDashboardOnboardingCountSelector));
+  ngAfterViewInit(): void {
+    this.load();
   }
 
   public createNew(): void {
@@ -106,30 +111,31 @@ export class DashboardOnboardingComponent extends GenericContainer implements On
   }
 
   public onPaginate(event: any): void {
-    this.paginationParams = `take=${event?.rows}&skip=${event?.first}`;
+    // this.paginationParams = `take=${event?.rows}&skip=${event?.first}`;
 
-    const searchKeyword = this.form.get('filterKeyword')?.value || '';
-    this.onSearch(searchKeyword);
+    // const searchKeyword = this.form.get('filterKeyword')?.value || '';
+    // this.onSearch(searchKeyword);
   }
 
-  public onSearch(keyword: any): void {
-    if (keyword?.length > 3) {
-      if (this.form.get('filterKeyword')?.value === keyword && !this.filterParams) return;
+  private load(): void {
+    this.store.dispatch(loadDashboardOnboardingAction({ keyword: `${this.paginationParams}` }));
+  }
 
-      this.form.get('filterKeyword').patchValue(keyword, { emitEvent: false });
+  public onSearch(keyword: any, filter?: any): void {
+    if (keyword?.length === 0) this.load();
 
-      const ambigousFields = ['personal', 'spouse'];
-      let searchParams: string = '';
+    this.form.get('filterKeyword').patchValue(keyword, { emitEvent: false });
 
-      for (let i = 0; i < ambigousFields?.length; i++) {
-        searchParams += `${ambigousFields[i]}.firstname=${keyword}&${ambigousFields[i]}.lastname=${keyword}&${ambigousFields[i]}.middlename=${keyword}&`;
-      };
+    const defaultSearchFieldsArr = ['personal', 'spouse'] || '';
+    this.defaultSearchFields = '';
 
-      let params = this.filterParams?.replace(/@searchValue/g, keyword) || '';
+    for (let i = 0; i < defaultSearchFieldsArr?.length; i++) {
+      this.defaultSearchFields += `${defaultSearchFieldsArr[i]}.firstname=${keyword}&${defaultSearchFieldsArr[i]}.lastname=${keyword}&${defaultSearchFieldsArr[i]}.middlename=${keyword}&`;
+    };
 
-      this.store.dispatch(loadDashboardOnboardingAction({ keyword: `${searchParams}${params}${this.paginationParams}` }));
-    } else {
-      this.store.dispatch(loadDashboardOnboardingAction({ keyword: `${this.paginationParams}` }));
-    }
+    let fmtFilterParams: string = filter || this.form.get('strFieldFilter').value;
+    fmtFilterParams = fmtFilterParams?.replace(/@searchValue/g, keyword) || '';
+
+    this.store.dispatch(loadDashboardOnboardingAction({ keyword: `${this.defaultSearchFields}${fmtFilterParams}${this.paginationParams}` }));
   }
 }

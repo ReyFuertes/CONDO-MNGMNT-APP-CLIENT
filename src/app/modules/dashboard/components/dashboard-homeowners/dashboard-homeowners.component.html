@@ -1,11 +1,11 @@
 <div class="page-container" [ngClass]="{'active': active}">
   <mat-accordion>
-    <mat-expansion-panel *ngFor="let boarder of homeowners; let i = index" [expanded]="i === 0">
+    <mat-expansion-panel *ngFor="let homeowner of ($homeowners | async); let i = index" [expanded]="i === 0">
       <mat-expansion-panel-header>
         <mat-panel-title>
           <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
             <img [src]="imgPath + 'sample-profile-pic.png'" />
-            <span class="name">{{ boarder?.name }}</span>
+            <span class="name">{{ getFullName(homeowner?.personal) }}</span>
           </div>
         </mat-panel-title>
         <mat-panel-description>
@@ -16,14 +16,16 @@
         <div class="content" fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="10px">
           <mat-tab-group>
             <mat-tab label="Personal Information">
-              <cma-dashboard-homeowners-info></cma-dashboard-homeowners-info>
+              <cma-dashboard-homeowners-info [personal]="homeowner?.personal"></cma-dashboard-homeowners-info>
             </mat-tab>
             <mat-tab label="Occupants">
+              <cma-dashboard-homeowners-occupant [occupants]="homeowner?.occupants"></cma-dashboard-homeowners-occupant>
             </mat-tab>
             <mat-tab label="Vehicles">
+              <cma-dashboard-homeowners-vehicle [vehicles]="homeowner?.vehicles"></cma-dashboard-homeowners-vehicle>
             </mat-tab>
             <mat-tab label="Documents">
-              <cma-dashboard-homeowners-document></cma-dashboard-homeowners-document>
+              <cma-dashboard-homeowners-document [documents]="homeowner?.documents"></cma-dashboard-homeowners-document>
             </mat-tab>
             <mat-tab label="Tenants">
               <cma-dashboard-homeowners-tenant></cma-dashboard-homeowners-tenant>

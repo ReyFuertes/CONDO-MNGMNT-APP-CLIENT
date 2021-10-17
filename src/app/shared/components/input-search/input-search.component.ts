@@ -1,8 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { debounce, debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { GenericControl } from '../../generics/generic-control';
-import { ISimpleItem } from '../../generics/generic-model';
 
 @Component({
   selector: 'cma-input-search',
@@ -29,7 +28,7 @@ export class CMAInputSearchComponent extends GenericControl<string> implements O
 
   public onClear(): void {
     this.input.nativeElement.value = '';
-    this.valueEmitter.emit(null);
+    this.valueEmitter.emit('');
   }
 
   public get hasLen(): boolean {

@@ -6,12 +6,13 @@ import { StorageService } from 'src/app/services/storage.service';
 import { Store } from '@ngrx/store';
 import { RooState } from 'src/app/store/root.reducer';
 import { Router } from '@angular/router';
-import { setOnboardingStepperAction, updateOnboardingSpouseValuesAction } from '../../store/onboarding.action';
-import { ONBOARDINGOCCUPANTS, ONBOARDINGPERSONAL, STRSPOUSE } from 'src/app/shared/constants/generic';
+import { addToSpouseAction, setOnboardingStepperAction, updateOnboardingSpouseValuesAction } from '../../store/onboarding.action';
+import { ONBOARDINGOCCUPANTS, ONBOARDINGPERSONAL, ROUTEACTIONSTYPE, STRSPOUSE } from 'src/app/shared/constants/generic';
 import { OnboardingEntityType } from 'src/app/shared/generics/generic-model';
 import { ONBOARDINGOCCUPANTSROUTE, ONBOARDINGPERSONALROUTE } from 'src/app/shared/constants/routes';
 import { takeUntil } from 'rxjs/operators';
 import { IOnboarding } from '../../on-boarding.model';
+import { RouteActionsType } from 'src/app/models/onboarding.model';
 
 @Component({
   selector: 'cma-on-boarding-spouse',
@@ -66,8 +67,9 @@ export class OnboardingSpouseInfoComponent extends GenericOnBoardingComponent im
   }
 
   public onNext(): void {
-    super.onNext(ONBOARDINGOCCUPANTSROUTE(this.id));
+    super.onNext(ONBOARDINGOCCUPANTSROUTE(this.id, <RouteActionsType>this.getActionFromStorage(ROUTEACTIONSTYPE)), STRSPOUSE, this.getSpouseForm.value);
 
+    this._store.dispatch(addToSpouseAction({ payload: this.getSpouseForm.value }));
     this._store.dispatch(setOnboardingStepperAction({ step: ONBOARDINGOCCUPANTS }));
   }
 

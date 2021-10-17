@@ -1,0 +1,29 @@
+@import "src/styleguide/index";
+:host ::ng-deep {
+  .p-datatable.p-datatable-hoverable-rows .p-datatable-tbody > tr:not(.p-highlight):hover {
+    cursor: pointer;
+  }
+  .p-paginator {
+    max-height: 45px;
+    padding: 10px 0;
+    .p-paginator-first, .p-paginator .p-paginator-prev, .p-paginator .p-paginator-next, .p-paginator .p-paginator-last {
+      min-width: 1rem;
+      height: 1rem;
+    }
+    .p-paginator-pages .p-paginator-page {
+      min-width: 2rem;
+      height: 2rem;
+    }
+  }
+  .p-datatable .p-datatable-tbody > tr {
+    background-color: transparent;
+  }
+  .p-datatable .p-datatable-thead >tr > th {
+    padding: 5px;
+    font-weight: 500 !important;
+    font-size: 12px;
+  }
+  .p-datatable .p-datatable-tbody > tr > td {
+    font-size: 13px;
+  }
+}

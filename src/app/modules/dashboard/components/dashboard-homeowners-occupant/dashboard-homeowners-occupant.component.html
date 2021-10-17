@@ -1,0 +1,19 @@
+<div>
+  <p-table [value]="occupants" selectionMode="single" dataKey="id" responsiveLayout="scroll">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Name</th>
+        <th>Relationship</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-occupant>
+      <tr>
+        <td>{{occupant?.name}}</td>
+        <td>{{occupant?.relationship}}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+  <div fxLayout="row" fxLayoutAlign="end center">
+    <p-paginator [rows]="10" [totalRecords]="100"></p-paginator>
+  </div>
+</div>

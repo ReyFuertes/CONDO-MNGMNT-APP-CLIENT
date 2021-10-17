@@ -6,6 +6,7 @@ import * as _ from 'lodash';
 import { createEntityAdapter, EntityAdapter, EntityState } from "@ngrx/entity";
 import { OnBoardingType } from "src/app/models/onboarding.model";
 import * as moment from "moment";
+import { OCCUPANTOPTIONS } from "src/app/shared/constants/generic";
 
 export const adapter: EntityAdapter<IOnboarding> = createEntityAdapter<IOnboarding>({});
 export interface OnboardingState extends EntityState<IOnboarding> {
@@ -54,7 +55,7 @@ const onboardingReducer = createReducer(
   on(updateOnboardingPersonalValuesAction, (state, action) => {
     const personal = {
       ...action?.payload?.personal,
-      dateOfBirth: moment(action?.payload?.personal?.dateOfBirth || new Date()).format('MM-DD-YYYY'),
+      dateOfBirth: moment(action?.payload?.personal?.dateOfBirth || new Date()).format('MM-DD-YYYY')
     }
     return Object.assign({}, state, { personal });
   }),
@@ -105,7 +106,7 @@ const onboardingReducer = createReducer(
     return Object.assign({}, state, { onboardingSubmitted: true });
   }),
   on(addDocumentsAction, (state, action) => {
-    return Object.assign({}, state, { addDocumentsAction: action.documents });
+    return Object.assign({}, state, { addDocumentsAction: action.payload });
   }),
   on(removeOccupantAction, (state, action) => {
     let occupants: IOnboardingOccupant[] = Object.assign([], state.occupants);

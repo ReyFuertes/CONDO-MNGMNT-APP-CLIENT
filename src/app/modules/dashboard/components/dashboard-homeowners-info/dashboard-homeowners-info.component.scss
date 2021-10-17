@@ -6,6 +6,10 @@
 div {
   width: 100%;
 }
+.truncate {
+  max-width: 190px;
+  @include truncate;
+}
 .pi-thumb {
   > div:not(.upload-thumb) {
     border-bottom: thin $color-gray-3 solid;
@@ -16,7 +20,7 @@ div {
     span {
       &:nth-child(1) {
         font-weight: 500;
-        font-size: 13px;
+        font-size: 12px;
         color: $color-black-3;
       }
       &:nth-child(2) {

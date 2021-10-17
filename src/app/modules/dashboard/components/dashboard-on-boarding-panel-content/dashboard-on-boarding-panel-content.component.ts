@@ -71,6 +71,7 @@ export class DashboardOnboardingPanelContentComponent extends GenericRoute imple
   public onEdit(id: string): void {
     super.routeTo(ONBOARDINGACTIONID, id);
     super.routeTo(ROUTEACTIONSTYPE, RouteActionsType.Edit);
+    this._storageSrv.set(ROUTEACTIONSTYPE, JSON.stringify(RouteActionsType.Edit));
     this.router.navigateByUrl(ONBOARDINGTYPEROUTE(id, RouteActionsType.Edit));
   }
 }

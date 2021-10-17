@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
 
-export function convertBlobToBase64(blob: Blob): Observable<{}> {
+export function convertBlobToBase64(blob: Blob): Observable<any> {
   const fileReader = new FileReader();
   const observable = new Observable(observer => {
     fileReader.onloadend = () => {
