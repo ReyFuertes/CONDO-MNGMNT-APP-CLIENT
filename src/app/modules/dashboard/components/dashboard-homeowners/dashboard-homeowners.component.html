@@ -16,13 +16,13 @@
         <div class="content" fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="10px">
           <mat-tab-group>
             <mat-tab label="Personal Information">
-              <cma-dashboard-homeowners-info [personal]="homeowner?.personal"></cma-dashboard-homeowners-info>
+              <cma-dashboard-homeowners-detail  [personal]="homeowner?.personal"></cma-dashboard-homeowners-detail>
             </mat-tab>
             <mat-tab label="Occupants">
-              <cma-dashboard-homeowners-occupant [occupants]="homeowner?.occupants"></cma-dashboard-homeowners-occupant>
+              <cma-dashboard-homeowners-occupant [homeownerId]="homeowner?.id"></cma-dashboard-homeowners-occupant>
             </mat-tab>
             <mat-tab label="Vehicles">
-              <cma-dashboard-homeowners-vehicle [vehicles]="homeowner?.vehicles"></cma-dashboard-homeowners-vehicle>
+              <cma-dashboard-homeowners-vehicle [homeownerId]="homeowner?.id"></cma-dashboard-homeowners-vehicle>
             </mat-tab>
             <mat-tab label="Documents">
               <cma-dashboard-homeowners-document [documents]="homeowner?.documents"></cma-dashboard-homeowners-document>

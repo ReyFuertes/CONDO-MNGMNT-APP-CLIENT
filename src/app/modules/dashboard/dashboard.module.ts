@@ -29,7 +29,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { DashboardContainerComponent } from './container/dashboard-container.component';
 import { DashboardOnboardingDetailComponent } from './components/dashboard-onboarding-detail/dashboard-onboarding-detail.component';
 import { MatTabsModule } from '@angular/material/tabs';
-import { DashboardHomeownersInfoComponent } from './components/dashboard-homeowners-info/dashboard-homeowners-info.component';
+import { DashboardHomeownersDetailComponent } from './components/dashboard-homeowners-detail/dashboard-homeowners-detail.component';
 import { DashboardHomeownersDocumentComponent } from './components/dashboard-homeowners-document/dashboard-homeowners-document.component';
 import { DashboardOnboardingPanelDocumentComponent } from './components/dashboard-on-boarding-panel-document/dashboard-on-boarding-panel-document.component';
 import { DashboardOnboardingPanelContentComponent } from './components/dashboard-on-boarding-panel-content/dashboard-on-boarding-panel-content.component';
@@ -111,7 +111,7 @@ const materialModules = [
     DashboardPaymentsComponent,
     DashboardDocumentsComponent,
     DashboardOnboardingDetailComponent,
-    DashboardHomeownersInfoComponent,
+    DashboardHomeownersDetailComponent,
     DashboardHomeownersDocumentComponent,
     DashboardOnboardingPanelDocumentComponent,
     DashboardOnboardingPanelContentComponent,

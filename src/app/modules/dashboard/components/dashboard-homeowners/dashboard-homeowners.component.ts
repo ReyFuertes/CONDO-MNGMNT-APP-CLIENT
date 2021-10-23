@@ -5,7 +5,7 @@ import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { IHomeowner } from 'src/app/models/homeowners.model';
 import { OnBoardingType } from 'src/app/models/onboarding.model';
-import { IOnboardingPersonal } from 'src/app/modules/on-boarding/on-boarding.model';
+import { IPersonal } from 'src/app/modules/on-boarding/on-boarding.model';
 import { StorageService } from 'src/app/services/storage.service';
 import { DASHBOARDONBOARDINGROUTE } from 'src/app/shared/constants/routes';
 import { GenericContainer } from 'src/app/shared/generics/generic-container';
@@ -61,6 +61,7 @@ export class DashboardHomeownersComponent extends GenericContainer implements Af
   public onBoardingType = OnBoardingType;
   public onboardingStatus: any[];
   public $homeowners: Observable<IHomeowner[]>;
+  
   constructor(private store: Store<Store>, storageSrv: StorageService, private router: Router) {
     super(storageSrv);
     this.onboardingStatus = ['Approved', 'Orientation', 'Move-In'];
@@ -72,7 +73,7 @@ export class DashboardHomeownersComponent extends GenericContainer implements Af
     this.store.dispatch(loadDashboardHomeownersAction({}));
   }
 
-  public getFullName(personal: IOnboardingPersonal): string {
+  public getFullName(personal: IPersonal): string {
     return `${personal?.firstname} ${personal?.middlename} ${personal?.lastname}`;
   }
 

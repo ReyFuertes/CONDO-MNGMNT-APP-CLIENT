@@ -1,5 +1,5 @@
-<div>
-  <p-table [value]="vehicles" selectionMode="single" dataKey="id" responsiveLayout="scroll">
+<div *ngIf="($homeownerVehicles | async) as vehicles">
+  <p-table [value]="vehicles?.data" selectionMode="single" dataKey="id" responsiveLayout="scroll">
     <ng-template pTemplate="header">
       <tr>
         <th>Model</th>
@@ -16,6 +16,6 @@
     </ng-template>
   </p-table>
   <div fxLayout="row" fxLayoutAlign="end center">
-    <p-paginator [rows]="10" [totalRecords]="100"></p-paginator>
+    <p-paginator appendTo="body" (onPageChange)="onPaginate($event)" [rows]="pGRowCount" [totalRecords]="vehicles?.count"></p-paginator>
   </div>
 </div>

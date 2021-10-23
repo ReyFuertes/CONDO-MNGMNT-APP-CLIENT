@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { select, Store } from '@ngrx/store';
 import { MenuItem } from 'primeng/api';
@@ -65,7 +65,7 @@ export class DashboardOnboardingComponent extends GenericContainer implements Af
   public form: FormGroup;
   public filterParams: string;
   public filterChanged: boolean = false;
-  public pGRowCount: number = 10;
+  public pGRowCount: number = 3;
   public pGSkipCount: number = 0;
   public paginationParams: string;
   public $onboardingCount: Observable<number>;
@@ -73,7 +73,7 @@ export class DashboardOnboardingComponent extends GenericContainer implements Af
   public rowsPerPageOptions: number[] = [3, 10, 20, 30];
   public fmtFilterParams: string = '';
 
-  constructor(private _storageSrv: StorageService, storageSrv: StorageService, private router: Router, private fb: FormBuilder, private store: Store<RooState>) {
+  constructor(private cdRef: ChangeDetectorRef, storageSrv: StorageService, private router: Router, private fb: FormBuilder, private store: Store<RooState>) {
     super(storageSrv);
 
     localStorage.setItem('nav', JSON.stringify(MenuType.Onboarding));
@@ -85,7 +85,7 @@ export class DashboardOnboardingComponent extends GenericContainer implements Af
       strFieldFilter: [null]
     });
 
-    this.form.valueChanges.pipe(takeUntil(this.$unsubscribe), debounceTime(600))
+    this.form.valueChanges.pipe(takeUntil(this.$unsubscribe))
       .subscribe(({ fieldFilter }) => {
         if (fieldFilter) {
           const keyword = this.form.get('filterKeyword').value;
@@ -106,6 +106,7 @@ export class DashboardOnboardingComponent extends GenericContainer implements Af
 
   ngAfterViewInit(): void {
     this.$onboardingCount = this.store.pipe(select(getDashboardOnboardingCountSelector));
+    this.cdRef.detectChanges();
   }
 
   public createNew(): void {

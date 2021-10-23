@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { OnBoardingType } from 'src/app/models/onboarding.model';
-import { IOnboardingOccupant, IOnboarding, IOnboardingPersonal, IOnboardingSpouse, IOnboardingVehicle, IOnboardingDocument } from '../on-boarding.model';
+import { IOnboardingOccupant, IOnboarding, IPersonal, IOnboardingSpouse, IOnboardingVehicle, IOnboardingDocument } from '../on-boarding.model';
 
 export enum OnboardingActionTypes {
   setOnboardingStepperAction = '[Onboarding] set Stepper',
@@ -73,7 +73,7 @@ export const addToTypeAction = createAction(
 );
 export const addToPersonalAction = createAction(
   OnboardingActionTypes.addToPersonalAction,
-  props<{ payload: IOnboardingPersonal }>()
+  props<{ payload: IPersonal }>()
 );
 export const addToOccupantAction = createAction(
   OnboardingActionTypes.addToOccupantAction,

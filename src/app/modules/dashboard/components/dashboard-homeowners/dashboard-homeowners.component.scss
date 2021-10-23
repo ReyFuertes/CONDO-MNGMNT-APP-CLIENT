@@ -27,11 +27,11 @@ img {
 .btn-actions {
   cursor: pointer;
   height: 40px;
-  background-color: $color-gray-4;
+  background-color: $color-gray-3;
   border-top: thin $color-gray-3 solid;
   .pi {
     font-size: 1.1rem;
-    color: $color-gray-2;
+    color: $color-gray-1;
     &:hover {
       color: $color-black-0;
     }
@@ -102,8 +102,8 @@ img {
   }
   .mat-expansion-panel-header {
     padding: 20px 20px 20px 10px;
-    max-height: 50px;
-    min-height: 50px;
+    max-height: 45px;
+    min-height: 45px;
     border-radius: 0;
   }
   .mat-expansion-panel-header-title {

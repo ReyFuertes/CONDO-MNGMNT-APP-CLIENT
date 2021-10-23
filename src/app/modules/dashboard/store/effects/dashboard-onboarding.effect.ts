@@ -1,5 +1,5 @@
 import { select, Store } from '@ngrx/store';
-import { Injectable } from '@angular/core';
+import { Injectable, Self, SkipSelf } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { MessageService } from 'primeng/api';
@@ -8,7 +8,7 @@ import { GenericNotificationComponent } from 'src/app/shared/generics/generic-to
 import { Router } from '@angular/router';
 import { DashboardOnboardingService } from '../../dashboard.service';
 import { approveDashboardOnboardingAction, approveDashboardOnboardingActionSuccess, archiveDashboardOnboardingAction, archiveDashboardOnboardingActionSuccess, deleteDashboardOnboardingAction, deleteDashboardOnboardingActionSuccess, loadDashboardOnboardingAction, loadDashboardOnboardingActionSuccess } from '../actions/dashboard-onboarding.action';
-import { IOnboadingResponseDto, IOnboarding } from 'src/app/modules/on-boarding/on-boarding.model';
+import { IOnboadingResponse, IOnboarding } from 'src/app/modules/on-boarding/on-boarding.model';
 import { appNotificationAction } from 'src/app/store/action/notification.action';
 import { of } from 'rxjs';
 
@@ -17,9 +17,9 @@ export class DashboardOnboardingEffects extends GenericNotificationComponent {
   constructor(router: Router,
     private actions$: Actions,
     private dashboardOnboardingSrv: DashboardOnboardingService,
-    private store: Store<RooState>,
-    msgSrv: MessageService) {
-    super(router, msgSrv);
+    private _store: Store<RooState>,
+    store: Store<RooState>) {
+    super(router, store);
   }
   
   deleteDashboardOnboardingAction$ = createEffect(() => this.actions$.pipe(
@@ -49,7 +49,7 @@ export class DashboardOnboardingEffects extends GenericNotificationComponent {
     switchMap(({ payload }) => {
       return this.dashboardOnboardingSrv.post(payload, 'onboard').pipe(
         map((response) => {
-          this.store.dispatch(appNotificationAction({
+          this._store.dispatch(appNotificationAction({
             notification: { success: true, message: `${payload?.personal?.firstname} ${payload?.personal?.lastname} successfully added to homeowners` }
           }));
           return approveDashboardOnboardingActionSuccess({ response: <IOnboarding>response });
@@ -68,7 +68,7 @@ export class DashboardOnboardingEffects extends GenericNotificationComponent {
     switchMap(({ keyword }) => {
       return this.dashboardOnboardingSrv.getAll(keyword).pipe(
         map((response) => {
-          return loadDashboardOnboardingActionSuccess({ response: <IOnboadingResponseDto>response });
+          return loadDashboardOnboardingActionSuccess({ response: <IOnboadingResponse>response });
         })
       )
     })

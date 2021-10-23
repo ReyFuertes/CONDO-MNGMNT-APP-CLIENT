@@ -1,13 +1,13 @@
 import { OccupantType, OnBoardingType } from "src/app/models/onboarding.model";
 import { IMyInfo, IBuilding, IUnit, IParkingSLot, ISimpleItem } from "src/app/shared/generics/generic-model";
 
-export interface IOnboadingResponseDto {
+export interface IOnboadingResponse {
   data?: IOnboarding[], count?: number
 }
 export interface IOnboarding {
   id?: string;
   type?: OnBoardingType;
-  personal?: IOnboardingPersonal;
+  personal?: IPersonal;
   spouse?: IOnboardingSpouse;
   occupants?: IOnboardingOccupant[];
   vehicles?: IOnboardingVehicle[];
@@ -23,9 +23,9 @@ export interface IOnboardingDocument {
   fileName?: string;
 }
 export interface IOnboardingSpouse extends IMyInfo {
-  occupantType?: OccupantType
+  occupantType?: OccupantType | any
 }
-export interface IOnboardingPersonal extends IMyInfo {
+export interface IPersonal extends IMyInfo {
   building?: IBuilding | ISimpleItem;
   unit?: IUnit | ISimpleItem;
   parking?: IParkingSLot | ISimpleItem;

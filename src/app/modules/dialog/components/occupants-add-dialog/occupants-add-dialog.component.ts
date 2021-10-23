@@ -4,7 +4,7 @@ import { RooState } from 'src/app/store/root.reducer';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormBuilder, Validators } from '@angular/forms';
 import { GenericAddEditComponent } from 'src/app/shared/generics/generic-ae';
-import { IOnboardingOccupant, IOnboardingPersonal } from 'src/app/modules/on-boarding/on-boarding.model';
+import { IOnboardingOccupant, IPersonal } from 'src/app/modules/on-boarding/on-boarding.model';
 import { ISimpleItem } from 'src/app/shared/generics/generic-model';
 import { RELATIONSOPTIONS } from 'src/app/shared/constants/generic';
 import * as _ from 'lodash';

@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { IOnboadingResponseDto, IOnboarding } from 'src/app/modules/on-boarding/on-boarding.model';
+import { IOnboadingResponse, IOnboarding } from 'src/app/modules/on-boarding/on-boarding.model';
 
 export enum DasboardOnboardingActionTypes {
   loadDashboardOnboardingAction = '[Onboarding] load onboarding',
@@ -41,5 +41,5 @@ export const loadDashboardOnboardingAction = createAction(
 );
 export const loadDashboardOnboardingActionSuccess = createAction(
   DasboardOnboardingActionTypes.loadDashboardOnboardingActionSuccess,
-  props<{ response: IOnboadingResponseDto }>()
+  props<{ response: IOnboadingResponse }>()
 );

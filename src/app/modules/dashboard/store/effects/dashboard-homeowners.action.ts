@@ -7,17 +7,39 @@ import { RooState } from 'src/app/store/root.reducer';
 import { GenericNotificationComponent } from 'src/app/shared/generics/generic-toast';
 import { Router } from '@angular/router';
 import { DashboardHomeownersService } from '../../dashboard.service';
-import { loadDashboardHomeownersAction, loadDashboardHomeownersActionSuccess } from '../actions/dashboard-homeowners.action';
+import { loadDashboardHomeownersAction, loadDashboardHomeownersActionSuccess, loadHomeownerOccupantsAction, loadHomeownerOccupantsActionSuccess, loadHomeownerVehiclesAction, loadHomeownerVehiclesActionSuccess } from '../actions/dashboard-homeowners.action';
 
 @Injectable()
 export class DashboardHomeownersEffects extends GenericNotificationComponent {
   constructor(router: Router,
     private actions$: Actions,
     private dashboardHomeownersSrv: DashboardHomeownersService,
-    private store: Store<RooState>,
-    msgSrv: MessageService) {
-    super(router, msgSrv);
+    private _store: Store<RooState>,
+    store: Store<RooState>) {
+    super(router, store);
   }
+  
+  loadHomeownerVehiclesAction$ = createEffect(() => this.actions$.pipe(
+    ofType(loadHomeownerVehiclesAction),
+    switchMap(({ keyword }) => {
+      return this.dashboardHomeownersSrv.getAllWithRoute(`vehicles?${keyword}`).pipe(
+        map((response) => {
+          return loadHomeownerVehiclesActionSuccess({ response });
+        })
+      )
+    })
+  ));
+
+  loadHomeownerOccupantsAction$ = createEffect(() => this.actions$.pipe(
+    ofType(loadHomeownerOccupantsAction),
+    switchMap(({ keyword }) => {
+      return this.dashboardHomeownersSrv.getAllWithRoute(`occupants?${keyword}`).pipe(
+        map((response) => {
+          return loadHomeownerOccupantsActionSuccess({ response });
+        })
+      )
+    })
+  ));
 
   loadDashboardHomeownersAction$ = createEffect(() => this.actions$.pipe(
     ofType(loadDashboardHomeownersAction),

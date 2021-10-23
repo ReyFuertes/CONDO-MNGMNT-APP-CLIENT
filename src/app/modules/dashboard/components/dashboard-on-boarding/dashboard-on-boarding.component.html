@@ -16,6 +16,6 @@
       </div>
       <p-paginator (onPageChange)="onPaginate($event)" [rows]="pGRowCount" [totalRecords]="($onboardingCount | async)" [rowsPerPageOptions]="rowsPerPageOptions"></p-paginator>
     </div>
-    <cma-dashboard-on-boarding-panel [paginationParams]="paginationParams" (reloadEmitter)="reloadEmitter($event)"></cma-dashboard-on-boarding-panel>
+    <cma-dashboard-on-boarding-panel [paginationParams]="paginationParams" (reloadEmitter)="reloadEmitter()"></cma-dashboard-on-boarding-panel>
   </div>
 </div>

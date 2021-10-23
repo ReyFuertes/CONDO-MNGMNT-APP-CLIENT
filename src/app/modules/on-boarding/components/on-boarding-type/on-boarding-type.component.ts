@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, OnChanges, OnInit, SimpleChanges } from '
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import { takeUntil } from 'rxjs/operators';
+import { debounceTime, takeUntil } from 'rxjs/operators';
 import { OnBoardingType, RouteActionsType } from 'src/app/models/onboarding.model';
 import { StorageService } from 'src/app/services/storage.service';
 import { ONBOARDINGPERSONAL, ROUTEACTIONSTYPE, STRTYPE } from 'src/app/shared/constants/generic';
@@ -32,6 +32,7 @@ export class OnboardingTypeComponent extends GenericOnBoardingComponent implemen
 
     this.id = this.route?.snapshot?.paramMap?.get('id') || null;
     if (this.id) {
+      debugger
       this.form.get('id').patchValue(this.id);
     }
     this.clearStorage();
@@ -40,6 +41,7 @@ export class OnboardingTypeComponent extends GenericOnBoardingComponent implemen
 
   ngOnInit(): void {
     this._store.pipe(select(getOnboardingTypeSelector),
+      debounceTime(100),
       takeUntil(this.$unsubscribe))
       .subscribe(type => {
         if (type) {

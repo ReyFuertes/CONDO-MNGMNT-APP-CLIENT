@@ -1,4 +1,4 @@
-import { IOnboardingDocument, IOnboardingOccupant, IOnboardingPersonal, IOnboardingSpouse, IOnboardingVehicle } from "../modules/on-boarding/on-boarding.model";
+import { IOnboardingDocument, IOnboardingOccupant, IPersonal, IOnboardingSpouse, IOnboardingVehicle } from "../modules/on-boarding/on-boarding.model";
 export interface IVehicle {
   id?: string;
   model?: string;
@@ -21,7 +21,7 @@ export interface ITenant {
 export interface IHomeowner {
   id: string;
   created_at?: string;
-  personal?: IOnboardingPersonal,
+  personal?: IPersonal,
   spouse?: IOnboardingSpouse,
   vehicles?: IOnboardingVehicle[],
   documents?: IOnboardingDocument[],

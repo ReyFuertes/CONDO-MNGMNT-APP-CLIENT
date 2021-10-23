@@ -84,7 +84,7 @@ export const FmtFormToPayload = (payload: IOnboarding): IOnboarding => {
 }
 
 export const FmtPayloadToForm = (payload: IOnboarding): IOnboarding => {
-  const fmted = {
+  const result = {
     id: payload?.id,
     type: payload?.type,
     personal: {
@@ -109,5 +109,5 @@ export const FmtPayloadToForm = (payload: IOnboarding): IOnboarding => {
     documents: payload?.documents,
     documentsToUpload: payload?.documentsToUpload
   }
-  return fmted;
+  return result;
 }

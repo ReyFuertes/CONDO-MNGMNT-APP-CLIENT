@@ -26,11 +26,11 @@ export interface IMyInfo {
   civilStatus?: string | ISimpleItem;
   dateOfBirth?: string | Date;
   occupation?: string;
+  contactNo?: string;
   tin?: string;
   idType?: string | ISimpleItem;
   idNo?: string;
-  uploadePersonalIdFile?: File;
-  uploadeSpouseIdFile?: File;
+  uploadPersonalIdFile?: File;
   uploadedPersonalFilePreview?: any;
   uploadedSpouseFilePreview?: any;
 }

@@ -10,7 +10,7 @@ import { isLoadingSelector } from 'src/app/store/selector/app.selector';
 import { GenericNotificationComponent } from 'src/app/shared/generics/generic-toast';
 import { Router } from '@angular/router';
 import { ONBOARDINGFORAPPROVALROUTE } from 'src/app/shared/constants/routes';
-import { IOnboarding, IOnboardingPersonal } from '../on-boarding.model';
+import { IOnboarding, IPersonal } from '../on-boarding.model';
 import { UploadService } from 'src/app/services/upload.service';
 import { ImageService } from 'src/app/services/image.service';
 
@@ -69,7 +69,7 @@ export class OnboardingEffects extends GenericNotificationComponent {
           this._store.dispatch(saveAndUploadImageAction({
             payload: {
               name: personalIdAttachment?.image?.name,
-              personal: { id: <IOnboardingPersonal>personal?.id }
+              personal: { id: <IPersonal>personal?.id }
             },
             images: personalIdAttachment?.data
           }));
@@ -77,7 +77,7 @@ export class OnboardingEffects extends GenericNotificationComponent {
           this._store.dispatch(saveAndUploadImageAction({
             payload: {
               name: spouseIdAttachment?.image?.name,
-              spouse: { id: <IOnboardingPersonal>spouse?.id }
+              spouse: { id: <IPersonal>spouse?.id }
             },
             images: spouseIdAttachment?.data
           }));
@@ -105,7 +105,7 @@ export class OnboardingEffects extends GenericNotificationComponent {
           this._store.dispatch(saveAndUploadImageAction({
             payload: {
               name: personalIdAttachment?.image?.name,
-              personal: { id: <IOnboardingPersonal>personal?.id }
+              personal: { id: <IPersonal>personal?.id }
             },
             images: personalIdAttachment?.data
           }));
@@ -113,7 +113,7 @@ export class OnboardingEffects extends GenericNotificationComponent {
           this._store.dispatch(saveAndUploadImageAction({
             payload: {
               name: spouseIdAttachment?.image?.name,
-              spouse: { id: <IOnboardingPersonal>spouse?.id }
+              spouse: { id: <IPersonal>spouse?.id }
             },
             images: spouseIdAttachment?.data
           }));

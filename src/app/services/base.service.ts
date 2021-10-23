@@ -47,7 +47,7 @@ export abstract class BaseService<T> {
   }
 
   public post(object?: T | T[], param?: string): Observable<T | T[]> {
-    return this.http.post<T>(`${this.baseUrl}${this.entity}${this.fmtPostParam(param)}`,
+    return this.http.post<T>(`${this.baseUrl}${this.entity}${this.fmtWithRoute(param)}`,
       this.removeNullProps(object),
       { headers: this.commonHeaders() });
   }
@@ -64,12 +64,17 @@ export abstract class BaseService<T> {
     );
   }
 
-  private fmtPostParam(param?: string): string {
+  private fmtWithRoute(param?: string): string {
     return `${param ? '/' + param : ''}`
   }
 
   private fmtParam(param?: string): string {
     return param ? `?${param}` : ''
+  }
+
+  public getAllWithRoute(param?: string): Observable<T[]> {
+    return this.http.get<T[]>(`${this.baseUrl}${this.entity}${this.fmtWithRoute(param)}`,
+      { headers: this.commonHeaders() }).pipe(shareReplay(1));
   }
 
   public getAll(param?: string): Observable<T[]> {

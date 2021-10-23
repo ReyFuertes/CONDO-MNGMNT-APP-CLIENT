@@ -1,6 +1,6 @@
 import { createReducer, on, Action } from "@ngrx/store";
 import { ISimpleItem } from "src/app/shared/generics/generic-model";
-import { IOnboardingOccupant, IOnboarding, IOnboardingDocument, IOnboardingPersonal, IOnboardingSpouse, IOnboardingVehicle } from "../on-boarding.model";
+import { IOnboardingOccupant, IOnboarding, IOnboardingDocument, IPersonal, IOnboardingSpouse, IOnboardingVehicle } from "../on-boarding.model";
 import { addDocumentsAction, addToOccupantAction, addToPersonalAction, addToSpouseAction, addToVehiclesAction, clearStepperAction, createOnboardingSuccessAction, removeOccupantAction, setOnboardingStepperAction, addToOccupantsAction, addToTypeAction, getOnboardingByIdSuccessAction, updateOnboardingPersonalValuesAction, updateOnboardingSpouseValuesAction, updateOnboardingOccupantValuesAction, updateOnboardingVehicleValuesAction, updateOnboardingDocumentsValuesAction } from "./onboarding.action";
 import * as _ from 'lodash';
 import { createEntityAdapter, EntityAdapter, EntityState } from "@ngrx/entity";
@@ -12,7 +12,7 @@ export const adapter: EntityAdapter<IOnboarding> = createEntityAdapter<IOnboardi
 export interface OnboardingState extends EntityState<IOnboarding> {
   stepper?: string,
   type?: OnBoardingType,
-  personal?: IOnboardingPersonal,
+  personal?: IPersonal,
   spouse?: IOnboardingSpouse,
   vehicles?: IOnboardingVehicle[],
   occupants?: IOnboardingOccupant[],

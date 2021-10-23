@@ -35,6 +35,16 @@
     }
   }
 }
+.btn-actions {
+  min-height: 40px;
+  i {
+    cursor: pointer;
+    color: $color-gray-1;
+    &:hover {
+      color: $color-blue;
+    }
+  }
+}
 :host ::ng-deep {
   .pi-info-circle {
     font-size: 1.5rem;
@@ -75,7 +85,7 @@
   }
   .mat-expansion-panel-body {
     background-color: $color-gray-4;
-    padding: 15px 20px 20px 20px;
+    padding: 15px 0 0 0;
     border-top: thin $color-gray-3 solid;
     > div {
       width: 100%;

@@ -1,5 +1,5 @@
-<div>
-  <p-table [value]="occupants" selectionMode="single" dataKey="id" responsiveLayout="scroll">
+<div *ngIf="($homeownerOccupants | async) as occupants">
+  <p-table [value]="occupants?.data" selectionMode="single" dataKey="id" responsiveLayout="scroll">
     <ng-template pTemplate="header">
       <tr>
         <th>Name</th>
@@ -14,6 +14,6 @@
     </ng-template>
   </p-table>
   <div fxLayout="row" fxLayoutAlign="end center">
-    <p-paginator [rows]="10" [totalRecords]="100"></p-paginator>
+    <p-paginator appendTo="body" (onPageChange)="onPaginate($event)" [rows]="pGRowCount" [totalRecords]="occupants?.count"></p-paginator>
   </div>
 </div>
