@@ -4,8 +4,8 @@ import { IOnboadingResponse } from 'src/app/modules/on-boarding/on-boarding.mode
 export enum DasboardHomeownersActionTypes {
   loadDashboardHomeownersAction = '[Homeowners] load homeowners',
   loadDashboardHomeownersActionSuccess = '[Homeowners] load homeowners (success)',
-  loadHomeownerOccupantsAction = '[Homeowners] load homeowner occupants',
-  loadHomeownerOccupantsActionSuccess = '[Homeowners] load homeowner occupants (success)',
+  getHomeownerOccupantsAction = '[Homeowners] load homeowner occupants',
+  getHomeownerOccupantsActionSuccess = '[Homeowners] load homeowner occupants (success)',
   loadHomeownerVehiclesAction = '[Homeowners] load homeowner vehicles',
   loadHomeownerVehiclesActionSuccess = '[Homeowners] load homeowner vehicles (success)',
 }
@@ -17,12 +17,12 @@ export const loadHomeownerVehiclesActionSuccess = createAction(
   DasboardHomeownersActionTypes.loadHomeownerVehiclesActionSuccess,
   props<{ response: any }>()
 );
-export const loadHomeownerOccupantsAction = createAction(
-  DasboardHomeownersActionTypes.loadHomeownerOccupantsAction,
-  props<{ keyword?: string }>()
+export const getHomeownerOccupantsAction = createAction(
+  DasboardHomeownersActionTypes.getHomeownerOccupantsAction,
+  props<{ payload?: any }>()
 );
-export const loadHomeownerOccupantsActionSuccess = createAction(
-  DasboardHomeownersActionTypes.loadHomeownerOccupantsActionSuccess,
+export const getHomeownerOccupantsActionSuccess = createAction(
+  DasboardHomeownersActionTypes.getHomeownerOccupantsActionSuccess,
   props<{ response: any }>()
 );
 export const loadDashboardHomeownersAction = createAction(

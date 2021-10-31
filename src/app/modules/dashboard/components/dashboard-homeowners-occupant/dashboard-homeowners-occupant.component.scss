@@ -1,4 +1,18 @@
 @import "src/styleguide/index";
+.pi-chevron-right, .pi-chevron-left {
+  cursor: pointer;
+}
+.page-num {
+  width: 70px;
+  text-align: center;
+  height: 25px;
+  opacity: 1;
+  font-size: 0.7rem;
+  border: none;
+  background-color: transparent;
+  padding: 5px 0;
+  color: $color-black-2;
+}
 :host ::ng-deep {
   .p-paginator {
     max-height: 45px;

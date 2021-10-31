@@ -29,7 +29,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { DashboardContainerComponent } from './container/dashboard-container.component';
 import { DashboardOnboardingDetailComponent } from './components/dashboard-onboarding-detail/dashboard-onboarding-detail.component';
 import { MatTabsModule } from '@angular/material/tabs';
-import { DashboardHomeownersDetailComponent } from './components/dashboard-homeowners-detail/dashboard-homeowners-detail.component';
+import { DashboardHomeownersPersonalComponent } from './components/dashboard-homeowners-personal/dashboard-homeowners-personal.component';
 import { DashboardHomeownersDocumentComponent } from './components/dashboard-homeowners-document/dashboard-homeowners-document.component';
 import { DashboardOnboardingPanelDocumentComponent } from './components/dashboard-on-boarding-panel-document/dashboard-on-boarding-panel-document.component';
 import { DashboardOnboardingPanelContentComponent } from './components/dashboard-on-boarding-panel-content/dashboard-on-boarding-panel-content.component';
@@ -43,6 +43,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { CMADialogModule } from '../dialog/dialog.module';
 import { DashboardHomeownersOccupantComponent } from './components/dashboard-homeowners-occupant/dashboard-homeowners-occupant.component';
 import { DashboardHomeownersVehicleComponent } from './components/dashboard-homeowners-vehicles/dashboard-homeowners-vehicle.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 const routes: Routes = [{
   path: '',
@@ -67,10 +69,10 @@ const routes: Routes = [{
     path: 'documents/list',
     component: DashboardDocumentsComponent
   },
-  {
-    path: 'homeowners',
-    component: DashboardHomeownersComponent
-  },
+  // {
+  //   path: 'homeowners',
+  //   component: DashboardHomeownersComponent
+  // },
   {
     path: 'on-boarding/:id/detail',
     component: DashboardOnboardingDetailComponent
@@ -96,7 +98,8 @@ const materialModules = [
   MatFormFieldModule,
   MatTableModule,
   MatTabsModule,
-  MatDialogModule
+  MatDialogModule,
+  MatPaginatorModule
 ];
 
 @NgModule({
@@ -111,10 +114,9 @@ const materialModules = [
     DashboardPaymentsComponent,
     DashboardDocumentsComponent,
     DashboardOnboardingDetailComponent,
-    DashboardHomeownersDetailComponent,
+    DashboardHomeownersPersonalComponent,
     DashboardHomeownersDocumentComponent,
     DashboardOnboardingPanelDocumentComponent,
-    DashboardOnboardingPanelContentComponent,
     DashboardOnboardingPanelContentComponent,
     DashboardHomeownersTenantComponent,
     DashboardHomeownersOccupantComponent,
@@ -126,6 +128,7 @@ const materialModules = [
     ReactiveFormsModule,
     CMADialogModule,
     FlexLayoutModule,
+    NgxPaginationModule,
     ...primeNgModules,
     ...materialModules,
     RouterModule.forChild(routes),

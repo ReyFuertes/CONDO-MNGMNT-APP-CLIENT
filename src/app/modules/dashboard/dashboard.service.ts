@@ -5,14 +5,14 @@ import { BaseService } from 'src/app/services/base.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { IOnboadingResponse, IOnboarding } from '../on-boarding/on-boarding.model';
 
-@Injectable({  providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class DashboardOnboardingService extends BaseService<IOnboarding | IOnboadingResponse> {
   constructor(http: HttpClient, storageSrv: StorageService) {
     super(http, 'onboarding', storageSrv);
   }
 }
-@Injectable({  providedIn: 'root'})
-export class DashboardHomeownersService extends BaseService<IHomeowner> {
+@Injectable({ providedIn: 'root' })
+export class DashboardHomeownersService extends BaseService<IHomeowner | any> {
   constructor(http: HttpClient, storageSrv: StorageService) {
     super(http, 'homeowner', storageSrv);
   }

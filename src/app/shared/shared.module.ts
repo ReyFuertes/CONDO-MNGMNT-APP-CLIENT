@@ -33,6 +33,8 @@ import { TimelineModule } from 'primeng/timeline';
 import { CMAUploadThumbComponent } from './components/cma-upload-thumb/cma-upload-thumb.component';
 import { NgxFileDropModule } from 'ngx-file-drop';
 import { CMAImgPreviewComponent } from './components/cma-img-preview/cma-img-preview.component';
+import { PaginationDirective } from './directive/pagination.directive';
+import { PaginationComponent } from './components/pagination/pagination.component';
 
 const primeNgModules = [
   CheckboxModule,
@@ -70,12 +72,14 @@ const sharedComponents = [
   CMATextareaComponent,
   CMStepperComponent,
   CMAUploadThumbComponent,
-  CMAImgPreviewComponent
+  CMAImgPreviewComponent,
+  PaginationDirective,
+  PaginationComponent
 ]
 
 @NgModule({
   declarations: [
-    ...sharedComponents,
+    ...sharedComponents
   ],
   imports: [
     CommonModule,

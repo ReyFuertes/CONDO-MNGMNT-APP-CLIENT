@@ -12,5 +12,9 @@ export const getDashboardHomeownerOccupantsSelector = createSelector(
 );
 export const getDashboardHomeownersSelector = createSelector(
   selectDashboardHomeownerModuleState,
-  state => state?.dashboardHomeowner?.ids?.length > 0 ? Object.values(state?.dashboardHomeowner?.entities) : null
+  state => Object.values(state?.dashboardHomeowner?.entities)
+);
+export const getDashboardHomeownersByIdSelector = (id: string) => createSelector(
+  selectDashboardHomeownerModuleState,
+  state => state?.dashboardHomeowner?.entities[id]
 );

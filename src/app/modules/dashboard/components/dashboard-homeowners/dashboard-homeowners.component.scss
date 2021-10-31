@@ -1,24 +1,12 @@
 @import "src/styleguide/index";
 .page-container {
   @include page-container;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  padding: 15px;
+  background-color: $color-white;
 }
 :host {
   width: 100%;
-}
-.content {
-  width: 100%;
-  min-height: 200px;
-  > div {
-    &:first-child {
-      margin-bottom: 0 !important;
-    }
-    width: 100%;
-    > div {
-      &:nth-child(2) {
-        padding-left: 5px;
-      }
-    }
-  }
 }
 img {
   height: 25px;
@@ -37,91 +25,50 @@ img {
     }
   }
 }
-:host ::ng-deep {
-  .mat-tab-body-wrapper {
-    min-height: 200px;
+.collapsible {
+  overflow: hidden;
+  width: 100%;
+  background-color: $color-gray-4;
+}
+.detail {
+  width: 100%;
+  padding: 0 5px;
+  border-bottom: thin $color-gray-3 solid;
+  &.active-row {
+    background-color: $color-gray-3;  
   }
-  .mat-tab-body-content {
+  div {
+    cursor: pointer;
     display: flex;
-    align-content: center;
     align-items: center;
+    align-content: center;
+    height: 35px;
+    font-size: 14px;
+  }
+  &:first-child {
+    border-top: thin $color-gray-3 solid;
+  }
+  &:hover {
+    background-color: $color-gray-4;
+  }
+}
+.header {
+  div {
+    height: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    color: $color-black-3;
+  }
+}
+:host ::ng-deep {
+  .mat-tab-body-content {
+    padding-top: 10px;
   }
   .mat-tab-group {
-    width: 100%;
-    padding: 0 30px;
-  }
-  .mat-accordion .mat-expansion-panel:first-of-type {
-    border-top-right-radius: 2px;
-    border-top-left-radius: 2px;
-  }
-  .next-status {
-    font-weight: bold;
-    color: $color-black-1;
-  }
-  .p-timeline-event {
-    &:nth-child(1) {
-      .p-timeline-event-marker {
-        border: 2px solid $color-green-3;
-        background-color: $color-green-3;
-      }
-    }
-    &:not(:nth-child(1)) {
-      .p-timeline-event-marker {
-        border: 2px solid $color-gray-4;
-      }
-    }
-    &:last-child {
-      width: 17px;
-      .p-timeline-event-content {
-        left: -67px;
-        position: relative;
-      }
-    }
-  }
-  .p-timeline.p-timeline-horizontal .p-timeline-event-opposite, .p-timeline.p-timeline-horizontal .p-timeline-event-content {
-    font-size: 12px;
-    padding: 0;
-    min-width: 85px;
-    color: $color-gray-2;
-  }
-  p-timeline {
-    width: 100%;
-  }
-  .p-timeline-event {
-    min-height: 40px;
-  }
-  .mat-expansion-panel-header.mat-expanded:focus, .mat-expansion-panel-header.mat-expanded:hover {
-    background: rgba(0,0,0,.04);
-  } 
-  .p-button {
-    padding: 10px;
-    font-size: 12px;
-  }
-  .p-button.p-button-rounded {
-    min-width: 120px;
-  }
-  .mat-expansion-panel-header {
-    padding: 20px 20px 20px 10px;
-    max-height: 45px;
-    min-height: 45px;
-    border-radius: 0;
-  }
-  .mat-expansion-panel-header-title {
-    font-weight: 500;
-    font-family: 'Poppins', sans-serif;
-    span.name {
-      font-weight: 500;
-    }
-  }
-  .mat-expansion-panel-body {
-    background-color: $color-gray-4;
-    padding: 10px 0 0 0;
-    border-top: thin $color-gray-3 solid;
-    > div {
-      width: 100%;
-    }
-  }
-  mat-panel-description div {
-    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 0 15px 7px 15px;
+    min-height: 193px;
+    border-bottom: thin $color-gray-3 solid;
   }
 }

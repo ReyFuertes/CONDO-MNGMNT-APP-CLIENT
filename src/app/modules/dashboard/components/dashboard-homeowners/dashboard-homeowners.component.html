@@ -1,44 +1,40 @@
 <div class="page-container" [ngClass]="{'active': active}">
-  <mat-accordion>
-    <mat-expansion-panel *ngFor="let homeowner of ($homeowners | async); let i = index" [expanded]="i === 0">
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
-            <img [src]="imgPath + 'sample-profile-pic.png'" />
-            <span class="name">{{ getFullName(homeowner?.personal) }}</span>
-          </div>
-        </mat-panel-title>
-        <mat-panel-description>
-
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-      <div class="noselect" fxLayout="row" fxLayoutAlign="start start">
-        <div class="content" fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="10px">
-          <mat-tab-group>
+  <div>
+    <div class="header" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
+      <div fxFlex>Name</div>
+      <div fxFlex="25">Contact No.</div>
+      <div fxFlex="20">Unit No.</div>
+      <div fxFlex="20">Created date</div>
+    </div>
+    <div *ngIf="($homeowners | async) as homeowner" fxLayout="column" fxLayoutAlign="start start">
+      <ng-container *ngFor="let homeowner of homeowner; let i = index">
+        <div class="detail" [ngClass]="{'active-row': collapsedIndex === i}" fxLayout="row" fxLayoutAlign="start center" (click)="toggle(i)">
+          <div fxFlex>{{ homeowner?.personal?.firstname }} {{ homeowner?.personal?.lastname }}</div>
+          <div fxFlex="25">{{ homeowner?.personal?.contactNo }}</div>
+          <div fxFlex="20">{{ homeowner?.personal?.unitNo }}</div>
+          <div fxFlex="20">{{ homeowner?.created_at | date :'dd-MM-yyyy' }}</div>
+        </div>
+        <div class="collapsible" [@collapse]="collapsedIndex !== i">
+          <mat-tab-group [(selectedIndex)]="selectedTabIndex">
             <mat-tab label="Personal Information">
-              <cma-dashboard-homeowners-detail  [personal]="homeowner?.personal"></cma-dashboard-homeowners-detail>
+              <!-- <cma-dashboard-homeowners-detail [personal]="homeowner?.personal"></cma-dashboard-homeowners-detail> -->
             </mat-tab>
             <mat-tab label="Occupants">
               <cma-dashboard-homeowners-occupant [homeownerId]="homeowner?.id"></cma-dashboard-homeowners-occupant>
             </mat-tab>
             <mat-tab label="Vehicles">
-              <cma-dashboard-homeowners-vehicle [homeownerId]="homeowner?.id"></cma-dashboard-homeowners-vehicle>
+              <!-- <cma-dashboard-homeowners-vehicle [homeownerId]="homeowner?.id"></cma-dashboard-homeowners-vehicle> -->
             </mat-tab>
             <mat-tab label="Documents">
-              <cma-dashboard-homeowners-document [documents]="homeowner?.documents"></cma-dashboard-homeowners-document>
+              <!-- <cma-dashboard-homeowners-document [documents]="homeowner?.documents"></cma-dashboard-homeowners-document> -->
             </mat-tab>
             <mat-tab label="Tenants">
               <cma-dashboard-homeowners-tenant></cma-dashboard-homeowners-tenant>
             </mat-tab>
           </mat-tab-group>
         </div>
-        <div></div>
-      </div>
 
-      <div class="btn-actions" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px">
-        <i pTooltip="Edit" tooltipPosition="left" class="pi pi-pencil"></i>
-        <i pTooltip="Remove" tooltipPosition="right" class="pi pi-trash"></i>
-      </div>
-    </mat-expansion-panel>
-  </mat-accordion>
+      </ng-container>
+    </div>
+  </div>
 </div>

@@ -1,0 +1,5 @@
+<div class="pagination" fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="2px">
+  <i class="pi pi-chevron-left" (click)="pagination.onPrevious()"></i>
+  <input pInputText #pagination="pagination" appPagination type="text" class="page-num" disabled [totalCount]="6" [pageSize]="3" (onChangeEventEmitter)="onPageChange($event)" />
+  <i class="pi pi-chevron-right" (click)="pagination.onNext()"></i>
+</div>

@@ -1,19 +1,16 @@
-<div *ngIf="($homeownerOccupants | async) as occupants">
-  <p-table [value]="occupants?.data" selectionMode="single" dataKey="id" responsiveLayout="scroll">
-    <ng-template pTemplate="header">
-      <tr>
-        <th>Name</th>
-        <th>Relationship</th>
-      </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-occupant>
-      <tr>
+<div fxLayout="column" fxLayoutAlign="start start">
+  <table *ngIf="($homeowner | async) as homeowner">
+    <thead>
+      <th>Name</th>
+      <th>Relationship</th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let occupant of homeowner?.occupants?.data">
         <td>{{occupant?.name}}</td>
         <td>{{occupant?.relationship}}</td>
       </tr>
-    </ng-template>
-  </p-table>
-  <div fxLayout="row" fxLayoutAlign="end center">
-    <p-paginator appendTo="body" (onPageChange)="onPaginate($event)" [rows]="pGRowCount" [totalRecords]="occupants?.count"></p-paginator>
-  </div>
+    </tbody>
+  </table>
+
+  <il-pagination (valueEmitter)="onPageChange($event)"></il-pagination>
 </div>

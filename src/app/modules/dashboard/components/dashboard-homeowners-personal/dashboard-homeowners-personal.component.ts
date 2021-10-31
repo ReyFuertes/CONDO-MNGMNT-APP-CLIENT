@@ -6,11 +6,11 @@ import { DASHBOARDONBOARDINGROUTE } from 'src/app/shared/constants/routes';
 import { environment } from 'src/environments/environment';
 
 @Component({
-  selector: 'cma-dashboard-homeowners-detail',
-  templateUrl: './dashboard-homeowners-detail.component.html',
-  styleUrls: ['./dashboard-homeowners-detail.component.scss']
+  selector: 'cma-dashboard-homeowners-personal',
+  templateUrl: './dashboard-homeowners-personal.component.html',
+  styleUrls: ['./dashboard-homeowners-personal.component.scss']
 })
-export class DashboardHomeownersDetailComponent implements OnInit {
+export class DashboardHomeownersPersonalComponent implements OnInit {
   @Input()
   public personal: IPersonal;
 

@@ -32,7 +32,6 @@ export class OnboardingTypeComponent extends GenericOnBoardingComponent implemen
 
     this.id = this.route?.snapshot?.paramMap?.get('id') || null;
     if (this.id) {
-      debugger
       this.form.get('id').patchValue(this.id);
     }
     this.clearStorage();

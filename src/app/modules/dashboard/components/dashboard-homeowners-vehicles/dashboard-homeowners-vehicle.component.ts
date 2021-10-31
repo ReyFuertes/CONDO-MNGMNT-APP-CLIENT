@@ -24,10 +24,10 @@ export class DashboardHomeownersVehicleComponent implements OnInit {
   constructor(private store: Store<RooState>) { }
 
   ngOnInit(): void {
-    this.paginationParams = `homeowner_id=${this.homeownerId}&take=${this.pGRowCount}&skip=${this.pGSkipCount}`;
-    this.store.dispatch(loadHomeownerVehiclesAction({ keyword: this.paginationParams }));
+    // this.paginationParams = `homeowner_id=${this.homeownerId}&take=${this.pGRowCount}&skip=${this.pGSkipCount}`;
+    // this.store.dispatch(loadHomeownerVehiclesAction({ keyword: this.paginationParams }));
 
-    this.$homeownerVehicles = this.store.pipe(select(getDashboardVehicleOccupantsSelector))
+    // this.$homeownerVehicles = this.store.pipe(select(getDashboardVehicleOccupantsSelector))
   }
 
   public onPaginate(event: any): void {

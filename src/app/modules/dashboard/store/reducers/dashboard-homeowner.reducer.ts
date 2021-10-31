@@ -1,7 +1,7 @@
 import { createReducer, on, Action } from "@ngrx/store";
 import * as _ from 'lodash';
 import { createEntityAdapter, EntityAdapter, EntityState } from "@ngrx/entity";
-import { loadDashboardHomeownersActionSuccess, loadHomeownerOccupantsActionSuccess, loadHomeownerVehiclesActionSuccess } from "../actions/dashboard-homeowners.action";
+import { loadDashboardHomeownersActionSuccess, getHomeownerOccupantsActionSuccess, loadHomeownerVehiclesActionSuccess } from "../actions/dashboard-homeowners.action";
 import { IHomeowner, IOccupant, IVehicle } from "src/app/models/homeowners.model";
 
 export const adapter: EntityAdapter<any> = createEntityAdapter<any>({});
@@ -20,8 +20,15 @@ const dashboardHomeownerReducer = createReducer(
   on(loadHomeownerVehiclesActionSuccess, (state, action) => {
     return Object.assign({}, state, { vehicles: action.response })
   }),
-  on(loadHomeownerOccupantsActionSuccess, (state, action) => {
-    return Object.assign({}, state, { occupants: action.response })
+  on(getHomeownerOccupantsActionSuccess, (state, action) => {
+    let entities = Object.assign([], state.entities[action?.response.homeowner?.id]);
+    let entity = Object.assign({}, entities, {
+      occupants: {
+        count: action?.response?.count,
+        data: action?.response?.data
+      }
+    })
+    return adapter.updateOne({ id: entity.id, changes: entity }, state);
   }),
   on(loadDashboardHomeownersActionSuccess, (state, action) => {
     return adapter.setAll(action?.response, state);
